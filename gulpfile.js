@@ -1,10 +1,11 @@
-var gulp = require('gulp');
+var gulp = require('gulp'),
+    config = require('./config');
 
 gulp.task('default', ['server'], function() {
-  gulp.watch('./src/**/*.!(html|scss|js)', ['static']);
-  gulp.watch(['./src/**/*.html', './template.html'], ['markup']);
-  gulp.watch('./src/**/*.scss', ['compass']);
-  gulp.watch('./src/**/*.js', ['browserify']);
+  gulp.watch(config.globs.other, ['static']);
+  gulp.watch([config.globs.html, config.templateFile], ['markup']);
+  gulp.watch(config.globs.sass, ['compass']);
+  gulp.watch(config.globs.js, ['browserify']);
 });
 
 gulp.task('server', ['build'], function() {
@@ -22,40 +23,30 @@ gulp.task('server', ['build'], function() {
 gulp.task('build', ['static', 'markup', 'compass', 'browserify']);
 
 gulp.task('static', function() {
-  return gulp.src('./src/**/*.!(html|scss|js)')
+  return gulp.src(config.globs.other)
     .pipe(gulp.dest('./build'));
 });
 
 gulp.task('markup', function() {
   var wrap = require('gulp-wrap');
 
-  return gulp.src('./src/**/*.html')
-    .pipe(wrap({ src: './template.html' }))
+  return gulp.src(config.globs.html)
+    .pipe(wrap({ src: config.templateFile }))
     .pipe(gulp.dest('./build'));
 });
 
 gulp.task('compass', function() {
   var compass = require('gulp-compass');
 
-  return gulp.src('./src/**/*.scss')
-    .pipe(compass({
-      sass: './src/sass',
-      css: './build/css',
-      javascript: './build/js',
-      font: './build/font',
-      sourcemap: true
-    }));
+  return gulp.src(config.globs.sass)
+    .pipe(compass(config.compass));
 });
 
 gulp.task('browserify', function() {
   var browserify = require('browserify'),
       es6ify = require('es6ify'),
       source = require('vinyl-source-stream');
-      bundler = browserify({
-        entries: ['./main.js'],
-        basedir: './src/js',
-        debug: true,
-      });
+      bundler = browserify(config.browserify);
 
   bundler.add(es6ify.runtime);
   bundler.transform(es6ify);

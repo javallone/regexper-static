@@ -1,0 +1,21 @@
+{
+  "templateFile": "./template.html",
+  "globs": {
+    "other": "./src/**/*.!(html|scss|js)",
+    "html": "./src/**/*.html",
+    "sass": "./src/**/*.scss",
+    "js": "./src/**/*.js"
+  },
+  "compass": {
+    "sass": "./src/sass",
+    "css": "./build/css",
+    "javascript": "./build/js",
+    "font": "./build/font",
+    "sourcemap": true
+  },
+  "browserify": {
+    "entries": ["./main.js"],
+    "basedir": "./src/js",
+    "debug": true
+  }
+}
