@@ -14,7 +14,7 @@ gulp.task('default', ['server'], function() {
   gulp.watch('./src/**/*.js', ['browserify']);
 });
 
-gulp.task('server', ['static', 'markup', 'compass', 'browserify'], function() {
+gulp.task('server', ['build'], function() {
   watch('./build/**/*', { name: 'Server' })
     .pipe(connect.reload());
   return connect.server({
@@ -22,6 +22,8 @@ gulp.task('server', ['static', 'markup', 'compass', 'browserify'], function() {
     livereload: true
   });
 });
+
+gulp.task('build', ['static', 'markup', 'compass', 'browserify']);
 
 gulp.task('static', function() {
   return gulp.src('./src/**/*.!(html|scss|js)')
