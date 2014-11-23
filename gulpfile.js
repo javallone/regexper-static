@@ -3,11 +3,11 @@ var gulp = require('gulp'),
     connect = require('gulp-connect'),
     watch = require('gulp-watch');
 
-gulp.task('default', function() {
-  console.log('Default task');
+gulp.task('default', ['server'], function() {
+  gulp.watch('./src/**/*.html', ['markup']);
 });
 
-gulp.task('server', function() {
+gulp.task('server', ['markup'], function() {
   watch('./build/**/*', { name: 'Server' })
     .pipe(connect.reload());
   return connect.server({
