@@ -14,7 +14,6 @@
     "sourcemap": true
   },
   "browserify": {
-    "entries": ["./main.js"],
     "basedir": "./src/js",
     "debug": true
   }

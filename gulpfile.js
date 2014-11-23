@@ -1,5 +1,13 @@
 var gulp = require('gulp'),
+    notify = require('gulp-notify'),
+    plumber = require('gulp-plumber'),
     config = require('./config');
+
+function errorHandler() {
+  return plumber({
+    errorHandler: notify.onError('Error: <%= error.message %>')
+  });
+}
 
 gulp.task('default', ['server'], function() {
   gulp.watch(config.globs.other, ['static']);
@@ -14,6 +22,7 @@ gulp.task('server', ['build'], function() {
 
   watch('./build/**/*', { name: 'Server' })
     .pipe(connect.reload());
+
   return connect.server({
     root: './build',
     livereload: true
@@ -24,6 +33,7 @@ gulp.task('build', ['static', 'markup', 'compass', 'browserify']);
 
 gulp.task('static', function() {
   return gulp.src(config.globs.other)
+    .pipe(errorHandler())
     .pipe(gulp.dest('./build'));
 });
 
@@ -31,6 +41,7 @@ gulp.task('markup', function() {
   var wrap = require('gulp-wrap');
 
   return gulp.src(config.globs.html)
+    .pipe(errorHandler())
     .pipe(wrap({ src: config.templateFile }))
     .pipe(gulp.dest('./build'));
 });
@@ -39,20 +50,24 @@ gulp.task('compass', function() {
   var compass = require('gulp-compass');
 
   return gulp.src(config.globs.sass)
+    .pipe(errorHandler())
     .pipe(compass(config.compass));
 });
 
 gulp.task('browserify', function() {
   var browserify = require('browserify'),
       es6ify = require('es6ify'),
-      source = require('vinyl-source-stream');
-      bundler = browserify(config.browserify);
+      tap = require('gulp-tap');
 
-  bundler.add(es6ify.runtime);
-  bundler.transform(es6ify);
+  return gulp.src('./src/js/main.js', { read: false })
+    .pipe(errorHandler())
+    .pipe(tap(function(file) {
+      var bundler = browserify(config.browserify);
 
-  return bundler
-    .bundle()
-    .pipe(source('js/main.js'))
-    .pipe(gulp.dest('./build'));
+      bundler.add([file.path, es6ify.runtime]);
+      bundler.transform(es6ify);
+
+      file.contents = bundler.bundle();
+    }))
+    .pipe(gulp.dest('./build/js'));
 });
