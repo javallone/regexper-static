@@ -5,7 +5,7 @@ var gulp = require('gulp'),
     compass = require('gulp-compass');
 
 gulp.task('default', ['server'], function() {
-  gulp.watch('./src/**/*.html', ['markup']);
+  gulp.watch(['./src/**/*.html', './template.html'], ['markup']);
   gulp.watch('./src/**/*.scss', ['compass']);
 });
 
