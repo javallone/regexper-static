@@ -4,7 +4,11 @@
     "other": "./src/**/*.!(html|scss|js)",
     "html": "./src/**/*.html",
     "sass": "./src/**/*.scss",
-    "js": "./src/**/*.js"
+    "js": "./src/**/*.js",
+    "spec": {
+      "other": ["./spec/lib/**/*", "./spec/**/*.html"],
+      "js": ["./spec/index.js", "./spec/*_spec.js"]
+    }
   },
   "compass": {
     "sass": "./src/sass",

@@ -1,11 +1,25 @@
 var gulp = require('gulp'),
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
+    browserify = require('browserify'),
+    es6ify = require('es6ify'),
+    tap = require('gulp-tap'),
     config = require('./config');
 
 function errorHandler() {
   return plumber({
     errorHandler: notify.onError('Error: <%= error.message %>')
+  });
+}
+
+function browserifyPipe() {
+  return tap(function(file) {
+    var bundler = browserify(config.browserify);
+
+    bundler.add([file.path, es6ify.runtime]);
+    bundler.transform(es6ify);
+
+    file.contents = bundler.bundle();
   });
 }
 
@@ -32,7 +46,7 @@ gulp.task('server', ['build'], function() {
 gulp.task('build', ['static', 'markup', 'compass', 'browserify']);
 
 gulp.task('static', function() {
-  return gulp.src(config.globs.other)
+  return gulp.src(config.globs.other, { base: 'src' })
     .pipe(errorHandler())
     .pipe(gulp.dest('./build'));
 });
@@ -40,7 +54,7 @@ gulp.task('static', function() {
 gulp.task('markup', function() {
   var wrap = require('gulp-wrap');
 
-  return gulp.src(config.globs.html)
+  return gulp.src(config.globs.html, { base: 'src' })
     .pipe(errorHandler())
     .pipe(wrap({ src: config.templateFile }))
     .pipe(gulp.dest('./build'));
@@ -55,19 +69,28 @@ gulp.task('compass', function() {
 });
 
 gulp.task('browserify', function() {
-  var browserify = require('browserify'),
-      es6ify = require('es6ify'),
-      tap = require('gulp-tap');
-
   return gulp.src('./src/js/main.js', { read: false })
     .pipe(errorHandler())
-    .pipe(tap(function(file) {
-      var bundler = browserify(config.browserify);
-
-      bundler.add([file.path, es6ify.runtime]);
-      bundler.transform(es6ify);
-
-      file.contents = bundler.bundle();
-    }))
+    .pipe(browserifyPipe())
     .pipe(gulp.dest('./build/js'));
+});
+
+gulp.task('spec:build', ['spec:static', 'spec:browserify']);
+
+gulp.task('spec:watch', ['spec:build'], function() {
+  gulp.watch(config.globs.spec.other, ['spec:static']);
+  gulp.watch(config.globs.spec.js, ['spec:browserify']);
+});
+
+gulp.task('spec:static', function() {
+  return gulp.src(config.globs.spec.other, { base: './spec' })
+    .pipe(errorHandler())
+    .pipe(gulp.dest('./build/spec'));
+});
+
+gulp.task('spec:browserify', function() {
+  return gulp.src('./spec/index.js', { read: false })
+    .pipe(errorHandler())
+    .pipe(browserifyPipe())
+    .pipe(gulp.dest('./build/spec'));
 });
