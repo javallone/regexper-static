@@ -1,5 +1,205 @@
+@import 'base';
+@import 'open-iconic';
+@import 'compass/reset';
+@import 'compass/typography/lists/inline-block-list';
+@import 'compass/typography/vertical_rhythm';
+@import 'compass/css3/box-shadow';
+@import 'compass/css3/user-interface';
+@import 'compass/css3/animation';
+@import 'compass/css3/transform';
+@import 'compass/css3/images';
+@import 'compass/typography/links/unstyled-link';
+@import 'compass/utilities/general/clearfix';
+
+@include establish-baseline;
+
 body {
-  h1 {
-    background: #bada55;
+  font-family: sans-serif;
+  background: $gray;
+  margin-bottom: rhythm(1);
+}
+
+a {
+  color: $black;
+}
+
+.oi.with-text[data-glyph]:before {
+  margin-right: rhythm(1/4);
+}
+
+ul.inline-list {
+  @include adjust-font-size-to(14px, 2/3);
+  @include inline-block-list;
+
+  li {
+    &::after {
+      content: '//';
+      padding: 0 rhythm(1/4);
+    }
+
+    &:last-child::after {
+      content: '';
+    }
+  }
+}
+
+header {
+  @include background(linear-gradient(to bottom, $green, $dark-green));
+  background-color: $green;
+  padding: rhythm(1);
+  @include box-shadow;
+  @include clearfix;
+
+  .logo {
+    float: left;
+
+    a {
+      @include unstyled-link;
+    }
+
+    h1 {
+      @include adjust-font-size-to(48px, 2);
+      font-family: 'Bangers', 'cursive';
+    }
+
+    span {
+      color: $gray;
+    }
+  }
+
+  nav {
+    @include adjust-font-size-to($base-font-size, 2);
+  }
+}
+
+#content {
+  padding: rhythm(1);
+
+  .container {
+    position: relative;
+    @include clearfix;
+
+    textarea {
+      @include adjust-font-size-to($base-font-size);
+      padding: 0;
+      border: 0 none;
+      outline: none;
+      background: $tan;
+      text-indent: 0.5em;
+      width: 100%;
+      font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+
+      @include input-placeholder {
+        color: $gray;
+      }
+    }
+
+    button {
+      @include adjust-font-size-to($base-font-size);
+      width: 100px;
+      border: 0 none;
+      @include background(linear-gradient(to bottom right, $green, $dark-green));
+      background-color: $green;
+      float: left;
+    }
+
+    ul {
+      float: right;
+      display: none;
+
+      body.has-results & {
+        display: inline-block;
+      }
+    }
+  }
+
+  .results {
+    margin-top: rhythm(1);
+    display: none;
+
+    body.has-results &, body.has-error &, body.is-loading & {
+      display: block;
+    }
+  }
+}
+
+#loading {
+  background: $white;
+  padding: rhythm(1/2) 0;
+  display: none;
+
+  .spinner {
+    margin: 0 auto;
+    width: rhythm(2);
+    height: rhythm(2);
+    position: relative;
+    text-align: center;
+
+    @include animation(rotate 3.0s infinite linear);
+
+    div {
+      width: 40%;
+      height: 40%;
+      display: inline-block;
+      position: absolute;
+      border: 3px solid $green;
+      border-radius: 50%;
+
+      @include animation(bounce 2.0s infinite ease-in-out);
+    }
+
+    :first-child {
+      top: 0;
+    }
+
+    :last-child {
+      bottom: 0px;
+      @include animation-delay(-1.0s);
+    }
+  }
+
+  body.is-loading & {
+    display: block;
+  }
+
+  @include keyframes(rotate) {
+    100% { @include transform(rotate(360deg)); }
+  }
+
+  @include keyframes(bounce) {
+    0%, 100% { @include transform(scale(0.0)); }
+    50% { @include transform(scale(1.0)); }
+  }
+}
+
+#error {
+  background: $red;
+  color: $white;
+  text-indent: 0.5em;
+  font-weight: bold;
+  display: none;
+
+  body.has-error & {
+    display: block;
+  }
+}
+
+#regexp-render {
+  background: $white;
+  width: 100%;
+  overflow: auto;
+  text-align: center;
+
+  body.is-loading &, body.has-error & {
+    position: absolute;
+    top: -100px;
+  }
+}
+
+footer {
+  padding: 0 rhythm(1);
+
+  img {
+    vertical-align: middle;
   }
 }
