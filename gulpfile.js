@@ -5,17 +5,23 @@ var gulp = require('gulp'),
     compass = require('gulp-compass');
 
 gulp.task('default', ['server'], function() {
+  gulp.watch('./src/**/*.!(html|scss)', ['static']);
   gulp.watch(['./src/**/*.html', './template.html'], ['markup']);
   gulp.watch('./src/**/*.scss', ['compass']);
 });
 
-gulp.task('server', ['markup', 'compass'], function() {
+gulp.task('server', ['static', 'markup', 'compass'], function() {
   watch('./build/**/*', { name: 'Server' })
     .pipe(connect.reload());
   return connect.server({
     root: './build',
     livereload: true
   });
+});
+
+gulp.task('static', function() {
+  return gulp.src('./src/**/*.!(html|scss)')
+    .pipe(gulp.dest('./build'));
 });
 
 gulp.task('markup', function() {
