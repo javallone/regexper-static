@@ -33,7 +33,6 @@ gulp.task('markup', function() {
 gulp.task('compass', function() {
   return gulp.src('./src/**/*.scss')
     .pipe(compass({
-      project: __dirname,
       sass: './src/sass',
       css: './build/css',
       javascript: './build/js',
