@@ -1,0 +1,15 @@
+{
+  "name": "regexper",
+  "version": "1.0.0",
+  "description": "Regular expression visualization tool",
+  "homepage": "http://regexper.com",
+  "author": {
+    "name": "Jeffrey Avallone",
+    "email": "jeff.avallone@gmail.com"
+  },
+  "license": "MIT",
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.8.10"
+  }
+}
