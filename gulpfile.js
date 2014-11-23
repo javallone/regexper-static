@@ -1,11 +1,4 @@
-var gulp = require('gulp'),
-    wrap = require('gulp-wrap'),
-    connect = require('gulp-connect'),
-    watch = require('gulp-watch'),
-    compass = require('gulp-compass'),
-    browserify = require('browserify'),
-    es6ify = require('es6ify'),
-    source = require('vinyl-source-stream');
+var gulp = require('gulp');
 
 gulp.task('default', ['server'], function() {
   gulp.watch('./src/**/*.!(html|scss|js)', ['static']);
@@ -15,6 +8,9 @@ gulp.task('default', ['server'], function() {
 });
 
 gulp.task('server', ['build'], function() {
+  var connect = require('gulp-connect'),
+      watch = require('gulp-watch');
+
   watch('./build/**/*', { name: 'Server' })
     .pipe(connect.reload());
   return connect.server({
@@ -31,12 +27,16 @@ gulp.task('static', function() {
 });
 
 gulp.task('markup', function() {
+  var wrap = require('gulp-wrap');
+
   return gulp.src('./src/**/*.html')
     .pipe(wrap({ src: './template.html' }))
     .pipe(gulp.dest('./build'));
 });
 
 gulp.task('compass', function() {
+  var compass = require('gulp-compass');
+
   return gulp.src('./src/**/*.scss')
     .pipe(compass({
       sass: './src/sass',
@@ -48,11 +48,14 @@ gulp.task('compass', function() {
 });
 
 gulp.task('browserify', function() {
-  var bundler = browserify({
-    entries: ['./main.js'],
-    basedir: './src/js',
-    debug: true,
-  });
+  var browserify = require('browserify'),
+      es6ify = require('es6ify'),
+      source = require('vinyl-source-stream');
+      bundler = browserify({
+        entries: ['./main.js'],
+        basedir: './src/js',
+        debug: true,
+      });
 
   bundler.add(es6ify.runtime);
   bundler.transform(es6ify);
