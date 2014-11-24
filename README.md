@@ -12,7 +12,24 @@ When sending pull requests, please keep them focused on a single issue. I would 
 
 ### Working with the code
 
-TBD
+Node and Ruby are required for working with this site. It is recommended to use rbenv or rvm to manage your Ruby installation, and configuration files are included to set the Ruby version and gemset.
+
+To start with, install the necessary dependencies for Node and Ruby:
+
+    $ bundle install
+    $ npm install
+
+There are several gulp tasks available to build various parts of the site, but to get started you only need:
+
+    $ gulp
+
+This will build the site into the ./build directory, start a local start on port 8080, and begin watching the source files for modifications. The site will automatically be rebuilt when files are changed. Also, if you browser has the LiveReload extension, then the page will be reloaded.
+
+A similar task is available to build the tests for JavaScript:
+
+    $ gulp spec:watch
+
+This will build the specs (again, into /build), and watch for changes. The Jasmine test suite is available on the same server at /spec/runner.html (you will need the previous gulp command running for the server to be available).
 
 ## License
 
