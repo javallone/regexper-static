@@ -2,7 +2,7 @@
 
 # Regexper
 
-Code for the http://www.regexper.com/ site.
+Code for the http://regexper.com/ site.
 
 ## Contributing
 
