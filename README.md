@@ -23,7 +23,11 @@ There are several gulp tasks available to build various parts of the site, but t
 
     $ gulp
 
-This will build the site into the ./build directory, start a local start on port 8080, begin watching the source files for modifications, and start a Karma server to automatically run tests. The site will automatically be rebuilt when files are changed. Also, if you browser has the LiveReload extension, then the page will be reloaded.
+This will build the site into the ./build directory, start a local start on port 8080, and begin watching the source files for modifications. The site will automatically be rebuilt when files are changed. Also, if you browser has the LiveReload extension, then the page will be reloaded.
+
+To automatically run Karma test, run the following:
+
+    $ gulp karma
 
 To build the site for deployment, run the following:
 

@@ -24,7 +24,7 @@ function browserifyPipe() {
   });
 }
 
-gulp.task('default', ['server', 'karma'], function() {
+gulp.task('default', ['server'], function() {
   gulp.watch(config.globs.other, ['static']);
   gulp.watch([config.globs.html, config.templateFile], ['markup']);
   gulp.watch(config.globs.sass, ['compass']);
