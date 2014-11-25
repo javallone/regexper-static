@@ -1,26 +1,11 @@
 var gulp = require('gulp'),
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
-    browserify = require('browserify'),
-    es6ify = require('es6ify'),
-    tap = require('gulp-tap'),
     config = require('./config');
 
 function errorHandler() {
   return plumber({
     errorHandler: notify.onError('Error: <%= error.message %>')
-  });
-}
-
-function browserifyPipe() {
-  return tap(function(file) {
-    var bundler = browserify(config.browserify);
-
-    bundler.add([file.path, es6ify.runtime]);
-    bundler.transform(require('./lib/canopy-transform'));
-    bundler.transform(es6ify);
-
-    file.contents = bundler.bundle();
   });
 }
 
@@ -70,9 +55,21 @@ gulp.task('compass', function() {
 });
 
 gulp.task('browserify', function() {
+  var browserify = require('browserify'),
+      es6ify = require('es6ify'),
+      tap = require('gulp-tap');
+
   return gulp.src('./src/js/main.js', { read: false })
     .pipe(errorHandler())
-    .pipe(browserifyPipe())
+    .pipe(tap(function(file) {
+      var bundler = browserify(config.browserify);
+
+      bundler.add([file.path, es6ify.runtime]);
+      bundler.transform(require('./lib/canopy-transform'));
+      bundler.transform(es6ify);
+
+      file.contents = bundler.bundle();
+    }))
     .pipe(gulp.dest('./build/js'));
 });
 
