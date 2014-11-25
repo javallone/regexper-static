@@ -33,4 +33,4 @@ The site will be built into the "build" directory.
 
 ## License
 
-See LICENSE.md file for licensing details.
+See LICENSE.txt file for licensing details.
