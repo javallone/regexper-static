@@ -1,7 +1,7 @@
 {
   "templateFile": "./template.html",
   "globs": {
-    "other": "./src/**/*.!(html|scss|js)",
+    "other": "./src/**/*.!(html|scss|js|peg)",
     "html": "./src/**/*.html",
     "sass": "./src/**/*.scss",
     "js": ["./src/**/*.js", "./src/**/*.peg"],
