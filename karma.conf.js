@@ -2,7 +2,7 @@ var _ = require('lodash'),
     config = require('./config');
 
 module.exports = function(karma) {
-  var globs = [config.globs.js, config.globs.spec];
+  var globs = _.flatten([config.globs.js, config.globs.spec]);
 
   karma.set({
     frameworks: ['browserify', 'jasmine'],
@@ -19,7 +19,11 @@ module.exports = function(karma) {
     singleRun: false,
     browserify: _.defaults({}, config.browserify, {
       prebundle: function(bundle) {
-        bundle.add([require('es6ify').runtime]);
+        var es6ify = require('es6ify');
+
+        bundle.add([es6ify.runtime]);
+        bundle.transform(require('./lib/canopy-transform'));
+        bundle.transform(es6ify);
       }
     })
   });

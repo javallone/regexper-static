@@ -1,0 +1,4 @@
+grammar Lists
+  value   <-  list / number
+  list    <-  "[" ( value ("," value)* )? "]" 
+  number  <-  [0-9]

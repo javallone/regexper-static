@@ -4,7 +4,7 @@
     "other": "./src/**/*.!(html|scss|js)",
     "html": "./src/**/*.html",
     "sass": "./src/**/*.scss",
-    "js": "./src/**/*.js",
+    "js": ["./src/**/*.js", "./src/**/*.peg"],
     "spec": "./spec/**/*_spec.js"
   },
   "compass": {
@@ -17,7 +17,6 @@
   "browserify": {
     "basedir": "./src/js",
     "debug": true,
-    "fullPaths": false,
-    "transform": ["es6ify"]
+    "fullPaths": false
   }
 }

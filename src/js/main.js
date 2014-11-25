@@ -1,5 +1,3 @@
-import test from './test';
+import parser from './parser.peg';
 
-test('foo');
-
-console.log('testing');
+console.log('testing:', parser.parse('[0,1,2,3]'));

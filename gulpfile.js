@@ -17,6 +17,8 @@ function browserifyPipe() {
     var bundler = browserify(config.browserify);
 
     bundler.add([file.path, es6ify.runtime]);
+    bundler.transform(require('./lib/canopy-transform'));
+    bundler.transform(es6ify);
 
     file.contents = bundler.bundle();
   });
