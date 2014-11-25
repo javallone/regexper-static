@@ -17,13 +17,12 @@ function browserifyPipe() {
     var bundler = browserify(config.browserify);
 
     bundler.add([file.path, es6ify.runtime]);
-    bundler.transform(es6ify);
 
     file.contents = bundler.bundle();
   });
 }
 
-gulp.task('default', ['server'], function() {
+gulp.task('default', ['server', 'karma'], function() {
   gulp.watch(config.globs.other, ['static']);
   gulp.watch([config.globs.html, config.templateFile], ['markup']);
   gulp.watch(config.globs.sass, ['compass']);
@@ -75,22 +74,11 @@ gulp.task('browserify', function() {
     .pipe(gulp.dest('./build/js'));
 });
 
-gulp.task('spec:build', ['spec:static', 'spec:browserify']);
+gulp.task('karma', function(done) {
+  var karma = require('karma'),
+      path = require('path');
 
-gulp.task('spec:watch', ['spec:build'], function() {
-  gulp.watch(config.globs.spec.other, ['spec:static']);
-  gulp.watch(config.globs.spec.js, ['spec:browserify']);
-});
-
-gulp.task('spec:static', function() {
-  return gulp.src(config.globs.spec.other, { base: './spec' })
-    .pipe(errorHandler())
-    .pipe(gulp.dest('./build/spec'));
-});
-
-gulp.task('spec:browserify', function() {
-  return gulp.src('./spec/index.js', { read: false })
-    .pipe(errorHandler())
-    .pipe(browserifyPipe())
-    .pipe(gulp.dest('./build/spec'));
+  karma.server.start({
+    configFile: path.join(__dirname, 'karma.conf.js')
+  }, done);
 });
