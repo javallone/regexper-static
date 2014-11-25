@@ -23,13 +23,13 @@ There are several gulp tasks available to build various parts of the site, but t
 
     $ gulp
 
-This will build the site into the ./build directory, start a local start on port 8080, and begin watching the source files for modifications. The site will automatically be rebuilt when files are changed. Also, if you browser has the LiveReload extension, then the page will be reloaded.
+This will build the site into the ./build directory, start a local start on port 8080, begin watching the source files for modifications, and start a Karma server to automatically run tests. The site will automatically be rebuilt when files are changed. Also, if you browser has the LiveReload extension, then the page will be reloaded.
 
-A similar task is available to build the tests for JavaScript:
+To build the site for deployment, run the following:
 
-    $ gulp spec:watch
+    $ gulp build
 
-This will build the specs (again, into /build), and watch for changes. The Jasmine test suite is available on the same server at /spec/runner.html (you will need the previous gulp command running for the server to be available).
+The site will be built into the "build" directory.
 
 ## License
 
