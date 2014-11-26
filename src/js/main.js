@@ -1,3 +1,3 @@
-import parser from './parser.peg';
+import parser from './parser/javascript.peg';
 
-console.log('testing:', parser.parse('[0,1,2,3]'));
+window.parser = parser;
