@@ -1,3 +1,3 @@
-import parser from './parser/javascript.peg';
+import parser from './parser/javascript.js';
 
 window.parser = parser;
