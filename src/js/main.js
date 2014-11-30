@@ -19,20 +19,12 @@ import Snap from 'snapsvg';
       result.position();
 
       container.transform(Snap.matrix()
-        .translate(5, 5));
+        .translate(10, 10));
 
       box = container.getBBox();
       svg.attr({
-        width: box.width + 10,
-        height: box.height + 10
-      });
-
-      svg.rect().attr({
-        'class': 'bounding-box',
-        x: box.x,
-        y: box.y,
-        width: box.width,
-        height: box.height
+        width: box.width + 20,
+        height: box.height + 20
       });
     });
   }

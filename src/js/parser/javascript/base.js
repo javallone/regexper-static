@@ -29,6 +29,17 @@ export default {
     });
   },
 
+  render_bbox(container, box) {
+    container.rect()
+      .attr({
+        'class': 'bounding-box',
+        width: box.width,
+        height: box.height
+      })
+      .transform(Snap.matrix()
+        .translate(box.x, box.y));
+  },
+
   render(container) {
     container.attr({ 'class': 'placeholder' });
 
