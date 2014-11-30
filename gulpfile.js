@@ -57,7 +57,9 @@ gulp.task('compass', function() {
 gulp.task('browserify', function() {
   var browserify = require('browserify'),
       es6ify = require('es6ify'),
-      tap = require('gulp-tap');
+      exorcist = require('exorcist'),
+      tap = require('gulp-tap'),
+      transform = require('vinyl-transform');
 
   return gulp.src('./src/js/main.js', { read: false })
     .pipe(errorHandler())
@@ -69,6 +71,9 @@ gulp.task('browserify', function() {
       bundler.transform(es6ify);
 
       file.contents = bundler.bundle();
+    }))
+    .pipe(transform(function() {
+      return exorcist('./build/js/main.js.map');
     }))
     .pipe(gulp.dest('./build/js'));
 });
