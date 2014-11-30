@@ -1,5 +1,6 @@
 export default {
   render(container) {
+    this.container = container;
     this.rect = this.container.rect().attr({
       x: 5,
       y: 5,
