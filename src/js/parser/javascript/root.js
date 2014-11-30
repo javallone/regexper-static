@@ -1,35 +1,27 @@
 export default {
   render(container) {
-    this.container = container;
-    this.rect = this.container.rect().attr({
-      x: 5,
-      y: 5,
+    container.attr({ 'class': 'placeholder' });
+
+    this.rect = container.rect().attr({
       rx: 10,
-      ry: 10,
-      fill: '#f00'
+      ry: 10
     });
-    this.text = this.container.text(0, 0, this.textValue).attr({
-      fill: '#fff',
-      fontWeight: 'bold'
+
+    this.text = container.text().attr({
+      text: this.textValue
     });
   },
 
   position() {
-    var box = this.text.getBBox();
+    var box = this.text.getBBox(),
+        margin = 5;
 
-    this.container.attr({
-      width: box.width + 20,
-      height: box.height + 20
-    });
-
-    this.text.attr({
-      x: 10,
-      y: box.height + 5
-    });
+    this.text.transform(Snap.matrix()
+      .translate(margin, box.height + margin));
 
     this.rect.attr({
-      width: box.width + 10,
-      height: box.height + 10
+      width: box.width + 2 * margin,
+      height: box.height + 2 * margin
     });
   },
 

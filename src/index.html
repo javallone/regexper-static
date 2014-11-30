@@ -21,6 +21,28 @@
   <div id="error"></div>
 
   <div id="regexp-render">
-    <svg xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+      <style type="text/css">
+        text {
+          font: 12px Arial;
+          dominant-baseline: text-after-edge;
+        }
+
+        .placeholder text {
+          fill: #fff;
+          font-weight: bold;
+        }
+
+        .placeholder rect {
+          fill: #f00;
+        }
+
+        rect.bounding-box {
+          fill: transparent;
+          stroke: #000;
+          stroke-dasharray: 5,2;
+        }
+      </style>
+    </svg>
   </div>
 </div>
