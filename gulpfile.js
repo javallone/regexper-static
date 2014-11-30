@@ -20,11 +20,11 @@ gulp.task('server', ['build'], function() {
   var connect = require('gulp-connect'),
       watch = require('gulp-watch');
 
-  watch('./build/**/*', { name: 'Server' })
+  watch(config.buildPath('**/*'), { name: 'Server' })
     .pipe(connect.reload());
 
   return connect.server({
-    root: './build',
+    root: config.buildRoot,
     livereload: true
   });
 });
@@ -32,18 +32,18 @@ gulp.task('server', ['build'], function() {
 gulp.task('build', ['static', 'markup', 'compass', 'browserify']);
 
 gulp.task('static', function() {
-  return gulp.src(config.globs.other, { base: 'src' })
+  return gulp.src(config.globs.other, { base: './src' })
     .pipe(errorHandler())
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest(config.buildRoot));
 });
 
 gulp.task('markup', function() {
   var wrap = require('gulp-wrap');
 
-  return gulp.src(config.globs.html, { base: 'src' })
+  return gulp.src(config.globs.html, { base: './src' })
     .pipe(errorHandler())
     .pipe(wrap({ src: config.templateFile }))
-    .pipe(gulp.dest('./build'));
+    .pipe(gulp.dest(config.buildRoot));
 });
 
 gulp.task('compass', function() {
@@ -66,16 +66,16 @@ gulp.task('browserify', function() {
     .pipe(tap(function(file) {
       var bundler = browserify(config.browserify);
 
-      bundler.add([file.path, es6ify.runtime]);
-      bundler.transform(require('./lib/canopy-transform'));
-      bundler.transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/));
+      bundler.add(file.path);
+
+      config.browserify.prebundle(bundler);
 
       file.contents = bundler.bundle();
     }))
     .pipe(transform(function() {
-      return exorcist('./build/js/main.js.map');
+      return exorcist(config.buildPath('js/main.js.map'));
     }))
-    .pipe(gulp.dest('./build/js'));
+    .pipe(gulp.dest(config.buildPath('js')));
 });
 
 gulp.task('karma', function(done) {
