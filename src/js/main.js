@@ -3,12 +3,14 @@ import Snap from 'snapsvg';
 
 // Testing code
 (function() {
-  var result = parser.parse('test expr'),
+  var result = parser.parse('test expr|other expr'),
       svg = Snap('#regexp-render svg'),
       container;
 
   if (svg) {
-    container = svg.group();
+    container = svg.group().transform(Snap.matrix()
+      .translate(10, 10));
+
 
     document.body.className = 'has-results';
     result.render(container);
@@ -17,9 +19,6 @@ import Snap from 'snapsvg';
       var box;
 
       result.position();
-
-      container.transform(Snap.matrix()
-        .translate(10, 10));
 
       box = container.getBBox();
       svg.attr({

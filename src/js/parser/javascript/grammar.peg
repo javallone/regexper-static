@@ -1,7 +1,7 @@
 grammar JavascriptRegexp
   root <- ( ( "/" regexp "/" fl:[igm]* ) / regexp ""? ) <Root>
-  regexp <- match ( "|" match )* <Regexp>
-  match <- anchor_start? ( ( subexp / charset / terminal ) repeat? )* anchor_end?
+  regexp <- match alternates:( "|" match )* <Regexp>
+  match <- anchor_start? ( ( subexp / charset / terminal ) repeat? )* anchor_end? <Match>
   anchor_start <- "^"
   anchor_end <- "$"
   repeat <- ( repeat_any / repeat_required / repeat_optional / repeat_spec ) repeat_greedy?
