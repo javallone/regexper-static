@@ -1,30 +1,7 @@
-export default {
-  render(container) {
-    container.attr({ 'class': 'placeholder' });
+import _ from 'lodash';
+import Base from './base.js';
 
-    this.rect = container.rect().attr({
-      rx: 10,
-      ry: 10
-    });
-
-    this.text = container.text().attr({
-      text: this.textValue
-    });
-  },
-
-  position() {
-    var box = this.text.getBBox(),
-        margin = 5;
-
-    this.text.transform(Snap.matrix()
-      .translate(margin, box.height + margin));
-
-    this.rect.attr({
-      width: box.width + 2 * margin,
-      height: box.height + 2 * margin
-    });
-  },
-
+export default _.extend({}, Base, {
   flags() {
     var flags;
 
@@ -48,4 +25,4 @@ export default {
       return this;
     }
   }
-};
+});
