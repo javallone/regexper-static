@@ -23,7 +23,7 @@ module.exports = function(karma) {
 
         bundle.add([es6ify.runtime]);
         bundle.transform(require('./lib/canopy-transform'));
-        bundle.transform(es6ify);
+        bundle.transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/));
       }
     })
   });

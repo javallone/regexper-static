@@ -68,7 +68,7 @@ gulp.task('browserify', function() {
 
       bundler.add([file.path, es6ify.runtime]);
       bundler.transform(require('./lib/canopy-transform'));
-      bundler.transform(es6ify);
+      bundler.transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/));
 
       file.contents = bundler.bundle();
     }))
