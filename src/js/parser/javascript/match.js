@@ -5,10 +5,6 @@ export default _.extend({}, Base, {
   type: 'match',
 
   render(container) {
-    console.log('anchor_start:', this.anchor_start());
-    console.log('anchor_end:', this.anchor_end());
-    console.log('parts:', this.parts());
-
     this.contents = {};
 
     if (this.anchor_start()) {
