@@ -2,6 +2,8 @@ import _ from 'lodash';
 import Base from './base.js';
 
 export default _.extend({}, Base, {
+  type: 'root',
+
   render(container) {
     this.contents = container.group();
 

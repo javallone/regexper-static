@@ -2,6 +2,8 @@ import _ from 'lodash';
 import Base from './base.js';
 
 export default _.extend({}, Base, {
+  type: 'regexp',
+
   render(container) {
     this.container = container;
     this.contents = _.map(this.matches(), match => {
