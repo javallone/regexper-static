@@ -60,6 +60,6 @@ export default _.extend({}, Base, {
   },
 
   matches() {
-    return [this.match].concat(_.map(this.alternates.elements, _.property('match')));
+    return [this._match].concat(_.map(this._alternates.elements, _.property('match')));
   }
 });

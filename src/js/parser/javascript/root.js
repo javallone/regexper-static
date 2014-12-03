@@ -33,8 +33,8 @@ export default _.extend({}, Base, {
   flags() {
     var flags;
 
-    if (this.fl) {
-      flags = this.fl.textValue;
+    if (this._flags) {
+      flags = this._flags.textValue;
     } else {
       flags = '';
     }
