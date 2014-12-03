@@ -17,7 +17,7 @@ export default _.extend({}, Base, {
 
     this.contents.parts = _.map(this.parts(), function(part) {
       var content = container.group();
-      part.elements[0].render(content);
+      part.render(content);
       return { content, part };
     });
 
@@ -35,7 +35,7 @@ export default _.extend({}, Base, {
     }
 
     _.each(this.contents.parts, function(thing) {
-      thing.part.elements[0].position();
+      thing.part.position();
       thing.content.transform(Snap.matrix()
         .translate(offset, 0));
       offset += thing.content.getBBox().width;
@@ -62,6 +62,7 @@ export default _.extend({}, Base, {
 
       if (last) {
         if (node.elements[0].type === 'terminal' && last.elements[0].type === 'terminal' && last.elements[1].textValue === '') {
+          last = _.clone(last, true);
           last.textValue += node.textValue;
           last.elements[0].textValue += node.elements[0].textValue;
           last.elements[1] = node.elements[1];
@@ -71,7 +72,7 @@ export default _.extend({}, Base, {
         }
       }
 
-      result.push(_.clone(node, true));
+      result.push(node);
       return result;
     }, []);
   }
