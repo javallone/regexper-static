@@ -3,7 +3,7 @@ import Snap from 'snapsvg';
 
 // Testing code
 (function() {
-  var result = parser.parse('test expr|other expr|foo'),
+  var result = parser.parse('^test?(foo)[a-z]asdf$'),
       svg = Snap('#regexp-render svg'),
       container;
 

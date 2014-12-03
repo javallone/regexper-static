@@ -15,11 +15,11 @@ grammar JavascriptRegexp
                / "{" [0-9]+ ",}"
                / "{" [0-9]+ "}"
   repeat_greedy <- "?"
-  subexp <- "(" ( subexp_no_capture / subexp_positive_lookahead / subexp_negative_lookahead )? regexp ")"
+  subexp <- "(" ( subexp_no_capture / subexp_positive_lookahead / subexp_negative_lookahead )? regexp ")" <Subexp>
   subexp_no_capture <- "?:"
   subexp_positive_lookahead <- "?="
   subexp_negative_lookahead <- "?!"
-  charset <- "[" "^"? ( charset_range / charset_terminal )* "]"
+  charset <- "[" "^"? ( charset_range / charset_terminal )* "]" <Charset>
   charset_range <- charset_terminal "-" charset_terminal
   charset_terminal <- charset_escape / charset_literal
   charset_escape <- ( backspace_esc
@@ -41,7 +41,7 @@ grammar JavascriptRegexp
                     / null_esc
                     / literal_esc )
   charset_literal <- [^\\\]]
-  terminal <- any_character / escape / literal
+  terminal <- any_character / escape / literal <Terminal>
   any_character <- "."
   escape <- ( word_boundary_esc
             / non_word_boundary_esc
