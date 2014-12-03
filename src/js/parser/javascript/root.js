@@ -4,16 +4,15 @@ import Base from './base.js';
 export default _.extend({}, Base, {
   type: 'root',
 
-  render(container) {
-    this.contents = container.group();
+  render() {
+    this.regexp.container = this.container.group();
+    this.regexp.render();
 
-    this.regexp.render(this.contents);
-
-    this.start = container.circle().attr({
+    this.start = this.container.circle().attr({
       r: 5,
       'class': 'anchor'
     });
-    this.end = container.circle().attr({
+    this.end = this.container.circle().attr({
       r: 5,
       'class': 'anchor'
     });
@@ -24,7 +23,7 @@ export default _.extend({}, Base, {
 
     this.regexp.position();
 
-    contentBox = this.contents.getBBox();
+    contentBox = this.regexp.container.getBBox();
 
     this.start.transform(Snap.matrix()
       .translate(contentBox.x, contentBox.cy));

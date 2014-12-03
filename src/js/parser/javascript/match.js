@@ -4,21 +4,23 @@ import Base from './base.js';
 export default _.extend({}, Base, {
   type: 'match',
 
-  render(container) {
+  render() {
+    var self = this;
+
     this.contents = {};
 
     if (this.anchor_start()) {
-      this.contents.anchor_start = this.render_label(container, 'Start of line');
+      this.contents.anchor_start = this.render_label(this.container, 'Start of line');
     }
 
     this.contents.parts = _.map(this.parts(), function(part) {
-      var content = container.group();
-      part.render(content);
-      return { content, part };
+      part.container = self.container.group();
+      part.render();
+      return part;
     });
 
     if (this.anchor_end()) {
-      this.contents.anchor_end = this.render_label(container, 'End of line');
+      this.contents.anchor_end = this.render_label(this.container, 'End of line');
     }
   },
 
@@ -30,11 +32,11 @@ export default _.extend({}, Base, {
       offset += this.contents.anchor_start.getBBox().width;
     }
 
-    _.each(this.contents.parts, function(thing) {
-      thing.part.position();
-      thing.content.transform(Snap.matrix()
+    _.each(this.contents.parts, function(part) {
+      part.position();
+      part.container.transform(Snap.matrix()
         .translate(offset, 0));
-      offset += thing.content.getBBox().width;
+      offset += part.container.getBBox().width;
     });
 
     if (this.anchor_end()) {

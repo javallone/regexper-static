@@ -4,28 +4,33 @@ import Base from './base.js';
 export default _.extend({}, Base, {
   type: 'regexp',
 
-  render(container) {
-    this.container = container;
-    this.contents = _.map(this.matches(), match => {
-      var content = container.group();
-      match.render(content);
-      return content;
+  render() {
+    var self = this;
+
+    _.each(this.matches(), match => {
+      match.container = self.container.group();
+      match.render();
+      return match.container;
     });
   },
 
   position() {
-    var center,
+    var self = this,
+        center,
         positions,
-        container = this.container,
         totalHeight,
         verticalCenter,
-        includeLines = (this.matches().length > 1);
+        matches = this.matches(),
+        includeLines = (matches.length > 1);
 
-    _.invoke(this.matches(), 'position');
+    _.invoke(matches, 'position');
 
-    positions = _.chain(this.contents)
-      .map(content => {
-        return { box: content.getBBox(), content };
+    positions = _.chain(matches)
+      .map(match => {
+        return {
+          box: match.container.getBBox(),
+          content: match.container
+        };
       });
     center = positions.reduce((center, pos) => {
       return Math.max(center, pos.box.cx);
@@ -51,7 +56,7 @@ export default _.extend({}, Base, {
           'M0,{center}H{side}' :
           'M0,{center}q10,0 10,{d}V{target}q0,{d} 10,{d}H{side}';
 
-        path = container.path(Snap.format(pathStr, {
+        path = self.container.path(Snap.format(pathStr, {
           center: verticalCenter,
           target: box.cy - 10 * direction,
           side: box.x,

@@ -36,10 +36,10 @@ export default {
       });
   },
 
-  render(container) {
-    container.attr({ 'class': 'placeholder' });
+  render() {
+    this.container.attr({ 'class': 'placeholder' });
 
-    this.label = this.render_label(container, this.textValue);
+    this.label = this.render_label(this.container, this.textValue);
   },
 
   position() {
