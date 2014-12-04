@@ -5,7 +5,8 @@ export default _.extend({}, Base, {
   type: 'root',
 
   render() {
-    this.regexp.container = this.container.group();
+    this.regexp.container = this.container.group().transform(Snap.matrix()
+      .translate(10, 0));
     this.regexp.render();
 
     this.start = this.container.circle().attr({
@@ -25,10 +26,14 @@ export default _.extend({}, Base, {
 
     contentBox = this.regexp.container.getBBox();
 
+    this.regexp.container.before(
+      this.container.path(Snap.format('M0,{cy}h10M{x2},{cy}h10', contentBox))
+    );
+
     this.start.transform(Snap.matrix()
-      .translate(contentBox.x, contentBox.cy));
+      .translate(0, contentBox.cy));
     this.end.transform(Snap.matrix()
-      .translate(contentBox.x2, contentBox.cy));
+      .translate(contentBox.x2 + 10, contentBox.cy));
   },
 
   flags() {
