@@ -175,7 +175,9 @@ header {
 #error {
   background: $red;
   color: $white;
-  text-indent: 0.5em;
+  padding: 0 0.5em;
+  white-space: pre;
+  font-family: monospace;
   font-weight: bold;
   display: none;
 
@@ -192,7 +194,7 @@ header {
 
   body.is-loading &, body.has-error & {
     position: absolute;
-    top: -100px;
+    top: -10000px;
   }
 }
 
