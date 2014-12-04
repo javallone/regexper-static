@@ -9,14 +9,12 @@ export default _.extend({}, Base, {
       .translate(10, 0));
     this.regexp.render();
 
-    this.start = this.container.circle().attr({
-      r: 5,
-      'class': 'pin'
-    });
-    this.end = this.container.circle().attr({
-      r: 5,
-      'class': 'pin'
-    });
+    this.start = this.container.circle()
+      .addClass('pin')
+      .attr({ r: 5 });
+    this.end = this.container.circle()
+      .addClass('pin')
+      .attr({ r: 5 });
   },
 
   position() {
@@ -26,7 +24,7 @@ export default _.extend({}, Base, {
 
     contentBox = this.regexp.container.getBBox();
 
-    this.regexp.container.before(
+    this.container.prepend(
       this.container.path(Snap.format('M0,{cy}h10M{x2},{cy}h10', contentBox))
     );
 

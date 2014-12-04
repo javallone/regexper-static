@@ -28,13 +28,11 @@ export default {
 
   render_bbox(container, box) {
     container.path(box.path)
-      .attr({
-        'class': 'bounding-box'
-      });
+      .addClass('bounding-box');
   },
 
   render() {
-    this.container.attr({ 'class': 'placeholder' });
+    this.container.addClass('placeholder');
 
     this.label = this.render_label(this.container, this.textValue);
 
