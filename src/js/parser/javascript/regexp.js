@@ -21,7 +21,8 @@ export default _.extend({}, Base, {
         totalHeight,
         verticalCenter,
         matches = this.matches(),
-        includeLines = (matches.length > 1);
+        includeLines = (matches.length > 1),
+        paths = [];
 
     _.invoke(matches, 'position');
 
@@ -49,23 +50,23 @@ export default _.extend({}, Base, {
       positions.each(pos => {
         var box = pos.content.getBBox(),
             direction = box.cy > verticalCenter ? 1 : -1,
-            pathStr,
-            path;
+            pathStr;
 
         pathStr = (verticalCenter === box.cy) ?
           'M0,{center}H{side}' :
           'M0,{center}q10,0 10,{d}V{target}q0,{d} 10,{d}H{side}';
 
-        path = self.container.path(Snap.format(pathStr, {
+        paths.push(Snap.format(pathStr, {
           center: verticalCenter,
           target: box.cy - 10 * direction,
           side: box.x,
           d: 10 * direction
         }));
-
-        path.clone().transform(Snap.matrix()
-          .scale(-1, 1, center + 20, 0));
       });
+
+      this.container.path(paths.join(''))
+        .clone().transform(Snap.matrix()
+          .scale(-1, 1, center + 20, 0));
     }
   },
 
