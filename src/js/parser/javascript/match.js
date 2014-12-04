@@ -27,18 +27,21 @@ export default _.extend({}, Base, {
   },
 
   position() {
-    var offset = 0;
+    var offset = 0,
+        path = [];
 
     if (this.anchor_start()) {
       this.position_label(this.contents.anchor_start);
-      offset += this.contents.anchor_start.getBBox().width;
+      offset += this.contents.anchor_start.getBBox().width + 10;
+      path.push(Snap.format('M{x2},{cy}h10', this.contents.anchor_start.getBBox()));
     }
 
     _.each(this.contents.parts, function(part) {
       part.position();
       part.container.transform(Snap.matrix()
         .translate(offset, 0));
-      offset += part.container.getBBox().width;
+      offset += part.container.getBBox().width + 10;
+      path.push(Snap.format('M{x2},{cy}h10', part.container.getBBox()));
     });
 
     if (this.anchor_end()) {
@@ -46,6 +49,10 @@ export default _.extend({}, Base, {
       this.contents.anchor_end.transform(Snap.matrix()
         .translate(offset, 0));
     }
+
+    this.container.prepend(
+      this.container.path(path.join(''))
+    );
   },
 
   anchor_start() {
