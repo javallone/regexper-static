@@ -10,11 +10,11 @@ export default _.extend({}, Base, {
 
     this.start = this.container.circle().attr({
       r: 5,
-      'class': 'anchor'
+      'class': 'pin'
     });
     this.end = this.container.circle().attr({
       r: 5,
-      'class': 'anchor'
+      'class': 'pin'
     });
   },
 

@@ -10,7 +10,8 @@ export default _.extend({}, Base, {
     this.contents = {};
 
     if (this.anchor_start()) {
-      this.contents.anchor_start = this.render_label(this.container, 'Start of line');
+      this.contents.anchor_start = this.render_label(this.container, 'Start of line')
+        .attr({ 'class': 'anchor' });
     }
 
     this.contents.parts = _.map(this.parts(), function(part) {
@@ -20,7 +21,8 @@ export default _.extend({}, Base, {
     });
 
     if (this.anchor_end()) {
-      this.contents.anchor_end = this.render_label(this.container, 'End of line');
+      this.contents.anchor_end = this.render_label(this.container, 'End of line')
+        .attr({ 'class': 'anchor' });
     }
   },
 

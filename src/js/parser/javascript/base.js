@@ -2,10 +2,7 @@ export default {
   render_label(container, text) {
     var group = container.group();
 
-    group.rect().attr({
-      rx: 10,
-      ry: 10
-    });
+    group.rect();
 
     group.text().attr({
       text: text
@@ -40,6 +37,11 @@ export default {
     this.container.attr({ 'class': 'placeholder' });
 
     this.label = this.render_label(this.container, this.textValue);
+
+    this.label.select('rect').attr({
+      rx: 10,
+      ry: 10
+    });
   },
 
   position() {
