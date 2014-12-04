@@ -66,9 +66,9 @@ gulp.task('browserify', function() {
     .pipe(tap(function(file) {
       var bundler = browserify(config.browserify);
 
-      bundler.add(file.path);
-
       config.browserify.prebundle(bundler);
+
+      bundler.add(file.path);
 
       file.contents = bundler.bundle();
     }))
