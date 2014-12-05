@@ -48,6 +48,8 @@ export default _.extend({}, Base, {
       this.position_label(this.contents.anchor_end);
       this.contents.anchor_end.transform(Snap.matrix()
         .translate(offset, 0));
+    } else {
+      path.pop();
     }
 
     this.container.prepend(
