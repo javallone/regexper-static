@@ -56,7 +56,6 @@ gulp.task('compass', function() {
 
 gulp.task('browserify', function() {
   var browserify = require('browserify'),
-      es6ify = require('es6ify'),
       exorcist = require('exorcist'),
       tap = require('gulp-tap'),
       transform = require('vinyl-transform');

@@ -2,7 +2,11 @@ var _ = require('lodash'),
     config = require('./config');
 
 module.exports = function(karma) {
-  var globs = _.flatten([config.globs.js, config.globs.spec]);
+  var globs = _.flatten([
+    require('es6ify').runtime, // Hack to get traceurRuntime in the build
+    config.globs.js,
+    config.globs.spec
+  ]);
 
   karma.set({
     frameworks: ['browserify', 'jasmine'],
@@ -14,7 +18,7 @@ module.exports = function(karma) {
     reporters: ['progress', 'notify'],
     colors: true,
     logLevel: karma.LOG_INFO,
-    browsers: ['PhantomJS'],
+    browsers: ['Chrome'],
     autoWatch: true,
     singleRun: false,
     browserify: config.browserify
