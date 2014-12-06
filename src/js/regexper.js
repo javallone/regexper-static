@@ -30,14 +30,14 @@ export default class Regexper {
   }
 
   hashchangeListener() {
-    var expression = decodeURIComponent(location.hash.slice(1)).replace(/[\r\n]/g, '');
+    var expression = decodeURIComponent(location.hash.slice(1));
 
     if (expression !== '') {
       this.field.value = expression;
 
       this.setState('is-loading');
 
-      this.renderRegexp(expression)
+      this.renderRegexp(expression.replace(/[\r\n]/g, ''))
         .then((() => {
           this.setState('has-results');
           this.updateLinks();
