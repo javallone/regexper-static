@@ -82,8 +82,7 @@ export default class Regexper {
     snap.selectAll('g').remove();
 
     result = parser.parse(expression);
-    result.container = snap.group().transform(Snap.matrix()
-      .translate(this.padding, this.padding));
+    result.container = snap.group();
     result.render();
 
     return result;
@@ -95,6 +94,8 @@ export default class Regexper {
     parsed.position();
 
     box = parsed.container.getBBox();
+    parsed.container.transform(Snap.matrix()
+      .translate(this.padding - box.x, this.padding - box.y));
     snap.attr({
       width: box.width + this.padding * 2,
       height: box.height + this.padding * 2
