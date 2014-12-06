@@ -70,7 +70,7 @@ export default _.extend({}, Base, {
       var last = result.pop();
 
       if (last) {
-        if (node.elements[0].type === 'terminal' && last.elements[0].type === 'terminal' && last.elements[1].textValue === '') {
+        if (node.elements[0].type === 'terminal' && node.elements[1].textValue === '' && last.elements[0].type === 'terminal' && last.elements[1].textValue === '') {
           last = _.clone(last, true);
           last.textValue += node.textValue;
           last.elements[0].textValue += node.elements[0].textValue;
