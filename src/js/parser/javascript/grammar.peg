@@ -2,19 +2,19 @@ grammar JavascriptRegexp
   root <- ( ( "/" regexp "/" _flags:[igm]* ) / regexp ""? ) <Root>
   regexp <- _match:match _alternates:( "|" match )* <Regexp>
   match <- _anchor_start:anchor_start?
-           _parts:match_fragment*
+           (!repeat) _parts:match_fragment*
            _anchor_end:anchor_end? <Match>
-  match_fragment <- ( subexp / charset / terminal ) repeat? <MatchFragment>
+  match_fragment <- _content:( subexp / charset / terminal ) _repeat:repeat? <MatchFragment>
   anchor_start <- "^"
   anchor_end <- "$"
-  repeat <- ( repeat_any / repeat_required / repeat_optional / repeat_spec ) repeat_greedy?
-  repeat_any <- "*"
-  repeat_required <- "+"
-  repeat_optional <- "?"
-  repeat_spec <- "{" [0-9]+ "," [0-9]+ "}"
-               / "{," [0-9]+ "}"
-               / "{" [0-9]+ ",}"
-               / "{" [0-9]+ "}"
+  repeat <- _spec:( repeat_any / repeat_required / repeat_optional / repeat_spec ) _greedy:repeat_greedy? <Repeat>
+  repeat_any <- "*" <RepeatAny>
+  repeat_required <- "+" <RepeatRequired>
+  repeat_optional <- "?" <RepeatOptional>
+  repeat_spec <- ( "{" _min:[0-9]+ "," _max:[0-9]+ "}"
+                 / "{," _max:[0-9]+ "}"
+                 / "{" _min:[0-9]+ ",}"
+                 / "{" _exact:[0-9]+ "}" ) <RepeatSpec>
   repeat_greedy <- "?"
   subexp <- "(" ( subexp_no_capture / subexp_positive_lookahead / subexp_negative_lookahead )? regexp ")" <Subexp>
   subexp_no_capture <- "?:"
