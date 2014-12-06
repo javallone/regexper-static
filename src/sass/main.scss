@@ -81,12 +81,12 @@ header {
 
     textarea {
       @include adjust-font-size-to($base-font-size);
-      padding: 0;
       border: 0 none;
       outline: none;
       background: $tan;
       padding: 0 0.5em;
       width: 100%;
+      box-sizing: border-box;
       font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
 
       @include input-placeholder {
