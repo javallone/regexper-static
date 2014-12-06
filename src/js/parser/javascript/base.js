@@ -32,6 +32,8 @@ export default {
   },
 
   render() {
+    console.log(this);
+
     this.container.addClass('placeholder');
 
     this.label = this.render_label(this.container, this.textValue);

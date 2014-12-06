@@ -39,10 +39,11 @@ grammar JavascriptRegexp
                     / octal_esc
                     / hex_esc
                     / unicode_esc
-                    / null_esc
-                    / literal_esc )
-  charset_literal <- [^\\\]]
-  terminal <- any_character / escape / literal <Terminal>
+                    / null_esc )
+  charset_literal <- [^\\\]] / ( "\\" . )
+  terminal <- any_character <AnyCharacter>
+            / escape <Escape>
+            / literal <Literal>
   any_character <- "."
   escape <- ( word_boundary_esc
             / non_word_boundary_esc
@@ -62,9 +63,8 @@ grammar JavascriptRegexp
             / octal_esc
             / hex_esc
             / unicode_esc
-            / null_esc
-            / literal_esc )
-  literal <- [^|\\/.\[\(\)?+*$^]
+            / null_esc )
+  literal <- ( ""? literal:[^|\\/.\[\(\)?+*$^] ) / ( "\\" literal:. )
   back_reference <- "\\" [1-9]
   word_boundary_esc <- "\\b"
   non_word_boundary_esc <- "\\B"
@@ -85,4 +85,3 @@ grammar JavascriptRegexp
   hex_esc <- "\\x" [0-9a-fA-F] [0-9a-fA-F]
   unicode_esc <- "\\u" [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F]
   null_esc <- "\\0"
-  literal_esc <- "\\" .
