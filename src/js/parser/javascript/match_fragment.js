@@ -44,6 +44,6 @@ export default _.extend({}, Base, {
         .translate(0, 0));
     }
 
-    this.render_bbox(this.container, this.container.getBBox());
+    //this.render_bbox(this.container, this.container.getBBox());
   }
 });

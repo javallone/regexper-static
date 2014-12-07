@@ -20,15 +20,16 @@ grammar JavascriptRegexp
   subexp_no_capture <- "?:"
   subexp_positive_lookahead <- "?="
   subexp_negative_lookahead <- "?!"
-  charset <- "[" "^"? ( charset_range / charset_terminal )* "]" <Charset>
-  charset_range <- charset_terminal "-" charset_terminal
-  charset_terminal <- charset_escape / charset_literal
+  charset <- "[" _invert:"^"? parts:( charset_range / charset_terminal )* "]" <Charset>
+  charset_range <- first:charset_terminal "-" last:charset_terminal <CharsetRange>
+  charset_terminal <- charset_escape <CharsetEscape>
+                    / charset_literal <CharsetLiteral>
   charset_escape <- "\\" esc:(
          code:[bdDfnrsStvwW] arg:""?
        / code:"0" arg:[0-7]+
        / code:"x" arg:( [0-9a-fA-F] [0-9a-fA-F] )
        / code:"u" arg:( [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] ) )
-  charset_literal <- [^\\\]] / ( "\\" . )
+  charset_literal <- ( ""? literal:[^\\\]] ) / ( "\\" literal:. )
   terminal <- any_character <AnyCharacter>
             / escape <Escape>
             / literal <Literal>
