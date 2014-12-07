@@ -69,7 +69,7 @@ export default class Regexper {
   updateLinks() {
     var blob, url;
 
-    blob = new Blob([svg.outerHTML], { type: 'image/svg+xml' });
+    blob = new Blob([this.svg.outerHTML], { type: 'image/svg+xml' });
     url = URL.createObjectURL(blob);
 
     this.download.setAttribute('href', url);
@@ -77,15 +77,27 @@ export default class Regexper {
   }
 
   renderSvg(snap, expression) {
-    var result;
+    var deferred = Q.defer(),
+        result;
 
     snap.selectAll('g').remove();
 
-    result = parser.parse(expression);
-    result.container = snap.group();
-    result.render();
+    setTimeout(() => {
+      try {
+        result = parser.parse(expression);
+      }
+      catch(e) {
+        deferred.reject(e);
+      }
 
-    return result;
+      if (result) {
+        result.container = snap.group();
+        result.render();
+        deferred.resolve(result);
+      }
+    });
+
+    return deferred.promise;
   }
 
   positionSvg(snap, parsed) {
@@ -104,15 +116,9 @@ export default class Regexper {
 
   renderRegexp(expression) {
     var padding = this.padding,
-        snap = Snap(this.svg),
-        promise;
+        snap = Snap(this.svg);
 
-    promise = Q.promise(((resolve, reject, notify) => {
-      resolve(this.renderSvg(snap, expression));
-    }).bind(this));
-
-    promise.then(this.positionSvg.bind(this, snap));
-
-    return promise;
+    return this.renderSvg(snap, expression)
+      .then(this.positionSvg.bind(this, snap));
   }
 }
