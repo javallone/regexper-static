@@ -16,7 +16,7 @@ grammar JavascriptRegexp
                  / "{" _min:[0-9]+ ",}"
                  / "{" _exact:[0-9]+ "}" ) <RepeatSpec>
   repeat_greedy <- "?"
-  subexp <- "(" ( subexp_no_capture / subexp_positive_lookahead / subexp_negative_lookahead )? regexp ")" <Subexp>
+  subexp <- "(" _capture:( subexp_no_capture / subexp_positive_lookahead / subexp_negative_lookahead )? regexp ")" <Subexp>
   subexp_no_capture <- "?:"
   subexp_positive_lookahead <- "?="
   subexp_negative_lookahead <- "?!"
