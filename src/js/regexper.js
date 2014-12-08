@@ -41,7 +41,8 @@ export default class Regexper {
         .then((() => {
           this.setState('has-results');
           this.updateLinks();
-        }).bind(this), this.showError.bind(this));
+        }).bind(this))
+        .done();
     }
   }
 
@@ -64,6 +65,8 @@ export default class Regexper {
     this.setState('has-error');
     this.error.innerHTML = '';
     this.error.appendChild(document.createTextNode(message));
+
+    throw message;
   }
 
   updateLinks() {
@@ -76,49 +79,32 @@ export default class Regexper {
     this.permalink.setAttribute('href', location);
   }
 
-  renderSvg(snap, expression) {
-    var deferred = Q.defer(),
+  renderRegexp(expression) {
+    var snap = Snap(this.svg),
+        deferred = Q.defer(),
+        padding = this.padding,
         result;
 
     snap.selectAll('g').remove();
 
-    setTimeout(() => {
-      try {
-        result = parser.parse(expression);
-      }
-      catch(e) {
-        deferred.reject(e);
-      }
-
-      if (result) {
+    return Q.fcall(parser.parse.bind(parser), expression)
+      .then((result) => {
         result.container = snap.group();
         result.render();
-        deferred.resolve(result);
-      }
-    });
+        return result;
+      }, this.showError.bind(this))
+      .then((result) => {
+        var box;
 
-    return deferred.promise;
-  }
+        result.position();
 
-  positionSvg(snap, parsed) {
-    var box;
-
-    parsed.position();
-
-    box = parsed.container.getBBox();
-    parsed.container.transform(Snap.matrix()
-      .translate(this.padding - box.x, this.padding - box.y));
-    snap.attr({
-      width: box.width + this.padding * 2,
-      height: box.height + this.padding * 2
-    });
-  }
-
-  renderRegexp(expression) {
-    var padding = this.padding,
-        snap = Snap(this.svg);
-
-    return this.renderSvg(snap, expression)
-      .then(this.positionSvg.bind(this, snap));
+        box = result.container.getBBox();
+        result.container.transform(Snap.matrix()
+          .translate(padding - box.x, padding - box.y));
+        snap.attr({
+          width: box.width + padding * 2,
+          height: box.height + padding * 2
+        });
+      });
   }
 }
