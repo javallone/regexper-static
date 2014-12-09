@@ -23,9 +23,6 @@ export default _.extend({}, Base, {
     this.first.position();
     this.last.position();
 
-    this.first.container.transform(Snap.matrix()
-      .translate(0, 0));
-
     box = this.first.container.getBBox();
     this.hyphen.transform(Snap.matrix()
       .translate(box.x2 + 5, box.cy - this.hyphen.getBBox().cy));
