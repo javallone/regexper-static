@@ -10,9 +10,7 @@ export default _.extend({}, Base, {
     this.label = this.container.text()
       .attr({
         text: this.invert() ? 'None of:' : 'One of:'
-      })
-      .transform(Snap.matrix()
-        .translate(0, 0));
+      });
 
     this.box = this.container.rect()
       .addClass('charset-box')
@@ -23,7 +21,7 @@ export default _.extend({}, Base, {
 
     this.partContainer = this.container.group();
 
-    _.each(this.parts.elements, ((part) => {
+    _.each(this.parts.elements, (part => {
       part.container = this.partContainer.group();
       part.render();
     }).bind(this));
@@ -32,7 +30,7 @@ export default _.extend({}, Base, {
   position() {
     var box, offset = 0;
 
-    _.each(this.parts.elements, ((part) => {
+    _.each(this.parts.elements, (part => {
       var box;
 
       part.position();
@@ -47,7 +45,7 @@ export default _.extend({}, Base, {
 
     box = this.partContainer.getBBox();
 
-    _.each(this.parts.elements, ((part) => {
+    _.each(this.parts.elements, (part => {
       var partBox = part.container.getBBox();
 
       part.container.transform(Snap.matrix()
