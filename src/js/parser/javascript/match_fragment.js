@@ -39,11 +39,6 @@ export default _.extend({}, Base, {
       if (paths.length) {
         this.container.path(paths.join(''));
       }
-    } else {
-      this._content.container.transform(Snap.matrix()
-        .translate(0, 0));
     }
-
-    //this.render_bbox(this.container, this.container.getBBox());
   }
 });
