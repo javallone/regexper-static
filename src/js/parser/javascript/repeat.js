@@ -11,22 +11,22 @@ export default {
     return (this._greedy.textValue !== '');
   },
 
-  has_skip() {
+  hasSkip() {
     return this.minimum() === 0;
   },
 
-  has_loop() {
+  hasLoop() {
     return this.maximum() === -1 || this.maximum() > 1;
   },
 
-  content_position() {
+  contentPosition() {
     var x = 0, y = 0;
 
-    if (this.has_skip()) {
+    if (this.hasSkip()) {
       y = 10;
     }
 
-    if (this.has_skip() || this.has_loop()) {
+    if (this.hasSkip() || this.hasLoop()) {
       x = 15;
     }
 

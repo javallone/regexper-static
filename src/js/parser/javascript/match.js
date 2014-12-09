@@ -9,8 +9,8 @@ export default _.extend({}, Base, {
 
     this.contents = {};
 
-    if (this.anchor_start()) {
-      this.contents.anchor_start = this.render_label(this.container, 'Start of line')
+    if (this.anchorStart()) {
+      this.contents.anchor_start = this.renderLabel(this.container, 'Start of line')
         .addClass('anchor');
     }
 
@@ -20,8 +20,8 @@ export default _.extend({}, Base, {
       return part;
     });
 
-    if (this.anchor_end()) {
-      this.contents.anchor_end = this.render_label(this.container, 'End of line')
+    if (this.anchorEnd()) {
+      this.contents.anchor_end = this.renderLabel(this.container, 'End of line')
         .addClass('anchor');
     }
   },
@@ -30,8 +30,8 @@ export default _.extend({}, Base, {
     var offset = 0,
         path = [];
 
-    if (this.anchor_start()) {
-      this.position_label(this.contents.anchor_start);
+    if (this.anchorStart()) {
+      this.positionLabel(this.contents.anchor_start);
       offset += this.contents.anchor_start.getBBox().width + 10;
       path.push(Snap.format('M{x2},{cy}h10', this.contents.anchor_start.getBBox()));
     }
@@ -44,8 +44,8 @@ export default _.extend({}, Base, {
       path.push(Snap.format('M{x2},{cy}h10', part.container.getBBox()));
     });
 
-    if (this.anchor_end()) {
-      this.position_label(this.contents.anchor_end);
+    if (this.anchorEnd()) {
+      this.positionLabel(this.contents.anchor_end);
       this.contents.anchor_end.transform(Snap.matrix()
         .translate(offset, 0));
     } else {
@@ -57,11 +57,11 @@ export default _.extend({}, Base, {
     );
   },
 
-  anchor_start() {
+  anchorStart() {
     return this._anchor_start.textValue !== '';
   },
 
-  anchor_end() {
+  anchorEnd() {
     return this._anchor_end.textValue !== '';
   },
 

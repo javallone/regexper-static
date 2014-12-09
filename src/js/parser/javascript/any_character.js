@@ -7,6 +7,6 @@ export default _.extend({}, Base, {
   render() {
     this.container.addClass('any-character');
 
-    this.label = this.render_label(this.container, 'any character');
+    this.label = this.renderLabel(this.container, 'any character');
   }
 });

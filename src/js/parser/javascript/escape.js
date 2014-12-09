@@ -15,7 +15,7 @@ export default _.extend({}, Base, {
   render() {
     this.container.addClass('escape');
 
-    this.label = this.render_label(this.container, _.result(this, this.code()));
+    this.label = this.renderLabel(this.container, _.result(this, this.code()));
 
     this.label.select('rect').attr({
       rx: 3,

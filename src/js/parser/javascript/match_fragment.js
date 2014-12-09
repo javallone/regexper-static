@@ -15,24 +15,24 @@ export default _.extend({}, Base, {
     this._content.position();
 
     if (this._repeat.textValue !== '') {
-      this._content.container.transform(this._repeat.content_position());
+      this._content.container.transform(this._repeat.contentPosition());
 
       box = this._content.container.getBBox();
 
-      if (this._repeat.has_skip()) {
+      if (this._repeat.hasSkip()) {
         paths.push(Snap.format('M0,{cy}q10,0 10,-10v-{vert}q0,-10 10,-10h{horiz}q10,0 10,10v{vert}q0,10 10,10', _.extend({
           vert: box.height / 2 - 10,
           horiz: box.width - 10
         }, box)));
       }
 
-      if (this._repeat.has_loop()) {
+      if (this._repeat.hasLoop()) {
         paths.push(Snap.format('M{x},{cy}q-10,0 -10,10v{vert}q0,10 10,10h{width}q10,0 10,-10v-{vert}q0,-10 -10,-10', _.extend({
           vert: box.height / 2 - 10
         }, box)));
       }
 
-      if (this._repeat.has_loop() || this._repeat.has_skip()) {
+      if (this._repeat.hasLoop() || this._repeat.hasSkip()) {
         paths.push(Snap.format('M0,{cy}h15M{x2},{cy}h15', box));
       }
 

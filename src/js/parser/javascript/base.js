@@ -1,5 +1,5 @@
 export default {
-  render_label(container, text) {
+  renderLabel(container, text) {
     var group = container.group();
 
     group.rect();
@@ -11,7 +11,7 @@ export default {
     return group;
   },
 
-  position_label(group) {
+  positionLabel(group) {
     var text = group.select('text'),
         rect = group.select('rect'),
         box = text.getBBox(),
@@ -36,7 +36,7 @@ export default {
 
     this.container.addClass('placeholder');
 
-    this.label = this.render_label(this.container, this.textValue);
+    this.label = this.renderLabel(this.container, this.textValue);
 
     this.label.select('rect').attr({
       rx: 10,
@@ -45,6 +45,6 @@ export default {
   },
 
   position() {
-    this.position_label(this.label);
+    this.positionLabel(this.label);
   }
 };
