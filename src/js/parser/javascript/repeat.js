@@ -22,11 +22,12 @@ export default {
   contentPosition() {
     var x = 0, y = 0;
 
-    if (this.hasSkip()) {
-      y = 10;
+    if (this.hasLoop()) {
+      x = 10;
     }
 
-    if (this.hasSkip() || this.hasLoop()) {
+    if (this.hasSkip()) {
+      y = 10;
       x = 15;
     }
 
