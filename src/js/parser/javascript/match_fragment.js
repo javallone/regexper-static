@@ -32,10 +32,6 @@ export default _.extend({}, Base, {
         }, box)));
       }
 
-      if (this._repeat.hasLoop() || this._repeat.hasSkip()) {
-        paths.push(Snap.format('M0,{cy}h15M{x2},{cy}h15', box));
-      }
-
       if (paths.length) {
         this.container.path(paths.join(''));
       }

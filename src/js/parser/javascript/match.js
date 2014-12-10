@@ -25,7 +25,7 @@ export default _.extend({}, Base, {
   },
 
   position() {
-    var items, paths;
+    var items;
 
     if (this.anchorStart()) {
       this.positionLabel(this.contents.anchor_start);
@@ -41,18 +41,6 @@ export default _.extend({}, Base, {
     this.spaceHorizontally(items, {
       padding: 10
     });
-
-    // NOTE:
-    // item.cy won't work for this in the long run once vertical centers can be
-    // offset.
-    paths = _.map(items, item => {
-      return Snap.format('M{item.x2},{item.cy}h10', {
-        item: item.getBBox()
-      });
-    });
-    paths.pop();
-
-    this.container.prepend(this.container.path(paths.join('')));
   },
 
   anchorStart() {

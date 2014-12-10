@@ -60,11 +60,6 @@ export default _.extend({}, Base, {
           width: box.width + 20,
           height: box.height + 20
         });
-
-      this.container.path(Snap.format('M0,{content.cy}h10M{content.x2},{content.cy}H{container.x2}', {
-        container: this.getBBox(),
-        content: box
-      }));
     }
   },
 

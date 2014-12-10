@@ -24,10 +24,6 @@ export default _.extend({}, Base, {
 
     contentBox = this.regexp.getBBox();
 
-    this.container.prepend(
-      this.container.path(Snap.format('M0,{cy}h10M{x2},{cy}h10', contentBox))
-    );
-
     this.start.transform(Snap.matrix()
       .translate(0, contentBox.cy));
     this.end.transform(Snap.matrix()
