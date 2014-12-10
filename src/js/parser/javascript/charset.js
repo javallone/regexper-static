@@ -29,30 +29,15 @@ export default _.extend({}, Base, {
   },
 
   position() {
-    var box, offset = 0;
+    var box;
 
-    _.each(this.parts.elements, (part => {
-      var box;
+    _.invoke(this.parts.elements, 'position');
 
-      part.position();
-
-      part.container.transform(Snap.matrix()
-        .translate(0, offset));
-
-      box = part.getBBox();
-
-      offset += box.height + 5;
-    }).bind(this));
+    this.spaceVertically(this.parts.elements, {
+      padding: 5
+    });
 
     box = this.partContainer.getBBox();
-
-    _.each(this.parts.elements, (part => {
-      var partBox = part.getBBox();
-
-      part.container.transform(Snap.matrix()
-        .add(part.container.transform().localMatrix)
-        .translate(box.cx - partBox.cx, 0));
-    }).bind(this));
 
     this.box.attr({
       width: box.width + 10,

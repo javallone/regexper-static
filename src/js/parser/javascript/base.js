@@ -82,5 +82,35 @@ export default {
         .add(element.transform().localMatrix)
         .translate(0, verticalCenter - item.getBBox().cy));
     });
+  },
+
+  spaceVertically(items, options) {
+    var horizontalCenter = 0;
+
+    _.defaults(options, {
+      padding: 0
+    });
+
+    _.reduce(items, (offset, item) => {
+      var element = item.container || item,
+          box;
+
+      element.transform(Snap.matrix()
+        .translate(0, offset));
+
+      box = item.getBBox();
+
+      horizontalCenter = Math.max(horizontalCenter, box.cx);
+
+      return offset + options.padding + box.height;
+    }, 0);
+
+    _.each(items, item => {
+      var element = item.container || item;
+
+      element.transform(Snap.matrix()
+        .add(element.transform().localMatrix)
+        .translate(horizontalCenter - item.getBBox().cx, 0));
+    });
   }
 };
