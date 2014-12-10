@@ -113,5 +113,45 @@ export default {
         .add(element.transform().localMatrix)
         .translate(horizontalCenter - item.getBBox().cx, 0));
     });
+  },
+
+  renderLabeledBox(label) {
+    this.label = this.container.text()
+      .addClass([this.type, 'label'].join('-'))
+      .attr({
+        text: label
+      });
+
+    this.box = this.container.rect()
+      .addClass([this.type, 'box'].join('-'))
+      .attr({
+        rx: 3,
+        ry: 3
+      });
+  },
+
+  positionLabeledBox(content, options) {
+    var labelBox, contentBox;
+
+    _.defaults(options, {
+      padding: 0
+    });
+
+    labelBox = this.label.getBBox();
+    contentBox = content.getBBox();
+
+    this.label.transform(Snap.matrix()
+      .translate(0, labelBox.height));
+
+    this.box
+      .transform(Snap.matrix()
+        .translate(0, labelBox.height))
+      .attr({
+        width: Math.max(contentBox.width + options.padding * 2, labelBox.width),
+        height: contentBox.height + options.padding * 2
+      });
+
+    content.transform(Snap.matrix()
+      .translate(this.box.getBBox().cx - contentBox.cx, labelBox.height + options.padding));
   }
 };

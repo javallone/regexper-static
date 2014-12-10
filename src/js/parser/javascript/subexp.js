@@ -16,18 +16,7 @@ export default _.extend({}, Base, {
     var label = this.groupLabel();
 
     if (label) {
-      this.label = this.container.text()
-        .addClass('subexp-label')
-        .attr({
-          text: label
-        });
-
-      this.outline = this.container.rect()
-        .addClass('subexp-outline')
-        .attr({
-          rx: 3,
-          ry: 3
-        });
+      this.renderLabeledBox(label);
 
       this.regexp.setContainer(this.container.group());
       this.regexp.render();
@@ -38,28 +27,12 @@ export default _.extend({}, Base, {
   },
 
   position() {
-    var box;
-
     this.regexp.position();
 
-    if (this.outline) {
-      box = this.label.getBBox();
-
-      this.label.transform(Snap.matrix()
-        .translate(0, box.height));
-
-      this.regexp.container.transform(Snap.matrix()
-        .translate(10, 10 + box.height));
-
-      box = this.regexp.getBBox();
-
-      this.outline
-        .transform(Snap.matrix()
-          .translate(box.x - 10, box.y - 10))
-        .attr({
-          width: box.width + 20,
-          height: box.height + 20
-        });
+    if (this.groupLabel()) {
+      this.positionLabeledBox(this.regexp.container, {
+        padding: 10
+      });
     }
   },
 
