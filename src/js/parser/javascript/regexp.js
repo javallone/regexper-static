@@ -65,7 +65,7 @@ export default _.extend({}, Base, {
 
       this.container.prepend(this.container.path(paths.join('')));
       this.container.prepend(this.container.path(paths.join(''))
-        .transform(Snap.matrix().scale(-1, 1, containerBox.cx, 0)));
+        .transform(Snap.matrix().scale(-1, 1, containerBox.cx - 10, 0)));
     }
   },
 
