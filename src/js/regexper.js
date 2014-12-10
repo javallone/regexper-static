@@ -87,6 +87,8 @@ export default class Regexper {
 
     snap.selectAll('g').remove();
 
+    parser.resetGroupCounter();
+
     return Q.fcall(parser.parse.bind(parser), expression)
       .then((result) => {
         result.container = snap.group();

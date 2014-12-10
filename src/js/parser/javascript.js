@@ -36,4 +36,8 @@ parser.Parser.RepeatOptional = RepeatOptional;
 parser.Parser.RepeatRequired = RepeatRequired;
 parser.Parser.RepeatSpec = RepeatSpec;
 
+parser.resetGroupCounter = () => {
+  parser.Parser.Subexp.resetCounter();
+}
+
 export default parser;

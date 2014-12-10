@@ -1,6 +1,8 @@
 import _ from 'lodash';
 import Base from './base.js';
 
+var groupCounter = 1;
+
 export default _.extend({}, Base, {
   type: 'subexp',
 
@@ -72,7 +74,11 @@ export default _.extend({}, Base, {
     if (_.has(this.labelMap, this._capture.textValue)) {
       return this.labelMap[this._capture.textValue];
     } else {
-      return 'group #TBA';
+      return 'group #' + (groupCounter++);
     }
-  }
+  },
+
+  resetCounter() {
+    groupCounter = 1;
+  },
 });
