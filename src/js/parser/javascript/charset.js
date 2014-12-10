@@ -37,15 +37,23 @@ export default _.extend({}, Base, {
       padding: 5
     });
 
+    box = this.label.getBBox();
+
+    this.label.transform(Snap.matrix()
+      .translate(0, box.height));
+
+    this.partContainer.transform(Snap.matrix()
+      .translate(5, 5 + box.height));
+
+    this.box.transform(Snap.matrix()
+      .translate(0, box.height));
+
     box = this.partContainer.getBBox();
 
     this.box.attr({
       width: box.width + 10,
       height: box.height + 10
     });
-
-    this.partContainer.transform(Snap.matrix()
-      .translate(5, 5));
   },
 
   invert() {
