@@ -27,34 +27,34 @@ export default _.extend({}, Base, {
   },
 
   position() {
-    var offset = 0,
-        path = [];
+    var items, paths;
 
     if (this.anchorStart()) {
       this.positionLabel(this.contents.anchor_start);
-      offset += this.contents.anchor_start.getBBox().width + 10;
-      path.push(Snap.format('M{x2},{cy}h10', this.contents.anchor_start.getBBox()));
     }
-
-    _.each(this.contents.parts, function(part) {
-      part.position();
-      part.container.transform(Snap.matrix()
-        .translate(offset, 0));
-      offset += part.container.getBBox().width + 10;
-      path.push(Snap.format('M{x2},{cy}h10', part.container.getBBox()));
-    });
 
     if (this.anchorEnd()) {
       this.positionLabel(this.contents.anchor_end);
-      this.contents.anchor_end.transform(Snap.matrix()
-        .translate(offset, 0));
-    } else {
-      path.pop();
     }
 
-    this.container.prepend(
-      this.container.path(path.join(''))
-    );
+    _.invoke(this.contents.parts, 'position');
+
+    items = _(this.contents).values().flatten().value();
+    this.spaceHorizontally(items, {
+      padding: 10
+    });
+
+    // NOTE:
+    // item.cy won't work for this in the long run once vertical centers can be
+    // offset.
+    paths = _.map(items, item => {
+      return Snap.format('M{item.x2},{item.cy}h10', {
+        item: item.getBBox()
+      });
+    });
+    paths.pop();
+
+    this.container.prepend(this.container.path(paths.join('')));
   },
 
   anchorStart() {

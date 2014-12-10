@@ -23,12 +23,8 @@ export default _.extend({}, Base, {
     this.first.position();
     this.last.position();
 
-    box = this.first.container.getBBox();
-    this.hyphen.transform(Snap.matrix()
-      .translate(box.x2 + 5, box.cy - this.hyphen.getBBox().cy));
-
-    box = this.hyphen.getBBox();
-    this.last.container.transform(Snap.matrix()
-      .translate(box.x2 + 5, 0));
+    this.spaceHorizontally([this.first, this.hyphen, this.last], {
+      padding: 5
+    });
   }
 });

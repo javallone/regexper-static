@@ -38,7 +38,7 @@ export default _.extend({}, Base, {
       part.container.transform(Snap.matrix()
         .translate(0, offset));
 
-      box = part.container.getBBox();
+      box = part.getBBox();
 
       offset += box.height + 5;
     }).bind(this));
@@ -46,7 +46,7 @@ export default _.extend({}, Base, {
     box = this.partContainer.getBBox();
 
     _.each(this.parts.elements, (part => {
-      var partBox = part.container.getBBox();
+      var partBox = part.getBBox();
 
       part.container.transform(Snap.matrix()
         .add(part.container.transform().localMatrix)

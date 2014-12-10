@@ -22,7 +22,7 @@ export default _.extend({}, Base, {
 
     this.regexp.position();
 
-    contentBox = this.regexp.container.getBBox();
+    contentBox = this.regexp.getBBox();
 
     this.container.prepend(
       this.container.path(Snap.format('M0,{cy}h10M{x2},{cy}h10', contentBox))

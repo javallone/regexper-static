@@ -98,7 +98,7 @@ export default class Regexper {
 
         result.position();
 
-        box = result.container.getBBox();
+        box = result.getBBox();
         result.container.transform(Snap.matrix()
           .translate(padding - box.x, padding - box.y));
         snap.attr({

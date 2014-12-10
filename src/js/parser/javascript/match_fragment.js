@@ -17,7 +17,7 @@ export default _.extend({}, Base, {
     if (this._repeat.textValue !== '') {
       this._content.container.transform(this._repeat.contentPosition());
 
-      box = this._content.container.getBBox();
+      box = this._content.getBBox();
 
       if (this._repeat.hasSkip()) {
         paths.push(Snap.format('M0,{cy}q10,0 10,-10v-{vert}q0,-10 10,-10h{horiz}q10,0 10,10v{vert}q0,10 10,10', _.extend({

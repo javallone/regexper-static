@@ -1,4 +1,10 @@
+import _ from 'lodash';
+
 export default {
+  getBBox() {
+    return this.container.getBBox();
+  },
+
   renderLabel(container, text) {
     var group = container.group();
 
@@ -46,5 +52,35 @@ export default {
 
   position() {
     this.positionLabel(this.label);
+  },
+
+  spaceHorizontally(items, options) {
+    var verticalCenter = 0;
+
+    _.defaults(options, {
+      padding: 0
+    });
+
+    _.reduce(items, (offset, item) => {
+      var element = item.container || item,
+          box;
+
+      element.transform(Snap.matrix()
+        .translate(offset, 0));
+
+      box = item.getBBox();
+
+      verticalCenter = Math.max(verticalCenter, box.cy);
+
+      return offset + options.padding + box.width;
+    }, 0);
+
+    _.each(items, item => {
+      var element = item.container || item;
+
+      element.transform(Snap.matrix()
+        .add(element.transform().localMatrix)
+        .translate(0, verticalCenter - item.getBBox().cy));
+    });
   }
 };

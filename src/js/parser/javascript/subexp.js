@@ -44,7 +44,7 @@ export default _.extend({}, Base, {
     this.regexp.position();
 
     if (this.outline) {
-      box = this.regexp.container.getBBox();
+      box = this.regexp.getBBox();
 
       this.outline.attr({
         width: box.width + 20,
@@ -52,7 +52,7 @@ export default _.extend({}, Base, {
       });
 
       this.container.path(Snap.format('M0,{content.cy}h10M{content.x2},{content.cy}H{container.x2}', {
-        container: this.container.getBBox(),
+        container: this.getBBox(),
         content: box
       }));
     }

@@ -29,8 +29,8 @@ export default _.extend({}, Base, {
     positions = _.chain(matches)
       .map(match => {
         return {
-          box: match.container.getBBox(),
-          content: match.container
+          match,
+          box: match.getBBox()
         };
       });
     center = positions.reduce((center, pos) => {
@@ -38,7 +38,7 @@ export default _.extend({}, Base, {
     }, 0).value();
 
     totalHeight = positions.reduce((offset, pos) => {
-      pos.content.transform(Snap.matrix()
+      pos.match.container.transform(Snap.matrix()
         .translate(center - pos.box.cx + (includeLines ? 20 : 0), offset));
 
       return offset + pos.box.height + 5;
@@ -48,7 +48,7 @@ export default _.extend({}, Base, {
 
     if (includeLines) {
       positions.each(pos => {
-        var box = pos.content.getBBox(),
+        var box = pos.match.getBBox(),
             direction = box.cy > verticalCenter ? 1 : -1,
             pathStr;
 
