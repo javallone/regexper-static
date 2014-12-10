@@ -11,7 +11,8 @@ export default {
   },
 
   renderLabel(container, text) {
-    var group = container.group();
+    var group = container.group()
+      .addClass('label');
 
     group.rect();
 
