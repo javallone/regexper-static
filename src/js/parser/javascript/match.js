@@ -5,8 +5,6 @@ export default _.extend({}, Base, {
   type: 'match',
 
   render() {
-    var self = this;
-
     this.contents = {};
 
     if (this.anchorStart()) {
@@ -14,11 +12,11 @@ export default _.extend({}, Base, {
         .addClass('anchor');
     }
 
-    this.contents.parts = _.map(this.parts(), function(part) {
-      part.setContainer(self.container.group());
+    this.contents.parts = _.map(this.parts(), (function(part) {
+      part.setContainer(this.container.group());
       part.render();
       return part;
-    });
+    }).bind(this));
 
     if (this.anchorEnd()) {
       this.contents.anchor_end = this.renderLabel(this.container, 'End of line')

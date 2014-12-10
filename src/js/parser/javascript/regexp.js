@@ -5,15 +5,13 @@ export default _.extend({}, Base, {
   type: 'regexp',
 
   render() {
-    var self = this;
-
     this.matchContainer = this.container.group();
 
-    _.each(this.matches(), match => {
-      match.setContainer(self.matchContainer.group());
+    _.each(this.matches(), (match => {
+      match.setContainer(this.matchContainer.group());
       match.render();
       return match.container;
-    });
+    }).bind(this));
   },
 
   position() {
