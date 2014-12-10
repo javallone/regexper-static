@@ -32,11 +32,6 @@ export default {
     });
   },
 
-  render_bbox(container, box) {
-    container.path(box.path)
-      .addClass('bounding-box');
-  },
-
   render() {
     console.log(this);
 
