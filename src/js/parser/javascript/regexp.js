@@ -42,7 +42,7 @@ export default _.extend({}, Base, {
         if (distance >= 15) {
           pathStr = 'M10,{box.cy}m0,{shift}q0,{curve} 10,{curve}h{box.x}';
         } else {
-          pathStr = 'M0,{containerBox.cy}c20,0 20,{anchor.y} {anchor.x},{anchor.y}';
+          pathStr = 'M0,{containerBox.cy}c10,0 10,{anchor.y} {anchor.x},{anchor.y}';
         }
 
         return Snap.format(pathStr, {
