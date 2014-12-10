@@ -8,6 +8,7 @@ export default _.extend({}, Base, {
     this.container.addClass('charset');
 
     this.label = this.container.text()
+      .addClass('charset-label')
       .attr({
         text: this.invert() ? 'None of:' : 'One of:'
       });
