@@ -5,13 +5,21 @@ export default _.extend({}, Base, {
   type: 'regexp',
 
   render() {
-    this.matchContainer = this.container.group();
+    var matches = this.matches();
 
-    _.each(this.matches(), (match => {
-      match.setContainer(this.matchContainer.group());
-      match.render();
-      return match.container;
-    }).bind(this));
+    if (matches.length === 1) {
+      matches[0].setContainer(this.container);
+      matches[0].render();
+    } else {
+      this.matchContainer = this.container.group()
+        .addClass('regexp-matches');
+
+      _.each(matches, (match => {
+        match.setContainer(this.matchContainer.group());
+        match.render();
+        return match.container;
+      }).bind(this));
+    }
   },
 
   position() {
@@ -22,11 +30,11 @@ export default _.extend({}, Base, {
 
     _.invoke(matches, 'position');
 
-    this.spaceVertically(matches, {
-      padding: 5
-    });
-
     if (includeLines) {
+      this.spaceVertically(matches, {
+        padding: 5
+      });
+
       this.matchContainer.transform(Snap.matrix()
         .translate(20, 0));
 

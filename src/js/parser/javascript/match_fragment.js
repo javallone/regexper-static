@@ -5,7 +5,11 @@ export default _.extend({}, Base, {
   type: 'match-fragment',
 
   render() {
-    this._content.setContainer(this.container.group());
+    if (this._repeat.textValue === '') {
+      this._content.setContainer(this.container);
+    } else {
+      this._content.setContainer(this.container.group());
+    }
     this._content.render();
   },
 

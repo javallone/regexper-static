@@ -5,42 +5,54 @@ export default _.extend({}, Base, {
   type: 'match',
 
   render() {
-    this.contents = {};
+    var parts = this.parts();
 
-    if (this.anchorStart()) {
-      this.contents.anchor_start = this.renderLabel(this.container, 'Start of line')
-        .addClass('anchor');
-    }
+    if (this.anchorStart() || this.anchorEnd() || parts.length !== 1) {
+      this.contents = {};
 
-    this.contents.parts = _.map(this.parts(), (function(part) {
-      part.setContainer(this.container.group());
-      part.render();
-      return part;
-    }).bind(this));
+      if (this.anchorStart()) {
+        this.contents.anchor_start = this.renderLabel(this.container, 'Start of line')
+          .addClass('anchor');
+      }
 
-    if (this.anchorEnd()) {
-      this.contents.anchor_end = this.renderLabel(this.container, 'End of line')
-        .addClass('anchor');
+      this.contents.parts = _.map(parts, (function(part) {
+        part.setContainer(this.container.group());
+        part.render();
+        return part;
+      }).bind(this));
+
+      if (this.anchorEnd()) {
+        this.contents.anchor_end = this.renderLabel(this.container, 'End of line')
+          .addClass('anchor');
+      }
+    } else {
+      this.content = parts[0];
+      this.content.setContainer(this.container);
+      this.content.render();
     }
   },
 
   position() {
     var items;
 
-    if (this.anchorStart()) {
-      this.positionLabel(this.contents.anchor_start);
+    if (this.contents) {
+      if (this.contents.anchor_start) {
+        this.positionLabel(this.contents.anchor_start);
+      }
+
+      if (this.contents.anchor_end) {
+        this.positionLabel(this.contents.anchor_end);
+      }
+
+      _.invoke(this.contents.parts, 'position');
+
+      items = _(this.contents).values().flatten().value();
+      this.spaceHorizontally(items, {
+        padding: 10
+      });
+    } else {
+      this.content.position();
     }
-
-    if (this.anchorEnd()) {
-      this.positionLabel(this.contents.anchor_end);
-    }
-
-    _.invoke(this.contents.parts, 'position');
-
-    items = _(this.contents).values().flatten().value();
-    this.spaceHorizontally(items, {
-      padding: 10
-    });
   },
 
   anchorStart() {
