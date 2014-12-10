@@ -13,8 +13,6 @@ export default _.extend({}, Base, {
   },
 
   render() {
-    this.container.addClass('escape');
-
     this.label = this.renderLabel(this.container, _.result(this, this.code()));
 
     this.label.select('rect').attr({

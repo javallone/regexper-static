@@ -16,8 +16,6 @@ export default _.extend({}, Base, {
     var label = this.groupLabel();
 
     if (label) {
-      this.container.addClass('subexp');
-
       this.label = this.container.text()
         .addClass('subexp-label')
         .attr({
@@ -31,10 +29,10 @@ export default _.extend({}, Base, {
           ry: 3
         });
 
-      this.regexp.container = this.container.group();
+      this.regexp.setContainer(this.container.group());
       this.regexp.render();
     } else {
-      this.regexp.container = this.container;
+      this.regexp.setContainer(this.container);
       this.regexp.render();
     }
   },

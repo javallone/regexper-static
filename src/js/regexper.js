@@ -91,7 +91,7 @@ export default class Regexper {
 
     return Q.fcall(parser.parse.bind(parser), expression)
       .then((result) => {
-        result.container = snap.group();
+        result.setContainer(snap.group());
         result.render();
         return result;
       }, this.showError.bind(this))

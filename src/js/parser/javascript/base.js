@@ -1,6 +1,11 @@
 import _ from 'lodash';
 
 export default {
+  setContainer(container) {
+    this.container = container;
+    this.container.addClass(this.type);
+  },
+
   getBBox() {
     return this.container.getBBox();
   },

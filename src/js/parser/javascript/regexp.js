@@ -10,7 +10,7 @@ export default _.extend({}, Base, {
     this.matchContainer = this.container.group();
 
     _.each(this.matches(), match => {
-      match.container = self.matchContainer.group();
+      match.setContainer(self.matchContainer.group());
       match.render();
       return match.container;
     });

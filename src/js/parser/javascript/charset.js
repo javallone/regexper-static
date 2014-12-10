@@ -5,8 +5,6 @@ export default _.extend({}, Base, {
   type: 'charset',
 
   render() {
-    this.container.addClass('charset');
-
     this.label = this.container.text()
       .addClass('charset-label')
       .attr({
@@ -23,7 +21,7 @@ export default _.extend({}, Base, {
     this.partContainer = this.container.group();
 
     _.each(this.parts.elements, (part => {
-      part.container = this.partContainer.group();
+      part.setContainer(this.partContainer.group());
       part.render();
     }).bind(this));
   },

@@ -2,10 +2,10 @@ import _ from 'lodash';
 import Base from './base.js';
 
 export default _.extend({}, Base, {
-  type: 'match_fragment',
+  type: 'match-fragment',
 
   render() {
-    this._content.container = this.container.group();
+    this._content.setContainer(this.container.group());
     this._content.render();
   },
 
