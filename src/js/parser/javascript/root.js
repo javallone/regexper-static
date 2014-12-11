@@ -5,9 +5,9 @@ export default _.extend({}, Base, {
   type: 'root',
 
   _render() {
-    this.regexp.setContainer(this.container.group().transform(Snap.matrix()
-      .translate(10, 0)));
-    this.regexp.render();
+    this.regexp.render(this.container.group());
+    this.regexp.container.transform(Snap.matrix()
+      .translate(10, 0));
 
     this.start = this.container.circle()
       .addClass('pin')

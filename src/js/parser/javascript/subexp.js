@@ -18,8 +18,7 @@ export default _.extend({}, Base, {
     if (label) {
       this.renderLabeledBox(label);
 
-      this.regexp.setContainer(this.container.group());
-      this.regexp.render();
+      this.regexp.render(this.container.group());
     } else {
       this.proxy(this.regexp);
     }

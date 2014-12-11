@@ -5,11 +5,8 @@ export default _.extend({}, Base, {
   type: 'charset-range',
 
   _render() {
-    this.first.setContainer(this.container.group());
-    this.first.render();
-
-    this.last.setContainer(this.container.group());
-    this.last.render();
+    this.first.render(this.container.group());
+    this.last.render(this.container.group());
 
     this.hyphen = this.container.text()
       .attr({
@@ -18,8 +15,6 @@ export default _.extend({}, Base, {
   },
 
   _position() {
-    var box;
-
     this.first.position();
     this.last.position();
 

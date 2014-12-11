@@ -16,8 +16,7 @@ export default _.extend({}, Base, {
       }
 
       this.contents.parts = _.map(parts, (function(part) {
-        part.setContainer(this.container.group());
-        part.render();
+        part.render(this.container.group());
         return part;
       }).bind(this));
 

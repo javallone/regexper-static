@@ -8,8 +8,7 @@ export default _.extend({}, Base, {
     if (this._repeat.textValue === '') {
       this.proxy(this._content);
     } else {
-      this._content.setContainer(this.container.group());
-      this._content.render();
+      this._content.render(this.container.group());
     }
   },
 

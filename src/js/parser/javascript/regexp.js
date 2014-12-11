@@ -14,9 +14,7 @@ export default _.extend({}, Base, {
         .addClass('regexp-matches');
 
       _.each(matches, (match => {
-        match.setContainer(this.matchContainer.group());
-        match.render();
-        return match.container;
+        match.render(this.matchContainer.group());
       }).bind(this));
     }
   },

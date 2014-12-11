@@ -40,7 +40,11 @@ export default {
     });
   },
 
-  render() {
+  render(container) {
+    if (container) {
+      this.setContainer(container);
+    }
+
     this._labelGroups = [];
     this._render();
   },
@@ -56,8 +60,7 @@ export default {
 
   proxy(node) {
     this._proxy = node;
-    this._proxy.setContainer(this.container);
-    this._proxy.render();
+    this._proxy.render(this.container);
   },
 
   _render() {

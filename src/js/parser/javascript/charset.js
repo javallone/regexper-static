@@ -10,8 +10,7 @@ export default _.extend({}, Base, {
     this.partContainer = this.container.group();
 
     _.each(this.parts.elements, (part => {
-      part.setContainer(this.partContainer.group());
-      part.render();
+      part.render(this.partContainer.group());
     }).bind(this));
   },
 
