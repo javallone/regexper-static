@@ -20,6 +20,8 @@ export default {
       text: text
     });
 
+    this._labelGroups.push(group);
+
     return group;
   },
 
@@ -39,6 +41,7 @@ export default {
   },
 
   render() {
+    this._labelGroups = [];
     this._render();
   },
 
@@ -46,6 +49,7 @@ export default {
     if (this._proxy) {
       this._proxy.position();
     } else {
+      _.each(this._labelGroups, this.positionLabel.bind(this));
       this._position();
     }
   },
@@ -70,7 +74,6 @@ export default {
   },
 
   _position() {
-    this.positionLabel(this.label);
   },
 
   spaceHorizontally(items, options) {

@@ -33,14 +33,6 @@ export default _.extend({}, Base, {
   _position() {
     var items;
 
-    if (this.contents.anchor_start) {
-      this.positionLabel(this.contents.anchor_start);
-    }
-
-    if (this.contents.anchor_end) {
-      this.positionLabel(this.contents.anchor_end);
-    }
-
     _.invoke(this.contents.parts, 'position');
 
     items = _(this.contents).values().flatten().value();
