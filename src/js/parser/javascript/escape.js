@@ -13,7 +13,7 @@ export default _.extend({}, Base, {
   },
 
   _render() {
-    this.label = this.renderLabel(this.container, _.result(this, this.code()));
+    this.label = this.renderLabel(_.result(this, this.code()));
 
     this.label.select('rect').attr({
       rx: 3,

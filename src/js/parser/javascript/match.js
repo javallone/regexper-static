@@ -11,7 +11,7 @@ export default _.extend({}, Base, {
       this.contents = {};
 
       if (this.anchorStart()) {
-        this.contents.anchor_start = this.renderLabel(this.container, 'Start of line')
+        this.contents.anchor_start = this.renderLabel('Start of line')
           .addClass('anchor');
       }
 
@@ -22,7 +22,7 @@ export default _.extend({}, Base, {
       }).bind(this));
 
       if (this.anchorEnd()) {
-        this.contents.anchor_end = this.renderLabel(this.container, 'End of line')
+        this.contents.anchor_end = this.renderLabel('End of line')
           .addClass('anchor');
       }
     } else {

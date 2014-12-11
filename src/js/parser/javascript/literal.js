@@ -5,7 +5,7 @@ export default _.extend({}, Base, {
   type: 'literal',
 
   _render() {
-    this.label = this.renderLabel(this.container, '"' + this.literal.textValue + '"');
+    this.label = this.renderLabel('"' + this.literal.textValue + '"');
 
     this.label.select('rect').attr({
       rx: 3,

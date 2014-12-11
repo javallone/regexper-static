@@ -10,8 +10,8 @@ export default {
     return this.container.getBBox();
   },
 
-  renderLabel(container, text) {
-    var group = container.group()
+  renderLabel(text) {
+    var group = this.container.group()
       .addClass('label');
 
     group.rect();
@@ -61,7 +61,7 @@ export default {
 
     this.container.addClass('placeholder');
 
-    this.label = this.renderLabel(this.container, this.textValue);
+    this.label = this.renderLabel(this.textValue);
 
     this.label.select('rect').attr({
       rx: 10,
