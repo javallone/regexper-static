@@ -22,20 +22,23 @@ export default _.extend({}, Base, {
     box = this._content.getBBox();
 
     if (this._repeat.hasSkip()) {
-      paths.push(Snap.format('M0,{cy}q10,0 10,-10v-{vert}q0,-10 10,-10h{horiz}q10,0 10,10v{vert}q0,10 10,10', _.extend({
+      paths.push(Snap.format('M0,{box.cy}q10,0 10,-10v-{vert}q0,-10 10,-10h{horiz}q10,0 10,10v{vert}q0,10 10,10', {
+        box,
         vert: box.height / 2 - 10,
         horiz: box.width - 10
-      }, box)));
+      }));
     }
 
     if (this._repeat.hasLoop()) {
-      paths.push(Snap.format('M{x},{cy}q-10,0 -10,10v{vert}q0,10 10,10h{width}q10,0 10,-10v-{vert}q0,-10 -10,-10', _.extend({
+      paths.push(Snap.format('M{box.x},{box.cy}q-10,0 -10,10v{vert}q0,10 10,10h{box.width}q10,0 10,-10v-{vert}q0,-10 -10,-10', {
+        box,
         vert: box.height / 2 - 10
-      }, box)));
+      }));
     }
 
     if (paths.length) {
-      this.container.path(paths.join(''));
+      this.container.prepend(
+        this.container.path(paths.join('')));
     }
   }
 });

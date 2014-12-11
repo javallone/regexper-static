@@ -77,7 +77,8 @@ export default _.extend({}, Base, {
       bottom: _.last(matches).getBBox().cy - 10
     }));
 
-    this.container.prepend(this.container.path(paths.join('')));
+    this.container.prepend(
+      this.container.path(paths.join('')));
   },
 
   matches() {
