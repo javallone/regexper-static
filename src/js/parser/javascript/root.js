@@ -6,7 +6,7 @@ export default _.extend({}, Base, {
 
   _render() {
     this.regexp.render(this.container.group());
-    this.regexp.container.transform(Snap.matrix()
+    this.regexp.transform(Snap.matrix()
       .translate(10, 0));
 
     this.start = this.container.circle()

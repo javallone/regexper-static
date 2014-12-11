@@ -10,6 +10,10 @@ export default {
     return this.container.getBBox();
   },
 
+  transform(matrix) {
+    return this.container.transform(matrix);
+  },
+
   renderLabel(text) {
     var group = this.container.group()
       .addClass('label');
@@ -86,10 +90,9 @@ export default {
     });
 
     _.reduce(items, (offset, item) => {
-      var element = item.container || item,
-          box;
+      var box;
 
-      element.transform(Snap.matrix()
+      item.transform(Snap.matrix()
         .translate(offset, 0));
 
       box = item.getBBox();
@@ -100,10 +103,8 @@ export default {
     }, 0);
 
     _.each(items, item => {
-      var element = item.container || item;
-
-      element.transform(Snap.matrix()
-        .add(element.transform().localMatrix)
+      item.transform(Snap.matrix()
+        .add(item.transform().localMatrix)
         .translate(0, verticalCenter - item.getBBox().cy));
     });
   },
@@ -116,10 +117,9 @@ export default {
     });
 
     _.reduce(items, (offset, item) => {
-      var element = item.container || item,
-          box;
+      var box;
 
-      element.transform(Snap.matrix()
+      item.transform(Snap.matrix()
         .translate(0, offset));
 
       box = item.getBBox();
@@ -130,10 +130,8 @@ export default {
     }, 0);
 
     _.each(items, item => {
-      var element = item.container || item;
-
-      element.transform(Snap.matrix()
-        .add(element.transform().localMatrix)
+      item.transform(Snap.matrix()
+        .add(item.transform().localMatrix)
         .translate(horizontalCenter - item.getBBox().cx, 0));
     });
   },

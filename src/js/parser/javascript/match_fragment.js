@@ -16,7 +16,7 @@ export default _.extend({}, Base, {
     var box, paths = [];
 
     this._content.position();
-    this._content.container.transform(this._repeat.contentPosition());
+    this._content.transform(this._repeat.contentPosition());
 
     box = this._content.getBBox();
 

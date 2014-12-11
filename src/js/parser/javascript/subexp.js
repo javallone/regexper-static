@@ -27,7 +27,7 @@ export default _.extend({}, Base, {
   _position() {
     this.regexp.position();
 
-    this.positionLabeledBox(this.regexp.container, {
+    this.positionLabeledBox(this.regexp, {
       padding: 10
     });
   },
