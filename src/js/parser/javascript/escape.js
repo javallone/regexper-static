@@ -13,12 +13,11 @@ export default _.extend({}, Base, {
   },
 
   _render() {
-    this.label = this.renderLabel(_.result(this, this.code()));
-
-    this.label.select('rect').attr({
-      rx: 3,
-      ry: 3
-    });
+    this.renderLabel(_.result(this, this.code()))
+      .select('rect').attr({
+        rx: 3,
+        ry: 3
+      });
   },
 
   // Escape code mappings

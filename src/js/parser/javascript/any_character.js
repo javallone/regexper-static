@@ -5,6 +5,6 @@ export default _.extend({}, Base, {
   type: 'any-character',
 
   _render() {
-    this.label = this.renderLabel('any character');
+    this.renderLabel('any character');
   }
 });

@@ -65,12 +65,11 @@ export default {
 
     this.container.addClass('placeholder');
 
-    this.label = this.renderLabel(this.textValue);
-
-    this.label.select('rect').attr({
-      rx: 10,
-      ry: 10
-    });
+    this.renderLabel(this.textValue)
+      .select('rect').attr({
+        rx: 10,
+        ry: 10
+      });
   },
 
   _position() {
