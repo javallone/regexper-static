@@ -12,7 +12,7 @@ export default _.extend({}, Base, {
     return this.esc.arg.textValue;
   },
 
-  render() {
+  _render() {
     this.label = this.renderLabel(this.container, _.result(this, this.code()));
 
     this.label.select('rect').attr({

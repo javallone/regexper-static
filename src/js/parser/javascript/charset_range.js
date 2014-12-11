@@ -4,7 +4,7 @@ import Base from './base.js';
 export default _.extend({}, Base, {
   type: 'charset-range',
 
-  render() {
+  _render() {
     this.first.setContainer(this.container.group());
     this.first.render();
 
@@ -17,7 +17,7 @@ export default _.extend({}, Base, {
       });
   },
 
-  position() {
+  _position() {
     var box;
 
     this.first.position();

@@ -4,7 +4,7 @@ import Base from './base.js';
 export default _.extend({}, Base, {
   type: 'match',
 
-  render() {
+  _render() {
     var parts = this.parts();
 
     if (this.anchorStart() || this.anchorEnd() || parts.length !== 1) {
@@ -26,33 +26,27 @@ export default _.extend({}, Base, {
           .addClass('anchor');
       }
     } else {
-      this.content = parts[0];
-      this.content.setContainer(this.container);
-      this.content.render();
+      this.proxy(parts[0]);
     }
   },
 
-  position() {
+  _position() {
     var items;
 
-    if (this.contents) {
-      if (this.contents.anchor_start) {
-        this.positionLabel(this.contents.anchor_start);
-      }
-
-      if (this.contents.anchor_end) {
-        this.positionLabel(this.contents.anchor_end);
-      }
-
-      _.invoke(this.contents.parts, 'position');
-
-      items = _(this.contents).values().flatten().value();
-      this.spaceHorizontally(items, {
-        padding: 10
-      });
-    } else {
-      this.content.position();
+    if (this.contents.anchor_start) {
+      this.positionLabel(this.contents.anchor_start);
     }
+
+    if (this.contents.anchor_end) {
+      this.positionLabel(this.contents.anchor_end);
+    }
+
+    _.invoke(this.contents.parts, 'position');
+
+    items = _(this.contents).values().flatten().value();
+    this.spaceHorizontally(items, {
+      padding: 10
+    });
   },
 
   anchorStart() {

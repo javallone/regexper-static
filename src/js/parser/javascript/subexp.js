@@ -12,7 +12,7 @@ export default _.extend({}, Base, {
     '?!': 'negative lookahead'
   },
 
-  render() {
+  _render() {
     var label = this.groupLabel();
 
     if (label) {
@@ -21,19 +21,16 @@ export default _.extend({}, Base, {
       this.regexp.setContainer(this.container.group());
       this.regexp.render();
     } else {
-      this.regexp.setContainer(this.container);
-      this.regexp.render();
+      this.proxy(this.regexp);
     }
   },
 
-  position() {
+  _position() {
     this.regexp.position();
 
-    if (this.groupLabel()) {
-      this.positionLabeledBox(this.regexp.container, {
-        padding: 10
-      });
-    }
+    this.positionLabeledBox(this.regexp.container, {
+      padding: 10
+    });
   },
 
   groupLabel() {

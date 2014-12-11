@@ -39,6 +39,24 @@ export default {
   },
 
   render() {
+    this._render();
+  },
+
+  position() {
+    if (this._proxy) {
+      this._proxy.position();
+    } else {
+      this._position();
+    }
+  },
+
+  proxy(node) {
+    this._proxy = node;
+    this._proxy.setContainer(this.container);
+    this._proxy.render();
+  },
+
+  _render() {
     console.log(this);
 
     this.container.addClass('placeholder');
@@ -51,7 +69,7 @@ export default {
     });
   },
 
-  position() {
+  _position() {
     this.positionLabel(this.label);
   },
 

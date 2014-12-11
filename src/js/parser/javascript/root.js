@@ -4,7 +4,7 @@ import Base from './base.js';
 export default _.extend({}, Base, {
   type: 'root',
 
-  render() {
+  _render() {
     this.regexp.setContainer(this.container.group().transform(Snap.matrix()
       .translate(10, 0)));
     this.regexp.render();
@@ -17,7 +17,7 @@ export default _.extend({}, Base, {
       .attr({ r: 5 });
   },
 
-  position() {
+  _position() {
     var contentBox;
 
     this.regexp.position();

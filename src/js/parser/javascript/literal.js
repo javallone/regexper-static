@@ -4,7 +4,7 @@ import Base from './base.js';
 export default _.extend({}, Base, {
   type: 'literal',
 
-  render() {
+  _render() {
     this.label = this.renderLabel(this.container, '"' + this.literal.textValue + '"');
 
     this.label.select('rect').attr({

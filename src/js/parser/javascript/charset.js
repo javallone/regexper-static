@@ -4,7 +4,7 @@ import Base from './base.js';
 export default _.extend({}, Base, {
   type: 'charset',
 
-  render() {
+  _render() {
     this.renderLabeledBox(this.invert() ? 'None of:' : 'One of:');
 
     this.partContainer = this.container.group();
@@ -15,7 +15,7 @@ export default _.extend({}, Base, {
     }).bind(this));
   },
 
-  position() {
+  _position() {
     _.invoke(this.parts.elements, 'position');
 
     this.spaceVertically(this.parts.elements, {
