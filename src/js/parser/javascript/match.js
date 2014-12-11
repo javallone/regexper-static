@@ -5,27 +5,24 @@ export default _.extend({}, Base, {
   type: 'match',
 
   _render() {
-    var parts = this.parts();
+    this.contents = { parts: this.parts() };
 
-    if (this.anchorStart() || this.anchorEnd() || parts.length !== 1) {
-      this.contents = {};
+    if (this.anchorStart()) {
+      this.contents.anchor_start = this.renderLabel('Start of line')
+        .addClass('anchor');
+    }
 
-      if (this.anchorStart()) {
-        this.contents.anchor_start = this.renderLabel('Start of line')
-          .addClass('anchor');
-      }
+    if (this.anchorEnd()) {
+      this.contents.anchor_end = this.renderLabel('End of line')
+        .addClass('anchor');
+    }
 
-      this.contents.parts = _.map(parts, (function(part) {
+    if (this.contents.anchor_start || this.contents.anchor_end || this.contents.parts.length !== 1) {
+      _.each(this.contents.parts, (function(part) {
         part.render(this.container.group());
-        return part;
       }).bind(this));
-
-      if (this.anchorEnd()) {
-        this.contents.anchor_end = this.renderLabel('End of line')
-          .addClass('anchor');
-      }
     } else {
-      this.proxy(parts[0]);
+      this.proxy(this.contents.parts[0]);
     }
   },
 
@@ -34,7 +31,7 @@ export default _.extend({}, Base, {
 
     _.invoke(this.contents.parts, 'position');
 
-    items = _(this.contents).values().flatten().value();
+    items = _(this.contents).at('anchor_start', 'parts', 'anchor_end').flatten().compact().value();
     this.spaceHorizontally(items, {
       padding: 10
     });
