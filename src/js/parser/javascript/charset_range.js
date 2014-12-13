@@ -6,7 +6,7 @@ export default _.extend({}, Base, {
   type: 'charset-range',
 
   _render() {
-    this.hyphen = this.container.text()
+    var hyphen = this.container.text()
       .attr({
         text: '-'
       });
@@ -14,12 +14,11 @@ export default _.extend({}, Base, {
     return Q.all([
       this.first.render(this.container.group()),
       this.last.render(this.container.group())
-    ]);
-  },
-
-  _position() {
-    this.spaceHorizontally([this.first, this.hyphen, this.last], {
-      padding: 5
-    });
+    ])
+      .then((() => {
+        this.spaceHorizontally([this.first, hyphen, this.last], {
+          padding: 5
+        });
+      }).bind(this));
   }
 });

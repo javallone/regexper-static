@@ -6,23 +6,24 @@ export default _.extend({}, Base, {
   type: 'charset',
 
   _render() {
+    var partContainer;
+
     this.renderLabeledBox(this.invert() ? 'None of:' : 'One of:');
 
-    this.partContainer = this.container.group();
+    partContainer = this.container.group();
 
-    return Q.all(_.map(this.parts.elements, (part => {
-      return part.render(this.partContainer.group());
-    }).bind(this)));
-  },
+    return Q.all(_.map(this.parts.elements, part => {
+      return part.render(partContainer.group());
+    }))
+      .then((() => {
+        this.spaceVertically(this.parts.elements, {
+          padding: 5
+        });
 
-  _position() {
-    this.spaceVertically(this.parts.elements, {
-      padding: 5
-    });
-
-    this.positionLabeledBox(this.partContainer, {
-      padding: 5
-    });
+        this.positionLabeledBox(partContainer, {
+          padding: 5
+        });
+      }).bind(this));
   },
 
   invert() {

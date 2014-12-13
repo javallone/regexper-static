@@ -18,16 +18,15 @@ export default _.extend({}, Base, {
     if (label) {
       this.renderLabeledBox(label);
 
-      return this.regexp.render(this.container.group());
+      return this.regexp.render(this.container.group())
+        .then((() => {
+          this.positionLabeledBox(this.regexp, {
+            padding: 10
+          });
+        }).bind(this));
     } else {
       return this.proxy(this.regexp);
     }
-  },
-
-  _position() {
-    this.positionLabeledBox(this.regexp, {
-      padding: 10
-    });
   },
 
   groupLabel() {

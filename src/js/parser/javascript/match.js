@@ -27,16 +27,15 @@ export default _.extend({}, Base, {
         return part.render(this.container.group());
       }).bind(this));
 
-      return Q.all(_([start, partPromises, end]).flatten().compact().value());
+      return Q.all(_([start, partPromises, end]).flatten().compact().value())
+        .then(((items) => {
+          this.spaceHorizontally(items, {
+            padding: 10
+          });
+        }).bind(this));
     } else {
       return this.proxy(parts[0]);
     }
-  },
-
-  _position(items) {
-    this.spaceHorizontally(items, {
-      padding: 10
-    });
   },
 
   anchorStart() {

@@ -47,9 +47,6 @@ export default {
     }
 
     var promise = this._render();
-    if (!this._proxy) {
-      promise = promise.then(this._position.bind(this));
-    }
     return promise.then(_.constant(this));
   },
 
@@ -70,8 +67,6 @@ export default {
       });
     });
   },
-
-  _position() {},
 
   spaceHorizontally(items, options) {
     var verticalCenter = 0;
