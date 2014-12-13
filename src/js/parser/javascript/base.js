@@ -7,8 +7,27 @@ export default {
     this.container.addClass(this.type);
   },
 
+  getAnchor() {
+    if (this._proxy) {
+      return this._proxy.getAnchor();
+    } else {
+      return this._getAnchor();
+    }
+  },
+
+  _getAnchor() {
+    var box = this.container.getBBox();
+
+    return {
+      atype: this.type,
+      ax: box.x,
+      ax2: box.x2,
+      ay: box.cy
+    };
+  },
+
   getBBox() {
-    return this.container.getBBox();
+    return _.extend(this.container.getBBox(), this.getAnchor());
   },
 
   transform(matrix) {
@@ -41,15 +60,40 @@ export default {
     return deferred.promise;
   },
 
+  renderAnchor() {
+    var box = this.getBBox(),
+        anchorLine;
+
+    this.container.path(box.path)
+      .attr({
+        style: 'stroke:#000;stroke-dasharray:2,2;;'
+      });
+    anchorLine = this.container.path(Snap.format('M{ax},{ay}H{ax2}', box))
+      .attr({
+        style: 'stroke:#f00;stroke-dasharray:2,2;',
+        'data-type': this.type,
+        'data-anchor-type': box.atype
+      });
+
+    console.log(box, anchorLine.node);
+  },
+
   render(container) {
     if (container) {
       this.setContainer(container);
     }
 
-    return this._render().then(_.constant(this));
+    return this._render()
+      .then((() => {
+        if (this.anchorDebug) {
+          this.renderAnchor();
+        }
+      }).bind(this))
+      .then(_.constant(this));
   },
 
   proxy(node) {
+    this.anchorDebug = false;
     return node.render(this.container);
   },
 
