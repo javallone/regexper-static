@@ -11,15 +11,13 @@ export default _.extend({}, Base, {
         partPromises;
 
     if (this.anchorStart()) {
-      start = this.renderLabel('Start of line').then(label => {
-        return label.addClass('anchor');
-      });
+      start = this.renderLabel('Start of line')
+        .invoke('addClass', 'anchor');
     }
 
     if (this.anchorEnd()) {
-      end = this.renderLabel('End of line').then(label => {
-        return label.addClass('anchor');
-      });
+      end = this.renderLabel('End of line')
+        .invoke('addClass', 'anchor');
     }
 
     if (start || end || parts.length !== 1) {

@@ -6,19 +6,19 @@ export default _.extend({}, Base, {
   type: 'charset-range',
 
   _render() {
-    var hyphen = this.container.text()
-      .attr({
-        text: '-'
-      });
+    var contents = [
+      this.first,
+      this.container.text()
+        .attr({ text: '-' }),
+      this.last
+    ];
 
     return Q.all([
       this.first.render(this.container.group()),
       this.last.render(this.container.group())
     ])
-      .then((() => {
-        this.spaceHorizontally([this.first, hyphen, this.last], {
-          padding: 5
-        });
-      }).bind(this));
+      .then(this.spaceHorizontally.bind(this, contents, {
+        padding: 5
+      }));
   }
 });
