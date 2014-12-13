@@ -120,43 +120,47 @@ export default {
     });
   },
 
-  renderLabeledBox(label) {
-    this.label = this.container.text()
-      .addClass([this.type, 'label'].join('-'))
-      .attr({
-        text: label
-      });
-
-    this.box = this.container.rect()
-      .addClass([this.type, 'box'].join('-'))
-      .attr({
-        rx: 3,
-        ry: 3
-      });
-  },
-
-  positionLabeledBox(content, options) {
-    var labelBox, contentBox;
+  renderLabeledBox(label, content, options) {
+    var deferred = Q.defer(),
+        label = this.container.text()
+          .addClass([this.type, 'label'].join('-'))
+          .attr({
+            text: label
+          }),
+        box = this.container.rect()
+          .addClass([this.type, 'box'].join('-'))
+          .attr({
+            rx: 3,
+            ry: 3
+          });
 
     _.defaults(options, {
       padding: 0
     });
 
-    labelBox = this.label.getBBox();
-    contentBox = content.getBBox();
+    this.container.prepend(label);
+    this.container.prepend(box);
 
-    this.label.transform(Snap.matrix()
-      .translate(0, labelBox.height));
+    setTimeout(deferred.resolve);
+    deferred.promise.then(() => {
+      var labelBox = label.getBBox(),
+          contentBox = content.getBBox();
 
-    this.box
-      .transform(Snap.matrix()
-        .translate(0, labelBox.height))
-      .attr({
-        width: Math.max(contentBox.width + options.padding * 2, labelBox.width),
-        height: contentBox.height + options.padding * 2
-      });
+      label.transform(Snap.matrix()
+        .translate(0, labelBox.height));
 
-    content.transform(Snap.matrix()
-      .translate(this.box.getBBox().cx - contentBox.cx, labelBox.height + options.padding));
+      box
+        .transform(Snap.matrix()
+          .translate(0, labelBox.height))
+        .attr({
+          width: Math.max(contentBox.width + options.padding * 2, labelBox.width),
+          height: contentBox.height + options.padding * 2
+        });
+
+      content.transform(Snap.matrix()
+        .translate(box.getBBox().cx - contentBox.cx, labelBox.height + options.padding));
+    });
+
+    return deferred.promise;
   }
 };

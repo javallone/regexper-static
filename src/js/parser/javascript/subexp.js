@@ -16,14 +16,10 @@ export default _.extend({}, Base, {
     var label = this.groupLabel();
 
     if (label) {
-      this.renderLabeledBox(label);
-
       return this.regexp.render(this.container.group())
-        .then((() => {
-          this.positionLabeledBox(this.regexp, {
-            padding: 10
-          });
-        }).bind(this));
+        .then(this.renderLabeledBox.bind(this, label, this.regexp, {
+          padding: 10
+        }));
     } else {
       return this.proxy(this.regexp);
     }
