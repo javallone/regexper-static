@@ -6,30 +6,34 @@ export default _.extend({}, Base, {
   type: 'match',
 
   _render() {
-    this.contents = { parts: this.parts() };
+    var start, end,
+        parts = this.parts(),
+        partPromises;
 
     if (this.anchorStart()) {
-      this.contents.anchor_start = this.renderLabel('Start of line')
-        .addClass('anchor');
+      start = this.renderLabel('Start of line').then(label => {
+        return label.addClass('anchor');
+      });
     }
 
     if (this.anchorEnd()) {
-      this.contents.anchor_end = this.renderLabel('End of line')
-        .addClass('anchor');
+      end = this.renderLabel('End of line').then(label => {
+        return label.addClass('anchor');
+      });
     }
 
-    if (this.contents.anchor_start || this.contents.anchor_end || this.contents.parts.length !== 1) {
-      return Q.all(_.map(this.contents.parts, (function(part) {
+    if (start || end || parts.length !== 1) {
+      partPromises = _.map(parts, (function(part) {
         return part.render(this.container.group());
-      }).bind(this)));
+      }).bind(this));
+
+      return Q.all(_([start, partPromises, end]).flatten().compact().value());
     } else {
-      return this.proxy(this.contents.parts[0]);
+      return this.proxy(parts[0]);
     }
   },
 
-  _position() {
-    var items = _(this.contents).at('anchor_start', 'parts', 'anchor_end').flatten().compact().value();
-
+  _position(items) {
     this.spaceHorizontally(items, {
       padding: 10
     });

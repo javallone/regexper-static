@@ -16,33 +16,29 @@ export default {
   },
 
   renderLabel(text) {
-    var group = this.container.group()
-      .addClass('label');
+    var deferred = Q.defer(),
+        group = this.container.group()
+          .addClass('label'),
+        rect = group.rect(),
+        text = group.text().attr({
+          text: text
+        });
 
-    group.rect();
+    setTimeout(deferred.resolve.bind(deferred, group));
+    deferred.promise.then(() => {
+      var box = text.getBBox(),
+          margin = 5;
 
-    group.text().attr({
-      text: text
+      text.transform(Snap.matrix()
+        .translate(margin, box.height + margin));
+
+      rect.attr({
+        width: box.width + 2 * margin,
+        height: box.height + 2 * margin
+      });
     });
 
-    this._labelGroups.push(group);
-
-    return group;
-  },
-
-  positionLabel(group) {
-    var text = group.select('text'),
-        rect = group.select('rect'),
-        box = text.getBBox(),
-        margin = 5;
-
-    text.transform(Snap.matrix()
-      .translate(margin, box.height + margin));
-
-    rect.attr({
-      width: box.width + 2 * margin,
-      height: box.height + 2 * margin
-    });
+    return deferred.promise;
   },
 
   render(container) {
@@ -50,15 +46,11 @@ export default {
       this.setContainer(container);
     }
 
-    this._labelGroups = [];
-    return this._render().then((function() {
-      if (!this._proxy) {
-        _.each(this._labelGroups, this.positionLabel.bind(this));
-        this._position();
-      }
-
-      return this;
-    }).bind(this));
+    var promise = this._render();
+    if (!this._proxy) {
+      promise = promise.then(this._position.bind(this));
+    }
+    return promise.then(_.constant(this));
   },
 
   proxy(node) {
@@ -66,25 +58,17 @@ export default {
     return this._proxy.render(this.container);
   },
 
-  terminalRender() {
-    var deferred = Q.defer();
-
-    setTimeout(() => { deferred.resolve() });
-    return deferred.promise;
-  },
-
   _render() {
     console.log(this.type, this);
 
     this.container.addClass('placeholder');
 
-    this.renderLabel(this.type + ': ' + this.textValue)
-      .select('rect').attr({
+    return this.renderLabel(this.type + ': ' + this.textValue).then(label => {
+      label.select('rect').attr({
         rx: 10,
         ry: 10
       });
-
-    return this.terminalRender();
+    });
   },
 
   _position() {},
