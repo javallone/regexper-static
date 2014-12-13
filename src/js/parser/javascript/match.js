@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Q from 'q';
 import Base from './base.js';
 
 export default _.extend({}, Base, {
@@ -18,20 +19,17 @@ export default _.extend({}, Base, {
     }
 
     if (this.contents.anchor_start || this.contents.anchor_end || this.contents.parts.length !== 1) {
-      _.each(this.contents.parts, (function(part) {
-        part.render(this.container.group());
-      }).bind(this));
+      return Q.all(_.map(this.contents.parts, (function(part) {
+        return part.render(this.container.group());
+      }).bind(this)));
     } else {
-      this.proxy(this.contents.parts[0]);
+      return this.proxy(this.contents.parts[0]);
     }
   },
 
   _position() {
-    var items;
+    var items = _(this.contents).at('anchor_start', 'parts', 'anchor_end').flatten().compact().value();
 
-    _.invoke(this.contents.parts, 'position');
-
-    items = _(this.contents).at('anchor_start', 'parts', 'anchor_end').flatten().compact().value();
     this.spaceHorizontally(items, {
       padding: 10
     });

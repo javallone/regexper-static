@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Q from 'q';
 import Base from './base.js';
 
 export default _.extend({}, Base, {
@@ -8,14 +9,14 @@ export default _.extend({}, Base, {
     var matches = this.matches();
 
     if (matches.length === 1) {
-      this.proxy(matches[0]);
+      return this.proxy(matches[0]);
     } else {
       this.matchContainer = this.container.group()
         .addClass('regexp-matches');
 
-      _.each(matches, (match => {
-        match.render(this.matchContainer.group());
-      }).bind(this));
+      return Q.all(_.map(matches, (match => {
+        return match.render(this.matchContainer.group());
+      }).bind(this)));
     }
   },
 
@@ -23,8 +24,6 @@ export default _.extend({}, Base, {
     var matches = this.matches(),
         containerBox,
         paths;
-
-    _.invoke(matches, 'position');
 
     this.spaceVertically(matches, {
       padding: 5

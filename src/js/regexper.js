@@ -88,30 +88,18 @@ export default class Regexper {
     parser.resetGroupCounter();
 
     return Q.fcall(parser.parse.bind(parser), expression)
+      .then(null, this.showError.bind(this))
+      .invoke('render', snap.group())
       .then((result) => {
-        result.render(snap.group());
-        return result;
-      }, this.showError.bind(this))
-      .then((result) => {
-        var deferred = Q.defer();
+        var box;
 
-        setTimeout(() => {
-          var box;
-
-          result.position();
-
-          box = result.getBBox();
-          result.container.transform(Snap.matrix()
-            .translate(padding - box.x, padding - box.y));
-          snap.attr({
-            width: box.width + padding * 2,
-            height: box.height + padding * 2
-          });
-
-          deferred.resolve();
+        box = result.getBBox();
+        result.container.transform(Snap.matrix()
+          .translate(padding - box.x, padding - box.y));
+        snap.attr({
+          width: box.width + padding * 2,
+          height: box.height + padding * 2
         });
-
-        return deferred.promise;
       });
   }
 }

@@ -18,6 +18,8 @@ export default _.extend({}, Base, {
         rx: 3,
         ry: 3
       });
+
+    return this.terminalRender();
   },
 
   // Escape code mappings

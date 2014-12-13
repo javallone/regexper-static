@@ -6,5 +6,6 @@ export default _.extend({}, Base, {
 
   _render() {
     this.renderLabel('any character');
+    return this.terminalRender();
   }
 });

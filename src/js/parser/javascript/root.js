@@ -5,7 +5,7 @@ export default _.extend({}, Base, {
   type: 'root',
 
   _render() {
-    this.regexp.render(this.container.group());
+    var promise = this.regexp.render(this.container.group());
     this.regexp.transform(Snap.matrix()
       .translate(10, 0));
 
@@ -15,14 +15,12 @@ export default _.extend({}, Base, {
     this.end = this.container.circle()
       .addClass('pin')
       .attr({ r: 5 });
+
+    return promise;
   },
 
   _position() {
-    var contentBox;
-
-    this.regexp.position();
-
-    contentBox = this.regexp.getBBox();
+    var contentBox = this.regexp.getBBox();
 
     this.start.transform(Snap.matrix()
       .translate(0, contentBox.cy));

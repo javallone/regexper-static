@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Q from 'q';
 import Base from './base.js';
 
 export default _.extend({}, Base, {
@@ -9,14 +10,12 @@ export default _.extend({}, Base, {
 
     this.partContainer = this.container.group();
 
-    _.each(this.parts.elements, (part => {
-      part.render(this.partContainer.group());
-    }).bind(this));
+    return Q.all(_.map(this.parts.elements, (part => {
+      return part.render(this.partContainer.group());
+    }).bind(this)));
   },
 
   _position() {
-    _.invoke(this.parts.elements, 'position');
-
     this.spaceVertically(this.parts.elements, {
       padding: 5
     });

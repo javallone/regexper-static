@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Q from 'q';
 
 export default {
   setContainer(container) {
@@ -50,37 +51,43 @@ export default {
     }
 
     this._labelGroups = [];
-    this._render();
-  },
+    return this._render().then((function() {
+      if (!this._proxy) {
+        _.each(this._labelGroups, this.positionLabel.bind(this));
+        this._position();
+      }
 
-  position() {
-    if (this._proxy) {
-      this._proxy.position();
-    } else {
-      _.each(this._labelGroups, this.positionLabel.bind(this));
-      this._position();
-    }
+      return this;
+    }).bind(this));
   },
 
   proxy(node) {
     this._proxy = node;
-    this._proxy.render(this.container);
+    return this._proxy.render(this.container);
+  },
+
+  terminalRender() {
+    var deferred = Q.defer();
+
+    setTimeout(() => { deferred.resolve() });
+    return deferred.promise;
   },
 
   _render() {
-    console.log(this);
+    console.log(this.type, this);
 
     this.container.addClass('placeholder');
 
-    this.renderLabel(this.textValue)
+    this.renderLabel(this.type + ': ' + this.textValue)
       .select('rect').attr({
         rx: 10,
         ry: 10
       });
+
+    return this.terminalRender();
   },
 
-  _position() {
-  },
+  _position() {},
 
   spaceHorizontally(items, options) {
     var verticalCenter = 0;

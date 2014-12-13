@@ -6,16 +6,15 @@ export default _.extend({}, Base, {
 
   _render() {
     if (this._repeat.textValue === '') {
-      this.proxy(this._content);
+      return this.proxy(this._content);
     } else {
-      this._content.render(this.container.group());
+      return this._content.render(this.container.group());
     }
   },
 
   _position() {
     var box, paths = [];
 
-    this._content.position();
     this._content.transform(this._repeat.contentPosition());
 
     box = this._content.getBBox();
