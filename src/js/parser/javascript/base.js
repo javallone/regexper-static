@@ -46,13 +46,11 @@ export default {
       this.setContainer(container);
     }
 
-    var promise = this._render();
-    return promise.then(_.constant(this));
+    return this._render().then(_.constant(this));
   },
 
   proxy(node) {
-    this._proxy = node;
-    return this._proxy.render(this.container);
+    return node.render(this.container);
   },
 
   _render() {
