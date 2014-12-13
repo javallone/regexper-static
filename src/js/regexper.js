@@ -81,9 +81,7 @@ export default class Regexper {
 
   renderRegexp(expression) {
     var snap = Snap(this.svg),
-        deferred = Q.defer(),
-        padding = this.padding,
-        result;
+        padding = this.padding;
 
     snap.selectAll('g').remove();
 
@@ -95,17 +93,25 @@ export default class Regexper {
         return result;
       }, this.showError.bind(this))
       .then((result) => {
-        var box;
+        var deferred = Q.defer();
 
-        result.position();
+        setTimeout(() => {
+          var box;
 
-        box = result.getBBox();
-        result.container.transform(Snap.matrix()
-          .translate(padding - box.x, padding - box.y));
-        snap.attr({
-          width: box.width + padding * 2,
-          height: box.height + padding * 2
+          result.position();
+
+          box = result.getBBox();
+          result.container.transform(Snap.matrix()
+            .translate(padding - box.x, padding - box.y));
+          snap.attr({
+            width: box.width + padding * 2,
+            height: box.height + padding * 2
+          });
+
+          deferred.resolve();
         });
+
+        return deferred.promise;
       });
   }
 }
