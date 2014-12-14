@@ -29,35 +29,7 @@ export default _.extend({}, Base, {
           });
 
           containerBox = this.getBBox();
-          paths = _.map(matches, match => {
-            var box = match.getBBox(),
-                direction = box.cy > containerBox.cy ? 1 : -1,
-                distance = Math.abs(box.cy - containerBox.cy),
-                pathStr;
-
-            if (distance >= 15) {
-              pathStr = [
-                'M10,{box.cy}m0,{shift}q0,{curve} 10,{curve}',
-                'M{containerBox.width},{box.cy}m30,{shift}q0,{curve} -10,{curve}'
-              ].join('');
-            } else {
-              pathStr = [
-                'M0,{containerBox.cy}c10,0 10,{anchor.y} 20,{anchor.y}',
-                'M{containerBox.width},{containerBox.cy}m40,0c-10,0 -10,{anchor.y} -20,{anchor.y}'
-              ].join('');
-            }
-
-            return Snap.format(pathStr, {
-              containerBox,
-              box,
-              shift: -10 * direction,
-              curve: 10 * direction,
-              anchor: {
-                x: box.x + 20,
-                y: box.cy - containerBox.cy
-              }
-            });
-          });
+          paths = _.map(matches, this.makeConnectorLine.bind(this, containerBox));
 
           paths.push(Snap.format([
             'M0,{box.cy}q10,0 10,-10V{top}',
@@ -74,6 +46,36 @@ export default _.extend({}, Base, {
             this.container.path(paths.join('')));
         }).bind(this));
     }
+  },
+
+  makeConnectorLine(containerBox, match) {
+    var box = match.getBBox(),
+        direction = box.cy > containerBox.cy ? 1 : -1,
+        distance = Math.abs(box.cy - containerBox.cy),
+        pathStr;
+
+    if (distance >= 15) {
+      pathStr = [
+        'M10,{box.cy}m0,{shift}q0,{curve} 10,{curve}',
+        'M{containerBox.width},{box.cy}m30,{shift}q0,{curve} -10,{curve}'
+      ].join('');
+    } else {
+      pathStr = [
+        'M0,{containerBox.cy}c10,0 10,{anchor.y} 20,{anchor.y}',
+        'M{containerBox.width},{containerBox.cy}m40,0c-10,0 -10,{anchor.y} -20,{anchor.y}'
+      ].join('');
+    }
+
+    return Snap.format(pathStr, {
+      containerBox,
+      box,
+      shift: -10 * direction,
+      curve: 10 * direction,
+      anchor: {
+        x: box.x + 20,
+        y: box.cy - containerBox.cy
+      }
+    });
   },
 
   matches() {
