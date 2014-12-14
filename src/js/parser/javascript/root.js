@@ -13,19 +13,9 @@ export default _.extend({}, Base, {
       .attr({ r: 5 });
 
     return this.regexp.render(this.container.group())
-      .then((() => {
-        var contentBox;
-
-        this.regexp.transform(Snap.matrix()
-          .translate(10, 0));
-
-        contentBox = this.regexp.getBBox();
-
-        this.start.transform(Snap.matrix()
-          .translate(0, contentBox.cy));
-        this.end.transform(Snap.matrix()
-          .translate(contentBox.x2 + 10, contentBox.cy));
-      }).bind(this));
+      .then(this.spaceHorizontally.bind(this, [this.start, this.regexp, this.end], {
+        padding: 10
+      }));
   },
 
   flags() {
