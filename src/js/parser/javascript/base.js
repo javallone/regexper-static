@@ -30,6 +30,15 @@ export default {
     return _.extend(this.container.getBBox(), this.getAnchor());
   },
 
+  normalizeBBox(box) {
+    return _.extend({
+      atype: 'normalize',
+      ax: box.x,
+      ax2: box.x2,
+      ay: box.cy
+    }, box);
+  },
+
   transform(matrix) {
     return this.container.transform(matrix);
   },
@@ -94,6 +103,7 @@ export default {
 
   proxy(node) {
     this.anchorDebug = false;
+    this._proxy = node;
     return node.render(this.container);
   },
 
@@ -111,7 +121,8 @@ export default {
   },
 
   spaceHorizontally(items, options) {
-    var verticalCenter = 0;
+    var verticalCenter = 0,
+        normalize = this.normalizeBBox;
 
     _.defaults(options, {
       padding: 0
@@ -123,17 +134,18 @@ export default {
       item.transform(Snap.matrix()
         .translate(offset, 0));
 
-      box = item.getBBox();
-
-      verticalCenter = Math.max(verticalCenter, box.cy);
+      box = normalize(item.getBBox());
+      verticalCenter = Math.max(verticalCenter, box.ay);
 
       return offset + options.padding + box.width;
     }, 0);
 
     _.each(items, item => {
+      var box = normalize(item.getBBox());
+
       item.transform(Snap.matrix()
         .add(item.transform().localMatrix)
-        .translate(0, verticalCenter - item.getBBox().cy));
+        .translate(0, verticalCenter - box.ay));
     });
   },
 

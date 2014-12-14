@@ -38,8 +38,8 @@ export default _.extend({}, Base, {
             'M{box.width},{box.cy}m40,0q-10,0 -10,10V{bottom}'
           ].join(''), {
             box: containerBox,
-            top: _.first(matches).getBBox().cy + 10,
-            bottom: _.last(matches).getBBox().cy - 10
+            top: _.first(matches).getBBox().ay + 10,
+            bottom: _.last(matches).getBBox().ay - 10
           }));
 
           this.container.prepend(
@@ -50,14 +50,14 @@ export default _.extend({}, Base, {
 
   makeConnectorLine(containerBox, match) {
     var box = match.getBBox(),
-        direction = box.cy > containerBox.cy ? 1 : -1,
-        distance = Math.abs(box.cy - containerBox.cy),
+        direction = box.ay > containerBox.cy ? 1 : -1,
+        distance = Math.abs(box.ay - containerBox.cy),
         pathStr;
 
     if (distance >= 15) {
       pathStr = [
-        'M10,{box.cy}m0,{shift}q0,{curve} 10,{curve}',
-        'M{containerBox.width},{box.cy}m30,{shift}q0,{curve} -10,{curve}'
+        'M10,{box.ay}m0,{shift}q0,{curve} 10,{curve}',
+        'M{containerBox.width},{box.ay}m30,{shift}q0,{curve} -10,{curve}'
       ].join('');
     } else {
       pathStr = [
@@ -73,7 +73,7 @@ export default _.extend({}, Base, {
       curve: 10 * direction,
       anchor: {
         x: box.x + 20,
-        y: box.cy - containerBox.cy
+        y: box.ay - containerBox.cy
       }
     });
   },
