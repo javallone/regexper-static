@@ -35,6 +35,21 @@ export default _.extend({}, Base, {
             this.container.prepend(
               this.container.path(paths.join('')));
           }
+        }).bind(this))
+        .then((() => {
+          var labelStr = this._repeat.label(),
+              label,
+              labelBox,
+              labelShift = (this._repeat.hasSkip() ? 5 : 0),
+              box = this.getBBox();
+
+          if (labelStr) {
+            label = this.container.text(0, 0, labelStr)
+              .addClass('repeat-label');
+            labelBox = label.getBBox();
+            label.transform(Snap.matrix()
+              .translate(box.x2 - labelBox.width - labelShift, box.y2 + labelBox.height));
+          }
         }).bind(this));
     }
   },
