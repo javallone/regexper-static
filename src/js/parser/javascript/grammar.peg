@@ -12,7 +12,6 @@ grammar JavascriptRegexp
   repeat_required <- "+" <RepeatRequired>
   repeat_optional <- "?" <RepeatOptional>
   repeat_spec <- ( "{" _min:[0-9]+ "," _max:[0-9]+ "}"
-                 / "{," _max:[0-9]+ "}"
                  / "{" _min:[0-9]+ ",}"
                  / "{" _exact:[0-9]+ "}" ) <RepeatSpec>
   repeat_greedy <- "?"
