@@ -101,6 +101,7 @@ header {
       @include background(linear-gradient(to bottom right, $green, $dark-green));
       background-color: $green;
       float: left;
+      cursor: pointer;
     }
 
     ul {
