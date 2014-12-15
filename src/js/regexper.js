@@ -26,7 +26,7 @@ export default class Regexper {
   submitListener(event) {
     event.preventDefault();
 
-    location.hash = this.field.value;
+    location.hash = encodeURIComponent(this.field.value);
   }
 
   hashchangeListener() {
