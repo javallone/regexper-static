@@ -18,21 +18,42 @@ export default class Regexper {
   }
 
   keypressListener(event) {
+    var evt;
+
     if (event.shiftKey && event.keyCode === 13) {
-      event.preventDefault();
-      this.form.dispatchEvent(new Event('submit'));
+      event.returnValue = false;
+      if (event.preventDefault) {
+        event.preventDefault();
+      }
+
+      evt = document.createEvent('Event');
+      evt.initEvent('submit', true, true);
+      this.form.dispatchEvent(evt);
     }
   }
 
   submitListener(event) {
     event.preventDefault();
 
-    location.hash = encodeURIComponent(this.field.value);
+    try {
+      this.disablePermalink = false;
+      location.hash = this.field.value;
+    }
+    catch(e) {
+      // Most likely failed to set the URL has (probably because the expression
+      // is too long). Turn off the permalink and just show the expression
+      this.disablePermalink = true;
+      this.showExpression(this.field.value);
+    }
   }
 
   hashchangeListener() {
     var expression = decodeURIComponent(location.hash.slice(1));
 
+    this.showExpression(expression);
+  }
+
+  showExpression(expression) {
     if (expression !== '') {
       this.field.value = expression;
 
@@ -62,10 +83,7 @@ export default class Regexper {
   }
 
   setState(state) {
-    var classList = this.root.classList;
-
-    classList.remove('is-loading', 'has-results', 'has-error');
-    classList.add(state);
+    this.root.className = state;
   }
 
   showError(message) {
@@ -79,11 +97,25 @@ export default class Regexper {
   updateLinks() {
     var blob, url;
 
-    blob = new Blob([this.svg.outerHTML], { type: 'image/svg+xml' });
-    url = URL.createObjectURL(blob);
+    try {
+      blob = new Blob([this.svg.parentNode.innerHTML], { type: 'image/svg+xml' });
+      url = URL.createObjectURL(blob);
+      window.blob = blob; // Blob object has to stick around for IE
 
-    this.download.setAttribute('href', url);
-    this.permalink.setAttribute('href', location);
+      this.download.setAttribute('href', url);
+    }
+    catch(e) {
+      // Blobs or URLs created from them don't work here.
+      // Giving up on the download link
+      this.download.parentNode.style.display = 'none';
+    }
+
+    if (this.disablePermalink) {
+      this.permalink.parentNode.style.display = 'none';
+    } else {
+      this.permalink.parentNode.style.display = null;
+      this.permalink.setAttribute('href', location.toString());
+    }
   }
 
   renderRegexp(expression) {

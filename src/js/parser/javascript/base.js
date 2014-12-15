@@ -93,20 +93,28 @@ export default {
   },
 
   doneRender() {
+    var evt, deferred = Q.defer();
+
     if (maxCounter === 0) {
       maxCounter = renderCounter;
     }
 
     renderCounter--;
-    document.body.dispatchEvent(new CustomEvent('updateStatus', {
-      detail: {
-        percentage: (maxCounter - renderCounter) / maxCounter
-      }
-    }));
+
+    evt = document.createEvent('Event');
+    evt.initEvent('updateStatus', true, true);
+    evt.detail = {
+      percentage: (maxCounter - renderCounter) / maxCounter
+    };
+    document.body.dispatchEvent(evt);
 
     if (renderCounter === 0) {
       maxCounter = 0;
     }
+
+    setTimeout(deferred.resolve.bind(deferred), 1);
+
+    return deferred.promise;
   },
 
   render(container) {

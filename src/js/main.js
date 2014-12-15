@@ -5,6 +5,9 @@ import Regexper from './regexper.js';
   regexper.bindListeners();
 
   setTimeout(() => {
-    window.dispatchEvent(new Event('hashchange'));
+    var evt = document.createEvent('Event');
+
+    evt.initEvent('hashchange', true, true);
+    window.dispatchEvent(evt);
   });
 }());
