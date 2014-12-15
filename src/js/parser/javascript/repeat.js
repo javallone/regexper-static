@@ -20,17 +20,16 @@ export default {
   },
 
   contentPosition() {
-    var x = 0, y = 0;
+    var x = 0;
 
     if (this.hasLoop()) {
       x = 10;
     }
 
     if (this.hasSkip()) {
-      y = 10;
       x = 15;
     }
 
-    return Snap.matrix().translate(x, y);
+    return Snap.matrix().translate(x, 0);
   }
 }

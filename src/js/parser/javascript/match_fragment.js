@@ -17,17 +17,17 @@ export default _.extend({}, Base, {
           box = this._content.getBBox();
 
           if (this._repeat.hasSkip()) {
-            paths.push(Snap.format('M0,{box.cy}q10,0 10,-10v-{vert}q0,-10 10,-10h{horiz}q10,0 10,10v{vert}q0,10 10,10', {
+            paths.push(Snap.format('M0,{box.ay}q10,0 10,-10v-{vert}q0,-10 10,-10h{horiz}q10,0 10,10v{vert}q0,10 10,10', {
               box,
-              vert: box.height / 2 - 10,
+              vert: Math.max(0, box.ay - box.y - 10),
               horiz: box.width - 10
             }));
           }
 
           if (this._repeat.hasLoop()) {
-            paths.push(Snap.format('M{box.x},{box.cy}q-10,0 -10,10v{vert}q0,10 10,10h{box.width}q10,0 10,-10v-{vert}q0,-10 -10,-10', {
+            paths.push(Snap.format('M{box.x},{box.ay}q-10,0 -10,10v{vert}q0,10 10,10h{box.width}q10,0 10,-10v-{vert}q0,-10 -10,-10', {
               box,
-              vert: box.height / 2 - 10
+              vert: box.y2 - box.ay - 10
             }));
           }
 
@@ -37,5 +37,16 @@ export default _.extend({}, Base, {
           }
         }).bind(this));
     }
+  },
+
+  _getAnchor() {
+    var anchor = this._content.getAnchor(),
+        matrix = this.transform().localMatrix;
+
+    return _.extend(anchor, {
+      ax: matrix.x(anchor.ax, anchor.ay),
+      ax2: matrix.x(anchor.ax2, anchor.ay),
+      ay: matrix.y(anchor.ax, anchor.ay)
+    });
   }
 });

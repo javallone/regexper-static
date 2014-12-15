@@ -36,4 +36,15 @@ export default _.extend({}, Base, {
   resetCounter() {
     groupCounter = 1;
   },
+
+  _getAnchor() {
+    var anchor = this.regexp.getAnchor(),
+        matrix = this.transform().localMatrix;
+
+    return _.extend(anchor, {
+      ax: matrix.x(anchor.ax, anchor.ay),
+      ax2: matrix.x(anchor.ax2, anchor.ay),
+      ay: matrix.y(anchor.ax, anchor.ay)
+    });
+  }
 });

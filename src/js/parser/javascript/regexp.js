@@ -31,20 +31,31 @@ export default _.extend({}, Base, {
           containerBox = this.getBBox();
           paths = _.map(matches, this.makeConnectorLine.bind(this, containerBox));
 
-          paths.push(Snap.format([
-            'M0,{box.cy}q10,0 10,-10V{top}',
-            'M0,{box.cy}q10,0 10,10V{bottom}',
-            'M{box.width},{box.cy}m40,0q-10,0 -10,-10V{top}',
-            'M{box.width},{box.cy}m40,0q-10,0 -10,10V{bottom}'
-          ].join(''), {
-            box: containerBox,
-            top: _.first(matches).getBBox().ay + 10,
-            bottom: _.last(matches).getBBox().ay - 10
-          }));
+          paths.push(this.makeSideLine(containerBox, _.first(matches)));
+          paths.push(this.makeSideLine(containerBox, _.last(matches)));
 
           this.container.prepend(
             this.container.path(paths.join('')));
         }).bind(this));
+    }
+  },
+
+  makeSideLine(containerBox, match) {
+    var box = match.getBBox(),
+        direction = box.ay > containerBox.cy ? 1 : -1,
+        distance = Math.abs(box.ay - containerBox.cy);
+
+    if (distance >= 15) {
+      return Snap.format([
+        'M0,{box.cy}q10,0 10,{shift}V{edge}',
+        'M{box.width},{box.cy}m40,0q-10,0 -10,{shift}V{edge}'
+      ].join(''), {
+        box: containerBox,
+        edge: box.ay - 10 * direction,
+        shift: 10 * direction
+      });
+    } else {
+      return '';
     }
   },
 

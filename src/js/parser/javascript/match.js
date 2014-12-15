@@ -27,6 +27,7 @@ export default _.extend({}, Base, {
 
       return Q.all(_([start, partPromises, end]).flatten().compact().value())
         .then(((items) => {
+          this.items = items;
           this.spaceHorizontally(items, {
             padding: 10
           });
@@ -58,5 +59,18 @@ export default _.extend({}, Base, {
 
       return result;
     }, []);
+  },
+
+  _getAnchor() {
+    var start = this.normalizeBBox(_.first(this.items).getBBox()),
+        end = this.normalizeBBox(_.last(this.items).getBBox()),
+        matrix = this.transform().localMatrix;
+
+    return {
+      atype: [start.atype, end.atype].join('/'),
+      ax: matrix.x(start.ax, start.ay),
+      ax2: matrix.x(end.ax2, end.ay),
+      ay: matrix.y(start.ax, start.ay)
+    };
   }
 });
