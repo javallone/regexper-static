@@ -48,7 +48,7 @@ export default {
         group = this.container.group()
           .addClass('label'),
         rect = group.rect(),
-        text = group.text(0, 0, text);
+        text = group.text(0, 0, _.flatten([text]));
 
     setTimeout(deferred.resolve.bind(deferred, group));
     deferred.promise.then(() => {
