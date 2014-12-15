@@ -25,6 +25,11 @@ export default _.extend({}, Base, {
           .translate(0, contentBox.ay));
         this.end.transform(Snap.matrix()
           .translate(contentBox.x2 + 10, contentBox.ay));
+
+        this.container.prepend(
+          this.container.path(Snap.format('M{box.ax},{box.ay}H0M{box.ax2},{box.ay}H{box.x2}h10', {
+            box: contentBox
+          })));
       }).bind(this));
   },
 

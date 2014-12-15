@@ -36,6 +36,14 @@ export default _.extend({}, Base, {
 
           this.container.prepend(
             this.container.path(paths.join('')));
+
+          matchContainer.prepend(
+            matchContainer.path(_.map(matches, match => {
+              return Snap.format('M0,{box.ay}h{box.ax}M{box.ax2},{box.ay}H{container.width}', {
+                box: match.getBBox(),
+                container: matchContainer.getBBox()
+              });
+            }).join('')));
         }).bind(this));
     }
   },

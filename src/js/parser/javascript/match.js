@@ -27,10 +27,29 @@ export default _.extend({}, Base, {
 
       return Q.all(_([start, partPromises, end]).flatten().compact().value())
         .then(((items) => {
+          var prev, next, paths;
+
           this.items = items;
           this.spaceHorizontally(items, {
             padding: 10
           });
+
+          prev = this.normalizeBBox(_.first(items).getBBox());
+          paths = _.map(items.slice(1), (item => {
+            var path;
+
+            next = this.normalizeBBox(item.getBBox());
+            path = Snap.format('M{prev.ax2},{prev.ay}H{next.ax}', {
+              prev,
+              next
+            });
+            prev = next;
+
+            return path;
+          }).bind(this));
+
+          this.container.prepend(
+            this.container.path(paths.join('')));
         }).bind(this));
     } else {
       return this.proxy(parts[0]);
