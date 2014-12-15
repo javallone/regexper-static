@@ -6,13 +6,21 @@ export default _.extend({}, Base, {
   type: 'charset',
 
   _render() {
+    var elements = _.unique(this.parts.elements, part => {
+      if (part.literal) {
+        return part.literal.textValue;
+      } else {
+        return part.textValue;
+      }
+    });
+
     this.partContainer = this.container.group();
 
-    return Q.all(_.map(this.parts.elements, (part => {
+    return Q.all(_.map(elements, (part => {
       return part.render(this.partContainer.group());
     }).bind(this)))
       .then((() => {
-        this.spaceVertically(this.parts.elements, {
+        this.spaceVertically(elements, {
           padding: 5
         });
 
