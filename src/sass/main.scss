@@ -68,7 +68,26 @@ header {
   }
 
   nav {
-    @include adjust-font-size-to($base-font-size, 2);
+    overflow: hidden;
+
+    ul {
+      @include inline-block-list;
+      display: inline-block;
+    }
+
+    a {
+      @include adjust-font-size-to($base-font-size, 2);
+      @include unstyled-link;
+    }
+
+    .source {
+      float: right;
+
+      img {
+        vertical-align: middle;
+        margin-right: rhythm(1/4);
+      }
+    }
   }
 }
 
