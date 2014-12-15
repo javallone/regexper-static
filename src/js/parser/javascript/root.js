@@ -22,9 +22,9 @@ export default _.extend({}, Base, {
         contentBox = this.regexp.getBBox();
 
         this.start.transform(Snap.matrix()
-          .translate(0, contentBox.cy));
+          .translate(0, contentBox.ay));
         this.end.transform(Snap.matrix()
-          .translate(contentBox.x2 + 10, contentBox.cy));
+          .translate(contentBox.x2 + 10, contentBox.ay));
       }).bind(this));
   },
 
