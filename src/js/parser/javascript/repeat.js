@@ -8,7 +8,7 @@ export default {
   },
 
   greedy() {
-    return (this._greedy.textValue !== '');
+    return (this._greedy.textValue === '');
   },
 
   hasSkip() {

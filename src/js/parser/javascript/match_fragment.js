@@ -22,6 +22,12 @@ export default _.extend({}, Base, {
               vert: Math.max(0, box.ay - box.y - 10),
               horiz: box.width - 10
             }));
+
+            if (!this._repeat.greedy()) {
+              paths.push(Snap.format('M0,{box.ay}m10,-15l5,5m-5,-5l-5,5', {
+                box
+              }));
+            }
           }
 
           if (this._repeat.hasLoop()) {
@@ -29,6 +35,12 @@ export default _.extend({}, Base, {
               box,
               vert: box.y2 - box.ay - 10
             }));
+
+            if (this._repeat.greedy()) {
+              paths.push(Snap.format('M{box.x2},{box.ay}m10,15l5,-5m-5,5l-5,-5', {
+                box
+              }));
+            }
           }
 
           if (paths.length) {
