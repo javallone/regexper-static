@@ -48,9 +48,7 @@ export default {
         group = this.container.group()
           .addClass('label'),
         rect = group.rect(),
-        text = group.text().attr({
-          text: text
-        });
+        text = group.text(0, 0, text);
 
     setTimeout(deferred.resolve.bind(deferred, group));
     deferred.promise.then(() => {
@@ -58,7 +56,7 @@ export default {
           margin = 5;
 
       text.transform(Snap.matrix()
-        .translate(margin, box.height + margin));
+        .translate(margin, box.height / 2 + 2 * margin));
 
       rect.attr({
         width: box.width + 2 * margin,
