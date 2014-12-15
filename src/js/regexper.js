@@ -10,6 +10,7 @@ export default class Regexper {
     this.error = root.querySelector('#error');
     this.permalink = root.querySelector('a[data-glyph="link-intact"]');
     this.download = root.querySelector('a[data-glyph="data-transfer-download"]');
+    this.percentage = root.querySelector('#progress div');
     this.svg = root.querySelector('#regexp-render svg');
 
     this.padding = 10;
@@ -46,12 +47,18 @@ export default class Regexper {
     }
   }
 
+  updatePercentage(event) {
+    this.percentage.style.width = event.detail.percentage * 100 + '%';
+  }
+
   bindListeners() {
     this.field.addEventListener('keypress', this.keypressListener.bind(this));
 
     this.form.addEventListener('submit', this.submitListener.bind(this));
 
     window.addEventListener('hashchange', this.hashchangeListener.bind(this));
+
+    this.root.addEventListener('updateStatus', this.updatePercentage.bind(this));
   }
 
   setState(state) {

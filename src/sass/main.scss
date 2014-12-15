@@ -4,6 +4,7 @@
 @import 'compass/typography/lists/inline-block-list';
 @import 'compass/typography/vertical_rhythm';
 @import 'compass/css3/box-shadow';
+@import 'compass/css3/border-radius';
 @import 'compass/css3/user-interface';
 @import 'compass/css3/animation';
 @import 'compass/css3/transform';
@@ -163,7 +164,7 @@ header {
       display: inline-block;
       position: absolute;
       border: 3px solid $green;
-      border-radius: 50%;
+      @include border-radius(50%);
 
       @include animation(bounce 2.0s infinite ease-in-out);
     }
@@ -189,6 +190,32 @@ header {
   @include keyframes(bounce) {
     0%, 100% { @include transform(scale(0.0)); }
     50% { @include transform(scale(1.0)); }
+  }
+}
+
+#progress {
+  width: rhythm(20);
+  height: rhythm(1/2);
+  border: 1px solid $dark-green;
+  overflow: hidden;
+  margin: 0 auto;
+  margin-top: rhythm(1);
+
+  div {
+    background: $green;
+    @include background-image(linear-gradient(
+      -45deg,
+      $green 25%,
+      $light-green 25%,
+      $light-green 50%,
+      $green 50%,
+      $green 75%,
+      $light-green 75%,
+      $light-green 100%
+    ));
+    background-size: rhythm(2) rhythm(2);
+    background-repeat: repeat-x;
+    height: 100%;
   }
 }
 

@@ -1,5 +1,6 @@
 $green: #bada55;
-$dark-green: #89a20c;
+$dark-green: shade($green, 25%);
+$light-green: tint($green, 25%);
 $gray: #6b6659;
 $tan: #cbcbba;
 $red: #b3151a;

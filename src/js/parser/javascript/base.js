@@ -1,6 +1,9 @@
 import _ from 'lodash';
 import Q from 'q';
 
+var renderCounter = 0,
+    maxCounter = 0;
+
 export default {
   setContainer(container) {
     this.container = container;
@@ -85,17 +88,40 @@ export default {
     console.log(box, anchorLine.node);
   },
 
+  startRender() {
+    renderCounter++;
+  },
+
+  doneRender() {
+    if (maxCounter === 0) {
+      maxCounter = renderCounter;
+    }
+
+    renderCounter--;
+    document.body.dispatchEvent(new CustomEvent('updateStatus', {
+      detail: {
+        percentage: (maxCounter - renderCounter) / maxCounter
+      }
+    }));
+
+    if (renderCounter === 0) {
+      maxCounter = 0;
+    }
+  },
+
   render(container) {
     if (container) {
       this.setContainer(container);
     }
 
+    this.startRender();
     return this._render()
       .then((() => {
         if (this.anchorDebug) {
           this.renderAnchor();
         }
       }).bind(this))
+      .then(this.doneRender.bind(this))
       .then(_.constant(this));
   },
 
