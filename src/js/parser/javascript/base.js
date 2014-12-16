@@ -78,7 +78,7 @@ export default {
       .attr({
         style: 'stroke:#000;stroke-dasharray:2,2;;'
       });
-    anchorLine = this.container.path(Snap.format('M{ax},{ay}H{ax2}', box))
+    anchorLine = this.container.path(`M${box.ax},${box.ay}H${box.ax2}`)
       .attr({
         style: 'stroke:#f00;stroke-dasharray:2,2;',
         'data-type': this.type,

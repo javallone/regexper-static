@@ -17,29 +17,23 @@ export default _.extend({}, Base, {
           box = this._content.getBBox();
 
           if (this._repeat.hasSkip()) {
-            paths.push(Snap.format('M0,{box.ay}q10,0 10,-10v-{vert}q0,-10 10,-10h{horiz}q10,0 10,10v{vert}q0,10 10,10', {
-              box,
-              vert: Math.max(0, box.ay - box.y - 10),
-              horiz: box.width - 10
-            }));
+            let vert = Math.max(0, box.ay - box.y - 10),
+                horiz = box.width - 10;
+
+            paths.push(`M0,${box.ay}q10,0 10,-10v${-vert}q0,-10 10,-10h${horiz}q10,0 10,10v${vert}q0,10 10,10`);
 
             if (!this._repeat.greedy()) {
-              paths.push(Snap.format('M0,{box.ay}m10,-15l5,5m-5,-5l-5,5', {
-                box
-              }));
+              paths.push(`M10,${box.ay - 15}l5,5m-5,-5l-5,5`);
             }
           }
 
           if (this._repeat.hasLoop()) {
-            paths.push(Snap.format('M{box.x},{box.ay}q-10,0 -10,10v{vert}q0,10 10,10h{box.width}q10,0 10,-10v-{vert}q0,-10 -10,-10', {
-              box,
-              vert: box.y2 - box.ay - 10
-            }));
+            let vert = box.y2 - box.ay - 10;
+
+            paths.push(`M${box.x},${box.ay}q-10,0 -10,10v${vert}q0,10 10,10h${box.width}q10,0 10,-10v${-vert}q0,-10 -10,-10`);
 
             if (this._repeat.greedy()) {
-              paths.push(Snap.format('M{box.x2},{box.ay}m10,15l5,-5m-5,5l-5,-5', {
-                box
-              }));
+              paths.push(`M${box.x2 + 10},${box.ay + 15}l5,-5m-5,5l-5,-5`);
             }
           }
 

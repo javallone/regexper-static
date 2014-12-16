@@ -39,10 +39,10 @@ export default _.extend({}, Base, {
 
           matchContainer.prepend(
             matchContainer.path(_.map(matches, match => {
-              return Snap.format('M0,{box.ay}h{box.ax}M{box.ax2},{box.ay}H{container.width}', {
-                box: match.getBBox(),
-                container: matchContainer.getBBox()
-              });
+              var box = match.getBBox(),
+                  container = matchContainer.getBBox();
+
+              return `M0,${box.ay}h${box.ax}M${box.ax2},${box.ay}H${container.width}`;
             }).join('')));
         }).bind(this));
     }
@@ -54,14 +54,13 @@ export default _.extend({}, Base, {
         distance = Math.abs(box.ay - containerBox.cy);
 
     if (distance >= 15) {
-      return Snap.format([
-        'M0,{box.cy}q10,0 10,{shift}V{edge}',
-        'M{box.width},{box.cy}m40,0q-10,0 -10,{shift}V{edge}'
-      ].join(''), {
-        box: containerBox,
-        edge: box.ay - 10 * direction,
-        shift: 10 * direction
-      });
+      let edge = box.ay - 10 * direction,
+          shift = 10 * direction;
+
+      return [
+        `M0,${containerBox.cy}q10,0 10,${shift}V${edge}`,
+        `M${containerBox.width + 40},${containerBox.cy}q-10,0 -10,${shift}V${edge}`
+      ].join('');
     } else {
       return '';
     }
@@ -70,31 +69,23 @@ export default _.extend({}, Base, {
   makeConnectorLine(containerBox, match) {
     var box = match.getBBox(),
         direction = box.ay > containerBox.cy ? 1 : -1,
-        distance = Math.abs(box.ay - containerBox.cy),
-        pathStr;
+        distance = Math.abs(box.ay - containerBox.cy);
 
     if (distance >= 15) {
-      pathStr = [
-        'M10,{box.ay}m0,{shift}q0,{curve} 10,{curve}',
-        'M{containerBox.width},{box.ay}m30,{shift}q0,{curve} -10,{curve}'
+      let curve = 10 * direction;
+
+      return [
+        `M10,${box.ay - curve}q0,${curve} 10,${curve}`,
+        `M${containerBox.width + 30},${box.ay - curve}q0,${curve} -10,${curve}`
       ].join('');
     } else {
-      pathStr = [
-        'M0,{containerBox.cy}c10,0 10,{anchor.y} 20,{anchor.y}',
-        'M{containerBox.width},{containerBox.cy}m40,0c-10,0 -10,{anchor.y} -20,{anchor.y}'
+      let anchor = box.ay - containerBox.cy;
+
+      return [
+        `M0,${containerBox.cy}c10,0 10,${anchor} 20,${anchor}`,
+        `M${containerBox.width + 40},${containerBox.cy}c-10,0 -10,${anchor} -20,${anchor}`
       ].join('');
     }
-
-    return Snap.format(pathStr, {
-      containerBox,
-      box,
-      shift: -10 * direction,
-      curve: 10 * direction,
-      anchor: {
-        x: box.x + 20,
-        y: box.ay - containerBox.cy
-      }
-    });
   },
 
   matches() {

@@ -39,10 +39,7 @@ export default _.extend({}, Base, {
             var path;
 
             next = this.normalizeBBox(item.getBBox());
-            path = Snap.format('M{prev.ax2},{prev.ay}H{next.ax}', {
-              prev,
-              next
-            });
+            path = `M${prev.ax2},${prev.ay}H${next.ax}`;
             prev = next;
 
             return path;

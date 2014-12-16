@@ -14,22 +14,20 @@ export default _.extend({}, Base, {
 
     return this.regexp.render(this.container.group())
       .then((() => {
-        var contentBox;
+        var box;
 
         this.regexp.transform(Snap.matrix()
           .translate(10, 0));
 
-        contentBox = this.regexp.getBBox();
+        box = this.regexp.getBBox();
 
         this.start.transform(Snap.matrix()
-          .translate(0, contentBox.ay));
+          .translate(0, box.ay));
         this.end.transform(Snap.matrix()
-          .translate(contentBox.x2 + 10, contentBox.ay));
+          .translate(box.x2 + 10, box.ay));
 
         this.container.prepend(
-          this.container.path(Snap.format('M{box.ax},{box.ay}H0M{box.ax2},{box.ay}H{box.x2}h10', {
-            box: contentBox
-          })));
+          this.container.path(`M${box.ax},${box.ay}H0M${box.ax2},${box.ay}H${box.x2 + 10}`));
       }).bind(this));
   },
 
