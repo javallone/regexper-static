@@ -5,6 +5,23 @@ export default _.extend({}, Base, {
   type: 'root',
 
   _render() {
+    var flags = this.flags(),
+        flagLabels = [];
+
+    if (flags.global) {
+      flagLabels.push('Global');
+    }
+    if (flags.ignore_case) {
+      flagLabels.push('Ignore Case');
+    }
+    if (flags.multiline) {
+      flagLabels.push('Multiline');
+    }
+
+    if (flagLabels.length > 0) {
+      this.flagText = this.container.text(0, 0, `Flags: ${flagLabels.join(', ')}`);
+    }
+
     this.start = this.container.circle()
       .addClass('pin')
       .attr({ r: 5 });
@@ -14,10 +31,15 @@ export default _.extend({}, Base, {
 
     return this.regexp.render(this.container.group())
       .then(() => {
-        var box;
+        var box,
+            offset = 0;
+
+        if (this.flagText) {
+          offset = this.flagText.getBBox().height;
+        }
 
         this.regexp.transform(Snap.matrix()
-          .translate(10, 0));
+          .translate(10, offset));
 
         box = this.regexp.getBBox();
 
