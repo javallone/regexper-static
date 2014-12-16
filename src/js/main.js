@@ -2,12 +2,15 @@ import Regexper from './regexper.js';
 
 (function() {
   var regexper = new Regexper(document.body);
-  regexper.bindListeners();
 
-  setTimeout(() => {
-    var evt = document.createEvent('Event');
+  if (document.body.querySelector('#content')) {
+    regexper.bindListeners();
 
-    evt.initEvent('hashchange', true, true);
-    window.dispatchEvent(evt);
-  });
+    setTimeout(() => {
+      var evt = document.createEvent('Event');
+
+      evt.initEvent('hashchange', true, true);
+      window.dispatchEvent(evt);
+    });
+  }
 }());
