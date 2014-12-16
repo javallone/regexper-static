@@ -33,40 +33,25 @@ export default class Regexper {
   }
 
   submitListener(event) {
-    event.preventDefault();
+    event.returnValue = false;
+    if (event.preventDefault) {
+      event.preventDefault();
+    }
 
     try {
-      this.disablePermalink = false;
-      location.hash = this.field.value;
+      this._setHash(this.field.value);
     }
     catch(e) {
       // Most likely failed to set the URL has (probably because the expression
       // is too long). Turn off the permalink and just show the expression
-      this.disablePermalink = true;
+      this.permalinkEnabled = false;
       this.showExpression(this.field.value);
     }
   }
 
   hashchangeListener() {
-    var expression = decodeURIComponent(location.hash.slice(1));
-
-    this.showExpression(expression);
-  }
-
-  showExpression(expression) {
-    this.field.value = expression;
-    this.state = '';
-
-    if (expression !== '') {
-      this.state = 'is-loading';
-
-      this.renderRegexp(expression.replace(/\n/g, '\\n'))
-        .then(() => {
-          this.state = 'has-results';
-          this.updateLinks();
-        })
-        .done();
-    }
+    this.permalinkEnabled = true;
+    this.showExpression(this._getHash());
   }
 
   updatePercentage(event) {
@@ -80,27 +65,50 @@ export default class Regexper {
     window.addEventListener('hashchange', this.hashchangeListener.bind(this));
   }
 
+  _setHash(hash) {
+    location.hash = encodeURIComponent(hash);
+  }
+
+  _getHash() {
+    return decodeURIComponent(location.hash.slice(1));
+  }
+
   set state(state) {
     this.root.className = state;
   }
 
-  showError(message) {
-    this.state = 'has-error';
-    this.error.innerHTML = '';
-    this.error.appendChild(document.createTextNode(message));
+  get state() {
+    return this.root.className;
+  }
 
-    throw message;
+  showExpression(expression) {
+    this.field.value = expression;
+    this.state = '';
+
+    if (expression !== '') {
+      this.state = 'is-loading';
+
+      this.renderRegexp(expression)
+        .then(() => {
+          this.state = 'has-results';
+          this.updateLinks();
+        })
+        .done();
+    }
+  }
+
+  buildBlobURL(content) {
+    blob = new Blob([content], { type: 'image/svg+xml' });
+    window.blob = blob; // Blob object has to stick around for IE
+    return URL.createObjectURL(blob);
   }
 
   updateLinks() {
     var blob, url;
 
     try {
-      blob = new Blob([this.svg.parentNode.innerHTML], { type: 'image/svg+xml' });
-      url = URL.createObjectURL(blob);
-      window.blob = blob; // Blob object has to stick around for IE
-
-      this.download.setAttribute('href', url);
+      this.download.parentNode.style.display = null;
+      this.download.href = this.buildBlobURL(this.svg.parentNode.innerHTML);
     }
     catch(e) {
       // Blobs or URLs created from them don't work here.
@@ -108,11 +116,11 @@ export default class Regexper {
       this.download.parentNode.style.display = 'none';
     }
 
-    if (this.disablePermalink) {
-      this.permalink.parentNode.style.display = 'none';
-    } else {
+    if (this.permalinkEnabled) {
       this.permalink.parentNode.style.display = null;
-      this.permalink.setAttribute('href', location.toString());
+      this.permalink.href = location.toString();
+    } else {
+      this.permalink.parentNode.style.display = 'none';
     }
   }
 
@@ -123,8 +131,14 @@ export default class Regexper {
 
     parser.resetGroupCounter();
 
-    return Q.fcall(parser.parse.bind(parser), expression)
-      .then(null, this.showError.bind(this))
+    return Q.fcall(parser.parse.bind(parser), expression.replace(/\n/g, '\\n'))
+      .then(null, message => {
+        this.state = 'has-error';
+        this.error.innerHTML = '';
+        this.error.appendChild(document.createTextNode(message));
+
+        throw message;
+      })
       .invoke('render', snap.group())
       .then(result => {
         var box;
