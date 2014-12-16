@@ -41,19 +41,19 @@ export default {
           if (times === 1) {
             return 'once';
           } else {
-            return times + ' times';
+            return `${times} times`;
           }
         };
 
     if (minimum >= 2 && maximum === -1) {
-      return (minimum - 1) + '+ times';
+      return `${minimum - 1}+ times`;
     } else if (minimum <= 1 && maximum >= 2) {
-      return 'at most ' + formatTimes(maximum - 1);
+      return `at most ${formatTimes(maximum - 1)}`;
     } else if (minimum >= 2 && maximum >= 2) {
       if (minimum === maximum) {
         return formatTimes(minimum - 1);
       } else {
-        return (minimum - 1) + '...' + formatTimes(maximum - 1);
+        return `${minimum - 1}...${formatTimes(maximum - 1)}`;
       }
     }
   }
