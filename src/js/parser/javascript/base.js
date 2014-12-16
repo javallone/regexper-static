@@ -172,13 +172,13 @@ export default {
       return offset + options.padding + box.width;
     }, 0);
 
-    _.each(items, item => {
-      var box = normalize(item.getBBox());
+    for (var item of items) {
+      let box = normalize(item.getBBox());
 
       item.transform(Snap.matrix()
         .add(item.transform().localMatrix)
         .translate(0, verticalCenter - box.ay));
-    });
+    }
   },
 
   spaceVertically(items, options) {
@@ -201,11 +201,11 @@ export default {
       return offset + options.padding + box.height;
     }, 0);
 
-    _.each(items, item => {
+    for (var item of items) {
       item.transform(Snap.matrix()
         .add(item.transform().localMatrix)
         .translate(horizontalCenter - item.getBBox().cx, 0));
-    });
+    }
   },
 
   renderLabeledBox(label, content, options) {
