@@ -55,14 +55,14 @@ export default class Regexper {
 
   showExpression(expression) {
     this.field.value = expression;
-    this.setState('');
+    this.state = '';
 
     if (expression !== '') {
-      this.setState('is-loading');
+      this.state = 'is-loading';
 
       this.renderRegexp(expression.replace(/\n/g, '\\n'))
         .then(() => {
-          this.setState('has-results');
+          this.state = 'has-results';
           this.updateLinks();
         })
         .done();
@@ -75,20 +75,17 @@ export default class Regexper {
 
   bindListeners() {
     this.field.addEventListener('keypress', this.keypressListener.bind(this));
-
     this.form.addEventListener('submit', this.submitListener.bind(this));
-
-    window.addEventListener('hashchange', this.hashchangeListener.bind(this));
-
     this.root.addEventListener('updateStatus', this.updatePercentage.bind(this));
+    window.addEventListener('hashchange', this.hashchangeListener.bind(this));
   }
 
-  setState(state) {
+  set state(state) {
     this.root.className = state;
   }
 
   showError(message) {
-    this.setState('has-error');
+    this.state = 'has-error';
     this.error.innerHTML = '';
     this.error.appendChild(document.createTextNode(message));
 
