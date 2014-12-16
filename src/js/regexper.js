@@ -59,7 +59,7 @@ export default class Regexper {
 
       this.setState('is-loading');
 
-      this.renderRegexp(expression.replace(/[\r\n]/g, ''))
+      this.renderRegexp(expression.replace(/\n/g, '\\n'))
         .then(() => {
           this.setState('has-results');
           this.updateLinks();
