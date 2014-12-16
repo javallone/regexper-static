@@ -234,7 +234,7 @@ header {
   font-family: monospace;
   font-weight: bold;
   display: none;
-  overflow-x: scroll;
+  overflow-x: auto;
 
   body.has-error & {
     display: block;
