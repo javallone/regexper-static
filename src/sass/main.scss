@@ -105,7 +105,7 @@ header {
       outline: none;
       background: $tan;
       padding: 0 0.5em;
-      width: 100%;
+      width: 100% !important; // "!important" prevents user changing width
       box-sizing: border-box;
       font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
 
@@ -227,6 +227,7 @@ header {
   font-family: monospace;
   font-weight: bold;
   display: none;
+  overflow-x: scroll;
 
   body.has-error & {
     display: block;
