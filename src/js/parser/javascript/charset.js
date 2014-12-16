@@ -16,10 +16,10 @@ export default _.extend({}, Base, {
 
     this.partContainer = this.container.group();
 
-    return Q.all(_.map(elements, (part => {
+    return Q.all(_.map(elements, part => {
       return part.render(this.partContainer.group());
-    }).bind(this)))
-      .then((() => {
+    }))
+      .then(() => {
         this.spaceVertically(elements, {
           padding: 5
         });
@@ -27,7 +27,7 @@ export default _.extend({}, Base, {
         return this.renderLabeledBox(this.invert() ? 'None of:' : 'One of:', this.partContainer, {
           padding: 5
         });
-      }).bind(this));
+      });
   },
 
   _getAnchor() {

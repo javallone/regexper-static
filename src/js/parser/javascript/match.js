@@ -21,12 +21,12 @@ export default _.extend({}, Base, {
     }
 
     if (start || end || parts.length !== 1) {
-      partPromises = _.map(parts, (function(part) {
+      partPromises = _.map(parts, part => {
         return part.render(this.container.group());
-      }).bind(this));
+      });
 
       return Q.all(_([start, partPromises, end]).flatten().compact().value())
-        .then(((items) => {
+        .then(items => {
           var prev, next, paths;
 
           this.items = items;
@@ -35,7 +35,7 @@ export default _.extend({}, Base, {
           });
 
           prev = this.normalizeBBox(_.first(items).getBBox());
-          paths = _.map(items.slice(1), (item => {
+          paths = _.map(items.slice(1), item => {
             var path;
 
             next = this.normalizeBBox(item.getBBox());
@@ -43,11 +43,11 @@ export default _.extend({}, Base, {
             prev = next;
 
             return path;
-          }).bind(this));
+          });
 
           this.container.prepend(
             this.container.path(paths.join('')));
-        }).bind(this));
+        });
     } else {
       return this.proxy(parts[0]);
     }

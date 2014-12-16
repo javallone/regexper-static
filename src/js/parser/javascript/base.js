@@ -124,11 +124,11 @@ export default {
 
     this.startRender();
     return this._render()
-      .then((() => {
+      .then(() => {
         if (this.anchorDebug) {
           this.renderAnchor();
         }
-      }).bind(this))
+      })
       .then(this.doneRender.bind(this))
       .then(_.constant(this));
   },

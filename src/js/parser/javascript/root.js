@@ -13,7 +13,7 @@ export default _.extend({}, Base, {
       .attr({ r: 5 });
 
     return this.regexp.render(this.container.group())
-      .then((() => {
+      .then(() => {
         var box;
 
         this.regexp.transform(Snap.matrix()
@@ -28,7 +28,7 @@ export default _.extend({}, Base, {
 
         this.container.prepend(
           this.container.path(`M${box.ax},${box.ay}H0M${box.ax2},${box.ay}H${box.x2 + 10}`));
-      }).bind(this));
+      });
   },
 
   flags() {

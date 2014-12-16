@@ -60,10 +60,10 @@ export default class Regexper {
       this.setState('is-loading');
 
       this.renderRegexp(expression.replace(/[\r\n]/g, ''))
-        .then((() => {
+        .then(() => {
           this.setState('has-results');
           this.updateLinks();
-        }).bind(this))
+        })
         .done();
     }
   }
@@ -119,8 +119,7 @@ export default class Regexper {
   }
 
   renderRegexp(expression) {
-    var snap = Snap(this.svg),
-        padding = this.padding;
+    var snap = Snap(this.svg);
 
     snap.selectAll('g').remove();
 
@@ -129,15 +128,15 @@ export default class Regexper {
     return Q.fcall(parser.parse.bind(parser), expression)
       .then(null, this.showError.bind(this))
       .invoke('render', snap.group())
-      .then((result) => {
+      .then(result => {
         var box;
 
         box = result.getBBox();
         result.container.transform(Snap.matrix()
-          .translate(padding - box.x, padding - box.y));
+          .translate(this.padding - box.x, this.padding - box.y));
         snap.attr({
-          width: box.width + padding * 2,
-          height: box.height + padding * 2
+          width: box.width + this.padding * 2,
+          height: box.height + this.padding * 2
         });
       });
   }

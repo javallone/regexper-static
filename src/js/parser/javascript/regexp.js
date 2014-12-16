@@ -20,7 +20,7 @@ export default _.extend({}, Base, {
       return Q.all(_.map(matches, match => {
         return match.render(matchContainer.group());
       }))
-        .then((() => {
+        .then(() => {
           var containerBox,
               paths;
 
@@ -44,7 +44,7 @@ export default _.extend({}, Base, {
 
               return `M0,${box.ay}h${box.ax}M${box.ax2},${box.ay}H${container.width}`;
             }).join('')));
-        }).bind(this));
+        });
     }
   },
 

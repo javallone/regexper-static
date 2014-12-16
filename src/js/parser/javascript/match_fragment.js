@@ -9,7 +9,7 @@ export default _.extend({}, Base, {
       return this.proxy(this._content);
     } else {
       return this._content.render(this.container.group())
-        .then((() => {
+        .then(() => {
           var box, paths = [];
 
           this._content.transform(this._repeat.contentPosition());
@@ -41,8 +41,8 @@ export default _.extend({}, Base, {
             this.container.prepend(
               this.container.path(paths.join('')));
           }
-        }).bind(this))
-        .then((() => {
+        })
+        .then(() => {
           var labelStr = this._repeat.label(),
               label,
               labelBox,
@@ -56,7 +56,7 @@ export default _.extend({}, Base, {
             label.transform(Snap.matrix()
               .translate(box.x2 - labelBox.width - labelShift, box.y2 + labelBox.height));
           }
-        }).bind(this));
+        });
     }
   },
 
