@@ -54,9 +54,10 @@ export default class Regexper {
   }
 
   showExpression(expression) {
-    if (expression !== '') {
-      this.field.value = expression;
+    this.field.value = expression;
+    this.setState('');
 
+    if (expression !== '') {
       this.setState('is-loading');
 
       this.renderRegexp(expression.replace(/\n/g, '\\n'))
