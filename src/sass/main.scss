@@ -94,6 +94,8 @@ header {
       img {
         vertical-align: middle;
         margin-right: rhythm(1/4);
+        width: 32px;
+        height: 32px;
       }
     }
   }
@@ -258,5 +260,7 @@ footer {
 
   img {
     vertical-align: middle;
+    width: 80px;
+    height: 15px;
   }
 }
