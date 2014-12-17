@@ -47,19 +47,6 @@ export default {
       });
   },
 
-  _getAnchor() {
-    var start = this.normalizeBBox(_.first(this.items).getBBox()),
-        end = this.normalizeBBox(_.last(this.items).getBBox()),
-        matrix = this.transform().localMatrix;
-
-    return {
-      atype: [start.atype, end.atype].join('/'),
-      ax: matrix.x(start.ax, start.ay),
-      ax2: matrix.x(end.ax2, end.ay),
-      ay: matrix.y(start.ax, start.ay)
-    };
-  },
-
   setup() {
     this.parts = _.reduce(this.properties.parts.elements, function(result, node) {
       var last = _.last(result);
@@ -79,5 +66,20 @@ export default {
     if (!this.anchorStart && !this.anchorEnd && this.parts.length === 1) {
       this.proxy = this.parts[0];
     }
+
+    Object.defineProperty(this, '_anchor', {
+      get: function() {
+        var start = this.normalizeBBox(_.first(this.items).getBBox()),
+            end = this.normalizeBBox(_.last(this.items).getBBox()),
+            matrix = this.transform().localMatrix;
+
+        return {
+          atype: [start.atype, end.atype].join('/'),
+          ax: matrix.x(start.ax, start.ay),
+          ax2: matrix.x(end.ax2, end.ay),
+          ay: matrix.y(start.ax, start.ay)
+        };
+      }
+    });
   }
 };

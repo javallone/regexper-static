@@ -20,18 +20,6 @@ export default {
       });
   },
 
-  _getAnchor() {
-    var box = this.container.getBBox(),
-        matrix = this.transform().localMatrix;
-
-    return {
-      atype: this.type,
-      ax: box.x,
-      ax2: box.x2,
-      ay: matrix.y(0, this.partContainer.getBBox().cy)
-    };
-  },
-
   setup() {
     this.invert = this.properties.invert !== '';
     this.elements = _.unique(this.properties.parts.elements, part => {
@@ -39,6 +27,20 @@ export default {
         return part.literal.textValue;
       } else {
         return part.textValue;
+      }
+    });
+
+    Object.defineProperty(this, '_anchor', {
+      get: function() {
+        var box = this.container.getBBox(),
+            matrix = this.transform().localMatrix;
+
+        return {
+          atype: this.type,
+          ax: box.x,
+          ax2: box.x2,
+          ay: matrix.y(0, this.partContainer.getBBox().cy)
+        };
       }
     });
   }

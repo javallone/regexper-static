@@ -29,27 +29,25 @@ export default class Node {
     return this._container;
   }
 
-  getAnchor() {
+  get anchor() {
+    var box;
+
     if (this.proxy) {
-      return this.proxy.getAnchor();
+      return this.proxy.anchor;
     } else {
-      return this._getAnchor();
+      box = this.container.getBBox();
+
+      return _.extend({
+        atype: this.type,
+        ax: box.x,
+        ax2: box.x2,
+        ay: box.cy
+      }, this._anchor || {});
     }
   }
 
-  _getAnchor() {
-    var box = this.container.getBBox();
-
-    return {
-      atype: this.type,
-      ax: box.x,
-      ax2: box.x2,
-      ay: box.cy
-    };
-  }
-
   getBBox() {
-    return _.extend(this.container.getBBox(), this.getAnchor());
+    return _.extend(this.container.getBBox(), this.anchor);
   }
 
   normalizeBBox(box) {
