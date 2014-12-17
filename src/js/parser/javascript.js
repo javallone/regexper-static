@@ -36,8 +36,11 @@ parser.Parser.RepeatOptional = RepeatOptional;
 parser.Parser.RepeatRequired = RepeatRequired;
 parser.Parser.RepeatSpec = RepeatSpec;
 
-parser.resetGroupCounter = () => {
-  parser.Parser.Subexp.resetCounter();
-}
+parser.parse = (parse => {
+  return function() {
+    Subexp.resetCounter();
+    return parse.apply(this, arguments);
+  };
+})(parser.parse);
 
 export default parser;

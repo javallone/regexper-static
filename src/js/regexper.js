@@ -125,11 +125,7 @@ export default class Regexper {
   }
 
   renderRegexp(expression) {
-    var snap = Snap(this.svg);
-
-    snap.selectAll('g').remove();
-
-    parser.resetGroupCounter();
+    this.snap.selectAll('g').remove();
 
     return Q.fcall(parser.parse.bind(parser), expression.replace(/\n/g, '\\n'))
       .then(null, message => {
@@ -139,14 +135,13 @@ export default class Regexper {
 
         throw message;
       })
-      .invoke('render', snap.group())
+      .invoke('render', this.snap.group())
       .then(result => {
-        var box;
+        var box = result.getBBox();
 
-        box = result.getBBox();
-        result.container.transform(Snap.matrix()
+        result.transform(Snap.matrix()
           .translate(this.padding - box.x, this.padding - box.y));
-        snap.attr({
+        this.snap.attr({
           width: box.width + this.padding * 2,
           height: box.height + this.padding * 2
         });

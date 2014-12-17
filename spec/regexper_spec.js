@@ -1,4 +1,6 @@
 import Regexper from 'src/js/regexper.js';
+import parser from 'src/js/parser/javascript.js';
+import Snap from 'snapsvg';
 import Q from 'q';
 
 describe('regexper.js', function() {
@@ -326,7 +328,100 @@ describe('regexper.js', function() {
 
   describe('#renderRegexp', function() {
 
+    beforeEach(function() {
+      spyOn(parser, 'parse');
+    });
 
+    it('parses the expression', function(done) {
+      this.regexper.renderRegexp('example expression');
+
+      setTimeout(() => {
+        expect(parser.parse).toHaveBeenCalledWith('example expression');
+        done();
+      }, 100);
+    });
+
+    it('replaces newlines with "\\n"', function(done) {
+      this.regexper.renderRegexp('multiline\nexpression');
+
+      setTimeout(() => {
+        expect(parser.parse).toHaveBeenCalledWith('multiline\\nexpression');
+        done();
+      }, 100);
+    });
+
+    describe('when parsing fails', function() {
+
+      beforeEach(function(done) {
+        parser.parse.and.throwError('parsing failure');
+        this.regexper.renderRegexp('example expression');
+
+        setTimeout(done, 100);
+      });
+
+      it('sets the state to be "has-error"', function() {
+        expect(this.regexper.state).toEqual('has-error');
+      });
+
+      it('displays the error message', function() {
+        expect(this.regexper.error.innerHTML).toEqual('Error: parsing failure');
+      });
+
+    });
+
+    describe('when parsing succeeds', function() {
+
+      beforeEach(function(done) {
+        this.renderPromise = Q.defer();
+        this.parsedExpr = jasmine.createSpyObj('parsedExpr', ['render']);
+        this.parsedExpr.render.and.returnValue(this.renderPromise.promise);
+
+        parser.parse.and.returnValue(this.parsedExpr);
+
+        spyOn(this.regexper.snap, 'group').and.returnValue('example group');
+
+        this.regexper.renderRegexp('example expression');
+
+        setTimeout(done, 100);
+      });
+
+      it('renders the parsed expression', function() {
+        expect(this.parsedExpr.render).toHaveBeenCalledWith('example group');
+      });
+
+      describe('when rendering is complete', function() {
+
+        beforeEach(function(done) {
+          this.result = jasmine.createSpyObj('result', ['getBBox', 'transform']);
+          this.result.getBBox.and.returnValue({
+            x: 4,
+            y: 2,
+            width: 42,
+            height: 24
+          });
+
+          spyOn(this.regexper.snap, 'attr');
+
+          this.renderPromise.resolve(this.result);
+
+          setTimeout(done, 100);
+        });
+
+        it('positions the renderd expression', function() {
+          expect(this.result.transform).toHaveBeenCalledWith(Snap.matrix()
+            .translate(6, 8));
+        });
+
+        it('sets the dimensions of the image', function() {
+          expect(this.regexper.snap.attr).toHaveBeenCalledWith({
+            width: 62,
+            height: 44
+          });
+        });
+
+      });
+
+    });
 
   });
 
