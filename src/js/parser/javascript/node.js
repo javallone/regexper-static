@@ -15,9 +15,14 @@ export default class Node {
 
   set module(mod) {
     _.extend(this, mod);
+
     if (this.setup) {
       this.setup();
     }
+
+    _.forOwn(this.definedProperties || {}, (methods, name) => {
+      Object.defineProperty(this, name, methods);
+    });
   }
 
   set container(container) {

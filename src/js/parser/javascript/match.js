@@ -4,6 +4,22 @@ import Q from 'q';
 export default {
   type: 'match',
 
+  definedProperties: {
+    _anchor: {
+      get: function() {
+        var start = this.normalizeBBox(_.first(this.items).getBBox()),
+            end = this.normalizeBBox(_.last(this.items).getBBox()),
+            matrix = this.transform().localMatrix;
+
+        return {
+          ax: matrix.x(start.ax, start.ay),
+          ax2: matrix.x(end.ax2, end.ay),
+          ay: matrix.y(start.ax, start.ay)
+        };
+      }
+    }
+  },
+
   _render() {
     var start, end,
         partPromises;
@@ -66,19 +82,5 @@ export default {
     if (!this.anchorStart && !this.anchorEnd && this.parts.length === 1) {
       this.proxy = this.parts[0];
     }
-
-    Object.defineProperty(this, '_anchor', {
-      get: function() {
-        var start = this.normalizeBBox(_.first(this.items).getBBox()),
-            end = this.normalizeBBox(_.last(this.items).getBBox()),
-            matrix = this.transform().localMatrix;
-
-        return {
-          ax: matrix.x(start.ax, start.ay),
-          ax2: matrix.x(end.ax2, end.ay),
-          ay: matrix.y(start.ax, start.ay)
-        };
-      }
-    });
   }
 };

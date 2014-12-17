@@ -3,6 +3,21 @@ import _ from 'lodash';
 export default {
   type: 'match-fragment',
 
+  definedProperties: {
+    _anchor: {
+      get: function() {
+        var anchor = this.content.anchor,
+            matrix = this.transform().localMatrix;
+
+        return _.extend(anchor, {
+          ax: matrix.x(anchor.ax, anchor.ay),
+          ax2: matrix.x(anchor.ax2, anchor.ay),
+          ay: matrix.y(anchor.ax, anchor.ay)
+        });
+      }
+    }
+  },
+
   _render() {
     return this.content.render(this.container.group())
       .then(() => {
@@ -64,18 +79,5 @@ export default {
     } else {
       this.proxy = this.content;
     }
-
-    Object.defineProperty(this, '_anchor', {
-      get: function() {
-        var anchor = this.content.anchor,
-            matrix = this.transform().localMatrix;
-
-        return _.extend(anchor, {
-          ax: matrix.x(anchor.ax, anchor.ay),
-          ax2: matrix.x(anchor.ax2, anchor.ay),
-          ay: matrix.y(anchor.ax, anchor.ay)
-        });
-      }
-    });
   }
 };

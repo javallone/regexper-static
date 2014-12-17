@@ -3,6 +3,21 @@ import Q from 'q';
 export default {
   type: 'charset',
 
+  definedProperties: {
+    _anchor: {
+      get: function() {
+        var box = this.container.getBBox(),
+            matrix = this.transform().localMatrix;
+
+        return {
+          ax: box.x,
+          ax2: box.x2,
+          ay: matrix.y(0, this.partContainer.getBBox().cy)
+        };
+      }
+    }
+  },
+
   _render() {
     this.partContainer = this.container.group();
 
@@ -27,19 +42,6 @@ export default {
         return part.literal.textValue;
       } else {
         return part.textValue;
-      }
-    });
-
-    Object.defineProperty(this, '_anchor', {
-      get: function() {
-        var box = this.container.getBBox(),
-            matrix = this.transform().localMatrix;
-
-        return {
-          ax: box.x,
-          ax2: box.x2,
-          ay: matrix.y(0, this.partContainer.getBBox().cy)
-        };
       }
     });
   }

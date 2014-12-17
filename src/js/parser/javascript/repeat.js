@@ -7,14 +7,8 @@ function formatTimes(times) {
 }
 
 export default {
-  setup() {
-    this.minimum = this.properties.spec.minimum;
-    this.maximum = this.properties.spec.maximum;
-    this.greedy = (this.properties.greedy.textValue === '');
-    this.hasSkip = this.minimum === 0;
-    this.hasLoop = this.maximum === -1 || this.maximum > 1;
-
-    Object.defineProperty(this, 'contentPosition', {
+  definedProperties: {
+    contentPosition: {
       get: function() {
         var x = 0, y = 0;
 
@@ -29,9 +23,9 @@ export default {
 
         return Snap.matrix().translate(x, y);
       }
-    });
+    },
 
-    Object.defineProperty(this, 'label', {
+    label: {
       get: function() {
         if (this.minimum >= 2 && this.maximum === -1) {
           return `${this.minimum - 1}+ times`;
@@ -45,6 +39,14 @@ export default {
           }
         }
       }
-    });
+    }
+  },
+
+  setup() {
+    this.minimum = this.properties.spec.minimum;
+    this.maximum = this.properties.spec.maximum;
+    this.greedy = (this.properties.greedy.textValue === '');
+    this.hasSkip = this.minimum === 0;
+    this.hasLoop = this.maximum === -1 || this.maximum > 1;
   }
 }

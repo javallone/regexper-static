@@ -5,6 +5,21 @@ var groupCounter = 1;
 export default {
   type: 'subexp',
 
+  definedProperties: {
+    _anchor: {
+      get: function() {
+        var anchor = this.regexp.anchor,
+            matrix = this.transform().localMatrix;
+
+        return _.extend(anchor, {
+          ax: matrix.x(anchor.ax, anchor.ay),
+          ax2: matrix.x(anchor.ax2, anchor.ay),
+          ay: matrix.y(anchor.ax, anchor.ay)
+        });
+      }
+    }
+  },
+
   labelMap: {
     '?:': '',
     '?=': 'positive lookahead',
@@ -34,18 +49,5 @@ export default {
     if (!this.label) {
       this.proxy = this.regexp;
     }
-
-    Object.defineProperty(this, '_anchor', {
-      get: function() {
-        var anchor = this.regexp.anchor,
-            matrix = this.transform().localMatrix;
-
-        return _.extend(anchor, {
-          ax: matrix.x(anchor.ax, anchor.ay),
-          ax2: matrix.x(anchor.ax2, anchor.ay),
-          ay: matrix.y(anchor.ax, anchor.ay)
-        });
-      }
-    });
   }
 };
