@@ -70,24 +70,6 @@ export default {
     return deferred.promise;
   },
 
-  renderAnchor() {
-    var box = this.getBBox(),
-        anchorLine;
-
-    this.container.path(box.path)
-      .attr({
-        style: 'stroke:#000;stroke-dasharray:2,2;;'
-      });
-    anchorLine = this.container.path(`M${box.ax},${box.ay}H${box.ax2}`)
-      .attr({
-        style: 'stroke:#f00;stroke-dasharray:2,2;',
-        'data-type': this.type,
-        'data-anchor-type': box.atype
-      });
-
-    console.log(box, anchorLine.node);
-  },
-
   startRender() {
     renderCounter++;
   },
@@ -124,11 +106,6 @@ export default {
 
     this.startRender();
     return this._render()
-      .then(() => {
-        if (this.anchorDebug) {
-          this.renderAnchor();
-        }
-      })
       .then(this.doneRender.bind(this))
       .then(_.constant(this));
   },
@@ -137,19 +114,6 @@ export default {
     this.anchorDebug = false;
     this._proxy = node;
     return node.render(this.container);
-  },
-
-  _render() {
-    console.log(this.type, this);
-
-    this.container.addClass('placeholder');
-
-    return this.renderLabel(this.type + ': ' + this.textValue).then(label => {
-      label.select('rect').attr({
-        rx: 10,
-        ry: 10
-      });
-    });
   },
 
   spaceHorizontally(items, options) {
