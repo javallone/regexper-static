@@ -98,14 +98,12 @@ export default class Regexper {
   }
 
   buildBlobURL(content) {
-    blob = new Blob([content], { type: 'image/svg+xml' });
+    var blob = new Blob([content], { type: 'image/svg+xml' });
     window.blob = blob; // Blob object has to stick around for IE
     return URL.createObjectURL(blob);
   }
 
   updateLinks() {
-    var blob, url;
-
     try {
       this.download.parentNode.style.display = null;
       this.download.href = this.buildBlobURL(this.svg.parentNode.innerHTML);
