@@ -5,39 +5,38 @@ export default {
   type: 'regexp',
 
   _render() {
-    var matches = this.matches(),
-        matchContainer;
+    var matchContainer;
 
-    if (matches.length === 1) {
-      return this.proxy(matches[0]);
+    if (this.matches.length === 1) {
+      return this.proxy(this.matches[0]);
     } else {
       matchContainer = this.container.group()
         .addClass('regexp-matches')
         .transform(Snap.matrix()
           .translate(20, 0));
 
-      return Q.all(_.map(matches, match => {
+      return Q.all(_.map(this.matches, match => {
         return match.render(matchContainer.group());
       }))
         .then(() => {
           var containerBox,
               paths;
 
-          this.spaceVertically(matches, {
+          this.spaceVertically(this.matches, {
             padding: 5
           });
 
           containerBox = this.getBBox();
-          paths = _.map(matches, this.makeConnectorLine.bind(this, containerBox));
+          paths = _.map(this.matches, this.makeConnectorLine.bind(this, containerBox));
 
-          paths.push(this.makeSideLine(containerBox, _.first(matches)));
-          paths.push(this.makeSideLine(containerBox, _.last(matches)));
+          paths.push(this.makeSideLine(containerBox, _.first(this.matches)));
+          paths.push(this.makeSideLine(containerBox, _.last(this.matches)));
 
           this.container.prepend(
             this.container.path(paths.join('')));
 
           matchContainer.prepend(
-            matchContainer.path(_.map(matches, match => {
+            matchContainer.path(_.map(this.matches, match => {
               var box = match.getBBox(),
                   container = matchContainer.getBBox();
 
@@ -87,7 +86,10 @@ export default {
     }
   },
 
-  matches() {
-    return [this._match].concat(_.map(this._alternates.elements, _.property('match')));
+  setup() {
+    this.matches = [this.properties.match]
+      .concat(_.map(this.properties.alternates.elements, element => {
+        return element.properties.match;
+      }));
   }
 };

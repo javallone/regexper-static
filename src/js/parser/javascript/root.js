@@ -4,16 +4,15 @@ export default {
   type: 'root',
 
   _render() {
-    var flags = this.flags(),
-        flagLabels = [];
+    var flagLabels = [];
 
-    if (flags.global) {
+    if (this.flags.global) {
       flagLabels.push('Global');
     }
-    if (flags.ignore_case) {
+    if (this.flags.ignore_case) {
       flagLabels.push('Ignore Case');
     }
-    if (flags.multiline) {
+    if (this.flags.multiline) {
       flagLabels.push('Multiline');
     }
 
@@ -52,19 +51,21 @@ export default {
       });
   },
 
-  flags() {
-    var flags;
+  setup() {
+    var flagsStr;
 
-    if (this._flags) {
-      flags = this._flags.textValue;
+    if (this.flags) {
+      flagsStr = this.flags.textValue;
     } else {
-      flags = '';
+      flagsStr = '';
     }
 
-    return {
-      global: /g/.test(flags),
-      ignore_case: /i/.test(flags),
-      multiline: /m/.test(flags)
+    this.flags = {
+      global: /g/.test(flagsStr),
+      ignore_case: /i/.test(flagsStr),
+      multiline: /m/.test(flagsStr)
     };
+
+    this.regexp = this.properties.regexp
   }
 };

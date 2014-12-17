@@ -1,60 +1,50 @@
+function formatTimes(times) {
+  if (times === 1) {
+    return 'once';
+  } else {
+    return `${times} times`;
+  }
+}
+
 export default {
-  minimum() {
-    return this._spec.minimum();
-  },
+  setup() {
+    this.minimum = this.properties.spec.minimum;
+    this.maximum = this.properties.spec.maximum;
+    this.greedy = (this.properties.greedy.textValue === '');
+    this.hasSkip = this.minimum === 0;
+    this.hasLoop = this.maximum === -1 || this.maximum > 1;
 
-  maximum() {
-    return this._spec.maximum();
-  },
+    Object.defineProperty(this, 'contentPosition', {
+      get: function() {
+        var x = 0, y = 0;
 
-  greedy() {
-    return (this._greedy.textValue === '');
-  },
+        if (this.hasLoop) {
+          x = 10;
+        }
 
-  hasSkip() {
-    return this.minimum() === 0;
-  },
+        if (this.hasSkip) {
+          y = 10;
+          x = 15;
+        }
 
-  hasLoop() {
-    return this.maximum() === -1 || this.maximum() > 1;
-  },
-
-  contentPosition() {
-    var x = 0, y = 0;
-
-    if (this.hasLoop()) {
-      x = 10;
-    }
-
-    if (this.hasSkip()) {
-      y = 10;
-      x = 15;
-    }
-
-    return Snap.matrix().translate(x, y);
-  },
-
-  label() {
-    var maximum = this.maximum(),
-        minimum = this.minimum(),
-        formatTimes = times => {
-          if (times === 1) {
-            return 'once';
-          } else {
-            return `${times} times`;
-          }
-        };
-
-    if (minimum >= 2 && maximum === -1) {
-      return `${minimum - 1}+ times`;
-    } else if (minimum <= 1 && maximum >= 2) {
-      return `at most ${formatTimes(maximum - 1)}`;
-    } else if (minimum >= 2 && maximum >= 2) {
-      if (minimum === maximum) {
-        return formatTimes(minimum - 1);
-      } else {
-        return `${minimum - 1}...${formatTimes(maximum - 1)}`;
+        return Snap.matrix().translate(x, y);
       }
-    }
+    });
+
+    Object.defineProperty(this, 'label', {
+      get: function() {
+        if (this.minimum >= 2 && this.maximum === -1) {
+          return `${this.minimum - 1}+ times`;
+        } else if (this.minimum <= 1 && this.maximum >= 2) {
+          return `at most ${formatTimes(this.maximum - 1)}`;
+        } else if (this.minimum >= 2 && this.maximum >= 2) {
+          if (this.minimum === this.maximum) {
+            return formatTimes(this.minimum - 1);
+          } else {
+            return `${this.minimum - 1}...${formatTimes(this.maximum - 1)}`;
+          }
+        }
+      }
+    });
   }
 }

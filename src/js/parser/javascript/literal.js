@@ -16,5 +16,9 @@ export default {
           ry: 3
         });
       });
+  },
+
+  setup() {
+    this.literal = this.properties.literal;
   }
 };

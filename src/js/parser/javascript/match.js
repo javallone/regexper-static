@@ -6,21 +6,20 @@ export default {
 
   _render() {
     var start, end,
-        parts = this.parts(),
         partPromises;
 
-    if (this.anchorStart()) {
+    if (this.anchorStart) {
       start = this.renderLabel('Start of line')
         .invoke('addClass', 'anchor');
     }
 
-    if (this.anchorEnd()) {
+    if (this.anchorEnd) {
       end = this.renderLabel('End of line')
         .invoke('addClass', 'anchor');
     }
 
-    if (start || end || parts.length !== 1) {
-      partPromises = _.map(parts, part => {
+    if (start || end || this.parts.length !== 1) {
+      partPromises = _.map(this.parts, part => {
         return part.render(this.container.group());
       });
 
@@ -48,32 +47,8 @@ export default {
             this.container.path(paths.join('')));
         });
     } else {
-      return this.proxy(parts[0]);
+      return this.proxy(this.parts[0]);
     }
-  },
-
-  anchorStart() {
-    return this._anchor_start.textValue !== '';
-  },
-
-  anchorEnd() {
-    return this._anchor_end.textValue !== '';
-  },
-
-  parts() {
-    return _.reduce(this._parts.elements, function(result, node) {
-      var last = _.last(result);
-
-      if (last && node.elements[0].type === 'literal' && node.elements[1].textValue === '' && last.elements[0].type === 'literal' && last.elements[1].textValue === '') {
-        last.textValue += node.textValue;
-        last.elements[0].textValue += node.elements[0].textValue;
-        last.elements[0].literal.textValue += node.elements[0].literal.textValue;
-      } else {
-        result.push(node);
-      }
-
-      return result;
-    }, []);
   },
 
   _getAnchor() {
@@ -87,5 +62,24 @@ export default {
       ax2: matrix.x(end.ax2, end.ay),
       ay: matrix.y(start.ax, start.ay)
     };
+  },
+
+  setup() {
+    this.parts = _.reduce(this.properties.parts.elements, function(result, node) {
+      var last = _.last(result);
+
+      if (last && node.elements[0].type === 'literal' && node.elements[1].textValue === '' && last.elements[0].type === 'literal' && last.elements[1].textValue === '') {
+        last.textValue += node.textValue;
+        last.elements[0].textValue += node.elements[0].textValue;
+        last.elements[0].literal.textValue += node.elements[0].literal.textValue;
+      } else {
+        result.push(node);
+      }
+
+      return result;
+    }, []);
+
+    this.anchorStart = this.properties.anchor_start.textValue !== '';
+    this.anchorEnd = this.properties.anchor_end.textValue !== '';
   }
 };

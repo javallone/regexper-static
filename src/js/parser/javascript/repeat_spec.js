@@ -1,21 +1,19 @@
 export default {
-  minimum() {
-    if (this._min) {
-      return Number(this._min.textValue);
-    } else if (this._exact) {
-      return Number(this._exact.textValue);
+  setup() {
+    if (this.properties.min) {
+      this.minimum = Number(this.properties.min.textValue);
+    } else if (this.properties.exact) {
+      this.minimum = Number(this.properties.exact.textValue);
     } else {
-      return 0;
+      this.minimum = 0;
     }
-  },
 
-  maximum() {
-    if (this._max) {
-      return Number(this._max.textValue);
-    } else if (this._exact) {
-      return Number(this._exact.textValue);
+    if (this.properties.max) {
+      this.maximum = Number(this.properties.max.textValue);
+    } else if (this.properties.exact) {
+      this.maximum = Number(this.properties.exact.textValue);
     } else {
-      return -1;
+      this.maximum = -1;
     }
   }
 };

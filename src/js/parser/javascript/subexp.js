@@ -12,23 +12,13 @@ export default {
   },
 
   _render() {
-    var label = this.groupLabel();
-
-    if (label) {
+    if (this.label) {
       return this.regexp.render(this.container.group())
-        .then(this.renderLabeledBox.bind(this, label, this.regexp, {
+        .then(this.renderLabeledBox.bind(this, this.label, this.regexp, {
           padding: 10
         }));
     } else {
       return this.proxy(this.regexp);
-    }
-  },
-
-  groupLabel() {
-    if (_.has(this.labelMap, this._capture.textValue)) {
-      return this.labelMap[this._capture.textValue];
-    } else {
-      return 'group #' + (groupCounter++);
     }
   },
 
@@ -45,5 +35,15 @@ export default {
       ax2: matrix.x(anchor.ax2, anchor.ay),
       ay: matrix.y(anchor.ax, anchor.ay)
     });
+  },
+
+  setup() {
+    if (_.has(this.labelMap, this.properties.capture.textValue)) {
+      this.label = this.labelMap[this.properties.capture.textValue];
+    } else {
+      this.label = 'group #' + (groupCounter++);
+    }
+
+    this.regexp = this.properties.regexp;
   }
 };

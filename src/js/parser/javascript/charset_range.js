@@ -19,5 +19,10 @@ export default {
       .then(this.spaceHorizontally.bind(this, contents, {
         padding: 5
       }));
+  },
+
+  setup() {
+    this.first = this.properties.first;
+    this.last = this.properties.last;
   }
 };

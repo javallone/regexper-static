@@ -3,22 +3,19 @@ import _ from 'lodash';
 export default {
   type: 'escape',
 
-  code() {
-    return this.esc.code.textValue;
-  },
-
-  arg() {
-    return this.esc.arg.textValue;
-  },
-
   _render() {
-    return this.renderLabel(_.result(this, this.code()))
+    return this.renderLabel(_.result(this, this.code))
       .then(label => {
         label.select('rect').attr({
           rx: 3,
           ry: 3
         });
       });
+  },
+
+  setup() {
+    this.code = this.properties.esc.properties.code.textValue;
+    this.arg = this.properties.esc.properties.arg.textValue;
   },
 
   // Escape code mappings
@@ -45,21 +42,19 @@ export default {
   8: 'Back reference (group = 8)',
   9: 'Back reference (group = 9)',
   0() {
-    var arg = this.arg();
-
-    if (arg) {
-      return 'octal: ' + arg;
+    if (this.arg) {
+      return 'octal: ' + this.arg;
     } else {
       return 'null';
     }
   },
   c() {
-    return 'ctrl-' + this.arg();
+    return 'ctrl-' + this.arg;
   },
   x() {
-    return '0x' + this.arg().toUpperCase();
+    return '0x' + this.arg.toUpperCase();
   },
   u() {
-    return 'U+' + this.arg().toUpperCase();
+    return 'U+' + this.arg.toUpperCase();
   }
 };

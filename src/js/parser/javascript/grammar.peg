@@ -1,25 +1,25 @@
 grammar JavascriptRegexp
-  root <- ( ( "/" regexp "/" _flags:[igm]* ) / regexp ""? ) <Root>
-  regexp <- _match:match _alternates:( "|" match )* <Regexp>
-  match <- _anchor_start:anchor_start?
-           (!repeat) _parts:match_fragment*
-           _anchor_end:anchor_end? <Match>
-  match_fragment <- _content:( subexp / charset / terminal ) _repeat:repeat? <MatchFragment>
+  root <- ( ( "/" regexp "/" flags:[igm]* ) / regexp ""? ) <Root>
+  regexp <- match:match alternates:( "|" match )* <Regexp>
+  match <- anchor_start:anchor_start?
+           (!repeat) parts:match_fragment*
+           anchor_end:anchor_end? <Match>
+  match_fragment <- content:( subexp / charset / terminal ) repeat:repeat? <MatchFragment>
   anchor_start <- "^"
   anchor_end <- "$"
-  repeat <- _spec:( repeat_any / repeat_required / repeat_optional / repeat_spec ) _greedy:repeat_greedy? <Repeat>
+  repeat <- spec:( repeat_any / repeat_required / repeat_optional / repeat_spec ) greedy:repeat_greedy? <Repeat>
   repeat_any <- "*" <RepeatAny>
   repeat_required <- "+" <RepeatRequired>
   repeat_optional <- "?" <RepeatOptional>
-  repeat_spec <- ( "{" _min:[0-9]+ "," _max:[0-9]+ "}"
-                 / "{" _min:[0-9]+ ",}"
-                 / "{" _exact:[0-9]+ "}" ) <RepeatSpec>
+  repeat_spec <- ( "{" min:[0-9]+ "," max:[0-9]+ "}"
+                 / "{" min:[0-9]+ ",}"
+                 / "{" exact:[0-9]+ "}" ) <RepeatSpec>
   repeat_greedy <- "?"
-  subexp <- "(" _capture:( subexp_no_capture / subexp_positive_lookahead / subexp_negative_lookahead )? regexp ")" <Subexp>
+  subexp <- "(" capture:( subexp_no_capture / subexp_positive_lookahead / subexp_negative_lookahead )? regexp ")" <Subexp>
   subexp_no_capture <- "?:"
   subexp_positive_lookahead <- "?="
   subexp_negative_lookahead <- "?!"
-  charset <- "[" _invert:"^"? parts:( charset_range / charset_terminal )* "]" <Charset>
+  charset <- "[" invert:"^"? parts:( charset_range / charset_terminal )* "]" <Charset>
   charset_range <- first:charset_terminal "-" last:charset_terminal <CharsetRange>
   charset_terminal <- charset_escape <CharsetEscape>
                     / charset_literal <CharsetLiteral>

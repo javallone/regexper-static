@@ -4,25 +4,17 @@ export default {
   type: 'charset',
 
   _render() {
-    var elements = _.unique(this.parts.elements, part => {
-      if (part.literal) {
-        return part.literal.textValue;
-      } else {
-        return part.textValue;
-      }
-    });
-
     this.partContainer = this.container.group();
 
-    return Q.all(_.map(elements, part => {
+    return Q.all(_.map(this.elements, part => {
       return part.render(this.partContainer.group());
     }))
       .then(() => {
-        this.spaceVertically(elements, {
+        this.spaceVertically(this.elements, {
           padding: 5
         });
 
-        return this.renderLabeledBox(this.invert() ? 'None of:' : 'One of:', this.partContainer, {
+        return this.renderLabeledBox(this.invert ? 'None of:' : 'One of:', this.partContainer, {
           padding: 5
         });
       });
@@ -40,7 +32,14 @@ export default {
     };
   },
 
-  invert() {
-    return this._invert.textValue !== '';
+  setup() {
+    this.invert = this.properties.invert !== '';
+    this.elements = _.unique(this.properties.parts.elements, part => {
+      if (part.literal) {
+        return part.literal.textValue;
+      } else {
+        return part.textValue;
+      }
+    });
   }
 };
