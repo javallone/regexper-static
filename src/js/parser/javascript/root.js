@@ -54,8 +54,8 @@ export default {
   setup() {
     var flagsStr;
 
-    if (this.flags) {
-      flagsStr = this.flags.textValue;
+    if (this.properties.flags) {
+      flagsStr = this.properties.flags.textValue;
     } else {
       flagsStr = '';
     }
