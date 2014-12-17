@@ -1,8 +1,6 @@
 import _ from 'lodash';
 import Q from 'q';
-import Base from './base.js';
-
-export default _.extend({}, Base, {
+export default {
   type: 'charset',
 
   _render() {
@@ -31,14 +29,18 @@ export default _.extend({}, Base, {
   },
 
   _getAnchor() {
-    var matrix = this.transform().localMatrix;
+    var box = this.container.getBBox(),
+        matrix = this.transform().localMatrix;
 
-    return _.extend(Base._getAnchor.call(this), {
+    return {
+      atype: this.type,
+      ax: box.x,
+      ax2: box.x2,
       ay: matrix.y(0, this.partContainer.getBBox().cy)
-    });
+    };
   },
 
   invert() {
     return this._invert.textValue !== '';
   }
-});
+};

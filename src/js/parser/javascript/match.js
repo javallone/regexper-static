@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import Q from 'q';
-import Base from './base.js';
 
-export default _.extend({}, Base, {
+export default {
   type: 'match',
 
   _render() {
@@ -89,4 +88,4 @@ export default _.extend({}, Base, {
       ay: matrix.y(start.ax, start.ay)
     };
   }
-});
+};

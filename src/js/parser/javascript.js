@@ -1,5 +1,6 @@
 import parser from './javascript/grammar.peg';
 
+import Node from './javascript/node.js';
 import Root from './javascript/root.js';
 import Regexp from './javascript/regexp.js';
 import Match from './javascript/match.js';
@@ -18,23 +19,24 @@ import RepeatOptional from './javascript/repeat_optional.js';
 import RepeatRequired from './javascript/repeat_required.js';
 import RepeatSpec from './javascript/repeat_spec.js';
 
-parser.Parser.Root = Root;
-parser.Parser.Regexp = Regexp;
-parser.Parser.Match = Match;
-parser.Parser.MatchFragment = MatchFragment;
-parser.Parser.Subexp = Subexp;
-parser.Parser.Charset = Charset;
-parser.Parser.CharsetLiteral = CharsetLiteral;
-parser.Parser.CharsetEscape = CharsetEscape;
-parser.Parser.CharsetRange = CharsetRange;
-parser.Parser.Literal = Literal;
-parser.Parser.Escape = Escape;
-parser.Parser.AnyCharacter = AnyCharacter;
-parser.Parser.Repeat = Repeat;
-parser.Parser.RepeatAny = RepeatAny;
-parser.Parser.RepeatOptional = RepeatOptional;
-parser.Parser.RepeatRequired = RepeatRequired;
-parser.Parser.RepeatSpec = RepeatSpec;
+parser.Parser.SyntaxNode      = Node;
+parser.Parser.Root            = { module: Root };
+parser.Parser.Regexp          = { module: Regexp };
+parser.Parser.Match           = { module: Match };
+parser.Parser.MatchFragment   = { module: MatchFragment };
+parser.Parser.Subexp          = { module: Subexp };
+parser.Parser.Charset         = { module: Charset };
+parser.Parser.CharsetLiteral  = { module: CharsetLiteral };
+parser.Parser.CharsetEscape   = { module: CharsetEscape };
+parser.Parser.CharsetRange    = { module: CharsetRange };
+parser.Parser.Literal         = { module: Literal };
+parser.Parser.Escape          = { module: Escape };
+parser.Parser.AnyCharacter    = { module: AnyCharacter };
+parser.Parser.Repeat          = { module: Repeat };
+parser.Parser.RepeatAny       = { module: RepeatAny };
+parser.Parser.RepeatOptional  = { module: RepeatOptional };
+parser.Parser.RepeatRequired  = { module: RepeatRequired };
+parser.Parser.RepeatSpec      = { module: RepeatSpec };
 
 parser.parse = (parse => {
   return function() {

@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import Q from 'q';
-import Base from './base.js';
 
-export default _.extend({}, Base, {
+export default {
   type: 'charset-range',
 
   _render() {
@@ -21,4 +20,4 @@ export default _.extend({}, Base, {
         padding: 5
       }));
   }
-});
+};

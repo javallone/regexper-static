@@ -1,7 +1,6 @@
 import _ from 'lodash';
-import Base from './base.js';
 
-export default _.extend({}, Base, {
+export default {
   type: 'escape',
 
   code() {
@@ -63,4 +62,4 @@ export default _.extend({}, Base, {
   u() {
     return 'U+' + this.arg().toUpperCase();
   }
-});
+};

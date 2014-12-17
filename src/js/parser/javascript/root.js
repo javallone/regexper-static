@@ -1,7 +1,6 @@
 import _ from 'lodash';
-import Base from './base.js';
 
-export default _.extend({}, Base, {
+export default {
   type: 'root',
 
   _render() {
@@ -68,4 +67,4 @@ export default _.extend({}, Base, {
       multiline: /m/.test(flags)
     };
   }
-});
+};

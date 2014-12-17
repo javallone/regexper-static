@@ -1,9 +1,8 @@
 import _ from 'lodash';
-import Base from './base.js';
 
 var groupCounter = 1;
 
-export default _.extend({}, Base, {
+export default {
   type: 'subexp',
 
   labelMap: {
@@ -47,4 +46,4 @@ export default _.extend({}, Base, {
       ay: matrix.y(anchor.ax, anchor.ay)
     });
   }
-});
+};

@@ -1,8 +1,7 @@
 import _ from 'lodash';
 import Q from 'q';
-import Base from './base.js';
 
-export default _.extend({}, Base, {
+export default {
   type: 'regexp',
 
   _render() {
@@ -91,4 +90,4 @@ export default _.extend({}, Base, {
   matches() {
     return [this._match].concat(_.map(this._alternates.elements, _.property('match')));
   }
-});
+};
