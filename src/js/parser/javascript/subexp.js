@@ -12,14 +12,10 @@ export default {
   },
 
   _render() {
-    if (this.label) {
-      return this.regexp.render(this.container.group())
-        .then(this.renderLabeledBox.bind(this, this.label, this.regexp, {
-          padding: 10
-        }));
-    } else {
-      return this.proxy(this.regexp);
-    }
+    return this.regexp.render(this.container.group())
+      .then(this.renderLabeledBox.bind(this, this.label, this.regexp, {
+        padding: 10
+      }));
   },
 
   resetCounter() {
@@ -45,5 +41,9 @@ export default {
     }
 
     this.regexp = this.properties.regexp;
+
+    if (!this.label) {
+      this.proxy = this.regexp;
+    }
   }
 };

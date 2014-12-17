@@ -7,43 +7,39 @@ export default {
   _render() {
     var matchContainer;
 
-    if (this.matches.length === 1) {
-      return this.proxy(this.matches[0]);
-    } else {
-      matchContainer = this.container.group()
-        .addClass('regexp-matches')
-        .transform(Snap.matrix()
-          .translate(20, 0));
+    matchContainer = this.container.group()
+      .addClass('regexp-matches')
+      .transform(Snap.matrix()
+        .translate(20, 0));
 
-      return Q.all(_.map(this.matches, match => {
-        return match.render(matchContainer.group());
-      }))
-        .then(() => {
-          var containerBox,
-              paths;
+    return Q.all(_.map(this.matches, match => {
+      return match.render(matchContainer.group());
+    }))
+      .then(() => {
+        var containerBox,
+            paths;
 
-          this.spaceVertically(this.matches, {
-            padding: 5
-          });
-
-          containerBox = this.getBBox();
-          paths = _.map(this.matches, this.makeConnectorLine.bind(this, containerBox));
-
-          paths.push(this.makeSideLine(containerBox, _.first(this.matches)));
-          paths.push(this.makeSideLine(containerBox, _.last(this.matches)));
-
-          this.container.prepend(
-            this.container.path(paths.join('')));
-
-          matchContainer.prepend(
-            matchContainer.path(_.map(this.matches, match => {
-              var box = match.getBBox(),
-                  container = matchContainer.getBBox();
-
-              return `M0,${box.ay}h${box.ax}M${box.ax2},${box.ay}H${container.width}`;
-            }).join('')));
+        this.spaceVertically(this.matches, {
+          padding: 5
         });
-    }
+
+        containerBox = this.getBBox();
+        paths = _.map(this.matches, this.makeConnectorLine.bind(this, containerBox));
+
+        paths.push(this.makeSideLine(containerBox, _.first(this.matches)));
+        paths.push(this.makeSideLine(containerBox, _.last(this.matches)));
+
+        this.container.prepend(
+          this.container.path(paths.join('')));
+
+        matchContainer.prepend(
+          matchContainer.path(_.map(this.matches, match => {
+            var box = match.getBBox(),
+                container = matchContainer.getBBox();
+
+            return `M0,${box.ay}h${box.ax}M${box.ax2},${box.ay}H${container.width}`;
+          }).join('')));
+      });
   },
 
   makeSideLine(containerBox, match) {
@@ -91,5 +87,9 @@ export default {
       .concat(_.map(this.properties.alternates.elements, element => {
         return element.properties.match;
       }));
+
+    if (this.matches.length === 1) {
+      return this.proxy = this.matches[0];
+    }
   }
 };

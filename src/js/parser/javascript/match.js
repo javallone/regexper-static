@@ -18,37 +18,33 @@ export default {
         .invoke('addClass', 'anchor');
     }
 
-    if (start || end || this.parts.length !== 1) {
-      partPromises = _.map(this.parts, part => {
-        return part.render(this.container.group());
-      });
+    partPromises = _.map(this.parts, part => {
+      return part.render(this.container.group());
+    });
 
-      return Q.all(_([start, partPromises, end]).flatten().compact().value())
-        .then(items => {
-          var prev, next, paths;
+    return Q.all(_([start, partPromises, end]).flatten().compact().value())
+      .then(items => {
+        var prev, next, paths;
 
-          this.items = items;
-          this.spaceHorizontally(items, {
-            padding: 10
-          });
-
-          prev = this.normalizeBBox(_.first(items).getBBox());
-          paths = _.map(items.slice(1), item => {
-            var path;
-
-            next = this.normalizeBBox(item.getBBox());
-            path = `M${prev.ax2},${prev.ay}H${next.ax}`;
-            prev = next;
-
-            return path;
-          });
-
-          this.container.prepend(
-            this.container.path(paths.join('')));
+        this.items = items;
+        this.spaceHorizontally(items, {
+          padding: 10
         });
-    } else {
-      return this.proxy(this.parts[0]);
-    }
+
+        prev = this.normalizeBBox(_.first(items).getBBox());
+        paths = _.map(items.slice(1), item => {
+          var path;
+
+          next = this.normalizeBBox(item.getBBox());
+          path = `M${prev.ax2},${prev.ay}H${next.ax}`;
+          prev = next;
+
+          return path;
+        });
+
+        this.container.prepend(
+          this.container.path(paths.join('')));
+      });
   },
 
   _getAnchor() {
@@ -79,5 +75,9 @@ export default {
 
     this.anchorStart = this.properties.anchor_start.textValue !== '';
     this.anchorEnd = this.properties.anchor_end.textValue !== '';
+
+    if (!this.anchorStart && !this.anchorEnd && this.parts.length === 1) {
+      this.proxy = this.parts[0];
+    }
   }
 };

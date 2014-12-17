@@ -26,8 +26,8 @@ export default class Node {
   }
 
   getAnchor() {
-    if (this._proxy) {
-      return this._proxy.getAnchor();
+    if (this.proxy) {
+      return this.proxy.getAnchor();
     } else {
       return this._getAnchor();
     }
@@ -119,16 +119,15 @@ export default class Node {
       this.setContainer(container);
     }
 
-    this.startRender();
-    return this._render()
-      .then(this.doneRender.bind(this))
-      .then(_.constant(this));
-  }
-
-  proxy(node) {
-    this.anchorDebug = false;
-    this._proxy = node;
-    return node.render(this.container);
+    if (this.proxy) {
+      return this.proxy.render(this.container)
+        .then(_.constant(this));
+    } else {
+      this.startRender();
+      return this._render()
+        .then(this.doneRender.bind(this))
+        .then(_.constant(this));
+    }
   }
 
   spaceHorizontally(items, options) {
