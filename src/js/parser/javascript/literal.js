@@ -18,6 +18,11 @@ export default {
       });
   },
 
+  merge(other) {
+    this.textValue += other.textValue;
+    this.literal.textValue += other.literal.textValue;
+  },
+
   setup() {
     this.literal = this.properties.literal;
   }

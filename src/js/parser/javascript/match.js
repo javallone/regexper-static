@@ -68,10 +68,8 @@ export default {
     this.parts = _.reduce(this.properties.parts.elements, function(result, node) {
       var last = _.last(result);
 
-      if (last && node.elements[0].type === 'literal' && node.elements[1].textValue === '' && last.elements[0].type === 'literal' && last.elements[1].textValue === '') {
-        last.textValue += node.textValue;
-        last.elements[0].textValue += node.elements[0].textValue;
-        last.elements[0].literal.textValue += node.elements[0].literal.textValue;
+      if (last && node.canMerge && last.canMerge) {
+        last.elements[0].merge(node.elements[0]);
       } else {
         result.push(node);
       }

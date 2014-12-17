@@ -72,6 +72,7 @@ export default {
 
   setup() {
     this.content = this.properties.content;
+    this.canMerge = (this.elements[0].type === 'literal' && this.elements[1].textValue === '');
 
     if (this.properties.repeat.textValue !== '') {
       this.repeat = this.properties.repeat;
