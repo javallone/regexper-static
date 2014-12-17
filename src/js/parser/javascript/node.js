@@ -20,9 +20,13 @@ export default class Node {
     }
   }
 
-  setContainer(container) {
-    this.container = container;
-    this.container.addClass(this.type);
+  set container(container) {
+    this._container = container;
+    this._container.addClass(this.type);
+  }
+
+  get container() {
+    return this._container;
   }
 
   getAnchor() {
@@ -116,7 +120,7 @@ export default class Node {
 
   render(container) {
     if (container) {
-      this.setContainer(container);
+      this.container = container;
     }
 
     if (this.proxy) {
