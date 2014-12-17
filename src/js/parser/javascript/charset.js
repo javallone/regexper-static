@@ -36,7 +36,6 @@ export default {
             matrix = this.transform().localMatrix;
 
         return {
-          atype: this.type,
           ax: box.x,
           ax2: box.x2,
           ay: matrix.y(0, this.partContainer.getBBox().cy)

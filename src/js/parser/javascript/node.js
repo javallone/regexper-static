@@ -38,7 +38,6 @@ export default class Node {
       box = this.container.getBBox();
 
       return _.extend({
-        atype: this.type,
         ax: box.x,
         ax2: box.x2,
         ay: box.cy
@@ -52,7 +51,6 @@ export default class Node {
 
   normalizeBBox(box) {
     return _.extend({
-      atype: 'normalize',
       ax: box.x,
       ax2: box.x2,
       ay: box.cy

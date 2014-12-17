@@ -74,7 +74,6 @@ export default {
             matrix = this.transform().localMatrix;
 
         return {
-          atype: [start.atype, end.atype].join('/'),
           ax: matrix.x(start.ax, start.ay),
           ax2: matrix.x(end.ax2, end.ay),
           ay: matrix.y(start.ax, start.ay)
