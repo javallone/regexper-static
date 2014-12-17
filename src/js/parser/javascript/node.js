@@ -6,11 +6,25 @@ var renderCounter = 0,
 
 export default class Node {
   constructor(textValue, offset, elements, properties) {
-    _.extend(this, {
-      textValue,
-      offset,
-      elements: elements || []
-    }, properties);
+    this.textValue = textValue;
+    this.offset = offset;
+    this.elements = elements || [];
+
+    this.properties = properties;
+
+    // TEMPORARY
+    _.forOwn(this.properties, (_, key) => {
+      Object.defineProperty(this, key, {
+        get: function() {
+          return this.properties[key];
+        },
+
+        set: function(value) {
+          this.properties[key] = value;
+        }
+      });
+    });
+    // /TEMPORARY
   }
 
   set module(mod) {
