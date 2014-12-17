@@ -125,8 +125,7 @@ export default class Node {
     }
 
     if (this.proxy) {
-      return this.proxy.render(this.container)
-        .then(_.constant(this));
+      return this.proxy.render(this.container);
     } else {
       this.startRender();
       return this._render()
