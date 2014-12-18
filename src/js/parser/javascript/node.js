@@ -1,9 +1,6 @@
 import _ from 'lodash';
 import Q from 'q';
 
-var renderCounter = 0,
-    maxCounter = 0;
-
 export default class Node {
   constructor(textValue, offset, elements, properties) {
     this.textValue = textValue;
@@ -66,57 +63,69 @@ export default class Node {
     return this.container.transform(matrix);
   }
 
-  renderLabel(text) {
+  deferredStep() {
     var deferred = Q.defer(),
-        group = this.container.group()
+        result = arguments;
+
+    setTimeout(() => {
+      if (Node.cancelRender) {
+        deferred.reject('Render cancelled');
+      } else {
+        deferred.resolve.apply(this, result);
+      }
+    }, 1);
+
+    return deferred.promise;
+  }
+
+  renderLabel(text) {
+    var group = this.container.group()
           .addClass('label'),
         rect = group.rect(),
         text = group.text(0, 0, _.flatten([text]));
 
-    setTimeout(deferred.resolve.bind(deferred, group));
-    deferred.promise.then(() => {
-      var box = text.getBBox(),
-          margin = 5;
+    return this.deferredStep(group)
+      .then(group => {
+        var box = text.getBBox(),
+            margin = 5;
 
-      text.transform(Snap.matrix()
-        .translate(margin, box.height / 2 + 2 * margin));
+        text.transform(Snap.matrix()
+          .translate(margin, box.height / 2 + 2 * margin));
 
-      rect.attr({
-        width: box.width + 2 * margin,
-        height: box.height + 2 * margin
+        rect.attr({
+          width: box.width + 2 * margin,
+          height: box.height + 2 * margin
+        });
+
+        return group;
       });
-    });
-
-    return deferred.promise;
   }
 
   startRender() {
-    renderCounter++;
+    Node.renderCounter++;
   }
 
   doneRender() {
-    var evt, deferred = Q.defer();
+    var evt;
 
-    if (maxCounter === 0) {
-      maxCounter = renderCounter;
+    if (Node.maxCounter === 0) {
+      Node.maxCounter = Node.renderCounter;
     }
 
-    renderCounter--;
+    Node.renderCounter--;
 
     evt = document.createEvent('Event');
     evt.initEvent('updateStatus', true, true);
     evt.detail = {
-      percentage: (maxCounter - renderCounter) / maxCounter
+      percentage: (Node.maxCounter - Node.renderCounter) / Node.maxCounter
     };
     document.body.dispatchEvent(evt);
 
-    if (renderCounter === 0) {
-      maxCounter = 0;
+    if (Node.renderCounter === 0) {
+      Node.maxCounter = 0;
     }
 
-    setTimeout(deferred.resolve.bind(deferred), 1);
-
-    return deferred.promise;
+    return this.deferredStep();
   }
 
   render(container) {
@@ -191,8 +200,7 @@ export default class Node {
   }
 
   renderLabeledBox(label, content, options) {
-    var deferred = Q.defer(),
-        label = this.container.text()
+    var label = this.container.text()
           .addClass([this.type, 'label'].join('-'))
           .attr({
             text: label
@@ -211,26 +219,30 @@ export default class Node {
     this.container.prepend(label);
     this.container.prepend(box);
 
-    setTimeout(deferred.resolve);
-    deferred.promise.then(() => {
-      var labelBox = label.getBBox(),
-          contentBox = content.getBBox();
+    return this.deferredStep()
+      .then(() => {
+        var labelBox = label.getBBox(),
+            contentBox = content.getBBox();
 
-      label.transform(Snap.matrix()
-        .translate(0, labelBox.height));
+        label.transform(Snap.matrix()
+          .translate(0, labelBox.height));
 
-      box
-        .transform(Snap.matrix()
-          .translate(0, labelBox.height))
-        .attr({
-          width: Math.max(contentBox.width + options.padding * 2, labelBox.width),
-          height: contentBox.height + options.padding * 2
-        });
+        box
+          .transform(Snap.matrix()
+            .translate(0, labelBox.height))
+          .attr({
+            width: Math.max(contentBox.width + options.padding * 2, labelBox.width),
+            height: contentBox.height + options.padding * 2
+          });
 
-      content.transform(Snap.matrix()
-        .translate(box.getBBox().cx - contentBox.cx, labelBox.height + options.padding));
-    });
-
-    return deferred.promise;
+        content.transform(Snap.matrix()
+          .translate(box.getBBox().cx - contentBox.cx, labelBox.height + options.padding));
+      });
   }
+};
+
+Node.reset = () => {
+  Node.renderCounter = 0;
+  Node.maxCounter = 0;
+  Node.cancelRender = false;
 };

@@ -32,6 +32,12 @@ export default class Regexper {
     }
   }
 
+  documentKeypressListener(event) {
+    if (event.keyCode === 27) {
+      parser.cancel();
+    }
+  }
+
   submitListener(event) {
     event.returnValue = false;
     if (event.preventDefault) {
@@ -62,6 +68,7 @@ export default class Regexper {
     this.field.addEventListener('keypress', this.keypressListener.bind(this));
     this.form.addEventListener('submit', this.submitListener.bind(this));
     this.root.addEventListener('updateStatus', this.updatePercentage.bind(this));
+    this.root.addEventListener('keyup', this.documentKeypressListener.bind(this));
     window.addEventListener('hashchange', this.hashchangeListener.bind(this));
   }
 
@@ -92,6 +99,12 @@ export default class Regexper {
         .then(() => {
           this.state = 'has-results';
           this.updateLinks();
+        }, (message) => {
+          if (message === 'Render cancelled') {
+            this.state = '';
+          } else {
+            throw message;
+          }
         })
         .done();
     }

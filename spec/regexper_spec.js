@@ -96,6 +96,41 @@ describe('regexper.js', function() {
 
   });
 
+  describe('#documentKeypressListener', function() {
+
+    beforeEach(function() {
+      this.event = document.createEvent('Event');
+      spyOn(parser, 'cancel');
+    });
+
+    describe('when the keyCode is not 27 (Escape)', function() {
+
+      beforeEach(function() {
+        this.event.keyCode = 42;
+      });
+
+      it('does not cancel the parser', function() {
+        this.regexper.documentKeypressListener(this.event);
+        expect(parser.cancel).not.toHaveBeenCalled();
+      });
+
+    });
+
+    describe('when the keyCode is 27 (Escape)', function() {
+
+      beforeEach(function() {
+        this.event.keyCode = 27;
+      });
+
+      it('cancels the parser', function() {
+        this.regexper.documentKeypressListener(this.event);
+        expect(parser.cancel).toHaveBeenCalled();
+      });
+
+    });
+
+  });
+
   describe('#submitListener', function() {
 
     beforeEach(function() {
@@ -168,9 +203,16 @@ describe('regexper.js', function() {
 
   describe('#bindListeners', function() {
 
+    beforeEach(function() {
+      spyOn(this.regexper, 'keypressListener');
+      spyOn(this.regexper, 'submitListener');
+      spyOn(this.regexper, 'updatePercentage');
+      spyOn(this.regexper, 'documentKeypressListener');
+      spyOn(this.regexper, 'hashchangeListener');
+    });
+
     it('binds #keypressListener to keypress on the text field', function() {
       spyOn(this.regexper.field, 'addEventListener');
-      spyOn(this.regexper, 'keypressListener');
       this.regexper.bindListeners();
       expect(this.regexper.field.addEventListener).toHaveBeenCalledWith('keypress', jasmine.any(Function));
 
@@ -180,7 +222,6 @@ describe('regexper.js', function() {
 
     it('binds #submitListener to submit on the form', function() {
       spyOn(this.regexper.form, 'addEventListener');
-      spyOn(this.regexper, 'submitListener');
       this.regexper.bindListeners();
       expect(this.regexper.form.addEventListener).toHaveBeenCalledWith('submit', jasmine.any(Function));
 
@@ -190,17 +231,24 @@ describe('regexper.js', function() {
 
     it('binds #updatePercentage to updateStatus on the root', function() {
       spyOn(this.regexper.root, 'addEventListener');
-      spyOn(this.regexper, 'updatePercentage');
       this.regexper.bindListeners();
       expect(this.regexper.root.addEventListener).toHaveBeenCalledWith('updateStatus', jasmine.any(Function));
 
-      this.regexper.root.addEventListener.calls.mostRecent().args[1]();
+      this.regexper.root.addEventListener.calls.first().args[1]();
       expect(this.regexper.updatePercentage).toHaveBeenCalled();
+    });
+
+    it('binds #documentKeypressListener to keyup on the root', function() {
+      spyOn(this.regexper.root, 'addEventListener');
+      this.regexper.bindListeners();
+      expect(this.regexper.root.addEventListener).toHaveBeenCalledWith('keyup', jasmine.any(Function));
+
+      this.regexper.root.addEventListener.calls.mostRecent().args[1]();
+      expect(this.regexper.documentKeypressListener).toHaveBeenCalled();
     });
 
     it('binds #hashchangeListener to hashchange on the window', function() {
       spyOn(window, 'addEventListener');
-      spyOn(this.regexper, 'hashchangeListener');
       this.regexper.bindListeners();
       expect(window.addEventListener).toHaveBeenCalledWith('hashchange', jasmine.any(Function));
 
@@ -258,6 +306,21 @@ describe('regexper.js', function() {
 
         it('updates the links', function() {
           expect(this.regexper.updateLinks).toHaveBeenCalled();
+        });
+
+      });
+
+      describe('when the parser is cancelled', function() {
+
+        beforeEach(function(done) {
+          spyOn(this.regexper, 'updateLinks');
+          this.regexper.showExpression('example expression');
+          this.renderPromise.reject('Render cancelled');
+          setTimeout(done, 100);
+        });
+
+        it('clears the state', function() {
+          expect(this.regexper.state).toEqual('');
         });
 
       });

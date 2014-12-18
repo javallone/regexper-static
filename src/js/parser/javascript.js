@@ -41,8 +41,14 @@ parser.Parser.RepeatSpec      = { module: RepeatSpec };
 parser.parse = (parse => {
   return function() {
     Subexp.resetCounter();
+    Node.reset();
+
     return parse.apply(this, arguments);
   };
 })(parser.parse);
+
+parser.cancel = () => {
+  Node.cancelRender = true;
+};
 
 export default parser;
