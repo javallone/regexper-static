@@ -258,6 +258,15 @@ describe('regexper.js', function() {
 
   });
 
+  describe('#trackEvent', function() {
+
+    it('adds a _trackEvent call to gaq', function() {
+      this.regexper._trackEvent('category', 'action');
+      expect(this.regexper.gaq).toContain(['_trackEvent', 'category', 'action']);
+    });
+
+  });
+
   describe('#showExpression', function() {
 
     beforeEach(function() {

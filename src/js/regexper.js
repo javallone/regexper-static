@@ -15,6 +15,8 @@ export default class Regexper {
 
     this.padding = 10;
     this.snap = Snap(this.svg);
+
+    this.gaq = (typeof window._gaq === 'undefined') ? [] : window._gaq;
   }
 
   keypressListener(event) {
@@ -80,6 +82,10 @@ export default class Regexper {
     return decodeURIComponent(location.hash.slice(1));
   }
 
+  _trackEvent(category, action) {
+    this.gaq.push(['_trackEvent', category, action]);
+  }
+
   set state(state) {
     this.root.className = state;
   }
@@ -94,15 +100,19 @@ export default class Regexper {
 
     if (expression !== '') {
       this.state = 'is-loading';
+      this._trackEvent('visualization', 'start');
 
       this.renderRegexp(expression)
         .then(() => {
           this.state = 'has-results';
           this.updateLinks();
-        }, (message) => {
+          this._trackEvent('visualization', 'complete');
+        })
+        .then(null, message => {
           if (message === 'Render cancelled') {
             this.state = '';
           } else {
+            this._trackEvent('visualization', 'exception');
             throw message;
           }
         })
@@ -143,6 +153,8 @@ export default class Regexper {
         this.state = 'has-error';
         this.error.innerHTML = '';
         this.error.appendChild(document.createTextNode(message));
+
+        this._trackEvent('visualization', 'parse error');
 
         throw message;
       })
