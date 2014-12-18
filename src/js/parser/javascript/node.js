@@ -8,6 +8,8 @@ export default class Node {
     this.elements = elements || [];
 
     this.properties = properties;
+
+    this.state = Node.state;
   }
 
   set module(mod) {
@@ -68,7 +70,7 @@ export default class Node {
         result = arguments;
 
     setTimeout(() => {
-      if (Node.cancelRender) {
+      if (this.state.cancelRender) {
         deferred.reject('Render cancelled');
       } else {
         deferred.resolve.apply(this, result);
@@ -102,27 +104,27 @@ export default class Node {
   }
 
   startRender() {
-    Node.renderCounter++;
+    this.state.renderCounter++;
   }
 
   doneRender() {
     var evt;
 
-    if (Node.maxCounter === 0) {
-      Node.maxCounter = Node.renderCounter;
+    if (this.state.maxCounter === 0) {
+      this.state.maxCounter = this.state.renderCounter;
     }
 
-    Node.renderCounter--;
+    this.state.renderCounter--;
 
     evt = document.createEvent('Event');
     evt.initEvent('updateStatus', true, true);
     evt.detail = {
-      percentage: (Node.maxCounter - Node.renderCounter) / Node.maxCounter
+      percentage: (this.state.maxCounter - this.state.renderCounter) / this.state.maxCounter
     };
     document.body.dispatchEvent(evt);
 
-    if (Node.renderCounter === 0) {
-      Node.maxCounter = 0;
+    if (this.state.renderCounter === 0) {
+      this.state.maxCounter = 0;
     }
 
     return this.deferredStep();
@@ -239,10 +241,4 @@ export default class Node {
           .translate(box.getBBox().cx - contentBox.cx, labelBox.height + options.padding));
       });
   }
-};
-
-Node.reset = () => {
-  Node.renderCounter = 0;
-  Node.maxCounter = 0;
-  Node.cancelRender = false;
 };

@@ -1,3 +1,5 @@
+import Q from 'q';
+
 import parser from './javascript/grammar.peg';
 
 import Node from './javascript/node.js';
@@ -38,17 +40,46 @@ parser.Parser.RepeatOptional  = { module: RepeatOptional };
 parser.Parser.RepeatRequired  = { module: RepeatRequired };
 parser.Parser.RepeatSpec      = { module: RepeatSpec };
 
-parser.parse = (parse => {
-  return function() {
-    Subexp.resetCounter();
-    Node.reset();
+export default class Parser {
+  constructor() {
+    this.state = {
+      groupCounter: 1,
+      renderCounter: 0,
+      maxCounter: 0,
+      cancelRender: false
+    };
+  }
 
-    return parse.apply(this, arguments);
-  };
-})(parser.parse);
+  parse(expression) {
+    var deferred = Q.defer();
 
-parser.cancel = () => {
-  Node.cancelRender = true;
-};
+    setTimeout(() => {
+      Node.state = this.state;
 
-export default parser;
+      this.parsed = parser.parse(expression.replace(/\n/g, '\\n'));
+      deferred.resolve(this);
+    });
+
+    return deferred.promise;
+  }
+
+  render(svg, padding) {
+    svg.selectAll('g').remove();
+
+    return this.parsed.render(svg.group())
+      .then(result => {
+        var box = result.getBBox();
+
+        result.transform(Snap.matrix()
+          .translate(padding - box.x, padding - box.y));
+        svg.attr({
+          width: box.width + padding * 2,
+          height: box.height + padding * 2
+        });
+      });
+  }
+
+  cancel() {
+    this.state.cancelRender = true;
+  }
+}

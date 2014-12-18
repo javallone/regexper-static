@@ -1,4 +1,4 @@
-import parser from './parser/javascript.js';
+import Parser from './parser/javascript.js';
 import Snap from 'snapsvg';
 import Q from 'q';
 
@@ -35,8 +35,8 @@ export default class Regexper {
   }
 
   documentKeypressListener(event) {
-    if (event.keyCode === 27) {
-      parser.cancel();
+    if (event.keyCode === 27 && this.runningParser) {
+      this.runningParser.cancel();
     }
   }
 
@@ -99,24 +99,7 @@ export default class Regexper {
     this.state = '';
 
     if (expression !== '') {
-      this.state = 'is-loading';
-      this._trackEvent('visualization', 'start');
-
-      this.renderRegexp(expression)
-        .then(() => {
-          this.state = 'has-results';
-          this.updateLinks();
-          this._trackEvent('visualization', 'complete');
-        })
-        .then(null, message => {
-          if (message === 'Render cancelled') {
-            this.state = '';
-          } else {
-            this._trackEvent('visualization', 'exception');
-            throw message;
-          }
-        })
-        .done();
+      this.renderRegexp(expression);
     }
   }
 
@@ -146,9 +129,24 @@ export default class Regexper {
   }
 
   renderRegexp(expression) {
-    this.snap.selectAll('g').remove();
+    if (this.runningParser) {
+      let deferred = Q.defer();
 
-    return Q.fcall(parser.parse.bind(parser), expression.replace(/\n/g, '\\n'))
+      this.runningParser.cancel();
+
+      setTimeout(() => {
+        deferred.resolve(this.renderRegexp(expression));
+      }, 10);
+
+      return deferred.promise;
+    }
+
+    this.state = 'is-loading';
+    this._trackEvent('visualization', 'start');
+
+    this.runningParser = new Parser();
+
+    return this.runningParser.parse(expression)
       .then(null, message => {
         this.state = 'has-error';
         this.error.innerHTML = '';
@@ -158,16 +156,24 @@ export default class Regexper {
 
         throw message;
       })
-      .invoke('render', this.snap.group())
-      .then(result => {
-        var box = result.getBBox();
-
-        result.transform(Snap.matrix()
-          .translate(this.padding - box.x, this.padding - box.y));
-        this.snap.attr({
-          width: box.width + this.padding * 2,
-          height: box.height + this.padding * 2
-        });
-      });
+      .invoke('render', this.snap, this.padding)
+      .then(() => {
+        this.state = 'has-results';
+        this.updateLinks();
+        this._trackEvent('visualization', 'complete');
+      })
+      .then(null, message => {
+        if (message === 'Render cancelled') {
+          this._trackEvent('visualization', 'cancelled');
+          this.state = '';
+        } else {
+          this._trackEvent('visualization', 'exception');
+          throw message;
+        }
+      })
+      .finally(() => {
+        this.runningParser = false;
+      })
+      .done();
   }
 }

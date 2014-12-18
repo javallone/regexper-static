@@ -1,7 +1,5 @@
 import _ from 'lodash';
 
-var groupCounter = 1;
-
 export default {
   type: 'subexp',
 
@@ -33,15 +31,11 @@ export default {
       }));
   },
 
-  resetCounter() {
-    groupCounter = 1;
-  },
-
   setup() {
     if (_.has(this.labelMap, this.properties.capture.textValue)) {
       this.label = this.labelMap[this.properties.capture.textValue];
     } else {
-      this.label = 'group #' + (groupCounter++);
+      this.label = 'group #' + (this.state.groupCounter++);
     }
 
     this.regexp = this.properties.regexp;

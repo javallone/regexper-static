@@ -96,7 +96,7 @@ describe('regexper.js', function() {
 
   });
 
-  describe('#documentKeypressListener', function() {
+  xdescribe('#documentKeypressListener', function() {
 
     beforeEach(function() {
       this.event = document.createEvent('Event');
@@ -267,7 +267,7 @@ describe('regexper.js', function() {
 
   });
 
-  describe('#showExpression', function() {
+  xdescribe('#showExpression', function() {
 
     beforeEach(function() {
       this.renderPromise = Q.defer();
@@ -398,7 +398,7 @@ describe('regexper.js', function() {
 
   });
 
-  describe('#renderRegexp', function() {
+  xdescribe('#renderRegexp', function() {
 
     beforeEach(function() {
       spyOn(parser, 'parse');
