@@ -1,5 +1,5 @@
 import Regexper from 'src/js/regexper.js';
-import parser from 'src/js/parser/javascript.js';
+import Parser from 'src/js/parser/javascript.js';
 import Snap from 'snapsvg';
 import Q from 'q';
 
@@ -96,11 +96,11 @@ describe('regexper.js', function() {
 
   });
 
-  xdescribe('#documentKeypressListener', function() {
+  describe('#documentKeypressListener', function() {
 
     beforeEach(function() {
       this.event = document.createEvent('Event');
-      spyOn(parser, 'cancel');
+      this.regexper.runningParser = jasmine.createSpyObj('parser', ['cancel']);
     });
 
     describe('when the keyCode is not 27 (Escape)', function() {
@@ -111,7 +111,7 @@ describe('regexper.js', function() {
 
       it('does not cancel the parser', function() {
         this.regexper.documentKeypressListener(this.event);
-        expect(parser.cancel).not.toHaveBeenCalled();
+        expect(this.regexper.runningParser.cancel).not.toHaveBeenCalled();
       });
 
     });
@@ -124,7 +124,7 @@ describe('regexper.js', function() {
 
       it('cancels the parser', function() {
         this.regexper.documentKeypressListener(this.event);
-        expect(parser.cancel).toHaveBeenCalled();
+        expect(this.regexper.runningParser.cancel).toHaveBeenCalled();
       });
 
     });
@@ -258,7 +258,7 @@ describe('regexper.js', function() {
 
   });
 
-  describe('#trackEvent', function() {
+  describe('#_trackEvent', function() {
 
     it('adds a _trackEvent call to gaq', function() {
       this.regexper._trackEvent('category', 'action');
@@ -267,11 +267,10 @@ describe('regexper.js', function() {
 
   });
 
-  xdescribe('#showExpression', function() {
+  describe('#showExpression', function() {
 
     beforeEach(function() {
-      this.renderPromise = Q.defer();
-      spyOn(this.regexper, 'renderRegexp').and.returnValue(this.renderPromise.promise);
+      spyOn(this.regexper, 'renderRegexp').and.returnValue(jasmine.createSpyObj('renderRegexp', ['done']));
     });
 
     it('sets the text field value', function() {
@@ -279,59 +278,16 @@ describe('regexper.js', function() {
       expect(this.regexper.field.value).toEqual('example expression');
     });
 
-    describe('when the expression is blank', function() {
-
-      it('clears the state', function() {
-        this.regexper.showExpression('');
-        expect(this.regexper.state).toEqual('');
-      });
-
+    it('clears the state', function() {
+      this.regexper.showExpression('');
+      expect(this.regexper.state).toEqual('');
     });
 
     describe('when the expression is not blank', function() {
 
-      it('sets the state to "is-loading"', function() {
-        this.regexper.showExpression('example expression');
-        expect(this.regexper.state).toEqual('is-loading');
-      });
-
       it('renders the expression', function() {
         this.regexper.showExpression('example expression');
         expect(this.regexper.renderRegexp).toHaveBeenCalledWith('example expression');
-      });
-
-      describe('when the expression finishes rendering', function() {
-
-        beforeEach(function(done) {
-          spyOn(this.regexper, 'updateLinks');
-          this.regexper.showExpression('example expression');
-          this.renderPromise.resolve();
-          setTimeout(done, 100);
-        });
-
-        it('sets the state to "has-results"', function() {
-          expect(this.regexper.state).toEqual('has-results');
-        });
-
-        it('updates the links', function() {
-          expect(this.regexper.updateLinks).toHaveBeenCalled();
-        });
-
-      });
-
-      describe('when the parser is cancelled', function() {
-
-        beforeEach(function(done) {
-          spyOn(this.regexper, 'updateLinks');
-          this.regexper.showExpression('example expression');
-          this.renderPromise.reject('Render cancelled');
-          setTimeout(done, 100);
-        });
-
-        it('clears the state', function() {
-          expect(this.regexper.state).toEqual('');
-        });
-
       });
 
     });
@@ -398,37 +354,43 @@ describe('regexper.js', function() {
 
   });
 
-  xdescribe('#renderRegexp', function() {
+  describe('#renderRegexp', function() {
 
     beforeEach(function() {
-      spyOn(parser, 'parse');
-    });
+      this.parsePromise = Q.defer();
+      this.renderPromise = Q.defer();
+      spyOn(Parser.prototype, 'parse').and.returnValue(this.parsePromise.promise);
+      spyOn(Parser.prototype, 'render').and.returnValue(this.renderPromise.promise);
+      spyOn(Parser.prototype, 'cancel');
 
-    it('parses the expression', function(done) {
+      spyOn(this.regexper, '_trackEvent');
+      spyOn(this.regexper, 'updateLinks');
+
       this.regexper.renderRegexp('example expression');
-
-      setTimeout(() => {
-        expect(parser.parse).toHaveBeenCalledWith('example expression');
-        done();
-      }, 100);
     });
 
-    it('replaces newlines with "\\n"', function(done) {
-      this.regexper.renderRegexp('multiline\nexpression');
+    it('sets the state to "is-loading"', function() {
+      expect(this.regexper.state).toEqual('is-loading');
+    });
 
-      setTimeout(() => {
-        expect(parser.parse).toHaveBeenCalledWith('multiline\\nexpression');
-        done();
-      }, 100);
+    it('tracks the beginning of the render', function() {
+      expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'start');
+    });
+
+    it('keeps a copy of the running parser', function() {
+      expect(this.regexper.runningParser).toBeTruthy();
+    });
+
+    it('parses the expression', function() {
+      expect(this.regexper.runningParser.parse).toHaveBeenCalledWith('example expression');
     });
 
     describe('when parsing fails', function() {
 
       beforeEach(function(done) {
-        parser.parse.and.throwError('parsing failure');
-        this.regexper.renderRegexp('example expression');
+        this.parsePromise.reject('example parse error');
 
-        setTimeout(done, 100);
+        setTimeout(done, 10);
       });
 
       it('sets the state to be "has-error"', function() {
@@ -436,7 +398,11 @@ describe('regexper.js', function() {
       });
 
       it('displays the error message', function() {
-        expect(this.regexper.error.innerHTML).toEqual('Error: parsing failure');
+        expect(this.regexper.error.innerHTML).toEqual('example parse error');
+      });
+
+      it('tracks the parse error', function() {
+        expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'parse error');
       });
 
     });
@@ -444,53 +410,83 @@ describe('regexper.js', function() {
     describe('when parsing succeeds', function() {
 
       beforeEach(function(done) {
-        this.renderPromise = Q.defer();
-        this.parsedExpr = jasmine.createSpyObj('parsedExpr', ['render']);
-        this.parsedExpr.render.and.returnValue(this.renderPromise.promise);
+        this.parser = this.regexper.runningParser;
+        this.parsePromise.resolve(this.parser);
 
-        parser.parse.and.returnValue(this.parsedExpr);
-
-        spyOn(this.regexper.snap, 'group').and.returnValue('example group');
-
-        this.regexper.renderRegexp('example expression');
-
-        setTimeout(done, 100);
+        setTimeout(done, 10);
       });
 
-      it('renders the parsed expression', function() {
-        expect(this.parsedExpr.render).toHaveBeenCalledWith('example group');
+      it('renders the expression', function() {
+        expect(this.parser.render).toHaveBeenCalledWith(this.regexper.snap, this.regexper.padding);
       });
 
-      describe('when rendering is complete', function() {
+    });
 
-        beforeEach(function(done) {
-          this.result = jasmine.createSpyObj('result', ['getBBox', 'transform']);
-          this.result.getBBox.and.returnValue({
-            x: 4,
-            y: 2,
-            width: 42,
-            height: 24
-          });
+    describe('when rendering is complete', function() {
 
-          spyOn(this.regexper.snap, 'attr');
+      beforeEach(function(done) {
+        this.parsePromise.resolve(this.regexper.runningParser);
+        this.renderPromise.resolve();
 
-          this.renderPromise.resolve(this.result);
+        setTimeout(done, 10);
+      });
 
-          setTimeout(done, 100);
-        });
+      it('sets the state to "has-results"', function() {
+        expect(this.regexper.state).toEqual('has-results');
+      });
 
-        it('positions the renderd expression', function() {
-          expect(this.result.transform).toHaveBeenCalledWith(Snap.matrix()
-            .translate(6, 8));
-        });
+      it('updates the links', function() {
+        expect(this.regexper.updateLinks).toHaveBeenCalled();
+      });
 
-        it('sets the dimensions of the image', function() {
-          expect(this.regexper.snap.attr).toHaveBeenCalledWith({
-            width: 62,
-            height: 44
-          });
-        });
+      it('tracks the complete render', function() {
+        expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'complete');
+      });
 
+      it('sets the runningParser to false', function() {
+        expect(this.regexper.runningParser).toBeFalsy();
+      });
+
+    });
+
+    describe('when the rendering is cancelled', function() {
+
+      beforeEach(function(done) {
+        this.parsePromise.resolve(this.regexper.runningParser);
+        this.renderPromise.reject('Render cancelled');
+
+        setTimeout(done, 10);
+      });
+
+      it('clears the state', function() {
+        expect(this.regexper.state).toEqual('');
+      });
+
+      it('tracks the cancelled render', function() {
+        expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'cancelled');
+      });
+
+      it('sets the runningParser to false', function() {
+        expect(this.regexper.runningParser).toBeFalsy();
+      });
+
+    });
+
+    describe('when the rendering fails', function() {
+
+      beforeEach(function(done) {
+        this.parsePromise.resolve(this.regexper.runningParser);
+        this.renderPromise.reject('example render failure');
+
+        setTimeout(done, 10);
+      });
+
+      it('tracks the failed render', function() {
+        expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'exception');
+      });
+
+      it('sets the runningParser to false', function() {
+        expect(this.regexper.runningParser).toBeFalsy();
       });
 
     });

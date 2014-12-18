@@ -99,7 +99,7 @@ export default class Regexper {
     this.state = '';
 
     if (expression !== '') {
-      this.renderRegexp(expression);
+      this.renderRegexp(expression).done();
     }
   }
 
@@ -173,7 +173,6 @@ export default class Regexper {
       })
       .finally(() => {
         this.runningParser = false;
-      })
-      .done();
+      });
   }
 }
