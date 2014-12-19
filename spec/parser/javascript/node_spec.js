@@ -168,7 +168,73 @@ describe('parser/javascript/node.js', function() {
 
   describe('#renderLabel', function() {
 
-    pending();
+    beforeEach(function() {
+      this.group = jasmine.createSpyObj('group', ['addClass', 'rect', 'text']);
+      this.group.addClass.and.returnValue(this.group);
+
+      this.node.container = jasmine.createSpyObj('container', ['addClass', 'group']);
+      this.node.container.group.and.returnValue(this.group);
+    });
+
+    it('adds a "label" class to the group', function() {
+      this.node.renderLabel('example label');
+      expect(this.group.addClass).toHaveBeenCalledWith('label');
+    });
+
+    it('creates a rect element', function() {
+      this.node.renderLabel('example label');
+      expect(this.group.rect).toHaveBeenCalled();
+    });
+
+    it('creates a text element', function() {
+      this.node.renderLabel('example label');
+      expect(this.group.text).toHaveBeenCalledWith(0, 0, ['example label']);
+    });
+
+    describe('positioning of label elements', function() {
+
+      beforeEach(function() {
+        this.text = jasmine.createSpyObj('text', ['getBBox', 'transform']);
+        this.rect = jasmine.createSpyObj('rect', ['attr']);
+
+        this.text.getBBox.and.returnValue({
+          width: 42,
+          height: 24
+        });
+
+        this.group.text.and.returnValue(this.text);
+        this.group.rect.and.returnValue(this.rect);
+      });
+
+      it('transforms the text element', function(done) {
+        this.node.renderLabel('example label')
+          .then(() => {
+            expect(this.text.transform).toHaveBeenCalledWith(Snap.matrix()
+              .translate(5, 22));
+          })
+          .then(done);
+      });
+
+      it('sets the dimensions of the rect element', function(done) {
+        this.node.renderLabel('example label')
+          .then(() => {
+            expect(this.rect.attr).toHaveBeenCalledWith({
+              width: 52,
+              height: 34
+            });
+          })
+          .then(done);
+      });
+
+      it('resolves with the group element', function(done) {
+        this.node.renderLabel('example label')
+          .then(group => {
+            expect(group).toEqual(this.group);
+          })
+          .then(done);
+      });
+
+    });
 
   });
 
@@ -184,7 +250,40 @@ describe('parser/javascript/node.js', function() {
 
   describe('#doneRender', function() {
 
-    pending();
+    it('sets the maxCounter when the maxCounter is initially 0', function() {
+      this.node.state.renderCounter = 42;
+      this.node.state.maxCounter = 0;
+      this.node.doneRender();
+      expect(this.node.state.maxCounter).toEqual(42);
+      this.node.state.renderCounter = 24;
+      this.node.doneRender();
+      expect(this.node.state.maxCounter).toEqual(42);
+    });
+
+    it('decrements the renderCounter', function() {
+      this.node.state.renderCounter = 42;
+      this.node.doneRender();
+      expect(this.node.state.renderCounter).toEqual(41);
+    });
+
+    it('triggers an updateStatus event', function() {
+      var evt;
+
+      this.node.state.renderCounter = 117;
+      this.node.state.maxCounter = 200;
+      spyOn(document.body, 'dispatchEvent');
+      this.node.doneRender();
+      expect(document.body.dispatchEvent).toHaveBeenCalled();
+
+      evt = document.body.dispatchEvent.calls.mostRecent().args[0];
+      expect(evt.type).toEqual('updateStatus');
+      expect(evt.detail).toEqual({ percentage: 0.42 });
+    });
+
+    it('returns a deferredStep', function() {
+      spyOn(this.node, 'deferredStep').and.returnValue('example deferred');
+      expect(this.node.doneRender()).toEqual('example deferred');
+    });
 
   });
 

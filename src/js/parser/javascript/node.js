@@ -119,10 +119,6 @@ export default class Node {
       percentage: (this.state.maxCounter - this.state.renderCounter) / this.state.maxCounter
     }));
 
-    if (this.state.renderCounter === 0) {
-      this.state.maxCounter = 0;
-    }
-
     return this.deferredStep();
   }
 
