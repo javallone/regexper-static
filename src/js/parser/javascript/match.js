@@ -1,3 +1,4 @@
+import { normalizeBBox } from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 
@@ -7,8 +8,8 @@ export default {
   definedProperties: {
     _anchor: {
       get: function() {
-        var start = this.normalizeBBox(_.first(this.items).getBBox()),
-            end = this.normalizeBBox(_.last(this.items).getBBox()),
+        var start = normalizeBBox(_.first(this.items).getBBox()),
+            end = normalizeBBox(_.last(this.items).getBBox()),
             matrix = this.transform().localMatrix;
 
         return {
@@ -47,11 +48,11 @@ export default {
           padding: 10
         });
 
-        prev = this.normalizeBBox(_.first(items).getBBox());
+        prev = normalizeBBox(_.first(items).getBBox());
         paths = _.map(items.slice(1), item => {
           var path;
 
-          next = this.normalizeBBox(item.getBBox());
+          next = normalizeBBox(item.getBBox());
           path = `M${prev.ax2},${prev.ay}H${next.ax}`;
           prev = next;
 

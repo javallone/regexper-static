@@ -104,26 +104,6 @@ describe('parser/javascript/node.js', function() {
 
   });
 
-  describe('#normalizeBBox', function() {
-
-    it('defaults the anchor keys to values from the bbox', function() {
-      expect(this.node.normalizeBBox({
-        x: 'bbox x',
-        x2: 'bbox x2',
-        cy: 'bbox cy',
-        ay: 'bbox ay'
-      })).toEqual({
-        x: 'bbox x',
-        x2: 'bbox x2',
-        cy: 'bbox cy',
-        ax: 'bbox x',
-        ax2: 'bbox x2',
-        ay: 'bbox ay'
-      });
-    });
-
-  });
-
   describe('#transform', function() {
 
     it('returns the result of calling transform on the container', function() {

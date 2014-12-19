@@ -1,4 +1,4 @@
-import { customEvent } from '../../util.js';
+import { customEvent, normalizeBBox } from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 
@@ -52,14 +52,6 @@ export default class Node {
 
   getBBox() {
     return _.extend(this.container.getBBox(), this.anchor);
-  }
-
-  normalizeBBox(box) {
-    return _.extend({
-      ax: box.x,
-      ax2: box.x2,
-      ay: box.cy
-    }, box);
   }
 
   transform(matrix) {
@@ -150,14 +142,14 @@ export default class Node {
       item.transform(Snap.matrix()
         .translate(offset, 0));
 
-      box = this.normalizeBBox(item.getBBox());
+      box = normalizeBBox(item.getBBox());
       verticalCenter = Math.max(verticalCenter, box.ay);
 
       return offset + options.padding + box.width;
     }, 0);
 
     for (var item of items) {
-      let box = this.normalizeBBox(item.getBBox());
+      let box = normalizeBBox(item.getBBox());
 
       item.transform(Snap.matrix()
         .add(item.transform().localMatrix)
