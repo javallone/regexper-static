@@ -351,64 +351,6 @@ describe('parser/javascript/node.js', function() {
 
   });
 
-  describe('#spaceHorizontally', function() {
-
-    it('positions each item', function() {
-      var svg = Snap(document.createElement('svg')),
-          items = [
-            svg.group(),
-            svg.group(),
-            svg.group()
-          ];
-
-      spyOn(items[0], 'getBBox').and.returnValue({ ay: 5, width: 10 });
-      spyOn(items[1], 'getBBox').and.returnValue({ ay: 15, width: 30 });
-      spyOn(items[2], 'getBBox').and.returnValue({ ay: 10, width: 20 });
-      spyOn(items[0], 'transform').and.callThrough();
-      spyOn(items[1], 'transform').and.callThrough();
-      spyOn(items[2], 'transform').and.callThrough();
-
-      this.node.spaceHorizontally(items, { padding: 5 });
-
-      expect(items[0].transform).toHaveBeenCalledWith(Snap.matrix()
-        .translate(0, 10));
-      expect(items[1].transform).toHaveBeenCalledWith(Snap.matrix()
-        .translate(15, 0));
-      expect(items[2].transform).toHaveBeenCalledWith(Snap.matrix()
-        .translate(50, 5));
-    });
-
-  });
-
-  describe('#spaceVertically', function() {
-
-    it('positions each item', function() {
-      var svg = Snap(document.createElement('svg')),
-          items = [
-            svg.group(),
-            svg.group(),
-            svg.group()
-          ];
-
-      spyOn(items[0], 'getBBox').and.returnValue({ cx: 5, height: 10 });
-      spyOn(items[1], 'getBBox').and.returnValue({ cx: 15, height: 30 });
-      spyOn(items[2], 'getBBox').and.returnValue({ cx: 10, height: 20 });
-      spyOn(items[0], 'transform').and.callThrough();
-      spyOn(items[1], 'transform').and.callThrough();
-      spyOn(items[2], 'transform').and.callThrough();
-
-      this.node.spaceVertically(items, { padding: 5 });
-
-      expect(items[0].transform).toHaveBeenCalledWith(Snap.matrix()
-        .translate(10, 0));
-      expect(items[1].transform).toHaveBeenCalledWith(Snap.matrix()
-        .translate(0, 15));
-      expect(items[2].transform).toHaveBeenCalledWith(Snap.matrix()
-        .translate(5, 50));
-    });
-
-  });
-
   describe('#renderLabeledBox', function() {
 
     beforeEach(function() {

@@ -1,4 +1,4 @@
-import { normalizeBBox } from '../../util.js';
+import { normalizeBBox, spaceHorizontally } from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 
@@ -44,7 +44,7 @@ export default {
         var prev, next, paths;
 
         this.items = items;
-        this.spaceHorizontally(items, {
+        spaceHorizontally(items, {
           padding: 10
         });
 

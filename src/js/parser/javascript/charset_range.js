@@ -1,3 +1,4 @@
+import { spaceHorizontally } from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 
@@ -16,7 +17,7 @@ export default {
       this.first.render(this.container.group()),
       this.last.render(this.container.group())
     ])
-      .then(this.spaceHorizontally.bind(this, contents, {
+      .then(spaceHorizontally.bind(this, contents, {
         padding: 5
       }));
   },
