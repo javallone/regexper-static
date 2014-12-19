@@ -147,7 +147,8 @@ describe('parser/javascript/node.js', function() {
           expect(resolve).toHaveBeenCalledWith('result');
           expect(reject).not.toHaveBeenCalled();
         })
-        .then(done);
+        .finally(done)
+        .done();
     });
 
     it('rejects the returned promise when the render is canceled', function(done) {
@@ -161,7 +162,8 @@ describe('parser/javascript/node.js', function() {
           expect(resolve).not.toHaveBeenCalled();
           expect(reject).toHaveBeenCalledWith('Render cancelled');
         })
-        .then(done);
+        .finally(done)
+        .done();
     });
 
   });
@@ -212,7 +214,8 @@ describe('parser/javascript/node.js', function() {
             expect(this.text.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(5, 22));
           })
-          .then(done);
+          .finally(done)
+          .done();
       });
 
       it('sets the dimensions of the rect element', function(done) {
@@ -223,7 +226,8 @@ describe('parser/javascript/node.js', function() {
               height: 34
             });
           })
-          .then(done);
+          .finally(done)
+          .done();
       });
 
       it('resolves with the group element', function(done) {
@@ -231,7 +235,8 @@ describe('parser/javascript/node.js', function() {
           .then(group => {
             expect(group).toEqual(this.group);
           })
-          .then(done);
+          .finally(done)
+          .done();
       });
 
     });
@@ -347,7 +352,8 @@ describe('parser/javascript/node.js', function() {
             .then(() => {
               expect(this.node.doneRender).toHaveBeenCalled();
             })
-            .then(done);
+            .finally(done)
+            .done();
         });
 
         it('ultimately resolves with the node instance', function(done) {
@@ -355,7 +361,8 @@ describe('parser/javascript/node.js', function() {
             .then(result => {
               expect(result).toEqual(this.node);
             })
-            .then(done);
+            .finally(done)
+            .done();
         });
 
       });

@@ -20,7 +20,8 @@ describe('parser/javascript.js', function() {
         .then(() => {
           expect(regexpParser.parse).toHaveBeenCalledWith('example expression');
         })
-        .finally(done);
+        .finally(done)
+        .done();
     });
 
     it('replaces newlines with "\\n"', function(done) {
@@ -28,7 +29,8 @@ describe('parser/javascript.js', function() {
         .then(() => {
           expect(regexpParser.parse).toHaveBeenCalledWith('multiline\\nexpression');
         })
-        .finally(done);
+        .finally(done)
+        .done();
     });
 
     it('resolves the returned promise with the parser instance', function(done) {
@@ -36,7 +38,8 @@ describe('parser/javascript.js', function() {
         .then(result => {
           expect(result).toEqual(this.parser);
         })
-        .finally(done);
+        .finally(done)
+        .done();
     });
 
   });
