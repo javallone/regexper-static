@@ -1,3 +1,4 @@
+import { customEvent } from './util.js';
 import Parser from './parser/javascript.js';
 import Snap from 'snapsvg';
 import Q from 'q';
@@ -20,17 +21,13 @@ export default class Regexper {
   }
 
   keypressListener(event) {
-    var evt;
-
     if (event.shiftKey && event.keyCode === 13) {
       event.returnValue = false;
       if (event.preventDefault) {
         event.preventDefault();
       }
 
-      evt = document.createEvent('Event');
-      evt.initEvent('submit', true, true);
-      this.form.dispatchEvent(evt);
+      this.form.dispatchEvent(customEvent('submit'));
     }
   }
 

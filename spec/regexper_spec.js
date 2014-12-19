@@ -1,3 +1,4 @@
+import { customEvent } from 'src/js/util.js';
 import Regexper from 'src/js/regexper.js';
 import Parser from 'src/js/parser/javascript.js';
 import Snap from 'snapsvg';
@@ -24,7 +25,7 @@ describe('regexper.js', function() {
   describe('#keypressListener', function() {
 
     beforeEach(function() {
-      this.event = document.createEvent('Event');
+      this.event = customEvent('keypress');
       spyOn(this.event, 'preventDefault');
       spyOn(this.regexper.form, 'dispatchEvent');
     });
@@ -99,7 +100,7 @@ describe('regexper.js', function() {
   describe('#documentKeypressListener', function() {
 
     beforeEach(function() {
-      this.event = document.createEvent('Event');
+      this.event = customEvent('keyup');
       this.regexper.runningParser = jasmine.createSpyObj('parser', ['cancel']);
     });
 
@@ -134,7 +135,7 @@ describe('regexper.js', function() {
   describe('#submitListener', function() {
 
     beforeEach(function() {
-      this.event = document.createEvent('Event');
+      this.event = customEvent('submit');
       spyOn(this.event, 'preventDefault');
 
       this.regexper.field.value = 'example value';
@@ -190,8 +191,7 @@ describe('regexper.js', function() {
   describe('#updatePercentage', function() {
 
     beforeEach(function() {
-      this.event = document.createEvent('Event');
-      this.event.detail = { percentage: 0.42 };
+      this.event = customEvent('updateStatus', { percentage: 0.42 });
     });
 
     it('sets the width of the progress bar', function() {

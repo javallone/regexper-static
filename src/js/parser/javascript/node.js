@@ -1,3 +1,4 @@
+import { customEvent } from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 
@@ -108,20 +109,15 @@ export default class Node {
   }
 
   doneRender() {
-    var evt;
-
     if (this.state.maxCounter === 0) {
       this.state.maxCounter = this.state.renderCounter;
     }
 
     this.state.renderCounter--;
 
-    evt = document.createEvent('Event');
-    evt.initEvent('updateStatus', true, true);
-    evt.detail = {
+    document.body.dispatchEvent(customEvent('updateStatus', {
       percentage: (this.state.maxCounter - this.state.renderCounter) / this.state.maxCounter
-    };
-    document.body.dispatchEvent(evt);
+    }));
 
     if (this.state.renderCounter === 0) {
       this.state.maxCounter = 0;
