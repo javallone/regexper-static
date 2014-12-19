@@ -138,10 +138,9 @@ export default class Node {
   }
 
   spaceHorizontally(items, options) {
-    var verticalCenter = 0,
-        normalize = this.normalizeBBox;
+    var verticalCenter = 0;
 
-    _.defaults(options, {
+    options = _.defaults(options || {}, {
       padding: 0
     });
 
@@ -151,14 +150,14 @@ export default class Node {
       item.transform(Snap.matrix()
         .translate(offset, 0));
 
-      box = normalize(item.getBBox());
+      box = this.normalizeBBox(item.getBBox());
       verticalCenter = Math.max(verticalCenter, box.ay);
 
       return offset + options.padding + box.width;
     }, 0);
 
     for (var item of items) {
-      let box = normalize(item.getBBox());
+      let box = this.normalizeBBox(item.getBBox());
 
       item.transform(Snap.matrix()
         .add(item.transform().localMatrix)
@@ -169,7 +168,7 @@ export default class Node {
   spaceVertically(items, options) {
     var horizontalCenter = 0;
 
-    _.defaults(options, {
+    options = _.defaults(options || {}, {
       padding: 0
     });
 
@@ -194,11 +193,8 @@ export default class Node {
   }
 
   renderLabeledBox(label, content, options) {
-    var label = this.container.text()
-          .addClass([this.type, 'label'].join('-'))
-          .attr({
-            text: label
-          }),
+    var label = this.container.text(0, 0, label)
+          .addClass([this.type, 'label'].join('-')),
         box = this.container.rect()
           .addClass([this.type, 'box'].join('-'))
           .attr({
@@ -206,7 +202,7 @@ export default class Node {
             ry: 3
           });
 
-    _.defaults(options, {
+    options = _.defaults(options || {}, {
       padding: 0
     });
 

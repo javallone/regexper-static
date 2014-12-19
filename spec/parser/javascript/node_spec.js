@@ -366,19 +366,188 @@ describe('parser/javascript/node.js', function() {
 
   describe('#spaceHorizontally', function() {
 
-    pending();
+    it('positions each item', function() {
+      var svg = Snap(document.createElement('svg')),
+          items = [
+            svg.group(),
+            svg.group(),
+            svg.group()
+          ];
+
+      spyOn(items[0], 'getBBox').and.returnValue({ ay: 5, width: 10 });
+      spyOn(items[1], 'getBBox').and.returnValue({ ay: 15, width: 30 });
+      spyOn(items[2], 'getBBox').and.returnValue({ ay: 10, width: 20 });
+      spyOn(items[0], 'transform').and.callThrough();
+      spyOn(items[1], 'transform').and.callThrough();
+      spyOn(items[2], 'transform').and.callThrough();
+
+      this.node.spaceHorizontally(items, { padding: 5 });
+
+      expect(items[0].transform).toHaveBeenCalledWith(Snap.matrix()
+        .translate(0, 10));
+      expect(items[1].transform).toHaveBeenCalledWith(Snap.matrix()
+        .translate(15, 0));
+      expect(items[2].transform).toHaveBeenCalledWith(Snap.matrix()
+        .translate(50, 5));
+    });
 
   });
 
   describe('#spaceVertically', function() {
 
-    pending();
+    it('positions each item', function() {
+      var svg = Snap(document.createElement('svg')),
+          items = [
+            svg.group(),
+            svg.group(),
+            svg.group()
+          ];
+
+      spyOn(items[0], 'getBBox').and.returnValue({ cx: 5, height: 10 });
+      spyOn(items[1], 'getBBox').and.returnValue({ cx: 15, height: 30 });
+      spyOn(items[2], 'getBBox').and.returnValue({ cx: 10, height: 20 });
+      spyOn(items[0], 'transform').and.callThrough();
+      spyOn(items[1], 'transform').and.callThrough();
+      spyOn(items[2], 'transform').and.callThrough();
+
+      this.node.spaceVertically(items, { padding: 5 });
+
+      expect(items[0].transform).toHaveBeenCalledWith(Snap.matrix()
+        .translate(10, 0));
+      expect(items[1].transform).toHaveBeenCalledWith(Snap.matrix()
+        .translate(0, 15));
+      expect(items[2].transform).toHaveBeenCalledWith(Snap.matrix()
+        .translate(5, 50));
+    });
 
   });
 
   describe('#renderLabeledBox', function() {
 
-    pending();
+    beforeEach(function() {
+      var svg = Snap(document.createElement('svg'));
+
+      this.text = svg.text();
+      this.rect = svg.rect();
+      this.content = svg.rect();
+
+      this.node.container = jasmine.createSpyObj('container', ['addClass', 'text', 'rect', 'prepend']);
+      this.node.container.text.and.returnValue(this.text);
+      this.node.container.rect.and.returnValue(this.rect);
+
+      this.node.type = 'example-type';
+    });
+
+    it('creates a text element', function() {
+      this.node.renderLabeledBox('example label', this.content, { padding: 5 });
+      expect(this.node.container.text).toHaveBeenCalledWith(0, 0, 'example label');
+    });
+
+    it('sets the class on the text element', function() {
+      spyOn(this.text, 'addClass').and.callThrough();
+      this.node.renderLabeledBox('example label', this.content, { padding: 5 });
+      expect(this.text.addClass).toHaveBeenCalledWith('example-type-label');
+    });
+
+    it('creates a rect element', function() {
+      this.node.renderLabeledBox('example label', this.content, { padding: 5 });
+      expect(this.node.container.rect).toHaveBeenCalled();
+    });
+
+    it('sets the class on the rect element', function() {
+      spyOn(this.rect, 'addClass').and.callThrough();
+      this.node.renderLabeledBox('example label', this.content, { padding: 5 });
+      expect(this.rect.addClass).toHaveBeenCalledWith('example-type-box');
+    });
+
+    it('sets the corner radius on the rect element', function() {
+      spyOn(this.rect, 'attr').and.callThrough();
+      this.node.renderLabeledBox('example label', this.content, { padding: 5 });
+      expect(this.rect.attr).toHaveBeenCalledWith({
+        rx: 3,
+        ry: 3
+      });
+    });
+
+    describe('positioning of elements', function() {
+
+      beforeEach(function() {
+        spyOn(this.text, 'getBBox').and.returnValue({
+          width: 100,
+          height: 20
+        });
+        spyOn(this.content, 'getBBox').and.returnValue({
+          width: 200,
+          height: 100,
+          cx: 100
+        });
+      });
+
+      it('positions the text element', function(done) {
+        spyOn(this.text, 'transform').and.callThrough();
+        this.node.renderLabeledBox('example label', this.content, { padding: 5 })
+          .then(() => {
+            expect(this.text.transform).toHaveBeenCalledWith(Snap.matrix()
+              .translate(0, 20));
+          })
+          .finally(done)
+          .done();
+      });
+
+      it('positions the rect element', function(done) {
+        spyOn(this.rect, 'transform').and.callThrough();
+        this.node.renderLabeledBox('example label', this.content, { padding: 5 })
+          .then(() => {
+            expect(this.rect.transform).toHaveBeenCalledWith(Snap.matrix()
+              .translate(0, 20));
+          })
+          .finally(done)
+          .done();
+      });
+
+      it('sets the dimensions of the rect element', function(done) {
+        spyOn(this.rect, 'attr').and.callThrough();
+        this.node.renderLabeledBox('example label', this.content, { padding: 5 })
+          .then(() => {
+            expect(this.rect.attr).toHaveBeenCalledWith({
+              width: 210,
+              height: 110
+            })
+          })
+          .finally(done)
+          .done();
+      });
+
+      it('sets the dimensions of the rect element (based on the text element)', function(done) {
+        this.content.getBBox.and.returnValue({
+          width: 50,
+          height: 100,
+          cx: 25
+        });
+        spyOn(this.rect, 'attr').and.callThrough();
+        this.node.renderLabeledBox('example label', this.content, { padding: 5 })
+          .then(() => {
+            expect(this.rect.attr).toHaveBeenCalledWith({
+              width: 100,
+              height: 110
+            })
+          })
+          .finally(done)
+          .done();
+      });
+
+      it('positions the content element', function(done) {
+        spyOn(this.content, 'transform').and.callThrough();
+        this.node.renderLabeledBox('example label', this.content, { padding: 5 })
+          .then(() => {
+            expect(this.content.transform).toHaveBeenCalledWith(Snap.matrix()
+              .translate(5, 25));
+          })
+          .finally(done)
+          .done();
+      });
+
+    });
 
   });
 
