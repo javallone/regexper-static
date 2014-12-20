@@ -70,3 +70,10 @@ export function spaceVertically(items, options) {
       .translate(horizontalCenter - item.getBBox().cx, 0));
   }
 }
+
+export default {
+  customEvent,
+  normalizeBBox,
+  spaceHorizontally,
+  spaceVertically
+};

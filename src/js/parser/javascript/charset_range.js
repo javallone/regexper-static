@@ -1,4 +1,4 @@
-import { spaceHorizontally } from '../../util.js';
+import util from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 
@@ -8,8 +8,7 @@ export default {
   _render() {
     var contents = [
       this.first,
-      this.container.text()
-        .attr({ text: '-' }),
+      this.container.text(0, 0, '-'),
       this.last
     ];
 
@@ -17,9 +16,11 @@ export default {
       this.first.render(this.container.group()),
       this.last.render(this.container.group())
     ])
-      .then(spaceHorizontally.bind(this, contents, {
-        padding: 5
-      }));
+      .then(() => {
+        util.spaceHorizontally(contents, {
+          padding: 5
+        });
+      });
   },
 
   setup() {
