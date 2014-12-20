@@ -101,6 +101,23 @@ header {
   }
 }
 
+.changelog {
+  background-color: $tan;
+  padding: rhythm(1/2);
+
+  dt {
+    font-weight: bold;
+  }
+
+  dd {
+    &::before {
+      content: '\00BB';
+      font-weight: bold;
+      margin-right: rhythm(1/2);
+    }
+  }
+}
+
 #content {
   padding: rhythm(1);
 
