@@ -22,9 +22,11 @@ grammar JavascriptRegexp
                     / charset_literal <Literal>
   charset_escape <- "\\" esc:(
          code:[bdDfnrsStvwW] arg:""?
+       / code:"c" arg:.
        / code:"0" arg:[0-7]+
        / code:"x" arg:( [0-9a-fA-F] [0-9a-fA-F] )
-       / code:"u" arg:( [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] ) )
+       / code:"u" arg:( [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] )
+       / code:"0" arg:""? )
   charset_literal <- ( ""? literal:[^\\\]] ) / ( "\\" literal:. )
   terminal <- "." <AnyCharacter>
             / escape <Escape>
