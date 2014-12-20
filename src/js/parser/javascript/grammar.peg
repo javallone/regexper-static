@@ -22,7 +22,7 @@ grammar JavascriptRegexp
   charset <- "[" invert:"^"? parts:( charset_range / charset_terminal )* "]" <Charset>
   charset_range <- first:charset_terminal "-" last:charset_terminal <CharsetRange>
   charset_terminal <- charset_escape <CharsetEscape>
-                    / charset_literal <CharsetLiteral>
+                    / charset_literal <Literal>
   charset_escape <- "\\" esc:(
          code:[bdDfnrsStvwW] arg:""?
        / code:"0" arg:[0-7]+
