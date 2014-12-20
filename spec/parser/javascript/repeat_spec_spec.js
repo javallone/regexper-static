@@ -31,4 +31,11 @@ describe('parser/javascript/repeat_spec.js', function() {
     expect(parser.__consume__repeat_spec()).toEqual(null);
   });
 
+  it('throws an exception when the numbers are out of order', function() {
+    var parser = new javascript.Parser('{42,24}');
+    expect(() => {
+      parser.__consume__repeat_spec();
+    }).toThrow('Numbers out of order: {42,24}');
+  });
+
 });
