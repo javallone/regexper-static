@@ -4,8 +4,8 @@ export default {
   type: 'escape',
 
   _render() {
-    return this.renderLabel(_.result(this, this.code))
-      .then(label => {
+    return this.renderLabel(this.label)
+      .tap(label => {
         label.select('rect').attr({
           rx: 3,
           ry: 3
@@ -16,6 +16,7 @@ export default {
   setup() {
     this.code = this.properties.esc.properties.code.textValue;
     this.arg = this.properties.esc.properties.arg.textValue;
+    this.label = _.result(this, this.code);
   },
 
   // Escape code mappings
@@ -43,18 +44,18 @@ export default {
   9: 'Back reference (group = 9)',
   0() {
     if (this.arg) {
-      return 'octal: ' + this.arg;
+      return `octal: ${this.arg}`;
     } else {
       return 'null';
     }
   },
   c() {
-    return 'ctrl-' + this.arg;
+    return `ctrl-${this.arg}`;
   },
   x() {
-    return '0x' + this.arg.toUpperCase();
+    return `0x${this.arg.toUpperCase()}`;
   },
   u() {
-    return 'U+' + this.arg.toUpperCase();
+    return `U+${this.arg.toUpperCase()}`;
   }
 };
