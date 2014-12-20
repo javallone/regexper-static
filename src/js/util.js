@@ -1,6 +1,6 @@
 import _ from 'lodash';
 
-export function customEvent(name, detail) {
+function customEvent(name, detail) {
   var evt = document.createEvent('Event');
   evt.initEvent(name, true, true);
   evt.detail = detail;
@@ -8,7 +8,7 @@ export function customEvent(name, detail) {
 }
 
 
-export function normalizeBBox(box) {
+function normalizeBBox(box) {
   return _.extend({
     ax: box.x,
     ax2: box.x2,
@@ -16,7 +16,7 @@ export function normalizeBBox(box) {
   }, box);
 }
 
-export function spaceHorizontally(items, options) {
+function spaceHorizontally(items, options) {
   var verticalCenter = 0;
 
   options = _.defaults(options || {}, {
@@ -44,7 +44,7 @@ export function spaceHorizontally(items, options) {
   }
 }
 
-export function spaceVertically(items, options) {
+function spaceVertically(items, options) {
   var horizontalCenter = 0;
 
   options = _.defaults(options || {}, {

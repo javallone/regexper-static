@@ -1,4 +1,4 @@
-import { spaceVertically } from '../../util.js';
+import util from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 export default {
@@ -26,7 +26,7 @@ export default {
       return part.render(this.partContainer.group());
     }))
       .then(() => {
-        spaceVertically(this.elements, {
+        util.spaceVertically(this.elements, {
           padding: 5
         });
 

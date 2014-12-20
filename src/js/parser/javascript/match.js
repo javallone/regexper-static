@@ -1,4 +1,4 @@
-import { normalizeBBox, spaceHorizontally } from '../../util.js';
+import util from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 
@@ -8,8 +8,8 @@ export default {
   definedProperties: {
     _anchor: {
       get: function() {
-        var start = normalizeBBox(_.first(this.items).getBBox()),
-            end = normalizeBBox(_.last(this.items).getBBox()),
+        var start = util.normalizeBBox(_.first(this.items).getBBox()),
+            end = util.normalizeBBox(_.last(this.items).getBBox()),
             matrix = this.transform().localMatrix;
 
         return {
@@ -44,15 +44,15 @@ export default {
         var prev, next, paths;
 
         this.items = items;
-        spaceHorizontally(items, {
+        util.spaceHorizontally(items, {
           padding: 10
         });
 
-        prev = normalizeBBox(_.first(items).getBBox());
+        prev = util.normalizeBBox(_.first(items).getBBox());
         paths = _.map(items.slice(1), item => {
           var path;
 
-          next = normalizeBBox(item.getBBox());
+          next = util.normalizeBBox(item.getBBox());
           path = `M${prev.ax2},${prev.ay}H${next.ax}`;
           prev = next;
 

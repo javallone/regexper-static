@@ -1,4 +1,4 @@
-import { customEvent } from './util.js';
+import util from './util.js';
 import Parser from './parser/javascript.js';
 import Snap from 'snapsvg';
 import Q from 'q';
@@ -27,7 +27,7 @@ export default class Regexper {
         event.preventDefault();
       }
 
-      this.form.dispatchEvent(customEvent('submit'));
+      this.form.dispatchEvent(util.customEvent('submit'));
     }
   }
 

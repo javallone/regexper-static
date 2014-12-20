@@ -1,4 +1,4 @@
-import { customEvent, normalizeBBox } from '../../util.js';
+import util from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 
@@ -107,7 +107,7 @@ export default class Node {
 
     this.state.renderCounter--;
 
-    document.body.dispatchEvent(customEvent('updateStatus', {
+    document.body.dispatchEvent(util.customEvent('updateStatus', {
       percentage: (this.state.maxCounter - this.state.renderCounter) / this.state.maxCounter
     }));
 

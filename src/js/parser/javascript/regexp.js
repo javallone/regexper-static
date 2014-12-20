@@ -1,4 +1,4 @@
-import { spaceVertically } from '../../util.js';
+import util from '../../util.js';
 import _ from 'lodash';
 import Q from 'q';
 
@@ -20,7 +20,7 @@ export default {
         var containerBox,
             paths;
 
-        spaceVertically(this.matches, {
+        util.spaceVertically(this.matches, {
           padding: 5
         });
 

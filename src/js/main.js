@@ -1,4 +1,4 @@
-import { customEvent } from './util.js';
+import util from './util.js';
 import Regexper from './regexper.js';
 
 (function() {
@@ -8,7 +8,7 @@ import Regexper from './regexper.js';
     regexper.bindListeners();
 
     setTimeout(() => {
-      window.dispatchEvent(customEvent('hashchange'));
+      window.dispatchEvent(util.customEvent('hashchange'));
     });
   }
 }());

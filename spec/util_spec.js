@@ -1,16 +1,16 @@
-import { customEvent, normalizeBBox, spaceHorizontally, spaceVertically } from 'src/js/util.js';
+import util from 'src/js/util.js';
 
 describe('util.js', function() {
 
   describe('customEvent', function() {
 
     it('sets the event type', function() {
-      var event = customEvent('example');
+      var event = util.customEvent('example');
       expect(event.type).toEqual('example');
     });
 
     it('sets the event detail', function() {
-      var event = customEvent('example', 'detail');
+      var event = util.customEvent('example', 'detail');
       expect(event.detail).toEqual('detail');
     });
 
@@ -19,7 +19,7 @@ describe('util.js', function() {
   describe('normalizeBBox', function() {
 
     it('defaults the anchor keys to values from the bbox', function() {
-      expect(normalizeBBox({
+      expect(util.normalizeBBox({
         x: 'bbox x',
         x2: 'bbox x2',
         cy: 'bbox cy',
@@ -53,7 +53,7 @@ describe('util.js', function() {
       spyOn(items[1], 'transform').and.callThrough();
       spyOn(items[2], 'transform').and.callThrough();
 
-      spaceHorizontally(items, { padding: 5 });
+      util.spaceHorizontally(items, { padding: 5 });
 
       expect(items[0].transform).toHaveBeenCalledWith(Snap.matrix()
         .translate(0, 10));
@@ -82,7 +82,7 @@ describe('util.js', function() {
       spyOn(items[1], 'transform').and.callThrough();
       spyOn(items[2], 'transform').and.callThrough();
 
-      spaceVertically(items, { padding: 5 });
+      util.spaceVertically(items, { padding: 5 });
 
       expect(items[0].transform).toHaveBeenCalledWith(Snap.matrix()
         .translate(10, 0));
