@@ -4,8 +4,8 @@ export default {
   type: 'literal',
 
   _render() {
-    return this.renderLabel(['"', this.literal.textValue, '"'])
-      .then(label => {
+    return this.renderLabel(['"', this.literal, '"'])
+      .tap(label => {
         var spans = label.selectAll('tspan');
 
         spans[0].addClass('quote');
@@ -19,11 +19,10 @@ export default {
   },
 
   merge(other) {
-    this.textValue += other.textValue;
-    this.literal.textValue += other.literal.textValue;
+    this.literal += other.literal;
   },
 
   setup() {
-    this.literal = this.properties.literal;
+    this.literal = this.properties.literal.textValue;
   }
 };
