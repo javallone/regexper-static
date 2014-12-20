@@ -9,7 +9,7 @@ describe('parser/javascript.js', function() {
     this.parser = new Parser();
   });
 
-  describe('#parser', function() {
+  describe('#parse', function() {
 
     beforeEach(function() {
       spyOn(regexpParser, 'parse');
@@ -37,6 +37,15 @@ describe('parser/javascript.js', function() {
       this.parser.parse('example expression')
         .then(result => {
           expect(result).toEqual(this.parser);
+        })
+        .finally(done)
+        .done();
+    });
+
+    it('rejects the returned promise with the exception thrown', function(done) {
+      this.parser.parse('/example')
+        .then(null, result => {
+          expect(result).toBeDefined();
         })
         .finally(done)
         .done();

@@ -16,10 +16,15 @@ export default class Parser {
     var deferred = Q.defer();
 
     setTimeout(() => {
-      javascript.Parser.SyntaxNode.state = this.state;
+      try {
+        javascript.Parser.SyntaxNode.state = this.state;
 
-      this.parsed = javascript.parse(expression.replace(/\n/g, '\\n'));
-      deferred.resolve(this);
+        this.parsed = javascript.parse(expression.replace(/\n/g, '\\n'));
+        deferred.resolve(this);
+      }
+      catch(e) {
+        deferred.reject(e);
+      }
     });
 
     return deferred.promise;
