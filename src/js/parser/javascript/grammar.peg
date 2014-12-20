@@ -1,20 +1,17 @@
 grammar JavascriptRegexp
-  root <- ( ( "/" regexp "/" flags:[igm]* ) / regexp ""? ) <Root>
+  root <- ( ( "/" regexp "/" flags:[igm]* ) / regexp flags:""? ) <Root>
   regexp <- match:match alternates:( "|" match )* <Regexp>
-  match <- anchor_start:anchor_start?
+  match <- anchor_start:"^"?
            (!repeat) parts:match_fragment*
-           anchor_end:anchor_end? <Match>
+           anchor_end:"$"? <Match>
   match_fragment <- content:( subexp / charset / terminal ) repeat:repeat? <MatchFragment>
-  anchor_start <- "^"
-  anchor_end <- "$"
-  repeat <- spec:( repeat_any / repeat_required / repeat_optional / repeat_spec ) greedy:repeat_greedy? <Repeat>
+  repeat <- spec:( repeat_any / repeat_required / repeat_optional / repeat_spec ) greedy:"?"? <Repeat>
   repeat_any <- "*" <RepeatAny>
   repeat_required <- "+" <RepeatRequired>
   repeat_optional <- "?" <RepeatOptional>
   repeat_spec <- ( "{" min:[0-9]+ "," max:[0-9]+ "}"
                  / "{" min:[0-9]+ ",}"
                  / "{" exact:[0-9]+ "}" ) <RepeatSpec>
-  repeat_greedy <- "?"
   subexp <- "(" capture:( subexp_no_capture / subexp_positive_lookahead / subexp_negative_lookahead )? regexp ")" <Subexp>
   subexp_no_capture <- "?:"
   subexp_positive_lookahead <- "?="
@@ -29,10 +26,9 @@ grammar JavascriptRegexp
        / code:"x" arg:( [0-9a-fA-F] [0-9a-fA-F] )
        / code:"u" arg:( [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] ) )
   charset_literal <- ( ""? literal:[^\\\]] ) / ( "\\" literal:. )
-  terminal <- any_character <AnyCharacter>
+  terminal <- "." <AnyCharacter>
             / escape <Escape>
             / literal <Literal>
-  any_character <- "."
   escape <- "\\" esc:(
          code:[bBdDfnrsStvwW1-9] arg:""?
        / code:"c" arg:.

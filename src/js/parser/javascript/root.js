@@ -52,13 +52,7 @@ export default {
   },
 
   setup() {
-    var flagsStr;
-
-    if (this.properties.flags) {
-      flagsStr = this.properties.flags.textValue;
-    } else {
-      flagsStr = '';
-    }
+    var flagsStr = this.properties.flags.textValue;
 
     this.flags = {
       global: /g/.test(flagsStr),
