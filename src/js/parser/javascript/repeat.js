@@ -35,7 +35,7 @@ export default {
           if (this.minimum === this.maximum) {
             return formatTimes(this.minimum - 1);
           } else {
-            return `${this.minimum - 1}...${formatTimes(this.maximum - 1)}`;
+            return `${this.minimum - 1}\u2026${formatTimes(this.maximum - 1)}`;
           }
         }
       }
@@ -46,7 +46,7 @@ export default {
     this.minimum = this.properties.spec.minimum;
     this.maximum = this.properties.spec.maximum;
     this.greedy = (this.properties.greedy.textValue === '');
-    this.hasSkip = this.minimum === 0;
-    this.hasLoop = this.maximum === -1 || this.maximum > 1;
+    this.hasSkip = (this.minimum === 0);
+    this.hasLoop = (this.maximum === -1 || this.maximum > 1);
   }
 }
