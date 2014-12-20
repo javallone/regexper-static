@@ -1,6 +1,4 @@
 export default {
-  setup() {
-    this.minimum = 0;
-    this.maximum = 1;
-  }
+  minimum: 0,
+  maximum: 1
 };
