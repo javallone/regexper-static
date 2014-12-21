@@ -1,0 +1,63 @@
+@import 'base';
+
+text, tspan {
+  font: 12px Arial;
+}
+
+path {
+  fill-opacity: 0;
+  stroke-width: 2px;
+  stroke: $black;
+}
+
+circle.pin {
+  fill: $gray;
+  stroke-width: 2px;
+  stroke: $black;
+}
+
+.anchor text, .any-character text {
+  fill: $white;
+}
+
+.anchor rect, .any-character rect {
+  fill: $gray;
+}
+
+.escape text, .charset-escape text, .literal text {
+  fill: $black;
+}
+
+.escape rect, .charset-escape rect {
+  fill: $green;
+}
+
+.literal rect {
+  fill: $blue;
+}
+
+.charset .charset-box {
+  fill: $tan;
+}
+
+.subexp .subexp-label,
+.charset .charset-label,
+.match-fragment .repeat-label {
+  font-size: 10px;
+}
+
+.subexp .subexp-label,
+.charset .charset-label {
+  dominant-baseline: text-after-edge;
+}
+
+.subexp .subexp-box {
+  stroke: $light-gray;
+  stroke-dasharray: 6,2;
+  stroke-width: 2px;
+  fill-opacity: 0;
+}
+
+.quote {
+  fill: $light-gray;
+}

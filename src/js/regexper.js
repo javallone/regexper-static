@@ -141,6 +141,12 @@ export default class Regexper {
     this.state = 'is-loading';
     this._trackEvent('visualization', 'start');
 
+    this.svg.innerHTML = [
+      '<style type="text/css">',
+      this.root.querySelector('#svg-styles').innerHTML,
+      '</style>'
+    ].join('');
+
     this.runningParser = new Parser();
 
     return this.runningParser.parse(expression)

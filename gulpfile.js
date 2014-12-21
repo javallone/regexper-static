@@ -11,7 +11,7 @@ function errorHandler() {
 
 gulp.task('default', ['server'], function() {
   gulp.watch(config.globs.other, ['static']);
-  gulp.watch([config.globs.html, config.templateFile], ['markup']);
+  gulp.watch([config.globs.html, config.templateFile, config.globs.sass], ['markup']);
   gulp.watch(config.globs.sass, ['compass']);
   gulp.watch(config.globs.js, ['browserify']);
 });
@@ -37,9 +37,10 @@ gulp.task('static', function() {
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('markup', function() {
+gulp.task('markup', ['compass'], function() {
   var wrap = require('gulp-wrap'),
-      path = require('path');
+      path = require('path'),
+      fs = require('fs');
 
   return gulp.src(config.globs.html, { base: './src' })
     .pipe(errorHandler())
@@ -49,7 +50,10 @@ gulp.task('markup', function() {
             file = path.relative(root, this.file.history[0]);
 
         return config.titles[file] || config.titles['_'];
-      }
+      },
+      svgStyles: fs.readFileSync(path.join(config.compass.css, 'svg.css'), {
+        encoding: 'utf-8'
+      })
     }))
     .pipe(gulp.dest(config.buildRoot));
 });

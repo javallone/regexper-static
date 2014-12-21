@@ -14,7 +14,8 @@ describe('regexper.js', function() {
       '<div><a href="#" data-glyph="link-intact"></a></div>',
       '<div><a href="#" data-glyph="data-transfer-download"></a></div>',
       '<div id="progress"><div></div></div>',
-      '<div id="regexp-render"><svg></svg></div>'
+      '<div id="regexp-render"><svg></svg></div>',
+      '<div id="svg-styles">example styles</div>'
     ].join('');
 
     this.regexper = new Regexper(this.root);
@@ -375,6 +376,10 @@ describe('regexper.js', function() {
 
     it('tracks the beginning of the render', function() {
       expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'start');
+    });
+
+    it('adds the svg styles to the svg element', function() {
+      expect(this.regexper.svg.innerHTML).toEqual('<style type="text/css">example styles</style>');
     });
 
     it('keeps a copy of the running parser', function() {
