@@ -5,6 +5,11 @@ var path = require('path'),
     buildPath = _.bind(path.join, path, buildRoot);
 
 module.exports = {
+  titles: {
+    '_': 'Regexper',
+    'changelog.html': 'Regexper - Changelog',
+    'documentation.html': 'Regexper - Documentation'
+  },
   buildRoot: buildRoot,
   buildPath: buildPath,
   templateFile: './template.html',

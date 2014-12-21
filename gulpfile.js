@@ -38,11 +38,19 @@ gulp.task('static', function() {
 });
 
 gulp.task('markup', function() {
-  var wrap = require('gulp-wrap');
+  var wrap = require('gulp-wrap'),
+      path = require('path');
 
   return gulp.src(config.globs.html, { base: './src' })
     .pipe(errorHandler())
-    .pipe(wrap({ src: config.templateFile }))
+    .pipe(wrap({ src: config.templateFile }, {
+      title: function() {
+        var root = path.join(this.file.cwd, this.file.base),
+            file = path.relative(root, this.file.history[0]);
+
+        return config.titles[file] || config.titles['_'];
+      }
+    }))
     .pipe(gulp.dest(config.buildRoot));
 });
 
