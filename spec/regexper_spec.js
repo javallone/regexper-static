@@ -378,10 +378,6 @@ describe('regexper.js', function() {
       expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'start');
     });
 
-    it('adds the svg styles to the svg element', function() {
-      expect(this.regexper.svg.innerHTML).toEqual('<style type="text/css">example styles</style>');
-    });
-
     it('keeps a copy of the running parser', function() {
       expect(this.regexper.runningParser).toBeTruthy();
     });
@@ -422,7 +418,7 @@ describe('regexper.js', function() {
       });
 
       it('renders the expression', function() {
-        expect(this.parser.render).toHaveBeenCalledWith(this.regexper.snap, this.regexper.padding);
+        expect(this.parser.render).toHaveBeenCalledWith(this.regexper.svg, this.regexper.svgStyles);
       });
 
     });

@@ -1,6 +1,5 @@
 import util from './util.js';
 import Parser from './parser/javascript.js';
-import Snap from 'snapsvg';
 import Q from 'q';
 
 export default class Regexper {
@@ -13,9 +12,7 @@ export default class Regexper {
     this.download = root.querySelector('a[data-glyph="data-transfer-download"]');
     this.percentage = root.querySelector('#progress div');
     this.svg = root.querySelector('#regexp-render svg');
-
-    this.padding = 10;
-    this.snap = Snap(this.svg);
+    this.svgStyles = this.root.querySelector('#svg-styles').innerHTML;
 
     this.gaq = (typeof window._gaq === 'undefined') ? [] : window._gaq;
   }
@@ -141,12 +138,6 @@ export default class Regexper {
     this.state = 'is-loading';
     this._trackEvent('visualization', 'start');
 
-    this.svg.innerHTML = [
-      '<style type="text/css">',
-      this.root.querySelector('#svg-styles').innerHTML,
-      '</style>'
-    ].join('');
-
     this.runningParser = new Parser();
 
     return this.runningParser.parse(expression)
@@ -159,7 +150,7 @@ export default class Regexper {
 
         throw message;
       })
-      .invoke('render', this.snap, this.padding)
+      .invoke('render', this.svg, this.svgStyles)
       .then(() => {
         this.state = 'has-results';
         this.updateLinks();

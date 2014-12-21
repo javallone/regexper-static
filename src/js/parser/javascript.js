@@ -1,4 +1,5 @@
 import Q from 'q';
+import Snap from 'snapsvg';
 
 import javascript from './javascript/parser.js';
 
@@ -30,18 +31,26 @@ export default class Parser {
     return deferred.promise;
   }
 
-  render(svg, padding) {
-    svg.selectAll('g').remove();
+  render(svgElement, styles) {
+    var svg;
+
+    svgElement.innerHTML = [
+      '<style type="text/css">',
+      styles,
+      '</style>'
+    ].join('');
+
+    svg = Snap(svgElement);
 
     return this.parsed.render(svg.group())
       .then(result => {
         var box = result.getBBox();
 
         result.transform(Snap.matrix()
-          .translate(padding - box.x, padding - box.y));
+          .translate(10 - box.x, 10 - box.y));
         svg.attr({
-          width: box.width + padding * 2,
-          height: box.height + padding * 2
+          width: box.width + 20,
+          height: box.height + 20
         });
       });
   }

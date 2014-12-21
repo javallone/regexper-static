@@ -1,5 +1,9 @@
 @import 'base';
 
+svg {
+  background-color: $white;
+}
+
 text, tspan {
   font: 12px Arial;
 }

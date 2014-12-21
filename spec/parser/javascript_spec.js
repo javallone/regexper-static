@@ -60,12 +60,18 @@ describe('parser/javascript.js', function() {
       this.parser.parsed = jasmine.createSpyObj('parsed', ['render']);
       this.parser.parsed.render.and.returnValue(this.renderPromise.promise);
 
+      this.svgStyles = 'example styles';
       this.svg = Snap(document.createElement('svg'));
       spyOn(this.svg, 'group').and.returnValue('example group');
     });
 
+    it('adds the svg styles to the svg element', function() {
+      this.parser.render(this.svg, this.svgStyles);
+      expect(this.svg.innerHTML).toEqual('<style type="text/css">example styles</style>');
+    });
+
     it('render the parsed expression', function() {
-      this.parser.render(this.svg, 10);
+      this.parser.render(this.svg, this.svgStyles);
       expect(this.parser.parsed.render).toHaveBeenCalledWith('example group');
     });
 
@@ -82,7 +88,7 @@ describe('parser/javascript.js', function() {
 
         spyOn(this.svg, 'attr');
 
-        this.parser.render(this.svg, 10);
+        this.parser.render(this.svg, this.svgStyles);
         this.renderPromise.resolve(this.result);
 
         setTimeout(done, 10);
