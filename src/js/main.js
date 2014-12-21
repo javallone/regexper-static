@@ -4,7 +4,7 @@ import Parser from './parser/javascript.js';
 import _ from 'lodash';
 
 (function() {
-  if (document.body.querySelector('#content .container')) {
+  if (document.body.querySelector('#content .application')) {
     var regexper = new Regexper(document.body);
 
     regexper.bindListeners();
