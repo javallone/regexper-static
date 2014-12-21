@@ -1,7 +1,7 @@
 import javascript from 'src/js/parser/javascript/parser.js';
 import Snap from 'snapsvg';
 
-describe('parser/javascript/any_character.js', function() {
+describe('parser/javascript/literal.js', function() {
 
   it('parses "x" as a Literal', function() {
     var parser = new javascript.Parser('x');

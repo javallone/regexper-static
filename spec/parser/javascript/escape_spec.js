@@ -2,7 +2,7 @@ import javascript from 'src/js/parser/javascript/parser.js';
 import _ from 'lodash';
 import Snap from 'snapsvg';
 
-describe('parser/javascript/any_character.js', function() {
+describe('parser/javascript/escape.js', function() {
 
   _.forIn({
     '\\b': 'word boundary',

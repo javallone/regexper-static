@@ -1,6 +1,6 @@
 import javascript from 'src/js/parser/javascript/parser.js';
 
-describe('parser/javascript/repeat_any.js', function() {
+describe('parser/javascript/repeat_required.js', function() {
 
   it('parses "+" as a RepeatRequired', function() {
     var parser = new javascript.Parser('+');
