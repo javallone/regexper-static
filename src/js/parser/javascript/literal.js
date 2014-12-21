@@ -4,7 +4,7 @@ export default {
   type: 'literal',
 
   _render() {
-    return this.renderLabel(['"', this.literal, '"'])
+    return this.renderLabel(['\u201c', this.literal, '\u201d'])
       .tap(label => {
         var spans = label.selectAll('tspan');
 

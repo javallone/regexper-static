@@ -35,7 +35,7 @@ describe('parser/javascript/literal.js', function() {
 
     it('renders a label', function() {
       this.node._render();
-      expect(this.node.renderLabel).toHaveBeenCalledWith(['"', 'a', '"']);
+      expect(this.node.renderLabel).toHaveBeenCalledWith(['\u201c', 'a', '\u201d']);
     });
 
     it('sets the class of the first and third tspan to "quote"', function(done) {
