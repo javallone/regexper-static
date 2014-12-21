@@ -101,10 +101,12 @@ header {
   }
 }
 
-.changelog {
+.copy {
   background-color: $tan;
   padding: rhythm(1/2);
+}
 
+.changelog {
   dt {
     font-weight: bold;
   }
