@@ -101,27 +101,142 @@ header {
   }
 }
 
-.copy {
-  background-color: $tan;
-  padding: rhythm(1/2);
+.spinner {
+  margin: 0 auto;
+  width: rhythm(2);
+  height: rhythm(2);
+  position: relative;
+  text-align: center;
+
+  @include animation(rotate 3.0s infinite linear);
+
+  div {
+    width: 40%;
+    height: 40%;
+    display: inline-block;
+    position: absolute;
+    border: 3px solid $green;
+    @include border-radius(50%);
+
+    @include animation(bounce 2.0s infinite ease-in-out);
+  }
+
+  :first-child {
+    top: 0;
+  }
+
+  :last-child {
+    bottom: 0px;
+    @include animation-delay(-1.0s);
+  }
 }
 
-.changelog {
-  dt {
-    font-weight: bold;
-  }
+@include keyframes(rotate) {
+  100% { @include transform(rotate(360deg)); }
+}
 
-  dd {
-    &::before {
-      content: '\00BB';
-      font-weight: bold;
-      margin-right: rhythm(1/2);
-    }
-  }
+@include keyframes(bounce) {
+  0%, 100% { @include transform(scale(0.0)); }
+  50% { @include transform(scale(1.0)); }
 }
 
 #content {
   padding: rhythm(1);
+
+  .copy {
+    background-color: $tan;
+    padding: rhythm(1/2);
+  }
+
+  .changelog {
+    dt {
+      font-weight: bold;
+    }
+
+    dd {
+      &::before {
+        content: '\00BB';
+        font-weight: bold;
+        margin-right: rhythm(1/2);
+      }
+    }
+  }
+
+  .documentation {
+    h1 {
+      @include adjust-font-size-to($base-font-size * 2);
+      font-weight: bold;
+    }
+
+    h2 {
+      @include adjust-font-size-to($base-font-size);
+      font-weight: bold;
+    }
+
+    h3 {
+      @include adjust-font-size-to($base-font-size);
+
+      &::before {
+        content: '\00BB';
+        font-weight: bold;
+        margin-right: rhythm(1/4);
+      }
+    }
+
+    h1, h2, h3 {
+      clear: both;
+    }
+
+    h2, h3 {
+      margin-bottom: rhythm(1);
+    }
+
+    section, div, p {
+      margin: rhythm(1) 0;
+    }
+
+    figure {
+      line-height: 0;
+      background: $white;
+      margin: rhythm(1/4);
+      @include box-shadow;
+
+      &.shift-right {
+        float: right;
+        margin-left: rhythm(1/2);
+      }
+
+      &.shift-left {
+        float: left;
+        margin-right: rhythm(1/2);
+      }
+
+      &.loading {
+        min-width: 100px;
+
+        .spinner {
+          left: 50%;
+          margin-left: -24px;
+        }
+
+        svg {
+          position: absolute;
+          top: -10000px;
+        }
+      }
+
+      figcaption {
+        @include adjust-font-size-to($base-font-size);
+        background: $green;
+        font-weight: bold;
+        padding: 0 rhythm(1/4);
+      }
+    }
+
+    section, div {
+      overflow: hidden;
+    }
+  }
 
   .application {
     position: relative;
@@ -177,47 +292,8 @@ header {
   padding: rhythm(1/2) 0;
   display: none;
 
-  .spinner {
-    margin: 0 auto;
-    width: rhythm(2);
-    height: rhythm(2);
-    position: relative;
-    text-align: center;
-
-    @include animation(rotate 3.0s infinite linear);
-
-    div {
-      width: 40%;
-      height: 40%;
-      display: inline-block;
-      position: absolute;
-      border: 3px solid $green;
-      @include border-radius(50%);
-
-      @include animation(bounce 2.0s infinite ease-in-out);
-    }
-
-    :first-child {
-      top: 0;
-    }
-
-    :last-child {
-      bottom: 0px;
-      @include animation-delay(-1.0s);
-    }
-  }
-
   body.is-loading & {
     display: block;
-  }
-
-  @include keyframes(rotate) {
-    100% { @include transform(rotate(360deg)); }
-  }
-
-  @include keyframes(bounce) {
-    0%, 100% { @include transform(scale(0.0)); }
-    50% { @include transform(scale(1.0)); }
   }
 }
 

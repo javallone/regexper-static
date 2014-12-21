@@ -14,11 +14,30 @@ import _ from 'lodash';
     });
   }
 
-  _.each(document.querySelectorAll('svg[data-expr]'), element => {
-    var parser = new Parser();
+  _.each(document.querySelectorAll('figure[data-expr]'), element => {
+    var parser = new Parser(),
+        svg;
 
-    parser.parse(element.getAttribute('data-expr'))
-      .invoke('render', element, document.querySelector('#svg-styles').innerHTML)
-      .done();
+    element.className = _.compact([element.className, 'loading']).join(' ');
+    element.innerHTML = [
+      '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>',
+      '<div class="spinner">',
+        '<div></div>',
+        '<div></div>',
+      '</div>',
+      element.innerHTML
+    ].join('');
+
+    svg = element.querySelector('svg');
+
+    setTimeout(() => {
+      parser.parse(element.getAttribute('data-expr'))
+        .invoke('render', svg, document.querySelector('#svg-styles').innerHTML)
+        .finally(() => {
+          element.className = _.without(element.className.split(' '), 'loading').join(' ');
+          element.removeChild(element.querySelector('.spinner'));
+        })
+        .done();
+    }, 1);
   });
 }());
