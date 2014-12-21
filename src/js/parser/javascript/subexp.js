@@ -26,9 +26,11 @@ export default {
 
   _render() {
     return this.regexp.render(this.container.group())
-      .then(this.renderLabeledBox.bind(this, this.label, this.regexp, {
-        padding: 10
-      }));
+      .then(() => {
+        return this.renderLabeledBox(this.label, this.regexp, {
+          padding: 10
+        });
+      });
   },
 
   setup() {
