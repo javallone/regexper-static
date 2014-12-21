@@ -12,7 +12,6 @@ function errorHandler() {
 gulp.task('default', ['server'], function() {
   gulp.watch(config.globs.other, ['static']);
   gulp.watch([config.globs.html, config.templateFile, config.globs.sass], ['markup']);
-  gulp.watch(config.globs.sass, ['compass']);
   gulp.watch(config.globs.js, ['browserify']);
 });
 
