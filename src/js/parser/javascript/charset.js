@@ -37,7 +37,7 @@ export default {
   },
 
   setup() {
-    this.invert = this.properties.invert !== '';
+    this.invert = this.properties.invert.textValue !== '';
     this.elements = _.unique(this.properties.parts.elements, part => {
       if (part.literal) {
         return part.literal.textValue;
