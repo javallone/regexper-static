@@ -5,17 +5,40 @@ import _ from 'lodash';
 
 describe('parser/javascript/charset_range.js', function() {
 
-  it('parses "a-z" as a CharsetRange', function() {
-    var parser = new javascript.Parser('a-z');
-    expect(parser.__consume__charset_range()).toEqual(jasmine.objectContaining({
-      type: 'charset-range',
-      first: jasmine.objectContaining({
-        textValue: 'a'
-      }),
-      last: jasmine.objectContaining({
-        textValue: 'z'
-      })
-    }));
+  _.forIn({
+    'a-z': {
+      first: jasmine.objectContaining({ textValue: 'a' }),
+      last: jasmine.objectContaining({ textValue: 'z' })
+    },
+    '\\b-z': {
+      first: jasmine.objectContaining({ textValue: '\\b' }),
+      last: jasmine.objectContaining({ textValue: 'z' })
+    },
+    '\\f-z': {
+      first: jasmine.objectContaining({ textValue: '\\f' }),
+      last: jasmine.objectContaining({ textValue: 'z' })
+    },
+    '\\n-z': {
+      first: jasmine.objectContaining({ textValue: '\\n' }),
+      last: jasmine.objectContaining({ textValue: 'z' })
+    },
+    '\\r-z': {
+      first: jasmine.objectContaining({ textValue: '\\r' }),
+      last: jasmine.objectContaining({ textValue: 'z' })
+    },
+    '\\t-z': {
+      first: jasmine.objectContaining({ textValue: '\\t' }),
+      last: jasmine.objectContaining({ textValue: 'z' })
+    },
+    '\\v-z': {
+      first: jasmine.objectContaining({ textValue: '\\v' }),
+      last: jasmine.objectContaining({ textValue: 'z' })
+    }
+  }, (content, str) => {
+    it(`parses "${str}" as a CharsetRange`, function() {
+      var parser = new javascript.Parser(str);
+      expect(parser.__consume__charset_range()).toEqual(jasmine.objectContaining(content));
+    });
   });
 
   _.each([
