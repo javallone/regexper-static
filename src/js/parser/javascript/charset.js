@@ -30,17 +30,17 @@ export default {
           padding: 5
         });
 
-        return this.renderLabeledBox(this.invert ? 'None of:' : 'One of:', this.partContainer, {
+        return this.renderLabeledBox(this.label, this.partContainer, {
           padding: 5
         });
       });
   },
 
   setup() {
-    this.invert = this.properties.invert.textValue !== '';
+    this.label = (this.properties.invert.textValue === '^') ? 'None of:' : 'One of:';
     this.elements = _.unique(this.properties.parts.elements, part => {
       if (part.literal) {
-        return part.literal.textValue;
+        return part.literal;
       } else {
         return part.textValue;
       }
