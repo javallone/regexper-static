@@ -166,6 +166,47 @@ header {
     }
   }
 
+  .error {
+    overflow: hidden;
+
+    h1 {
+      @include adjust-font-size-to($base-font-size * 2);
+      font-weight: bold;
+      float: left;
+    }
+
+    blockquote {
+      background-color: $green;
+      position: relative;
+      padding: rhythm(1);
+      display: inline-block;
+      font-style: italic;
+      float: right;
+
+      &::before {
+        @include adjust-font-size-to($base-font-size * 4);
+        content: '\201c';
+        position: absolute;
+        left: 0;
+        top: 0;
+        font-style: normal;
+      }
+
+      &::after {
+        @include adjust-font-size-to($base-font-size * 4);
+        content: '\201d';
+        position: absolute;
+        right: 0;
+        bottom: -0.5em;
+        font-style: normal;
+      }
+    }
+
+    p {
+      clear: left;
+    }
+  }
+
   .documentation {
     h1 {
       @include adjust-font-size-to($base-font-size * 2);

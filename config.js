@@ -8,7 +8,8 @@ module.exports = {
   titles: {
     '_': 'Regexper',
     'changelog.html': 'Regexper - Changelog',
-    'documentation.html': 'Regexper - Documentation'
+    'documentation.html': 'Regexper - Documentation',
+    '404.html': 'Regexper - Page Not Found'
   },
   buildRoot: buildRoot,
   buildPath: buildPath,
