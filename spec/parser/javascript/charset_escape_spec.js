@@ -19,7 +19,7 @@ describe('parser/javascript/charset_escape.js', function() {
     '\\W': { label: 'non-word', ordinal: -1 },
     '\\0': { label: 'null', ordinal: 0 },
     '\\012': { label: 'octal: 12', ordinal: 10 },
-    '\\cx': { label: 'ctrl-x', ordinal: -1 },
+    '\\cx': { label: 'ctrl-X', ordinal: 24 },
     '\\xab': { label: '0xAB', ordinal: 0xab },
     '\\uabcd': { label: 'U+ABCD', ordinal: 0xabcd }
   }, (content, str) => {

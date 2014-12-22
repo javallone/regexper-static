@@ -50,7 +50,7 @@ export default {
     }
   },
   c() {
-    return [`ctrl-${this.arg}`, -1];
+    return [`ctrl-${this.arg.toUpperCase()}`, this.arg.toUpperCase().charCodeAt(0) - 64];
   },
   x() {
     return [`0x${this.arg.toUpperCase()}`, parseInt(this.arg, 16)];
