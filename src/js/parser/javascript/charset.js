@@ -39,11 +39,7 @@ export default {
   setup() {
     this.label = (this.properties.invert.textValue === '^') ? 'None of:' : 'One of:';
     this.elements = _.unique(this.properties.parts.elements, part => {
-      if (part.literal) {
-        return part.literal;
-      } else {
-        return part.textValue;
-      }
+      return [part.type, part.textValue].join(':');
     });
   }
 };
