@@ -17,9 +17,11 @@ grammar JavascriptRegexp
   subexp_positive_lookahead <- "?="
   subexp_negative_lookahead <- "?!"
   charset <- "[" invert:"^"? parts:( charset_range / charset_terminal )* "]" <Charset>
-  charset_range <- first:charset_terminal "-" last:charset_terminal <CharsetRange>
+  charset_range <- first:charset_range_terminal "-" last:charset_range_terminal <CharsetRange>
   charset_terminal <- charset_escape <CharsetEscape>
                     / charset_literal <Literal>
+  charset_range_terminal <- charset_range_escape <CharsetEscape>
+                          / charset_literal <Literal>
   charset_escape <- "\\" esc:(
          code:[bdDfnrsStvwW] arg:""?
        / code:"c" arg:[a-zA-Z]
@@ -27,7 +29,16 @@ grammar JavascriptRegexp
        / code:"x" arg:( [0-9a-fA-F] [0-9a-fA-F] )
        / code:"u" arg:( [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] )
        / code:"0" arg:""? )
-  charset_literal <- ( ""? literal:[^\\\]] ) / ( literal:"\\" &"c" ) / ( "\\" literal:. )
+  charset_range_escape <- "\\" esc:(
+         code:[bfnrtv] arg:""?
+       / code:"c" arg:[a-zA-Z]
+       / code:"0" arg:[0-7]+
+       / code:"x" arg:( [0-9a-fA-F] [0-9a-fA-F] )
+       / code:"u" arg:( [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] )
+       / code:"0" arg:""? )
+  charset_literal <- ( ""? literal:[^\\\]] )
+                   / ( literal:"\\" &"c" )
+                   / ( "\\" literal:[^bdDfnrsStvwW] )
   terminal <- "." <AnyCharacter>
             / escape <Escape>
             / literal <Literal>
@@ -38,4 +49,6 @@ grammar JavascriptRegexp
        / code:"x" arg:( [0-9a-fA-F] [0-9a-fA-F] )
        / code:"u" arg:( [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] )
        / code:"0" arg:""? )
-  literal <- ( ""? literal:[^|\\/.\[\(\)?+*$^] ) / ( literal:"\\" &"c" ) / ( "\\" literal:. )
+  literal <- ( ""? literal:[^|\\/.\[\(\)?+*$^] )
+           / ( literal:"\\" &"c" )
+           / ( "\\" literal:. )

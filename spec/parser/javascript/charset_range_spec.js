@@ -1,6 +1,7 @@
 import javascript from 'src/js/parser/javascript/parser.js';
 import util from 'src/js/util.js';
 import Q from 'q';
+import _ from 'lodash';
 
 describe('parser/javascript/charset_range.js', function() {
 
@@ -15,6 +16,20 @@ describe('parser/javascript/charset_range.js', function() {
         textValue: 'z'
       })
     }));
+  });
+
+  _.each([
+    '\\d-a',
+    '\\D-a',
+    '\\s-a',
+    '\\S-a',
+    '\\w-a',
+    '\\W-a'
+  ], str => {
+    it(`does not parse "${str}" as a CharsetRange`, function() {
+      var parser = new javascript.Parser(str);
+      expect(parser.__consume__charset_range()).toEqual(null);
+    });
   });
 
   it('throws an exception when the range is out of order', function() {
