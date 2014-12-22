@@ -17,6 +17,13 @@ describe('parser/javascript/charset_range.js', function() {
     }));
   });
 
+  it('throws an exception when the range is out of order', function() {
+    var parser = new javascript.Parser('z-a');
+    expect(() => {
+      parser.__consume__charset_range();
+    }).toThrow('Range out of order in character class: z-a');
+  });
+
   describe('#_render', function() {
 
     beforeEach(function() {

@@ -26,5 +26,9 @@ export default {
   setup() {
     this.first = this.properties.first;
     this.last = this.properties.last;
+
+    if (this.first.ordinal > this.last.ordinal) {
+      throw `Range out of order in character class: ${this.textValue}`;
+    }
   }
 };
