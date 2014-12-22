@@ -9,7 +9,8 @@ export default class Parser {
       groupCounter: 1,
       renderCounter: 0,
       maxCounter: 0,
-      cancelRender: false
+      cancelRender: false,
+      warnings: []
     };
   }
 
@@ -57,5 +58,9 @@ export default class Parser {
 
   cancel() {
     this.state.cancelRender = true;
+  }
+
+  get warnings() {
+    return this.state.warnings;
   }
 }

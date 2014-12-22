@@ -11,6 +11,7 @@ describe('regexper.js', function() {
     this.root.innerHTML = [
       '<form id="regexp-form" action="/"><input type="text" id="regexp-input" /></form>',
       '<div id="error"></div>',
+      '<ul id="warnings"></ul>',
       '<div><a href="#" data-glyph="link-intact"></a></div>',
       '<div><a href="#" data-glyph="data-transfer-download"></a></div>',
       '<div id="progress"><div></div></div>',
@@ -355,6 +356,15 @@ describe('regexper.js', function() {
 
   });
 
+  describe('#displayWarnings', function() {
+
+    it('adds a list item for each warning', function() {
+      this.regexper.displayWarnings(['warning 1', 'warning 2']);
+      expect(this.regexper.warnings.innerHTML).toEqual('<li class="oi with-text" data-glyph="warning">warning 1</li><li class="oi with-text" data-glyph="warning">warning 2</li>');
+    });
+
+  });
+
   describe('#renderRegexp', function() {
 
     beforeEach(function() {
@@ -366,6 +376,7 @@ describe('regexper.js', function() {
 
       spyOn(this.regexper, '_trackEvent');
       spyOn(this.regexper, 'updateLinks');
+      spyOn(this.regexper, 'displayWarnings');
 
       this.regexper.renderRegexp('example expression');
     });
@@ -438,6 +449,10 @@ describe('regexper.js', function() {
 
       it('updates the links', function() {
         expect(this.regexper.updateLinks).toHaveBeenCalled();
+      });
+
+      it('displays the warnings', function() {
+        expect(this.regexper.displayWarnings).toHaveBeenCalled();
       });
 
       it('tracks the complete render', function() {

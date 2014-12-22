@@ -1,4 +1,5 @@
 import javascript from 'src/js/parser/javascript/parser.js';
+import Node from 'src/js/parser/javascript/node.js';
 import util from 'src/js/util.js';
 import _ from 'lodash';
 import Snap from 'snapsvg';
@@ -47,6 +48,14 @@ describe('parser/javascript/charset.js', function() {
       var parser = new javascript.Parser(str);
       expect(parser.__consume__charset()).toEqual(jasmine.objectContaining(content));
     });
+  });
+
+  it('adds a warning for character sets the contain non-standard escapes', function() {
+    var node;
+
+    Node.state = { warnings: [] };
+    node = new javascript.Parser('[\\c]').__consume__charset();
+    expect(node.state.warnings).toEqual(['The character set "[\\c]" contains the \\c escape followed by a character other than A-Z. This can lead to different behavior depending on browser. The representation here is the most common interpretation.']);
   });
 
   describe('_anchor property', function() {

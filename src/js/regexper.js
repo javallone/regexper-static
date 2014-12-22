@@ -1,6 +1,7 @@
 import util from './util.js';
 import Parser from './parser/javascript.js';
 import Q from 'q';
+import _ from 'lodash';
 
 export default class Regexper {
   constructor(root) {
@@ -8,6 +9,7 @@ export default class Regexper {
     this.form = root.querySelector('#regexp-form');
     this.field = root.querySelector('#regexp-input');
     this.error = root.querySelector('#error');
+    this.warnings = root.querySelector('#warnings');
     this.permalink = root.querySelector('a[data-glyph="link-intact"]');
     this.download = root.querySelector('a[data-glyph="data-transfer-download"]');
     this.percentage = root.querySelector('#progress div');
@@ -122,6 +124,12 @@ export default class Regexper {
     }
   }
 
+  displayWarnings(warnings) {
+    this.warnings.innerHTML = _.map(warnings, warning => {
+      return `<li class="oi with-text" data-glyph="warning">${warning}</li>`;
+    }).join('');
+  }
+
   renderRegexp(expression) {
     if (this.runningParser) {
       let deferred = Q.defer();
@@ -154,6 +162,7 @@ export default class Regexper {
       .then(() => {
         this.state = 'has-results';
         this.updateLinks();
+        this.displayWarnings(this.runningParser.warnings);
         this._trackEvent('visualization', 'complete');
       })
       .then(null, message => {

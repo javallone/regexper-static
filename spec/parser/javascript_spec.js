@@ -119,4 +119,13 @@ describe('parser/javascript.js', function() {
 
   });
 
+  describe('warnings property', function() {
+
+    it('returns the content of the warnings state variable', function() {
+      this.parser.state.warnings.push('example');
+      expect(this.parser.warnings).toEqual(['example']);
+    });
+
+  });
+
 });

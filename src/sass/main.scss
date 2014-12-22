@@ -383,6 +383,21 @@ header {
   }
 }
 
+#warnings {
+  @include adjust-font-size-to($base-font-size, 1);
+  font-weight: bold;
+  background-color: $yellow;
+  display: none;
+
+  li {
+    margin: rhythm(1/4);
+  }
+
+  body.has-results & {
+    display: block;
+  }
+}
+
 #regexp-render {
   background: $white;
   width: 100%;
