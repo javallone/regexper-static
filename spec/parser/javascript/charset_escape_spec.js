@@ -5,30 +5,27 @@ import Snap from 'snapsvg';
 describe('parser/javascript/charset_escape.js', function() {
 
   _.forIn({
-    '\\b': 'backspace',
-    '\\d': 'digit',
-    '\\D': 'non-digit',
-    '\\f': 'form feed',
-    '\\n': 'line feed',
-    '\\r': 'carriage return',
-    '\\s': 'white space',
-    '\\S': 'non-white space',
-    '\\t': 'tab',
-    '\\v': 'vertical tab',
-    '\\w': 'word',
-    '\\W': 'non-word',
-    '\\0': 'null',
-    '\\012': 'octal: 12',
-    '\\cx': 'ctrl-x',
-    '\\xab': '0xAB',
-    '\\uabcd': 'U+ABCD'
-  }, (label, str) => {
+    '\\b': { label: 'backspace', ordinal: 0x08 },
+    '\\d': { label: 'digit', ordinal: -1 },
+    '\\D': { label: 'non-digit', ordinal: -1 },
+    '\\f': { label: 'form feed', ordinal: 0x0c },
+    '\\n': { label: 'line feed', ordinal: 0x0a },
+    '\\r': { label: 'carriage return', ordinal: 0x0d },
+    '\\s': { label: 'white space', ordinal: -1 },
+    '\\S': { label: 'non-white space', ordinal: -1 },
+    '\\t': { label: 'tab', ordinal: 0x09 },
+    '\\v': { label: 'vertical tab', ordinal: 0x0b },
+    '\\w': { label: 'word', ordinal: -1 },
+    '\\W': { label: 'non-word', ordinal: -1 },
+    '\\0': { label: 'null', ordinal: 0 },
+    '\\012': { label: 'octal: 12', ordinal: 10 },
+    '\\cx': { label: 'ctrl-x', ordinal: -1 },
+    '\\xab': { label: '0xAB', ordinal: 0xab },
+    '\\uabcd': { label: 'U+ABCD', ordinal: 0xabcd }
+  }, (content, str) => {
     it(`parses "${str}" as a CharsetEscape`, function() {
       var parser = new javascript.Parser(str);
-      expect(parser.__consume__charset_terminal()).toEqual(jasmine.objectContaining({
-        type: 'charset-escape',
-        label
-      }));
+      expect(parser.__consume__charset_terminal()).toEqual(jasmine.objectContaining(content));
     });
   });
 

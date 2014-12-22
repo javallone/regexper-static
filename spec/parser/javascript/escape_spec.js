@@ -5,40 +5,37 @@ import Snap from 'snapsvg';
 describe('parser/javascript/escape.js', function() {
 
   _.forIn({
-    '\\b': 'word boundary',
-    '\\B': 'non-word boundary',
-    '\\d': 'digit',
-    '\\D': 'non-digit',
-    '\\f': 'form feed',
-    '\\n': 'line feed',
-    '\\r': 'carriage return',
-    '\\s': 'white space',
-    '\\S': 'non-white space',
-    '\\t': 'tab',
-    '\\v': 'vertical tab',
-    '\\w': 'word',
-    '\\W': 'non-word',
-    '\\0': 'null',
-    '\\1': 'Back reference (group = 1)',
-    '\\2': 'Back reference (group = 2)',
-    '\\3': 'Back reference (group = 3)',
-    '\\4': 'Back reference (group = 4)',
-    '\\5': 'Back reference (group = 5)',
-    '\\6': 'Back reference (group = 6)',
-    '\\7': 'Back reference (group = 7)',
-    '\\8': 'Back reference (group = 8)',
-    '\\9': 'Back reference (group = 9)',
-    '\\012': 'octal: 12',
-    '\\cx': 'ctrl-x',
-    '\\xab': '0xAB',
-    '\\uabcd': 'U+ABCD'
-  }, (label, str) => {
+    '\\b': { label: 'word boundary', ordinal: -1 },
+    '\\B': { label: 'non-word boundary', ordinal: -1 },
+    '\\d': { label: 'digit', ordinal: -1 },
+    '\\D': { label: 'non-digit', ordinal: -1 },
+    '\\f': { label: 'form feed', ordinal: 0x0c },
+    '\\n': { label: 'line feed', ordinal: 0x0a },
+    '\\r': { label: 'carriage return', ordinal: 0x0d },
+    '\\s': { label: 'white space', ordinal: -1 },
+    '\\S': { label: 'non-white space', ordinal: -1 },
+    '\\t': { label: 'tab', ordinal: 0x09 },
+    '\\v': { label: 'vertical tab', ordinal: 0x0b },
+    '\\w': { label: 'word', ordinal: -1 },
+    '\\W': { label: 'non-word', ordinal: -1 },
+    '\\0': { label: 'null', ordinal: 0 },
+    '\\1': { label: 'Back reference (group = 1)', ordinal: -1 },
+    '\\2': { label: 'Back reference (group = 2)', ordinal: -1 },
+    '\\3': { label: 'Back reference (group = 3)', ordinal: -1 },
+    '\\4': { label: 'Back reference (group = 4)', ordinal: -1 },
+    '\\5': { label: 'Back reference (group = 5)', ordinal: -1 },
+    '\\6': { label: 'Back reference (group = 6)', ordinal: -1 },
+    '\\7': { label: 'Back reference (group = 7)', ordinal: -1 },
+    '\\8': { label: 'Back reference (group = 8)', ordinal: -1 },
+    '\\9': { label: 'Back reference (group = 9)', ordinal: -1 },
+    '\\012': { label: 'octal: 12', ordinal: 10 },
+    '\\cx': { label: 'ctrl-x', ordinal: -1 },
+    '\\xab': { label: '0xAB', ordinal: 0xab },
+    '\\uabcd': { label: 'U+ABCD', ordinal: 0xabcd }
+  }, (content, str) => {
     it(`parses "${str}" as an Escape`, function() {
       var parser = new javascript.Parser(str);
-      expect(parser.__consume__terminal()).toEqual(jasmine.objectContaining({
-        type: 'escape',
-        label
-      }));
+      expect(parser.__consume__terminal()).toEqual(jasmine.objectContaining(content));
     });
   });
 
