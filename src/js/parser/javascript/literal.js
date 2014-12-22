@@ -24,5 +24,6 @@ export default {
 
   setup() {
     this.literal = this.properties.literal.textValue;
+    this.ordinal = this.literal.charCodeAt(0);
   }
 };

@@ -7,7 +7,8 @@ describe('parser/javascript/literal.js', function() {
     var parser = new javascript.Parser('x');
     expect(parser.__consume__terminal()).toEqual(jasmine.objectContaining({
       type: 'literal',
-      literal: 'x'
+      literal: 'x',
+      ordinal: 120
     }));
   });
 
@@ -15,7 +16,8 @@ describe('parser/javascript/literal.js', function() {
     var parser = new javascript.Parser('\\x');
     expect(parser.__consume__terminal()).toEqual(jasmine.objectContaining({
       type: 'literal',
-      literal: 'x'
+      literal: 'x',
+      ordinal: 120
     }));
   });
 
