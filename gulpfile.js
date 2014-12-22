@@ -96,3 +96,13 @@ gulp.task('karma', function(done) {
     configFile: path.join(__dirname, 'karma.conf.js')
   }, done);
 });
+
+gulp.task('karma:single', function(done) {
+  var karma = require('karma'),
+      path = require('path');
+
+  karma.server.start({
+    configFile: path.join(__dirname, 'karma.conf.js'),
+    singleRun: true
+  }, done);
+});
