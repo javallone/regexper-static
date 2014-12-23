@@ -8,8 +8,8 @@ export default {
   definedProperties: {
     _anchor: {
       get: function() {
-        var start = util.normalizeBBox(_.first(this.items).getBBox()),
-            end = util.normalizeBBox(_.last(this.items).getBBox()),
+        var start = util.normalizeBBox(this.start.getBBox()),
+            end = util.normalizeBBox(this.end.getBBox()),
             matrix = this.transform().localMatrix;
 
         return {
@@ -43,7 +43,9 @@ export default {
       .then(items => {
         var prev, next, paths;
 
-        this.items = items;
+        this.start = _.first(items);
+        this.end = _.last(items);
+
         util.spaceHorizontally(items, {
           padding: 10
         });

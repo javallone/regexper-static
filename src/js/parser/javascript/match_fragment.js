@@ -21,37 +21,19 @@ export default {
   _render() {
     return this.content.render(this.container.group())
       .then(() => {
-        var box, paths = [];
+        var box, paths;
 
         this.content.transform(this.repeat.contentPosition);
 
         box = this.content.getBBox();
 
-        if (this.repeat.hasSkip) {
-          let vert = Math.max(0, box.ay - box.y - 10),
-              horiz = box.width - 10;
+        paths = _.flatten([
+          this.skipPath(box),
+          this.loopPath(box)
+        ]);
 
-          paths.push(`M0,${box.ay}q10,0 10,-10v${-vert}q0,-10 10,-10h${horiz}q10,0 10,10v${vert}q0,10 10,10`);
-
-          if (!this.repeat.greedy) {
-            paths.push(`M10,${box.ay - 15}l5,5m-5,-5l-5,5`);
-          }
-        }
-
-        if (this.repeat.hasLoop) {
-          let vert = box.y2 - box.ay - 10;
-
-          paths.push(`M${box.x},${box.ay}q-10,0 -10,10v${vert}q0,10 10,10h${box.width}q10,0 10,-10v${-vert}q0,-10 -10,-10`);
-
-          if (this.repeat.greedy) {
-            paths.push(`M${box.x2 + 10},${box.ay + 15}l5,-5m-5,5l-5,-5`);
-          }
-        }
-
-        if (paths.length) {
-          this.container.prepend(
-            this.container.path(paths.join('')));
-        }
+        this.container.prepend(
+          this.container.path(paths.join('')));
       })
       .then(() => {
         var labelStr = this.repeat.label,
@@ -70,13 +52,45 @@ export default {
       });
   },
 
+  skipPath(box) {
+    var paths = [];
+
+    if (this.repeat.hasSkip) {
+      let vert = Math.max(0, box.ay - box.y - 10),
+          horiz = box.width - 10;
+
+      paths.push(`M0,${box.ay}q10,0 10,-10v${-vert}q0,-10 10,-10h${horiz}q10,0 10,10v${vert}q0,10 10,10`);
+
+      if (!this.repeat.greedy) {
+        paths.push(`M10,${box.ay - 15}l5,5m-5,-5l-5,5`);
+      }
+    }
+
+    return paths;
+  },
+
+  loopPath(box) {
+    var paths = [];
+
+    if (this.repeat.hasLoop) {
+      let vert = box.y2 - box.ay - 10;
+
+      paths.push(`M${box.x},${box.ay}q-10,0 -10,10v${vert}q0,10 10,10h${box.width}q10,0 10,-10v${-vert}q0,-10 -10,-10`);
+
+      if (this.repeat.greedy) {
+        paths.push(`M${box.x2 + 10},${box.ay + 15}l5,-5m-5,5l-5,-5`);
+      }
+    }
+
+    return paths;
+  },
+
   setup() {
     this.content = this.properties.content;
     this.canMerge = (this.elements[0].type === 'literal' && this.elements[1].textValue === '');
+    this.repeat = this.properties.repeat;
 
-    if (this.properties.repeat.textValue !== '') {
-      this.repeat = this.properties.repeat;
-    } else {
+    if (!this.repeat.hasLoop && !this.repeat.hasSkip) {
       this.proxy = this.content;
     }
   }
