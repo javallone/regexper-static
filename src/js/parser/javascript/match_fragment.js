@@ -36,19 +36,7 @@ export default {
           this.container.path(paths.join('')));
       })
       .then(() => {
-        var labelStr = this.repeat.label,
-            label,
-            labelBox,
-            labelShift = (this.repeat.hasSkip ? 5 : 0),
-            box = this.getBBox();
-
-        if (labelStr) {
-          label = this.container.text(0, 0, labelStr)
-            .addClass('repeat-label');
-          labelBox = label.getBBox();
-          label.transform(Snap.matrix()
-            .translate(box.x2 - labelBox.width - labelShift, box.y2 + labelBox.height));
-        }
+        this.loopLabel();
       });
   },
 
@@ -85,13 +73,31 @@ export default {
     return paths;
   },
 
+  loopLabel() {
+    var labelStr = this.repeat.label,
+        label, labelBox, box;
+
+    if (labelStr) {
+      label = this.container.text(0, 0, labelStr)
+        .addClass('repeat-label');
+
+      box = this.getBBox();
+      labelBox = label.getBBox();
+      label.transform(Snap.matrix().translate(
+        box.x2 - labelBox.width - (this.repeat.hasSkip ? 5 : 0),
+        box.y2 + labelBox.height));
+    }
+  },
+
   setup() {
     this.content = this.properties.content;
-    this.canMerge = (this.elements[0].type === 'literal' && this.elements[1].textValue === '');
     this.repeat = this.properties.repeat;
 
     if (!this.repeat.hasLoop && !this.repeat.hasSkip) {
+      this.canMerge = (this.content.type === 'literal');
       this.proxy = this.content;
+    } else {
+      this.canMerge = false;
     }
   }
 };
