@@ -9,11 +9,11 @@ export default {
         var anchor = this.content.anchor,
             matrix = this.transform().localMatrix;
 
-        return _.extend(anchor, {
+        return {
           ax: matrix.x(anchor.ax, anchor.ay),
           ax2: matrix.x(anchor.ax2, anchor.ay),
           ay: matrix.y(anchor.ax, anchor.ay)
-        });
+        };
       }
     }
   },
