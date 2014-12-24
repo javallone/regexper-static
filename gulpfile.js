@@ -44,6 +44,7 @@ gulp.task('markup', ['compass'], function() {
   return gulp.src(config.globs.html, { base: './src' })
     .pipe(errorHandler())
     .pipe(wrap({ src: config.templateFile }, {
+      date: new Date().toISOString(),
       title: function() {
         var root = path.join(this.file.cwd, this.file.base),
             file = path.relative(root, this.file.history[0]);
