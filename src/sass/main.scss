@@ -44,6 +44,25 @@ ul.inline-list {
   }
 }
 
+#deprecation-notice {
+  @include background(linear-gradient(to bottom, $green, $dark-green));
+  background-color: $green;
+  padding: rhythm(1);
+  margin: rhythm(1);
+  @include border-radius(20px);
+  @include box-shadow;
+  @include clearfix;
+
+  h1 {
+    @include adjust-font-size-to(48px, 2);
+    font-family: 'Bangers', 'cursive';
+  }
+
+  p {
+    margin-top: rhythm(1);
+  }
+}
+
 header {
   @include background(linear-gradient(to bottom, $green, $dark-green));
   background-color: $green;
