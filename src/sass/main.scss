@@ -264,10 +264,15 @@ header {
           margin-left: -24px;
         }
 
-        svg {
+        .svg {
           position: absolute;
           top: -10000px;
         }
+      }
+
+      .svg {
+        margin: 0;
+        text-align: center;
       }
 
       figcaption {

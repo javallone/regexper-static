@@ -61,18 +61,32 @@ describe('parser/javascript.js', function() {
       this.parser.parsed.render.and.returnValue(this.renderPromise.promise);
 
       this.svgStyles = 'example styles';
-      this.svg = Snap(document.createElement('svg'));
-      spyOn(this.svg, 'group').and.returnValue('example group');
+      this.svgContainer = document.createElement('div');
     });
 
-    it('adds the svg styles to the svg element', function() {
-      this.parser.render(this.svg, this.svgStyles);
-      expect(this.svg.innerHTML).toEqual('<style type="text/css">example styles</style>');
+    it('creates the SVG element', function() {
+      var svg;
+
+      this.parser.render(this.svgContainer, this.svgStyles);
+
+      svg = this.svgContainer.querySelector('svg');
+      expect(svg.getAttribute('xmlns')).toEqual('http://www.w3.org/2000/svg');
+      expect(svg.getAttribute('version')).toEqual('1.1');
+    });
+
+    it('sets the styles on the SVG element', function() {
+      var styles;
+
+      this.parser.render(this.svgContainer, this.svgStyles);
+
+      styles = this.svgContainer.querySelector('svg defs style');
+      expect(styles.getAttribute('type')).toEqual('text/css');
+      expect(styles.firstChild.nodeValue).toEqual(this.svgStyles);
     });
 
     it('render the parsed expression', function() {
-      this.parser.render(this.svg, this.svgStyles);
-      expect(this.parser.parsed.render).toHaveBeenCalledWith('example group');
+      this.parser.render(this.svgContainer, this.svgStyles);
+      expect(this.parser.parsed.render).toHaveBeenCalled();
     });
 
     describe('when rendering is complete', function() {
@@ -86,9 +100,7 @@ describe('parser/javascript.js', function() {
           height: 24
         });
 
-        spyOn(this.svg, 'attr');
-
-        this.parser.render(this.svg, this.svgStyles);
+        this.parser.render(this.svgContainer, this.svgStyles);
         this.renderPromise.resolve(this.result);
 
         setTimeout(done, 10);
@@ -100,10 +112,10 @@ describe('parser/javascript.js', function() {
       });
 
       it('sets the dimensions of the image', function() {
-        expect(this.svg.attr).toHaveBeenCalledWith({
-          width: 62,
-          height: 44
-        });
+        var svg = this.svgContainer.querySelector('svg');
+
+        expect(svg.getAttribute('width')).toEqual('62');
+        expect(svg.getAttribute('height')).toEqual('44');
       });
 
     });

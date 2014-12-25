@@ -32,16 +32,22 @@ export default class Parser {
     return deferred.promise;
   }
 
-  render(svgElement, styles) {
-    var svg;
+  render(containerElement, styles) {
+    var svg,
+        style = document.createElement('style');
 
-    svgElement.innerHTML = [
-      '<style type="text/css">',
-      styles,
-      '</style>'
-    ].join('');
+    containerElement.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>';
 
-    svg = Snap(svgElement);
+    svg = Snap(containerElement.querySelector('svg'));
+
+    style.setAttribute('type', 'text/css');
+    if (style.styleSheet) {
+      style.styleSheet.cssText = styles;
+    } else {
+      style.appendChild(document.createTextNode(styles));
+    }
+
+    svg.select('defs').append(style);
 
     return this.parsed.render(svg.group())
       .then(result => {

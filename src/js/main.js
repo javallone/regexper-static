@@ -20,7 +20,7 @@ import _ from 'lodash';
 
     element.className = _.compact([element.className, 'loading']).join(' ');
     element.innerHTML = [
-      '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"></svg>',
+      '<div class="svg"></div>',
       '<div class="spinner">',
         '<div></div>',
         '<div></div>',
@@ -28,7 +28,7 @@ import _ from 'lodash';
       element.innerHTML
     ].join('');
 
-    svg = element.querySelector('svg');
+    svg = element.querySelector('.svg');
 
     setTimeout(() => {
       parser.parse(element.getAttribute('data-expr'))

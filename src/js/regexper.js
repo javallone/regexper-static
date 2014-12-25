@@ -13,7 +13,7 @@ export default class Regexper {
     this.permalink = root.querySelector('a[data-glyph="link-intact"]');
     this.download = root.querySelector('a[data-glyph="data-transfer-download"]');
     this.percentage = root.querySelector('#progress div');
-    this.svg = root.querySelector('#regexp-render svg');
+    this.svgContainer = root.querySelector('#regexp-render');
     this.svgStyles = this.root.querySelector('#svg-styles').innerHTML;
 
     this.gaq = (typeof window._gaq === 'undefined') ? [] : window._gaq;
@@ -108,7 +108,7 @@ export default class Regexper {
   updateLinks() {
     try {
       this.download.parentNode.style.display = null;
-      this.download.href = this.buildBlobURL(this.svg.parentNode.innerHTML);
+      this.download.href = this.buildBlobURL(this.svgContainer.innerHTML);
     }
     catch(e) {
       // Blobs or URLs created from them don't work here.
@@ -158,7 +158,7 @@ export default class Regexper {
 
         throw message;
       })
-      .invoke('render', this.svg, this.svgStyles)
+      .invoke('render', this.svgContainer, this.svgStyles)
       .then(() => {
         this.state = 'has-results';
         this.updateLinks();

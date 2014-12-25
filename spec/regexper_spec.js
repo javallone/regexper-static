@@ -15,7 +15,7 @@ describe('regexper.js', function() {
       '<div><a href="#" data-glyph="link-intact"></a></div>',
       '<div><a href="#" data-glyph="data-transfer-download"></a></div>',
       '<div id="progress"><div></div></div>',
-      '<div id="regexp-render"><svg></svg></div>',
+      '<div id="regexp-render"></div>',
       '<div id="svg-styles">example styles</div>'
     ].join('');
 
@@ -429,7 +429,7 @@ describe('regexper.js', function() {
       });
 
       it('renders the expression', function() {
-        expect(this.parser.render).toHaveBeenCalledWith(this.regexper.svg, this.regexper.svgStyles);
+        expect(this.parser.render).toHaveBeenCalledWith(this.regexper.svgContainer, this.regexper.svgStyles);
       });
 
     });
