@@ -14,7 +14,7 @@ export default class Regexper {
     this.download = root.querySelector('a[data-glyph="data-transfer-download"]');
     this.percentage = root.querySelector('#progress div');
     this.svgContainer = root.querySelector('#regexp-render');
-    this.svgStyles = this.root.querySelector('#svg-styles').innerHTML;
+    this.svgBase = this.root.querySelector('#svg-base').innerHTML;
 
     this.gaq = (typeof window._gaq === 'undefined') ? [] : window._gaq;
   }
@@ -158,7 +158,7 @@ export default class Regexper {
 
         throw message;
       })
-      .invoke('render', this.svgContainer, this.svgStyles)
+      .invoke('render', this.svgContainer, this.svgBase)
       .then(() => {
         this.state = 'has-results';
         this.updateLinks();

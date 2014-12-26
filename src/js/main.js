@@ -32,7 +32,7 @@ import _ from 'lodash';
 
     setTimeout(() => {
       parser.parse(element.getAttribute('data-expr'))
-        .invoke('render', svg, document.querySelector('#svg-styles').innerHTML)
+        .invoke('render', svg, document.querySelector('#svg-base').innerHTML)
         .finally(() => {
           element.className = _.without(element.className.split(' '), 'loading').join(' ');
           element.removeChild(element.querySelector('.spinner'));

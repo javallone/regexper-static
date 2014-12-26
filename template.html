@@ -24,7 +24,13 @@
       </div>
     <![endif]-->
     <!--[if gt IE 8]> -->
-    <script type="text/css" id="svg-styles">${svgStyles}</script>
+    <script type="text/html" id="svg-base">
+      <svg xmlns="http://www.w3.org/2000/svg" version="1.1">
+        <defs>
+          <style type="text/css">${svgStyles}</style>
+        </defs>
+      </svg>
+    </script>
 
     <header>
       <div class="logo">

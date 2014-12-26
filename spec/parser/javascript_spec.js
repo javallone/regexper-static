@@ -60,32 +60,22 @@ describe('parser/javascript.js', function() {
       this.parser.parsed = jasmine.createSpyObj('parsed', ['render']);
       this.parser.parsed.render.and.returnValue(this.renderPromise.promise);
 
-      this.svgStyles = 'example styles';
+      this.svgBase = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"></svt>';
       this.svgContainer = document.createElement('div');
     });
 
     it('creates the SVG element', function() {
       var svg;
 
-      this.parser.render(this.svgContainer, this.svgStyles);
+      this.parser.render(this.svgContainer, this.svgBase);
 
       svg = this.svgContainer.querySelector('svg');
       expect(svg.getAttribute('xmlns')).toEqual('http://www.w3.org/2000/svg');
       expect(svg.getAttribute('version')).toEqual('1.1');
     });
 
-    it('sets the styles on the SVG element', function() {
-      var styles;
-
-      this.parser.render(this.svgContainer, this.svgStyles);
-
-      styles = this.svgContainer.querySelector('svg defs style');
-      expect(styles.getAttribute('type')).toEqual('text/css');
-      expect(styles.firstChild.nodeValue).toEqual(this.svgStyles);
-    });
-
     it('render the parsed expression', function() {
-      this.parser.render(this.svgContainer, this.svgStyles);
+      this.parser.render(this.svgContainer, this.svgBase);
       expect(this.parser.parsed.render).toHaveBeenCalled();
     });
 
@@ -100,7 +90,7 @@ describe('parser/javascript.js', function() {
           height: 24
         });
 
-        this.parser.render(this.svgContainer, this.svgStyles);
+        this.parser.render(this.svgContainer, this.svgBase);
         this.renderPromise.resolve(this.result);
 
         setTimeout(done, 10);
