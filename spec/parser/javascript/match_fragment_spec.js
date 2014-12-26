@@ -57,9 +57,74 @@ describe('parser/javascript/match_fragment.js', function() {
 
     beforeEach(function() {
       this.node = new javascript.Parser('a').__consume__match_fragment();
+
+      this.node.container = jasmine.createSpyObj('container', [
+        'addClass',
+        'group',
+        'prepend',
+        'path'
+      ]);
+      this.node.container.group.and.returnValue('example group');
+
+      this.renderDeferred = Q.defer();
+      this.node.content = jasmine.createSpyObj('content', [
+        'render',
+        'transform',
+        'getBBox'
+      ]);
+      this.node.content.getBBox.and.returnValue('content bbox');
+      this.node.content.render.and.returnValue(this.renderDeferred.promise);
+
+      this.node.repeat = {
+        contentPosition: 'example position'
+      };
+
+      spyOn(this.node, 'skipPath').and.returnValue('skip path');
+      spyOn(this.node, 'loopPath').and.returnValue('loop path');
+      spyOn(this.node, 'loopLabel');
     });
 
-    pending();
+    it('renders the content', function() {
+      this.node._render();
+      expect(this.node.content.render).toHaveBeenCalledWith('example group');
+    });
+
+    describe('positioning of content', function() {
+
+      beforeEach(function() {
+        this.renderDeferred.resolve();
+      });
+
+      it('moves the content to the correct position', function(done) {
+        this.node._render()
+          .then(() => {
+            expect(this.node.content.transform).toHaveBeenCalledWith('example position');
+          })
+          .finally(done)
+          .done();
+      });
+
+      it('renders a skip path and loop path', function(done) {
+        this.node._render()
+          .then(() => {
+            expect(this.node.skipPath).toHaveBeenCalledWith('content bbox');
+            expect(this.node.loopPath).toHaveBeenCalledWith('content bbox');
+            expect(this.node.container.path).toHaveBeenCalledWith('skip pathloop path');
+          })
+          .finally(done)
+          .done();
+      });
+
+      it('renders a loop label', function(done) {
+        this.node._render()
+          .then(() => {
+            expect(this.node.loopLabel).toHaveBeenCalled();
+          })
+          .finally(done)
+          .done();
+      });
+
+    });
 
   });
 
@@ -67,9 +132,38 @@ describe('parser/javascript/match_fragment.js', function() {
 
     beforeEach(function() {
       this.node = new javascript.Parser('a').__consume__match_fragment();
+
+      this.node.repeat = {};
+
+      this.box = {
+        y: 11,
+        ay: 22,
+        width: 33
+      };
     });
 
-    pending();
+    it('returns nothing when there is no skip', function() {
+      this.node.repeat.hasSkip = false;
+      expect(this.node.skipPath(this.box)).toEqual([]);
+    });
+
+    it('returns a path when there is a skip', function() {
+      this.node.repeat.hasSkip = true;
+      this.node.repeat.greedy = true;
+      expect(this.node.skipPath(this.box)).toEqual([
+        'M0,22q10,0 10,-10v-1q0,-10 10,-10h23q10,0 10,10v1q0,10 10,10'
+      ]);
+    });
+
+    it('returns a path with arrow when there is a non-greedy skip', function() {
+      this.node.repeat.hasSkip = true;
+      this.node.repeat.greedy = false;
+      expect(this.node.skipPath(this.box)).toEqual([
+        'M0,22q10,0 10,-10v-1q0,-10 10,-10h23q10,0 10,10v1q0,10 10,10',
+        'M10,7l5,5m-5,-5l-5,5'
+      ]);
+    });
+
 
   });
 

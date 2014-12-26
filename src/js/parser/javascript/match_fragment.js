@@ -34,8 +34,7 @@ export default {
 
         this.container.prepend(
           this.container.path(paths.join('')));
-      })
-      .then(() => {
+
         this.loopLabel();
       });
   },
