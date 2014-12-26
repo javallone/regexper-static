@@ -41,8 +41,6 @@ export default {
 
     return Q.all(_([start, partPromises, end]).flatten().compact().value())
       .then(items => {
-        var prev, next, paths;
-
         this.start = _.first(items);
         this.end = _.last(items);
 
@@ -50,20 +48,24 @@ export default {
           padding: 10
         });
 
-        prev = util.normalizeBBox(_.first(items).getBBox());
-        paths = _.map(items.slice(1), item => {
-          var path;
-
-          next = util.normalizeBBox(item.getBBox());
-          path = `M${prev.ax2},${prev.ay}H${next.ax}`;
-          prev = next;
-
-          return path;
-        });
-
         this.container.prepend(
-          this.container.path(paths.join('')));
+          this.container.path(this.connectorPaths(items).join('')));
       });
+  },
+
+  connectorPaths(items) {
+    var prev, next;
+
+    prev = util.normalizeBBox(_.first(items).getBBox());
+    return _.map(items.slice(1), item => {
+      try {
+        next = util.normalizeBBox(item.getBBox());
+        return `M${prev.ax2},${prev.ay}H${next.ax}`;
+      }
+      finally {
+        prev = next;
+      }
+    });
   },
 
   setup() {
@@ -71,7 +73,7 @@ export default {
       var last = _.last(result);
 
       if (last && node.canMerge && last.canMerge) {
-        last.elements[0].merge(node.elements[0]);
+        last.content.merge(node.content);
       } else {
         result.push(node);
       }
@@ -79,8 +81,8 @@ export default {
       return result;
     }, []);
 
-    this.anchorStart = this.properties.anchor_start.textValue !== '';
-    this.anchorEnd = this.properties.anchor_end.textValue !== '';
+    this.anchorStart = (this.properties.anchor_start.textValue !== '');
+    this.anchorEnd = (this.properties.anchor_end.textValue !== '');
 
     if (!this.anchorStart && !this.anchorEnd && this.parts.length === 1) {
       this.proxy = this.parts[0];
