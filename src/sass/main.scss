@@ -28,6 +28,10 @@ a {
   margin-right: rhythm(1/4);
 }
 
+h1 {
+  @include adjust-font-size-to(48px, 2);
+}
+
 ul.inline-list {
   @include adjust-font-size-to(14px, 2/3);
   @include inline-block-list;
@@ -53,11 +57,6 @@ ul.inline-list {
   @include box-shadow;
   @include clearfix;
 
-  h1 {
-    @include adjust-font-size-to(48px, 2);
-    font-family: 'Bangers', 'cursive';
-  }
-
   p {
     margin-top: rhythm(1);
   }
@@ -71,56 +70,27 @@ header {
   @include clearfix;
 
   .logo {
-    float: left;
-
-    a {
-      @include unstyled-link;
-    }
-
-    h1 {
-      @include adjust-font-size-to(48px, 2);
-      font-family: 'Bangers', 'cursive';
-    }
+    display: inline-block;
 
     span {
       color: $gray;
     }
   }
 
+  h1 {
+    font-family: 'Bangers', 'cursive';
+  }
+
   nav {
-    overflow: hidden;
+    @include adjust-font-size-to(18px, 1);
+    display: inline-block;
+    margin-left: rhythm(1/4);
+    padding-left: rhythm(1/4);
+    border-left: 1px solid $black;
+  }
 
-    ul {
-      display: inline-block;
-
-      li {
-        margin: 0 0 rhythm(1/4) rhythm(1);
-        padding: 0 rhythm(1/4);
-
-        &::before {
-          content: '\00BB';
-          font-weight: bold;
-          margin-right: rhythm(1/4);
-        }
-      }
-    }
-
-    a {
-      @include adjust-font-size-to($base-font-size, 1);
-      @include unstyled-link;
-    }
-
-    .source {
-      @include adjust-font-size-to($base-font-size, 2);
-      float: right;
-
-      img {
-        vertical-align: middle;
-        margin-right: rhythm(1/4);
-        width: 32px;
-        height: 32px;
-      }
-    }
+  a {
+    @include unstyled-link;
   }
 }
 
