@@ -35,7 +35,7 @@ export default class Parser {
   render(containerElement, svgBase) {
     var svg;
 
-    containerElement.innerHTML += svgBase;
+    containerElement.innerHTML = svgBase;
 
     svg = Snap(containerElement.querySelector('svg'));
 
