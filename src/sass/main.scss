@@ -49,7 +49,7 @@ ul.inline-list {
 }
 
 #deprecation-notice {
-  @include background(linear-gradient(to bottom, $green, $dark-green));
+  @include background(linear-gradient(top, $green, $dark-green));
   background-color: $green;
   padding: rhythm(1);
   margin: rhythm(1);
@@ -57,13 +57,17 @@ ul.inline-list {
   @include box-shadow;
   @include clearfix;
 
+  h1 {
+    font-family: 'Bangers', 'cursive';
+  }
+
   p {
     margin-top: rhythm(1);
   }
 }
 
 header {
-  @include background(linear-gradient(to bottom, $green, $dark-green));
+  @include background(linear-gradient(top, $green, $dark-green));
   background-color: $green;
   padding: rhythm(1);
   @include box-shadow;
@@ -86,7 +90,6 @@ header {
     display: inline-block;
     margin-left: rhythm(1/4);
     padding-left: rhythm(1/4);
-    border-left: 1px solid $black;
   }
 
   a {
@@ -300,7 +303,7 @@ header {
       @include adjust-font-size-to($base-font-size);
       width: 100px;
       border: 0 none;
-      @include background(linear-gradient(to bottom right, $green, $dark-green));
+      @include background(linear-gradient(top, $green, $dark-green));
       background-color: $green;
       float: left;
       cursor: pointer;
