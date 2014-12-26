@@ -1,5 +1,3 @@
-[![Build Status](https://travis-ci.org/javallone/regexper.png)](https://travis-ci.org/javallone/regexper)
-
 # Regexper
 
 Code for the http://regexper.com/ site.
