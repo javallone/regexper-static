@@ -81,7 +81,7 @@ describe('parser/javascript.js', function() {
 
     describe('when rendering is complete', function() {
 
-      beforeEach(function(done) {
+      beforeEach(function() {
         this.result = jasmine.createSpyObj('result', ['getBBox', 'transform']);
         this.result.getBBox.and.returnValue({
           x: 4,
@@ -92,20 +92,28 @@ describe('parser/javascript.js', function() {
 
         this.parser.render(this.svgContainer, this.svgBase);
         this.renderPromise.resolve(this.result);
-
-        setTimeout(done, 10);
       });
 
-      it('positions the renderd expression', function() {
-        expect(this.result.transform).toHaveBeenCalledWith(Snap.matrix()
-          .translate(6, 8));
+      it('positions the renderd expression', function(done) {
+        this.parser.render(this.svgContainer, this.svgBase)
+          .then(() => {
+            expect(this.result.transform).toHaveBeenCalledWith(Snap.matrix()
+              .translate(6, 8));
+          })
+          .finally(done)
+          .done();
       });
 
-      it('sets the dimensions of the image', function() {
-        var svg = this.svgContainer.querySelector('svg');
+      it('sets the dimensions of the image', function(done) {
+        this.parser.render(this.svgContainer, this.svgBase)
+          .then(() => {
+            var svg = this.svgContainer.querySelector('svg');
 
-        expect(svg.getAttribute('width')).toEqual('62');
-        expect(svg.getAttribute('height')).toEqual('44');
+            expect(svg.getAttribute('width')).toEqual('62');
+            expect(svg.getAttribute('height')).toEqual('44');
+          })
+          .finally(done)
+          .done();
       });
 
     });
