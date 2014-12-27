@@ -95,7 +95,7 @@ describe('parser/javascript/charset_range.js', function() {
             'hyphen',
             this.node.last
           ], { padding: 5 });
-        })
+        }, fail)
         .finally(done)
         .done();
     });

@@ -143,7 +143,7 @@ describe('parser/javascript/charset.js', function() {
         this.node._render()
           .then(() => {
             expect(util.spaceVertically).toHaveBeenCalledWith(this.node.elements, { padding: 5 });
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -153,7 +153,7 @@ describe('parser/javascript/charset.js', function() {
           .then(result => {
             expect(this.node.renderLabeledBox).toHaveBeenCalledWith('example label', this.partContainer, { padding: 5 });
             expect(result).toEqual('labeled box promise');
-          })
+          }, fail)
           .finally(done)
           .done();
       });

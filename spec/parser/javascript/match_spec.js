@@ -215,7 +215,7 @@ describe('parser/javascript/match.js', function() {
           .then(() => {
             expect(this.node.start).toEqual('start label');
             expect(this.node.end).toEqual('end label');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -230,7 +230,7 @@ describe('parser/javascript/match.js', function() {
               'part 2',
               'end label'
             ], { padding: 10 });
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -246,7 +246,7 @@ describe('parser/javascript/match.js', function() {
               'end label'
             ]);
             expect(this.node.container.path).toHaveBeenCalledWith('connector paths');
-          })
+          }, fail)
           .finally(done)
           .done();
       });

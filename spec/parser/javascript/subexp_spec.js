@@ -92,7 +92,7 @@ describe('parser/javascript/subexp.js', function() {
       this.node._render()
         .then(() => {
           expect(this.node.renderLabeledBox).toHaveBeenCalledWith('example label', this.node.regexp, { padding: 10 });
-        })
+        }, fail)
         .finally(done)
         .done();
     });

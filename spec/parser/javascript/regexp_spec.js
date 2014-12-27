@@ -104,7 +104,7 @@ describe('parser/javascript/regexp.js', function() {
         this.node._render()
           .then(() => {
             expect(util.spaceVertically).toHaveBeenCalledWith(this.node.matches, { padding: 5 });
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -118,7 +118,7 @@ describe('parser/javascript/regexp.js', function() {
             expect(this.node.makeSide).toHaveBeenCalledWith('container bbox', this.node.matches[0]);
             expect(this.node.makeSide).toHaveBeenCalledWith('container bbox', this.node.matches[2]);
             expect(this.node.container.path).toHaveBeenCalledWith('curvecurvecurvesideside');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -130,7 +130,7 @@ describe('parser/javascript/regexp.js', function() {
             expect(this.node.makeConnector).toHaveBeenCalledWith('group bbox', this.node.matches[1]);
             expect(this.node.makeConnector).toHaveBeenCalledWith('group bbox', this.node.matches[2]);
             expect(this.group.path).toHaveBeenCalledWith('connectorconnectorconnector');
-          })
+          }, fail)
           .finally(done)
           .done();
       });

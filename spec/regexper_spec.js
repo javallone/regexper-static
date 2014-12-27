@@ -446,7 +446,7 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.parser.render).toHaveBeenCalledWith(this.regexper.svgContainer, this.regexper.svgBase);
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -465,7 +465,7 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.state).toEqual('has-results');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -474,7 +474,7 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.updateLinks).toHaveBeenCalled();
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -483,7 +483,7 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.displayWarnings).toHaveBeenCalled();
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -492,7 +492,7 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'complete');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -501,7 +501,7 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.runningParser).toBeFalsy();
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -520,7 +520,7 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.state).toEqual('');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -529,7 +529,7 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'cancelled');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -538,7 +538,7 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.runningParser).toBeFalsy();
-          })
+          }, fail)
           .finally(done)
           .done();
       });

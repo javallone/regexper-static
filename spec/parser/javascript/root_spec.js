@@ -114,7 +114,7 @@ describe('parser/javascript/root.js', function() {
         this.node._render()
           .then(() => {
             expect(this.node.container.path).toHaveBeenCalledWith('M1,2H0M3,2H14');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -124,7 +124,7 @@ describe('parser/javascript/root.js', function() {
           .then(() => {
             expect(this.node.container.circle).toHaveBeenCalledWith(0, 2, 5);
             expect(this.node.container.circle).toHaveBeenCalledWith(14, 2, 5);
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -140,7 +140,7 @@ describe('parser/javascript/root.js', function() {
             .then(() => {
               expect(this.node.regexp.transform).toHaveBeenCalledWith(Snap.matrix()
                 .translate(10, 20));
-            })
+            }, fail)
             .finally(done)
             .done();
         });
@@ -158,7 +158,7 @@ describe('parser/javascript/root.js', function() {
             .then(() => {
               expect(this.node.regexp.transform).toHaveBeenCalledWith(Snap.matrix()
                 .translate(10, 0));
-            })
+            }, fail)
             .finally(done)
             .done();
         });

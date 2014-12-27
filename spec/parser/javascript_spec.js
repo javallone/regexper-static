@@ -19,7 +19,7 @@ describe('parser/javascript.js', function() {
       this.parser.parse('example expression')
         .then(() => {
           expect(regexpParser.parse).toHaveBeenCalledWith('example expression');
-        })
+        }, fail)
         .finally(done)
         .done();
     });
@@ -28,7 +28,7 @@ describe('parser/javascript.js', function() {
       this.parser.parse('multiline\nexpression')
         .then(() => {
           expect(regexpParser.parse).toHaveBeenCalledWith('multiline\\nexpression');
-        })
+        }, fail)
         .finally(done)
         .done();
     });
@@ -37,7 +37,7 @@ describe('parser/javascript.js', function() {
       this.parser.parse('example expression')
         .then(result => {
           expect(result).toEqual(this.parser);
-        })
+        }, fail)
         .finally(done)
         .done();
     });
@@ -46,7 +46,7 @@ describe('parser/javascript.js', function() {
       this.parser.parse('/example')
         .then(null, result => {
           expect(result).toBeDefined();
-        })
+        }, fail)
         .finally(done)
         .done();
     });
@@ -99,7 +99,7 @@ describe('parser/javascript.js', function() {
           .then(() => {
             expect(this.result.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(6, 8));
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -111,7 +111,7 @@ describe('parser/javascript.js', function() {
 
             expect(svg.getAttribute('width')).toEqual('62');
             expect(svg.getAttribute('height')).toEqual('44');
-          })
+          }, fail)
           .finally(done)
           .done();
       });

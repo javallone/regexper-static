@@ -99,7 +99,7 @@ describe('parser/javascript/match_fragment.js', function() {
         this.node._render()
           .then(() => {
             expect(this.node.content.transform).toHaveBeenCalledWith('example position');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -110,7 +110,7 @@ describe('parser/javascript/match_fragment.js', function() {
             expect(this.node.skipPath).toHaveBeenCalledWith('content bbox');
             expect(this.node.loopPath).toHaveBeenCalledWith('content bbox');
             expect(this.node.container.path).toHaveBeenCalledWith('skip pathloop path');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -119,7 +119,7 @@ describe('parser/javascript/match_fragment.js', function() {
         this.node._render()
           .then(() => {
             expect(this.node.loopLabel).toHaveBeenCalled();
-          })
+          }, fail)
           .finally(done)
           .done();
       });

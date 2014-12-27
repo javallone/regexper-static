@@ -126,7 +126,7 @@ describe('parser/javascript/node.js', function() {
         .then(() => {
           expect(resolve).toHaveBeenCalledWith('result');
           expect(reject).not.toHaveBeenCalled();
-        })
+        }, fail)
         .finally(done)
         .done();
     });
@@ -141,7 +141,7 @@ describe('parser/javascript/node.js', function() {
         .then(() => {
           expect(resolve).not.toHaveBeenCalled();
           expect(reject).toHaveBeenCalledWith('Render cancelled');
-        })
+        }, fail)
         .finally(done)
         .done();
     });
@@ -193,7 +193,7 @@ describe('parser/javascript/node.js', function() {
           .then(() => {
             expect(this.text.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(5, 22));
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -205,7 +205,7 @@ describe('parser/javascript/node.js', function() {
               width: 52,
               height: 34
             });
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -214,7 +214,7 @@ describe('parser/javascript/node.js', function() {
         this.node.renderLabel('example label')
           .then(group => {
             expect(group).toEqual(this.group);
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -331,7 +331,7 @@ describe('parser/javascript/node.js', function() {
           this.node.render(this.container)
             .then(() => {
               expect(this.node.doneRender).toHaveBeenCalled();
-            })
+            }, fail)
             .finally(done)
             .done();
         });
@@ -340,7 +340,7 @@ describe('parser/javascript/node.js', function() {
           this.node.render(this.container)
             .then(result => {
               expect(result).toEqual(this.node);
-            })
+            }, fail)
             .finally(done)
             .done();
         });
@@ -418,7 +418,7 @@ describe('parser/javascript/node.js', function() {
           .then(() => {
             expect(this.text.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(0, 20));
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -429,7 +429,7 @@ describe('parser/javascript/node.js', function() {
           .then(() => {
             expect(this.rect.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(0, 20));
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -442,7 +442,7 @@ describe('parser/javascript/node.js', function() {
               width: 210,
               height: 110
             })
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -460,7 +460,7 @@ describe('parser/javascript/node.js', function() {
               width: 100,
               height: 110
             })
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -471,7 +471,7 @@ describe('parser/javascript/node.js', function() {
           .then(() => {
             expect(this.content.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(5, 25));
-          })
+          }, fail)
           .finally(done)
           .done();
       });
