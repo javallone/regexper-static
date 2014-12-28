@@ -15,8 +15,6 @@ export default class Regexper {
     this.percentage = root.querySelector('#progress div');
     this.svgContainer = root.querySelector('#regexp-render');
     this.svgBase = this.root.querySelector('#svg-base').innerHTML;
-
-    this.gaq = (typeof window._gaq === 'undefined') ? [] : window._gaq;
   }
 
   keypressListener(event) {
@@ -79,7 +77,7 @@ export default class Regexper {
   }
 
   _trackEvent(category, action) {
-    this.gaq.push(['_trackEvent', category, action]);
+    window._gaq.push(['_trackEvent', category, action]);
   }
 
   set state(state) {
@@ -169,8 +167,9 @@ export default class Regexper {
         if (message === 'Render cancelled') {
           this._trackEvent('visualization', 'cancelled');
           this.state = '';
+        } else if (message.parseError) {
+          this._trackEvent('visualization', 'parse error');
         } else {
-          this._trackEvent('visualization', (message.parseError ? 'parse error' : 'exception'));
           throw message;
         }
       })

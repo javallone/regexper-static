@@ -262,9 +262,13 @@ describe('regexper.js', function() {
 
   describe('#_trackEvent', function() {
 
+    beforeEach(function() {
+      spyOn(window._gaq, 'push');
+    });
+
     it('adds a _trackEvent call to gaq', function() {
       this.regexper._trackEvent('category', 'action');
-      expect(this.regexper.gaq).toContain(['_trackEvent', 'category', 'action']);
+      expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'category', 'action']);
     });
 
   });
@@ -407,27 +411,27 @@ describe('regexper.js', function() {
 
       it('sets the state to be "has-error"', function(done) {
         this.regexper.renderRegexp('example expression')
-          .then(fail, () => {
+          .then(() => {
             expect(this.regexper.state).toEqual('has-error');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
 
       it('displays the error message', function(done) {
         this.regexper.renderRegexp('example expression')
-          .then(fail, () => {
+          .then(() => {
             expect(this.regexper.error.innerHTML).toEqual('Error: example parse error');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
 
       it('tracks the parse error', function(done) {
         this.regexper.renderRegexp('example expression')
-          .then(fail, () => {
+          .then(() => {
             expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'parse error');
-          })
+          }, fail)
           .finally(done)
           .done();
       });
@@ -551,15 +555,6 @@ describe('regexper.js', function() {
         this.parser = new Parser();
         this.parsePromise.resolve(this.parser);
         this.renderPromise.reject('example render failure');
-      });
-
-      it('tracks the failed render', function(done) {
-        this.regexper.renderRegexp('example expression')
-          .then(fail, () => {
-            expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'exception');
-          })
-          .finally(done)
-          .done();
       });
 
       it('sets the runningParser to false', function(done) {
