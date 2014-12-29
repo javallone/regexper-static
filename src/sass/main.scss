@@ -317,7 +317,14 @@ header {
     background-size: rhythm(2) rhythm(2);
     background-repeat: repeat-x;
     height: 100%;
+
+    @include animation(progress 1.0s infinite linear);
   }
+}
+
+@include keyframes(progress) {
+  0% { background-position-x: rhythm(2); }
+  100% { background-position-x: 0; }
 }
 
 #error {
