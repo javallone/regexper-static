@@ -98,7 +98,7 @@ header {
 }
 
 .spinner {
-  margin: 0 auto;
+  margin: 10px auto;
   width: rhythm(2);
   height: rhythm(2);
   position: relative;
@@ -228,7 +228,7 @@ header {
       margin-bottom: rhythm(1);
     }
 
-    section, div, p {
+    section, div.section, p {
       margin: rhythm(1) 0;
     }
 
@@ -339,13 +339,12 @@ header {
   }
 }
 
-#progress {
-  width: rhythm(20);
+.progress {
+  width: 50%;
   height: rhythm(1/2);
   border: 1px solid $dark-green;
   overflow: hidden;
-  margin: 0 auto;
-  margin-top: rhythm(1);
+  margin: rhythm(1) auto;
 
   div {
     background: $green;

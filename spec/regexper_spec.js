@@ -14,7 +14,7 @@ describe('regexper.js', function() {
       '<ul id="warnings"></ul>',
       '<div><a href="#" data-glyph="link-intact"></a></div>',
       '<div><a href="#" data-glyph="data-transfer-download"></a></div>',
-      '<div id="progress"><div></div></div>',
+      '<div class="progress"><div></div></div>',
       '<div id="regexp-render"></div>',
       '<script type="text/html" id="svg-base"><svg></svg></script>'
     ].join('');

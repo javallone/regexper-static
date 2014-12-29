@@ -13,7 +13,7 @@
 
       <p>The simplest pieces of these diagrams to understand are the parts that match some specific bit of text without an options. They are: Literals, Escape sequences, and "Any charater".</p>
 
-      <div>
+      <div class="section">
         <h3>Literals</h3>
 
         <figure class="shift-left" data-expr="A literal example"></figure>
@@ -21,7 +21,7 @@
         <p>Literals match an exact string of text. They're displayed in a light blue box, and the contents are quoted (to make it easier to see any leading or trailing whitespace).</p>
       </div>
 
-      <div>
+      <div class="section">
         <h3>Escape sequences</h3>
 
         <figure class="shift-left" data-expr="\w\x7f\u00bb\1\0"></figure>
@@ -29,7 +29,7 @@
         <p>Escape sequences are displayed in a green box and contain a description of the type of character(s) they will match.</p>
       </div>
 
-      <div>
+      <div class="section">
         <h3>"Any character"</h3>
 
         <figure class="shift-left" data-expr="."></figure>
@@ -67,7 +67,7 @@
 
       <p>Quantifiers indicate if part of the expression should be repeated or optional. They are displayed similarly to Alternation, by the path through the diagram branching (and possibly looping back on itself). Unless indicated by an arrow on the path, the preferred path is to continue going straight.</p>
 
-      <div>
+      <div class="section">
         <h3>Zero-or-more</h3>
 
         <figure class="shift-left" data-expr="(?:greedy)*">
@@ -81,7 +81,7 @@
         <p>The zero-or-more quantifier matches any number of repetitions of the pattern.</p>
       </div>
 
-      <div>
+      <div class="section">
         <h3>Required</h3>
 
         <figure class="shift-left" data-expr="(?:greedy)+">
@@ -95,7 +95,7 @@
         <p>The required quantifier matches one or more repetitions of the pattern. Note that it does not have the path that allows the pattern to be skipped like the zero-or-more quantifier.</p>
       </div>
 
-      <div>
+      <div class="section">
         <h3>Optional</h3>
 
         <figure class="shift-left" data-expr="(?:greedy)?">
@@ -109,7 +109,7 @@
         <p>The optional quantifier matches the pattern at most once. Note that it does not have the path that allows the pattern to loop back on itself like the zero-or-more or required quantifiers.</p>
       </div>
 
-      <div>
+      <div class="section">
         <h3>Range</h3>
 
         <figure class="shift-left" data-expr="(?:greedy){5,10}">

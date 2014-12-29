@@ -12,7 +12,7 @@ export default class Regexper {
     this.warnings = root.querySelector('#warnings');
     this.permalink = root.querySelector('a[data-glyph="link-intact"]');
     this.download = root.querySelector('a[data-glyph="data-transfer-download"]');
-    this.percentage = root.querySelector('#progress div');
+    this.percentage = root.querySelector('.progress div');
     this.svgContainer = root.querySelector('#regexp-render');
     this.svgBase = this.root.querySelector('#svg-base').innerHTML;
   }
