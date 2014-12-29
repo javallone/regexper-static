@@ -152,7 +152,7 @@ export default class Regexper {
         this.error.innerHTML = '';
         this.error.appendChild(document.createTextNode(message));
 
-        message.parseError = true;
+        this.parseError = true;
 
         throw message;
       })
@@ -167,7 +167,7 @@ export default class Regexper {
         if (message === 'Render cancelled') {
           this._trackEvent('visualization', 'cancelled');
           this.state = '';
-        } else if (message.parseError) {
+        } else if (this.parseError) {
           this._trackEvent('visualization', 'parse error');
         } else {
           throw message;
@@ -175,6 +175,7 @@ export default class Regexper {
       })
       .finally(() => {
         this.runningParser = false;
+        this.parseError = false;
       });
   }
 }
