@@ -97,45 +97,6 @@ header {
   }
 }
 
-.spinner {
-  margin: 10px auto;
-  width: rhythm(2);
-  height: rhythm(2);
-  position: relative;
-  text-align: center;
-
-  @include animation(rotate 3.0s infinite linear);
-
-  div {
-    width: 40%;
-    height: 40%;
-    display: inline-block;
-    position: absolute;
-    border: 3px solid $green;
-    @include border-radius(50%);
-
-    @include animation(bounce 2.0s infinite ease-in-out);
-  }
-
-  :first-child {
-    top: 0;
-  }
-
-  :last-child {
-    bottom: 0px;
-    @include animation-delay(-1.0s);
-  }
-}
-
-@include keyframes(rotate) {
-  100% { @include transform(rotate(360deg)); }
-}
-
-@include keyframes(bounce) {
-  0%, 100% { @include transform(scale(0.0)); }
-  50% { @include transform(scale(1.0)); }
-}
-
 #content {
   padding: rhythm(1);
 
@@ -250,11 +211,6 @@ header {
 
       &.loading {
         min-width: 100px;
-
-        .spinner {
-          left: 50%;
-          margin-left: -24px;
-        }
 
         .svg {
           position: absolute;

@@ -34,10 +34,6 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
     element.className = _.compact([element.className, 'loading']).join(' ');
     element.innerHTML = [
       '<div class="svg"></div>',
-      '<div class="spinner">',
-        '<div></div>',
-        '<div></div>',
-      '</div>',
       '<div class="progress"><div style="width: 0;"></div></div>',
       element.innerHTML
     ].join('');
@@ -53,7 +49,6 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
         })
         .finally(() => {
           element.className = _.without(element.className.split(' '), 'loading').join(' ');
-          element.removeChild(element.querySelector('.spinner'));
           element.removeChild(element.querySelector('.progress'));
         })
         .done();
