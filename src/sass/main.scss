@@ -285,16 +285,6 @@ header {
   }
 }
 
-#loading {
-  background: $white;
-  padding: rhythm(1/2) 0;
-  display: none;
-
-  body.is-loading & {
-    display: block;
-  }
-}
-
 .progress {
   width: 50%;
   height: rhythm(1/2);
@@ -362,10 +352,19 @@ header {
   width: 100%;
   overflow: auto;
   text-align: center;
+  display: none;
 
-  body.is-loading &, body.has-error & {
-    position: absolute;
-    top: -10000px;
+  body.is-loading & {
+    display: block;
+
+    .svg {
+      position: absolute;
+      top: -10000px;
+    }
+  }
+
+  body.has-results & {
+    display: block;
   }
 }
 

@@ -14,7 +14,6 @@ describe('regexper.js', function() {
       '<ul id="warnings"></ul>',
       '<div><a href="#" data-glyph="link-intact"></a></div>',
       '<div><a href="#" data-glyph="data-transfer-download"></a></div>',
-      '<div class="progress"><div></div></div>',
       '<div id="regexp-render"></div>',
       '<script type="text/html" id="svg-base"><svg></svg></script>'
     ].join('');
@@ -281,6 +280,12 @@ describe('regexper.js', function() {
 
     beforeEach(function() {
       spyOn(this.regexper, 'buildBlobURL');
+      this.regexper.svgContainer.innerHTML = '<div class="svg">example image</div>';
+    });
+
+    it('builds the blob URL from the SVG image', function() {
+      this.regexper.updateLinks();
+      expect(this.regexper.buildBlobURL).toHaveBeenCalledWith('example image');
     });
 
     describe('when blob URLs are supported', function() {
@@ -426,7 +431,7 @@ describe('regexper.js', function() {
       it('renders the expression', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
-            expect(this.parser.render).toHaveBeenCalledWith(this.regexper.svgContainer, this.regexper.svgBase);
+            expect(this.parser.render).toHaveBeenCalledWith(this.regexper.svgContainer.querySelector('.svg'), this.regexper.svgBase);
           }, fail)
           .finally(done)
           .done();

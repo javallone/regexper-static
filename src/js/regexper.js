@@ -12,7 +12,6 @@ export default class Regexper {
     this.warnings = root.querySelector('#warnings');
     this.permalink = root.querySelector('a[data-glyph="link-intact"]');
     this.download = root.querySelector('a[data-glyph="data-transfer-download"]');
-    this.percentage = root.querySelector('.progress div');
     this.svgContainer = root.querySelector('#regexp-render');
     this.svgBase = this.root.querySelector('#svg-base').innerHTML;
   }
@@ -101,7 +100,7 @@ export default class Regexper {
   updateLinks() {
     try {
       this.download.parentNode.style.display = null;
-      this.download.href = this.buildBlobURL(this.svgContainer.innerHTML);
+      this.download.href = this.buildBlobURL(this.svgContainer.querySelector('.svg').innerHTML);
     }
     catch(e) {
       // Blobs or URLs created from them don't work here.
@@ -124,6 +123,8 @@ export default class Regexper {
   }
 
   renderRegexp(expression) {
+    var svg, percentage;
+
     if (this.runningParser) {
       let deferred = Q.defer();
 
@@ -141,6 +142,14 @@ export default class Regexper {
 
     this.runningParser = new Parser();
 
+    this.svgContainer.innerHTML = [
+      '<div class="svg"></div>',
+      '<div class="progress"><div style="width: 0;"></div></div>',
+    ].join('');
+
+    svg = this.svgContainer.querySelector('.svg');
+    percentage = this.svgContainer.querySelector('.progress div');
+
     return this.runningParser.parse(expression)
       .then(null, message => {
         this.state = 'has-error';
@@ -151,7 +160,7 @@ export default class Regexper {
 
         throw message;
       })
-      .invoke('render', this.svgContainer, this.svgBase)
+      .invoke('render', svg, this.svgBase)
       .then(
         () => {
           this.state = 'has-results';
@@ -160,8 +169,8 @@ export default class Regexper {
           this._trackEvent('visualization', 'complete');
         },
         null,
-        percentage => {
-          this.percentage.style.width = percentage * 100 + '%';
+        progress => {
+          percentage.style.width = progress * 100 + '%';
         }
       )
       .then(null, message => {
@@ -177,6 +186,7 @@ export default class Regexper {
       .finally(() => {
         this.runningParser = false;
         this.parseError = false;
+        this.svgContainer.removeChild(this.svgContainer.querySelector('.progress'));
       });
   }
 }
