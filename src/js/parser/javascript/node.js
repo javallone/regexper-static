@@ -66,6 +66,7 @@ export default class Node {
       if (this.state.cancelRender) {
         deferred.reject('Render cancelled');
       } else {
+        deferred.notify(1 - this.state.renderCounter / this.state.maxCounter);
         deferred.resolve.apply(this, result);
       }
     }, 1);
@@ -98,20 +99,12 @@ export default class Node {
 
   startRender() {
     this.state.renderCounter++;
+
+    this.state.maxCounter = Math.max(this.state.maxCounter, this.state.renderCounter);
   }
 
   doneRender() {
-    if (this.state.maxCounter === 0) {
-      this.state.maxCounter = this.state.renderCounter;
-    }
-
     this.state.renderCounter--;
-
-    document.body.dispatchEvent(util.customEvent('updateStatus', {
-      percentage: (this.state.maxCounter - this.state.renderCounter) / this.state.maxCounter
-    }));
-
-    return this.deferredStep();
   }
 
   render(container) {
@@ -124,8 +117,20 @@ export default class Node {
     } else {
       this.startRender();
       return this._render()
-        .then(this.doneRender.bind(this))
-        .then(_.constant(this));
+        .then(
+          () => {
+            this.doneRender();
+            return this;
+          },
+          null,
+          progress => {
+            if (typeof progress.value !== 'undefined') {
+              return progress.value;
+            } else {
+              return progress;
+            }
+          }
+        );
     }
   }
 

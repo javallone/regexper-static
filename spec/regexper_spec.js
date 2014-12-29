@@ -190,25 +190,11 @@ describe('regexper.js', function() {
 
   });
 
-  describe('#updatePercentage', function() {
-
-    beforeEach(function() {
-      this.event = util.customEvent('updateStatus', { percentage: 0.42 });
-    });
-
-    it('sets the width of the progress bar', function() {
-      this.regexper.updatePercentage(this.event);
-      expect(this.regexper.percentage.style.width).toEqual('42%');
-    });
-
-  });
-
   describe('#bindListeners', function() {
 
     beforeEach(function() {
       spyOn(this.regexper, 'keypressListener');
       spyOn(this.regexper, 'submitListener');
-      spyOn(this.regexper, 'updatePercentage');
       spyOn(this.regexper, 'documentKeypressListener');
       spyOn(this.regexper, 'hashchangeListener');
     });
@@ -229,15 +215,6 @@ describe('regexper.js', function() {
 
       this.regexper.form.addEventListener.calls.mostRecent().args[1]();
       expect(this.regexper.submitListener).toHaveBeenCalled();
-    });
-
-    it('binds #updatePercentage to updateStatus on the root', function() {
-      spyOn(this.regexper.root, 'addEventListener');
-      this.regexper.bindListeners();
-      expect(this.regexper.root.addEventListener).toHaveBeenCalledWith('updateStatus', jasmine.any(Function));
-
-      this.regexper.root.addEventListener.calls.first().args[1]();
-      expect(this.regexper.updatePercentage).toHaveBeenCalled();
     });
 
     it('binds #documentKeypressListener to keyup on the root', function() {

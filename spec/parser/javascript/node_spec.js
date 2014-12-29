@@ -131,6 +131,18 @@ describe('parser/javascript/node.js', function() {
         .done();
     });
 
+    it('notifies of the progress when the render is not canceled', function(done) {
+      this.node.state.renderCounter = 116;
+      this.node.state.maxCounter = 200;
+
+      this.node.deferredStep('result')
+        .then(null, null, progress => {
+          expect(Math.round(100 * progress)).toEqual(42);
+        })
+        .finally(done)
+        .done();
+    });
+
     it('rejects the returned promise when the render is canceled', function(done) {
       var resolve = jasmine.createSpy('resolve'),
           reject = jasmine.createSpy('reject');
@@ -231,43 +243,24 @@ describe('parser/javascript/node.js', function() {
       expect(this.node.state.renderCounter).toEqual(1);
     });
 
+    it('sets the maxCounter', function() {
+      this.node.state.renderCounter = 42;
+      this.node.state.maxCounter = 0;
+      this.node.startRender();
+      expect(this.node.state.maxCounter).toEqual(43);
+      this.node.state.maxCounter = 50;
+      this.node.startRender();
+      expect(this.node.state.maxCounter).toEqual(50);
+    });
+
   });
 
   describe('#doneRender', function() {
-
-    it('sets the maxCounter when the maxCounter is initially 0', function() {
-      this.node.state.renderCounter = 42;
-      this.node.state.maxCounter = 0;
-      this.node.doneRender();
-      expect(this.node.state.maxCounter).toEqual(42);
-      this.node.state.renderCounter = 24;
-      this.node.doneRender();
-      expect(this.node.state.maxCounter).toEqual(42);
-    });
 
     it('decrements the renderCounter', function() {
       this.node.state.renderCounter = 42;
       this.node.doneRender();
       expect(this.node.state.renderCounter).toEqual(41);
-    });
-
-    it('triggers an updateStatus event', function() {
-      var evt;
-
-      this.node.state.renderCounter = 117;
-      this.node.state.maxCounter = 200;
-      spyOn(document.body, 'dispatchEvent');
-      this.node.doneRender();
-      expect(document.body.dispatchEvent).toHaveBeenCalled();
-
-      evt = document.body.dispatchEvent.calls.mostRecent().args[0];
-      expect(evt.type).toEqual('updateStatus');
-      expect(evt.detail).toEqual({ percentage: 0.42 });
-    });
-
-    it('returns a deferredStep', function() {
-      spyOn(this.node, 'deferredStep').and.returnValue('example deferred');
-      expect(this.node.doneRender()).toEqual('example deferred');
     });
 
   });

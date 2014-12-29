@@ -56,14 +56,9 @@ export default class Regexper {
     this.showExpression(this._getHash());
   }
 
-  updatePercentage(event) {
-    this.percentage.style.width = event.detail.percentage * 100 + '%';
-  }
-
   bindListeners() {
     this.field.addEventListener('keypress', this.keypressListener.bind(this));
     this.form.addEventListener('submit', this.submitListener.bind(this));
-    this.root.addEventListener('updateStatus', this.updatePercentage.bind(this));
     this.root.addEventListener('keyup', this.documentKeypressListener.bind(this));
     window.addEventListener('hashchange', this.hashchangeListener.bind(this));
   }
@@ -157,12 +152,18 @@ export default class Regexper {
         throw message;
       })
       .invoke('render', this.svgContainer, this.svgBase)
-      .then(() => {
-        this.state = 'has-results';
-        this.updateLinks();
-        this.displayWarnings(this.runningParser.warnings);
-        this._trackEvent('visualization', 'complete');
-      })
+      .then(
+        () => {
+          this.state = 'has-results';
+          this.updateLinks();
+          this.displayWarnings(this.runningParser.warnings);
+          this._trackEvent('visualization', 'complete');
+        },
+        null,
+        percentage => {
+          this.percentage.style.width = percentage * 100 + '%';
+        }
+      )
       .then(null, message => {
         if (message === 'Render cancelled') {
           this._trackEvent('visualization', 'cancelled');
