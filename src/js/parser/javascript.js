@@ -1,10 +1,11 @@
 import Q from 'q';
 import Snap from 'snapsvg';
+import _ from 'lodash';
 
 import javascript from './javascript/parser.js';
 
 export default class Parser {
-  constructor() {
+  constructor(container, options) {
     this.state = {
       groupCounter: 1,
       renderCounter: 0,
@@ -12,10 +13,39 @@ export default class Parser {
       cancelRender: false,
       warnings: []
     };
+
+    this.options = options || {};
+    _.defaults(this.options, {
+      keepContent: false
+    });
+
+    this.container = container;
+  }
+
+  set container(cont) {
+    this._container = cont;
+    this._container.innerHTML = [
+      document.querySelector('#svg-container-base').innerHTML,
+      this.options.keepContent ? this.container.innerHTML : ''
+    ].join('');
+  }
+
+  get container() {
+    return this._container;
+  }
+
+  _addClass(className) {
+    this.container.className = _.compact([this.container.className, className]).join(' ');
+  }
+
+  _removeClass(className) {
+    this.container.className = _.without(this.container.className.split(' '), className).join(' ');
   }
 
   parse(expression) {
     var deferred = Q.defer();
+
+    this._addClass('loading');
 
     setTimeout(() => {
       try {
@@ -32,23 +62,30 @@ export default class Parser {
     return deferred.promise;
   }
 
-  render(containerElement, svgBase) {
-    var svg;
-
-    containerElement.innerHTML = svgBase;
-
-    svg = Snap(containerElement.querySelector('svg'));
+  render() {
+    var svg = Snap(this.container.querySelector('svg')),
+        progress = this.container.querySelector('.progress div');
 
     return this.parsed.render(svg.group())
-      .then(result => {
-        var box = result.getBBox();
+      .then(
+        result => {
+          var box = result.getBBox();
 
-        result.transform(Snap.matrix()
-          .translate(10 - box.x, 10 - box.y));
-        svg.attr({
-          width: box.width + 20,
-          height: box.height + 20
-        });
+          result.transform(Snap.matrix()
+            .translate(10 - box.x, 10 - box.y));
+          svg.attr({
+            width: box.width + 20,
+            height: box.height + 20
+          });
+        },
+        null,
+        percent => {
+          progress.style.width = percent * 100 + '%';
+        }
+      )
+      .finally(() => {
+        this._removeClass('loading');
+        this.container.removeChild(this.container.querySelector('.progress'));
       });
   }
 

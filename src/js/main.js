@@ -27,31 +27,10 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
     });
   }
 
-  _.each(document.querySelectorAll('figure[data-expr]'), element => {
-    var parser = new Parser(),
-        svg, percentage;
-
-    element.className = _.compact([element.className, 'loading']).join(' ');
-    element.innerHTML = [
-      '<div class="svg"></div>',
-      '<div class="progress"><div style="width: 0;"></div></div>',
-      element.innerHTML
-    ].join('');
-
-    svg = element.querySelector('.svg');
-    percentage = element.querySelector('.progress div');
-
-    setTimeout(() => {
-      parser.parse(element.getAttribute('data-expr'))
-        .invoke('render', svg, document.querySelector('#svg-base').innerHTML)
-        .then(null, null, progress => {
-          percentage.style.width = progress * 100 + '%';
-        })
-        .finally(() => {
-          element.className = _.without(element.className.split(' '), 'loading').join(' ');
-          element.removeChild(element.querySelector('.progress'));
-        })
-        .done();
-    }, 1);
+  _.each(document.querySelectorAll('[data-expr]'), element => {
+    new Parser(element, { keepContent: true })
+      .parse(element.getAttribute('data-expr'))
+      .invoke('render')
+      .done();
   });
 }());

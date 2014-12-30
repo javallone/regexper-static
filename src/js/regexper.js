@@ -13,7 +13,6 @@ export default class Regexper {
     this.permalink = root.querySelector('a[data-glyph="link-intact"]');
     this.download = root.querySelector('a[data-glyph="data-transfer-download"]');
     this.svgContainer = root.querySelector('#regexp-render');
-    this.svgBase = this.root.querySelector('#svg-base').innerHTML;
   }
 
   keypressListener(event) {
@@ -28,8 +27,8 @@ export default class Regexper {
   }
 
   documentKeypressListener(event) {
-    if (event.keyCode === 27 && this.runningParser) {
-      this.runningParser.cancel();
+    if (event.keyCode === 27 && this.running) {
+      this.running.cancel();
     }
   }
 
@@ -123,12 +122,12 @@ export default class Regexper {
   }
 
   renderRegexp(expression) {
-    var svg, percentage;
+    var parseError = false;
 
-    if (this.runningParser) {
+    if (this.running) {
       let deferred = Q.defer();
 
-      this.runningParser.cancel();
+      this.running.cancel();
 
       setTimeout(() => {
         deferred.resolve(this.renderRegexp(expression));
@@ -140,53 +139,38 @@ export default class Regexper {
     this.state = 'is-loading';
     this._trackEvent('visualization', 'start');
 
-    this.runningParser = new Parser();
+    this.running = new Parser(this.svgContainer);
 
-    this.svgContainer.innerHTML = [
-      '<div class="svg"></div>',
-      '<div class="progress"><div style="width: 0;"></div></div>',
-    ].join('');
-
-    svg = this.svgContainer.querySelector('.svg');
-    percentage = this.svgContainer.querySelector('.progress div');
-
-    return this.runningParser.parse(expression)
+    return this.running
+      .parse(expression)
       .then(null, message => {
         this.state = 'has-error';
         this.error.innerHTML = '';
         this.error.appendChild(document.createTextNode(message));
 
-        this.parseError = true;
+        parseError = true;
 
         throw message;
       })
-      .invoke('render', svg, this.svgBase)
-      .then(
-        () => {
+      .invoke('render')
+      .then(() => {
           this.state = 'has-results';
           this.updateLinks();
-          this.displayWarnings(this.runningParser.warnings);
+          this.displayWarnings(this.running.warnings);
           this._trackEvent('visualization', 'complete');
-        },
-        null,
-        progress => {
-          percentage.style.width = progress * 100 + '%';
-        }
-      )
+      })
       .then(null, message => {
         if (message === 'Render cancelled') {
           this._trackEvent('visualization', 'cancelled');
           this.state = '';
-        } else if (this.parseError) {
+        } else if (parseError) {
           this._trackEvent('visualization', 'parse error');
         } else {
           throw message;
         }
       })
       .finally(() => {
-        this.runningParser = false;
-        this.parseError = false;
-        this.svgContainer.removeChild(this.svgContainer.querySelector('.progress'));
+        this.running = false;
       });
   }
 }

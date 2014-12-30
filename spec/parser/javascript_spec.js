@@ -6,13 +6,42 @@ import Q from 'q';
 describe('parser/javascript.js', function() {
 
   beforeEach(function() {
-    this.parser = new Parser();
+    this.container = document.createElement('div');
+    this.parser = new Parser(this.container);
+  });
+
+  describe('container property', function() {
+
+    it('sets the content of the element', function() {
+      var element = document.createElement('div');
+      this.parser.container = element;
+
+      expect(element.innerHTML).not.toEqual('');
+    });
+
+    it('keeps the original content if the keepContent option is set', function() {
+      var element = document.createElement('div');
+      element.innerHTML = 'example content';
+
+      this.parser.options.keepContent = true;
+      this.parser.container = element;
+
+      expect(element.innerHTML).toContain('example content');
+      expect(element.innerHTML).not.toEqual('example content');
+    });
+
   });
 
   describe('#parse', function() {
 
     beforeEach(function() {
       spyOn(regexpParser, 'parse');
+    });
+
+    it('adds the "loading" class', function() {
+      spyOn(this.parser, '_addClass');
+      this.parser.parse('example expression');
+      expect(this.parser._addClass).toHaveBeenCalledWith('loading');
     });
 
     it('parses the expression', function(done) {
@@ -59,23 +88,10 @@ describe('parser/javascript.js', function() {
       this.renderPromise = Q.defer();
       this.parser.parsed = jasmine.createSpyObj('parsed', ['render']);
       this.parser.parsed.render.and.returnValue(this.renderPromise.promise);
-
-      this.svgBase = '<svg xmlns="http://www.w3.org/2000/svg" version="1.1"></svt>';
-      this.svgContainer = document.createElement('div');
-    });
-
-    it('creates the SVG element', function() {
-      var svg;
-
-      this.parser.render(this.svgContainer, this.svgBase);
-
-      svg = this.svgContainer.querySelector('svg');
-      expect(svg.getAttribute('xmlns')).toEqual('http://www.w3.org/2000/svg');
-      expect(svg.getAttribute('version')).toEqual('1.1');
     });
 
     it('render the parsed expression', function() {
-      this.parser.render(this.svgContainer, this.svgBase);
+      this.parser.render();
       expect(this.parser.parsed.render).toHaveBeenCalled();
     });
 
@@ -90,12 +106,11 @@ describe('parser/javascript.js', function() {
           height: 24
         });
 
-        this.parser.render(this.svgContainer, this.svgBase);
         this.renderPromise.resolve(this.result);
       });
 
       it('positions the renderd expression', function(done) {
-        this.parser.render(this.svgContainer, this.svgBase)
+        this.parser.render()
           .then(() => {
             expect(this.result.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(6, 8));
@@ -105,13 +120,32 @@ describe('parser/javascript.js', function() {
       });
 
       it('sets the dimensions of the image', function(done) {
-        this.parser.render(this.svgContainer, this.svgBase)
+        this.parser.render()
           .then(() => {
-            var svg = this.svgContainer.querySelector('svg');
+            var svg = this.container.querySelector('svg');
 
             expect(svg.getAttribute('width')).toEqual('62');
             expect(svg.getAttribute('height')).toEqual('44');
           }, fail)
+          .finally(done)
+          .done();
+      });
+
+      it('removes the "loading" class', function(done) {
+        spyOn(this.parser, '_removeClass');
+        this.parser.render()
+          .then(() => {
+            expect(this.parser._removeClass).toHaveBeenCalledWith('loading');
+          })
+          .finally(done)
+          .done();
+      });
+
+      it('removes the progress element', function(done) {
+        this.parser.render()
+          .then(() => {
+            expect(this.container.querySelector('.loading')).toBeNull();
+          })
           .finally(done)
           .done();
       });
