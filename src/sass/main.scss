@@ -198,7 +198,12 @@ header {
       margin-bottom: rhythm(1);
     }
 
-    section, div.section, p {
+    section, div.section {
+      margin: rhythm(1) 0;
+      overflow: hidden;
+    }
+
+    p {
       margin: rhythm(1) 0;
     }
 
@@ -229,10 +234,6 @@ header {
         font-weight: bold;
         padding: 0 rhythm(1/4);
       }
-    }
-
-    section, div {
-      overflow: hidden;
     }
   }
 
