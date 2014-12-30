@@ -30,6 +30,12 @@ describe('parser/javascript.js', function() {
       expect(element.innerHTML).not.toEqual('example content');
     });
 
+    it('adds the "svg-container" class', function() {
+      spyOn(this.parser, '_addClass');
+      this.parser.container = document.createElement('div');
+      expect(this.parser._addClass).toHaveBeenCalledWith('svg-container');
+    });
+
   });
 
   describe('#parse', function() {

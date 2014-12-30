@@ -28,6 +28,7 @@ export default class Parser {
       document.querySelector('#svg-container-base').innerHTML,
       this.options.keepContent ? this.container.innerHTML : ''
     ].join('');
+    this._addClass('svg-container');
   }
 
   get container() {
@@ -35,11 +36,17 @@ export default class Parser {
   }
 
   _addClass(className) {
-    this.container.className = _.compact([this.container.className, className]).join(' ');
+    this.container.className = _(this.container.className.split(' '))
+      .union([className])
+      .value()
+      .join(' ');
   }
 
   _removeClass(className) {
-    this.container.className = _.without(this.container.className.split(' '), className).join(' ');
+    this.container.className = _(this.container.className.split(' '))
+      .without(className)
+      .value()
+      .join(' ');
   }
 
   parse(expression) {

@@ -48,6 +48,15 @@ ul.inline-list {
   }
 }
 
+.svg-container {
+  min-width: 200px;
+
+  &.loading .svg {
+    position: absolute;
+    top: -10000px;
+  }
+}
+
 #deprecation-notice {
   @include background(linear-gradient(top, $green, $dark-green));
   background-color: $green;
@@ -209,15 +218,6 @@ header {
         margin-right: rhythm(1/2);
       }
 
-      &.loading {
-        min-width: 100px;
-
-        .svg {
-          position: absolute;
-          top: -10000px;
-        }
-      }
-
       .svg {
         margin: 0;
         text-align: center;
@@ -354,15 +354,7 @@ header {
   text-align: center;
   display: none;
 
-  body.is-loading & {
-    display: block;
-
-    .svg {
-      position: absolute;
-      top: -10000px;
-    }
-  }
-
+  body.is-loading &,
   body.has-results & {
     display: block;
   }
