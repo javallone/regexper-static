@@ -10,8 +10,11 @@ export default class Regexper {
     this.field = root.querySelector('#regexp-input');
     this.error = root.querySelector('#error');
     this.warnings = root.querySelector('#warnings');
-    this.permalink = root.querySelector('a[data-glyph="link-intact"]');
-    this.download = root.querySelector('a[data-glyph="data-transfer-download"]');
+
+    this.links = this.form.querySelector('ul');
+    this.permalink = this.links.querySelector('a[data-glyph="link-intact"]');
+    this.download = this.links.querySelector('a[data-glyph="data-transfer-download"]');
+
     this.svgContainer = root.querySelector('#regexp-render');
   }
 
@@ -97,6 +100,8 @@ export default class Regexper {
   }
 
   updateLinks() {
+    var classes = _.without(this.links.className.split(' '), ['hide-download', 'hide-permalink']);
+
     try {
       this.download.parentNode.style.display = null;
       this.download.href = this.buildBlobURL(this.svgContainer.querySelector('.svg').innerHTML);
@@ -104,15 +109,17 @@ export default class Regexper {
     catch(e) {
       // Blobs or URLs created from them don't work here.
       // Giving up on the download link
-      this.download.parentNode.style.display = 'none';
+      classes.push('hide-download');
     }
 
     if (this.permalinkEnabled) {
       this.permalink.parentNode.style.display = null;
       this.permalink.href = location.toString();
     } else {
-      this.permalink.parentNode.style.display = 'none';
+      classes.push('hide-permalink');
     }
+
+    this.links.className = classes.join(' ');
   }
 
   displayWarnings(warnings) {

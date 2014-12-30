@@ -9,11 +9,15 @@ describe('regexper.js', function() {
   beforeEach(function() {
     this.root = document.createElement('div');
     this.root.innerHTML = [
-      '<form id="regexp-form" action="/"><input type="text" id="regexp-input" /></form>',
+      '<form id="regexp-form" action="/">',
+        '<input type="text" id="regexp-input">',
+        '<ul class="example">',
+          '<ul><a href="#" data-glyph="link-intact"></a></ul>',
+          '<ul><a href="#" data-glyph="data-transfer-download"></a></ul>',
+        '</ul>',
+      '</form>',
       '<div id="error"></div>',
       '<ul id="warnings"></ul>',
-      '<div><a href="#" data-glyph="link-intact"></a></div>',
-      '<div><a href="#" data-glyph="data-transfer-download"></a></div>',
       '<div id="regexp-render"></div>',
     ].join('');
 
@@ -308,7 +312,8 @@ describe('regexper.js', function() {
 
       it('hides the download link', function() {
         this.regexper.updateLinks();
-        expect(this.regexper.download.parentNode.style.display).toEqual('none');
+        expect(this.regexper.links.className).toMatch(/\bexample\b/);
+        expect(this.regexper.links.className).toMatch(/\bhide-download\b/);
       });
 
     });
@@ -334,7 +339,8 @@ describe('regexper.js', function() {
 
       it('hides the permalink', function() {
         this.regexper.updateLinks();
-        expect(this.regexper.permalink.parentNode.style.display).toEqual('none');
+        expect(this.regexper.links.className).toMatch(/\bexample\b/);
+        expect(this.regexper.links.className).toMatch(/\bhide-permalink\b/);
       });
 
     });

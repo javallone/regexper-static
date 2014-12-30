@@ -273,6 +273,12 @@ header {
       body.has-results & {
         display: inline-block;
       }
+
+      &.hide-permalink .permalink,
+      &.hide-permalink .download::after,
+      &.hide-download .download {
+        display: none;
+      }
     }
   }
 
