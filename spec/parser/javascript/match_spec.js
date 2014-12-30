@@ -52,6 +52,12 @@ describe('parser/javascript/match.js', function() {
       ],
       proxy: undefined
     },
+    '': {
+      anchorStart: false,
+      anchorEnd: false,
+      parts: [],
+      proxy: undefined
+    }
   }, (content, str) => {
     it(`parses "${str}" as a Match`, function() {
       var parser = new javascript.Parser(str);

@@ -23,7 +23,8 @@ export default {
 
   _render() {
     var start, end,
-        partPromises;
+        partPromises,
+        items;
 
     if (this.anchorStart) {
       start = this.renderLabel('Start of line')
@@ -39,7 +40,13 @@ export default {
       return part.render(this.container.group());
     });
 
-    return Q.all(_([start, partPromises, end]).flatten().compact().value())
+    items = _([start, partPromises, end]).flatten().compact().value();
+
+    if (items.length === 0) {
+      items = [this.container.group()];
+    }
+
+    return Q.all(items)
       .then(items => {
         this.start = _.first(items);
         this.end = _.last(items);
