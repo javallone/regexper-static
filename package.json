@@ -28,6 +28,7 @@
     "karma-jasmine": "^0.3.1",
     "karma-notify-reporter": "^0.1.1",
     "lodash": "^2.4.1",
+    "mold-source-map": "^0.3.0",
     "q": "^1.1.2",
     "snapsvg": "git://github.com/adobe-webplatform/Snap.svg#dev",
     "through": "^2.3.6",

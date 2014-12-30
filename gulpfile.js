@@ -70,7 +70,8 @@ gulp.task('browserify', function() {
   var browserify = require('browserify'),
       exorcist = require('exorcist'),
       tap = require('gulp-tap'),
-      transform = require('vinyl-transform');
+      transform = require('vinyl-transform'),
+      mold = require('mold-source-map');
 
   return gulp.src('./src/js/main.js', { read: false })
     .pipe(errorHandler())
@@ -81,7 +82,8 @@ gulp.task('browserify', function() {
 
       bundler.add(file.path);
 
-      file.contents = bundler.bundle();
+      file.contents = bundler.bundle()
+        .pipe(mold.transformSourcesRelativeTo('./'));
     }))
     .pipe(transform(function() {
       return exorcist(config.buildPath('js/main.js.map'));
