@@ -1,3 +1,4 @@
+// Setup (and teardown) SVG container template
 beforeEach(function() {
   var template = document.createElement('script');
   template.setAttribute('type', 'text/html');
@@ -12,3 +13,8 @@ beforeEach(function() {
 afterEach(function() {
   document.body.removeChild(document.body.querySelector('#svg-container-base'));
 });
+
+// Spy on _gaq.push to prevent unnecessary logging
+window._gaq = {
+  push() {}
+}
