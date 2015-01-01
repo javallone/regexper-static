@@ -9,12 +9,21 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
 
 (function() {
   window.addEventListener('error', function(error) {
-    _gaq.push([
-      '_trackEvent',
-      'global',
-      'exception',
-      `${error.filename}(${error.lineno}): ${error.message}`
-    ]);
+    if (typeof error.error !== 'undefined' && typeof error.error.stack !== 'undefined') {
+      _gaq.push([
+        '_trackEvent',
+        'global',
+        'exception',
+        error.error.stack
+      ]);
+    } else if (error.filename !== '') {
+      _gaq.push([
+        '_trackEvent',
+        'global',
+        'exception',
+        `${error.filename}(${error.lineno},${error.colno}): ${error.message}`
+      ]);
+    }
   });
 
   if (document.body.querySelector('#content .application')) {
