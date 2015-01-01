@@ -484,6 +484,15 @@ describe('regexper.js', function() {
           .done();
       });
 
+      it('tracks the total rendering time', function(done) {
+        this.regexper.renderRegexp('example expression')
+          .then(() => {
+            expect(window._gaq.push).toHaveBeenCalledWith(['_trackTiming', 'visualization', 'total time', jasmine.any(Number)]);
+          }, fail)
+          .finally(done)
+          .done();
+      });
+
     });
 
     describe('when the rendering is cancelled', function() {

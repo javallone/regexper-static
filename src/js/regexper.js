@@ -125,7 +125,8 @@ export default class Regexper {
   }
 
   renderRegexp(expression) {
-    var parseError = false;
+    var parseError = false,
+        startTime, endTime;
 
     if (this.running) {
       let deferred = Q.defer();
@@ -141,6 +142,7 @@ export default class Regexper {
 
     this.state = 'is-loading';
     window._gaq.push(['_trackEvent', 'visualization', 'start']);
+    startTime = new Date().getTime();
 
     this.running = new Parser(this.svgContainer);
 
@@ -161,6 +163,9 @@ export default class Regexper {
         this.updateLinks();
         this.displayWarnings(this.running.warnings);
         window._gaq.push(['_trackEvent', 'visualization', 'complete']);
+
+        endTime = new Date().getTime();
+        window._gaq.push(['_trackTiming', 'visualization', 'total time', endTime - startTime]);
       })
       .then(null, message => {
         if (message === 'Render cancelled') {
