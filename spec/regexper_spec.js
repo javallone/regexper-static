@@ -239,19 +239,6 @@ describe('regexper.js', function() {
 
   });
 
-  describe('#_trackEvent', function() {
-
-    beforeEach(function() {
-      spyOn(window._gaq, 'push');
-    });
-
-    it('adds a _trackEvent call to gaq', function() {
-      this.regexper._trackEvent('category', 'action');
-      expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'category', 'action']);
-    });
-
-  });
-
   describe('#showExpression', function() {
 
     beforeEach(function() {
@@ -365,7 +352,7 @@ describe('regexper.js', function() {
       spyOn(Parser.prototype, 'render').and.returnValue(this.renderPromise.promise);
       spyOn(Parser.prototype, 'cancel');
 
-      spyOn(this.regexper, '_trackEvent');
+      spyOn(window._gaq, 'push');
       spyOn(this.regexper, 'updateLinks');
       spyOn(this.regexper, 'displayWarnings');
     });
@@ -377,7 +364,7 @@ describe('regexper.js', function() {
 
     it('tracks the beginning of the render', function() {
       this.regexper.renderRegexp('example expression');
-      expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'start');
+      expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'start']);
     });
 
     it('keeps a copy of the running property parser', function() {
@@ -417,7 +404,7 @@ describe('regexper.js', function() {
       it('tracks the parse error', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
-            expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'parse error');
+            expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'parse error']);
           }, fail)
           .finally(done)
           .done();
@@ -482,7 +469,7 @@ describe('regexper.js', function() {
       it('tracks the complete render', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
-            expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'complete');
+            expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'complete']);
           }, fail)
           .finally(done)
           .done();
@@ -519,7 +506,7 @@ describe('regexper.js', function() {
       it('tracks the cancelled render', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
-            expect(this.regexper._trackEvent).toHaveBeenCalledWith('visualization', 'cancelled');
+            expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'cancelled']);
           }, fail)
           .finally(done)
           .done();

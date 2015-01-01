@@ -72,10 +72,6 @@ export default class Regexper {
     return decodeURIComponent(location.hash.slice(1));
   }
 
-  _trackEvent(category, action) {
-    window._gaq.push(['_trackEvent', category, action]);
-  }
-
   set state(state) {
     this.root.className = state;
   }
@@ -144,7 +140,7 @@ export default class Regexper {
     }
 
     this.state = 'is-loading';
-    this._trackEvent('visualization', 'start');
+    window._gaq.push(['_trackEvent', 'visualization', 'start']);
 
     this.running = new Parser(this.svgContainer);
 
@@ -161,17 +157,17 @@ export default class Regexper {
       })
       .invoke('render')
       .then(() => {
-          this.state = 'has-results';
-          this.updateLinks();
-          this.displayWarnings(this.running.warnings);
-          this._trackEvent('visualization', 'complete');
+        this.state = 'has-results';
+        this.updateLinks();
+        this.displayWarnings(this.running.warnings);
+        window._gaq.push(['_trackEvent', 'visualization', 'complete']);
       })
       .then(null, message => {
         if (message === 'Render cancelled') {
-          this._trackEvent('visualization', 'cancelled');
+          window._gaq.push(['_trackEvent', 'visualization', 'cancelled']);
           this.state = '';
         } else if (parseError) {
-          this._trackEvent('visualization', 'parse error');
+          window._gaq.push(['_trackEvent', 'visualization', 'parse error']);
         } else {
           throw message;
         }
