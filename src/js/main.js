@@ -9,20 +9,22 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
 
 (function() {
   window.addEventListener('error', function(error) {
-    if (typeof error.error !== 'undefined' && typeof error.error.stack !== 'undefined') {
-      _gaq.push([
-        '_trackEvent',
-        'global',
-        'exception',
-        error.error.stack
-      ]);
-    } else if (error.filename !== '') {
+    if (error.lineno !== 0) {
       _gaq.push([
         '_trackEvent',
         'global',
         'exception',
         `${error.filename}(${error.lineno},${error.colno}): ${error.message}`
       ]);
+
+      if (typeof error.error !== 'undefined' && typeof error.error.stack !== 'undefined') {
+        _gaq.push([
+          '_trackEvent',
+          'global',
+          'stack trace',
+          error.error.stack
+        ]);
+      }
     }
   });
 
