@@ -23,7 +23,8 @@ describe('regexper.js', function() {
 
     this.regexper = new Regexper(this.root);
     spyOn(this.regexper, '_setHash');
-    spyOn(this.regexper, '_getHash').and.returnValue('example hash value');
+    spyOn(this.regexper, '_getHash');
+    spyOn(window._gaq, 'push');
   });
 
   describe('#keypressListener', function() {
@@ -179,15 +180,42 @@ describe('regexper.js', function() {
 
   describe('#hashchangeListener', function() {
 
-    it('enables the permalink', function() {
-      this.regexper.hashchangeListener();
-      expect(this.regexper.permalinkEnabled).toEqual(true);
+    describe('when the URL is invalid', function() {
+
+      beforeEach(function() {
+        this.regexper._getHash.and.returnValue(new Error('example error'));
+      });
+
+      it('displays an error message', function() {
+        this.regexper.hashchangeListener();
+        expect(this.regexper.state).toEqual('has-error');
+        expect(this.regexper.error.innerHTML).toEqual('Malformed expression in URL');
+      });
+
+      it('tracks the event', function() {
+        this.regexper.hashchangeListener();
+        expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'malformed URL']);
+      });
+
     });
 
-    it('shows the expression from the hash', function() {
-      spyOn(this.regexper, 'showExpression');
-      this.regexper.hashchangeListener();
-      expect(this.regexper.showExpression).toHaveBeenCalledWith('example hash value');
+    describe('when the URL is valid', function() {
+
+      beforeEach(function() {
+        this.regexper._getHash.and.returnValue('example hash value');
+      });
+
+      it('enables the permalink', function() {
+        this.regexper.hashchangeListener();
+        expect(this.regexper.permalinkEnabled).toEqual(true);
+      });
+
+      it('shows the expression from the hash', function() {
+        spyOn(this.regexper, 'showExpression');
+        this.regexper.hashchangeListener();
+        expect(this.regexper.showExpression).toHaveBeenCalledWith('example hash value');
+      });
+
     });
 
   });
@@ -352,7 +380,6 @@ describe('regexper.js', function() {
       spyOn(Parser.prototype, 'render').and.returnValue(this.renderPromise.promise);
       spyOn(Parser.prototype, 'cancel');
 
-      spyOn(window._gaq, 'push');
       spyOn(this.regexper, 'updateLinks');
       spyOn(this.regexper, 'displayWarnings');
     });

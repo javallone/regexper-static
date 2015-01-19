@@ -53,8 +53,16 @@ export default class Regexper {
   }
 
   hashchangeListener() {
-    this.permalinkEnabled = true;
-    this.showExpression(this._getHash());
+    var expr = this._getHash();
+
+    if (expr instanceof Error) {
+      this.state = 'has-error';
+      this.error.innerHTML = 'Malformed expression in URL';
+      window._gaq.push(['_trackEvent', 'visualization', 'malformed URL']);
+    } else {
+      this.permalinkEnabled = true;
+      this.showExpression(expr);
+    }
   }
 
   bindListeners() {
@@ -69,7 +77,12 @@ export default class Regexper {
   }
 
   _getHash() {
-    return decodeURIComponent(location.hash.slice(1));
+    try {
+      return decodeURIComponent(location.hash.slice(1));
+    }
+    catch(e) {
+      return e;
+    }
   }
 
   set state(state) {
