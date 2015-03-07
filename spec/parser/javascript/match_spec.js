@@ -27,7 +27,6 @@ describe('parser/javascript/match.js', function() {
           content: jasmine.objectContaining({ literal: 'example' })
         })
       ],
-      proxy: undefined
     },
     'example$': {
       anchorStart: false,
@@ -36,8 +35,7 @@ describe('parser/javascript/match.js', function() {
         jasmine.objectContaining({
           content: jasmine.objectContaining({ literal: 'example' })
         })
-      ],
-      proxy: undefined
+      ]
     },
     'example*': {
       anchorStart: false,
@@ -49,14 +47,12 @@ describe('parser/javascript/match.js', function() {
         jasmine.objectContaining({
           content: jasmine.objectContaining({ literal: 'e' })
         })
-      ],
-      proxy: undefined
+      ]
     },
     '': {
       anchorStart: false,
       anchorEnd: false,
-      parts: [],
-      proxy: undefined
+      parts: []
     }
   }, (content, str) => {
     it(`parses "${str}" as a Match`, function() {

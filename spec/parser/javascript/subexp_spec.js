@@ -14,19 +14,16 @@ describe('parser/javascript/subexp.js', function() {
     '(test)': {
       label: 'group #1',
       regexp: jasmine.objectContaining({ textValue: 'test' }),
-      proxy: undefined,
       state: { groupCounter: 2 }
     },
     '(?=test)': {
       label: 'positive lookahead',
       regexp: jasmine.objectContaining({ textValue: 'test' }),
-      proxy: undefined,
       state: { groupCounter: 1 }
     },
     '(?!test)': {
       label: 'negative lookahead',
       regexp: jasmine.objectContaining({ textValue: 'test' }),
-      proxy: undefined,
       state: { groupCounter: 1 }
     },
     '(?:test)': {
