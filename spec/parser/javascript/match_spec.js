@@ -2,7 +2,6 @@ import javascript from 'src/js/parser/javascript/parser.js';
 import util from 'src/js/util.js';
 import _ from 'lodash';
 import Snap from 'snapsvg';
-import Q from 'q';
 
 describe('parser/javascript/match.js', function() {
 
@@ -112,8 +111,8 @@ describe('parser/javascript/match.js', function() {
       this.node.container.group.and.returnValue('example group');
 
       this.labelDeferreds = {
-        'Start of line': Q.defer(),
-        'End of line': Q.defer()
+        'Start of line': this.testablePromise(),
+        'End of line': this.testablePromise()
       };
       spyOn(this.node, 'renderLabel').and.callFake(label => {
         return this.labelDeferreds[label].promise;
@@ -126,9 +125,9 @@ describe('parser/javascript/match.js', function() {
       ];
 
       this.partDeferreds = [
-        Q.defer(),
-        Q.defer(),
-        Q.defer()
+        this.testablePromise(),
+        this.testablePromise(),
+        this.testablePromise()
       ];
 
       this.node.parts[0].render.and.returnValue(this.partDeferreds[0].promise);
@@ -217,9 +216,8 @@ describe('parser/javascript/match.js', function() {
           .then(() => {
             expect(this.node.start).toEqual('start label');
             expect(this.node.end).toEqual('end label');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('spaces the items horizontally', function(done) {
@@ -232,9 +230,8 @@ describe('parser/javascript/match.js', function() {
               'part 2',
               'end label'
             ], { padding: 10 });
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('renders the connector paths', function(done) {
@@ -248,9 +245,8 @@ describe('parser/javascript/match.js', function() {
               'end label'
             ]);
             expect(this.node.container.path).toHaveBeenCalledWith('connector paths');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });

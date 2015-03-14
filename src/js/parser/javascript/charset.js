@@ -1,6 +1,5 @@
 import util from '../../util.js';
 import _ from 'lodash';
-import Q from 'q';
 export default {
   type: 'charset',
 
@@ -22,7 +21,7 @@ export default {
   _render() {
     this.partContainer = this.container.group();
 
-    return Q.all(_.map(this.elements, part => {
+    return Promise.all(_.map(this.elements, part => {
       return part.render(this.partContainer.group());
     }))
       .then(() => {

@@ -8,6 +8,17 @@ beforeEach(function() {
     '<div class="progress"><div></div></div>'
   ].join('');
   document.body.appendChild(template);
+
+  this.testablePromise = function() {
+    var result = {};
+
+    result.promise = new Promise((resolve, reject) => {
+      result.resolve = resolve;
+      result.reject = reject;
+    });
+
+    return result;
+  };
 });
 
 afterEach(function() {

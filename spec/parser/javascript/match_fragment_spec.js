@@ -1,7 +1,6 @@
 import javascript from 'src/js/parser/javascript/parser.js';
 import _ from 'lodash';
 import Snap from 'snapsvg';
-import Q from 'q';
 
 describe('parser/javascript/match_fragment.js', function() {
 
@@ -66,7 +65,7 @@ describe('parser/javascript/match_fragment.js', function() {
       ]);
       this.node.container.group.and.returnValue('example group');
 
-      this.renderDeferred = Q.defer();
+      this.renderDeferred = this.testablePromise();
       this.node.content = jasmine.createSpyObj('content', [
         'render',
         'transform',
@@ -99,9 +98,8 @@ describe('parser/javascript/match_fragment.js', function() {
         this.node._render()
           .then(() => {
             expect(this.node.content.transform).toHaveBeenCalledWith('example position');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('renders a skip path and loop path', function(done) {
@@ -110,18 +108,16 @@ describe('parser/javascript/match_fragment.js', function() {
             expect(this.node.skipPath).toHaveBeenCalledWith('content bbox');
             expect(this.node.loopPath).toHaveBeenCalledWith('content bbox');
             expect(this.node.container.path).toHaveBeenCalledWith('skip pathloop path');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('renders a loop label', function(done) {
         this.node._render()
           .then(() => {
             expect(this.node.loopLabel).toHaveBeenCalled();
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });

@@ -15,11 +15,12 @@ export default {
 
   _render() {
     return this.renderLabel(this.label)
-      .tap(label => {
+      .then(label => {
         label.select('rect').attr({
           rx: 3,
           ry: 3
         });
+        return label;
       });
   },
 

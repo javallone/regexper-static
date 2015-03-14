@@ -2,7 +2,6 @@ import javascript from 'src/js/parser/javascript/parser.js';
 import Node from 'src/js/parser/javascript/node.js';
 import _ from 'lodash';
 import Snap from 'snapsvg';
-import Q from 'q';
 
 describe('parser/javascript/subexp.js', function() {
 
@@ -60,7 +59,7 @@ describe('parser/javascript/subexp.js', function() {
   describe('#_render', function() {
 
     beforeEach(function() {
-      this.renderDeferred = Q.defer();
+      this.renderDeferred = this.testablePromise();
 
       this.node = new javascript.Parser('(test)').__consume__subexp();
       this.node.regexp = jasmine.createSpyObj('regexp', ['render']);
@@ -81,9 +80,8 @@ describe('parser/javascript/subexp.js', function() {
       this.node._render()
         .then(() => {
           expect(this.node.renderLabeledBox).toHaveBeenCalledWith('example label', this.node.regexp, { padding: 10 });
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
   });

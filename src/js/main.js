@@ -41,7 +41,13 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
   _.each(document.querySelectorAll('[data-expr]'), element => {
     new Parser(element, { keepContent: true })
       .parse(element.getAttribute('data-expr'))
-      .invoke('render')
-      .done();
+      .then(parser => {
+        parser.render();
+      })
+      .catch(error => {
+        setTimeout(() => {
+          throw error;
+        });
+      });
   });
 }());

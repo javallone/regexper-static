@@ -1,6 +1,5 @@
 import javascript from 'src/js/parser/javascript/parser.js';
 import util from 'src/js/util.js';
-import Q from 'q';
 import _ from 'lodash';
 
 describe('parser/javascript/charset_range.js', function() {
@@ -71,8 +70,8 @@ describe('parser/javascript/charset_range.js', function() {
       this.node.container = jasmine.createSpyObj('cotnainer', ['addClass', 'text', 'group']);
       this.node.container.text.and.returnValue('hyphen');
 
-      this.firstDeferred = Q.defer();
-      this.lastDeferred = Q.defer();
+      this.firstDeferred = this.testablePromise();
+      this.lastDeferred = this.testablePromise();
 
       spyOn(this.node.first, 'render').and.returnValue(this.firstDeferred.promise);
       spyOn(this.node.last, 'render').and.returnValue(this.lastDeferred.promise);
@@ -95,9 +94,8 @@ describe('parser/javascript/charset_range.js', function() {
             'hyphen',
             this.node.last
           ], { padding: 5 });
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
   });

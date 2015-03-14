@@ -1,6 +1,5 @@
 import util from '../../util.js';
 import _ from 'lodash';
-import Q from 'q';
 
 export default class Node {
   constructor(textValue, offset, elements, properties) {
@@ -59,18 +58,15 @@ export default class Node {
   }
 
   deferredStep() {
-    var deferred = Q.defer(),
-        result = arguments;
-
-    setTimeout(() => {
-      if (this.state.cancelRender) {
-        deferred.reject('Render cancelled');
-      } else {
-        deferred.resolve.apply(this, result);
-      }
-    }, 1);
-
-    return deferred.promise;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        if (this.state.cancelRender) {
+          reject('Render cancelled');
+        } else {
+          resolve.apply(this, arguments);
+        }
+      }, 1);
+    });
   }
 
   renderLabel(text) {

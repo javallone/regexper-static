@@ -5,7 +5,7 @@ export default {
 
   _render() {
     return this.renderLabel(['\u201c', this.literal, '\u201d'])
-      .tap(label => {
+      .then(label => {
         var spans = label.selectAll('tspan');
 
         spans[0].addClass('quote');
@@ -15,6 +15,8 @@ export default {
           rx: 3,
           ry: 3
         });
+
+        return label;
       });
   },
 

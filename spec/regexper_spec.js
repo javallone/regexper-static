@@ -2,7 +2,6 @@ import util from 'src/js/util.js';
 import Regexper from 'src/js/regexper.js';
 import Parser from 'src/js/parser/javascript.js';
 import Snap from 'snapsvg';
-import Q from 'q';
 
 describe('regexper.js', function() {
 
@@ -270,7 +269,7 @@ describe('regexper.js', function() {
   describe('#showExpression', function() {
 
     beforeEach(function() {
-      spyOn(this.regexper, 'renderRegexp').and.returnValue(jasmine.createSpyObj('renderRegexp', ['done']));
+      spyOn(this.regexper, 'renderRegexp').and.returnValue(jasmine.createSpyObj('renderRegexp', ['catch']));
     });
 
     it('sets the text field value', function() {
@@ -374,8 +373,8 @@ describe('regexper.js', function() {
   describe('#renderRegexp', function() {
 
     beforeEach(function() {
-      this.parsePromise = Q.defer();
-      this.renderPromise = Q.defer();
+      this.parsePromise = this.testablePromise();
+      this.renderPromise = this.testablePromise();
       spyOn(Parser.prototype, 'parse').and.returnValue(this.parsePromise.promise);
       spyOn(Parser.prototype, 'render').and.returnValue(this.renderPromise.promise);
       spyOn(Parser.prototype, 'cancel');
@@ -414,27 +413,24 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.state).toEqual('has-error');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('displays the error message', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.error.innerHTML).toEqual('Error: example parse error');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('tracks the parse error', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'parse error']);
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });
@@ -451,9 +447,8 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.parser.render).toHaveBeenCalled();
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });
@@ -470,54 +465,48 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.state).toEqual('has-results');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('updates the links', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.updateLinks).toHaveBeenCalled();
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('displays the warnings', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.displayWarnings).toHaveBeenCalled();
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('tracks the complete render', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'complete']);
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('sets the running property to false', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.running).toBeFalsy();
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('tracks the total rendering time', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(window._gaq.push).toHaveBeenCalledWith(['_trackTiming', 'visualization', 'total time', jasmine.any(Number)]);
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });
@@ -534,27 +523,24 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.state).toEqual('');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('tracks the cancelled render', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'cancelled']);
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('sets the running property to false', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
             expect(this.regexper.running).toBeFalsy();
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });
@@ -571,9 +557,8 @@ describe('regexper.js', function() {
         this.regexper.renderRegexp('example expression')
           .then(fail, () => {
             expect(this.regexper.running).toBeFalsy();
-          })
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });

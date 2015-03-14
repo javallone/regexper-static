@@ -1,4 +1,3 @@
-import Q from 'q';
 import Snap from 'snapsvg';
 import _ from 'lodash';
 
@@ -45,23 +44,21 @@ export default class Parser {
   }
 
   parse(expression) {
-    var deferred = Q.defer();
-
     this._addClass('loading');
 
-    setTimeout(() => {
-      try {
-        javascript.Parser.SyntaxNode.state = this.state;
+    return new Promise((resolve, reject) => {
+      setTimeout(() => {
+        try {
+          javascript.Parser.SyntaxNode.state = this.state;
 
-        this.parsed = javascript.parse(expression.replace(/\n/g, '\\n'));
-        deferred.resolve(this);
-      }
-      catch(e) {
-        deferred.reject(e);
-      }
+          this.parsed = javascript.parse(expression.replace(/\n/g, '\\n'));
+          resolve(this);
+        }
+        catch(e) {
+          reject(e);
+        }
+      });
     });
-
-    return deferred.promise;
   }
 
   render() {
@@ -78,7 +75,7 @@ export default class Parser {
           height: box.height + 20
         });
       })
-      .finally(() => {
+      .then(() => {
         this._removeClass('loading');
         this.container.removeChild(this.container.querySelector('.progress'));
       });

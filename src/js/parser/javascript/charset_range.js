@@ -1,6 +1,5 @@
 import util from '../../util.js';
 import _ from 'lodash';
-import Q from 'q';
 
 export default {
   type: 'charset-range',
@@ -12,7 +11,7 @@ export default {
       this.last
     ];
 
-    return Q.all([
+    return Promise.all([
       this.first.render(this.container.group()),
       this.last.render(this.container.group())
     ])

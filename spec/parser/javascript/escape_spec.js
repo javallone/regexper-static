@@ -63,9 +63,8 @@ describe('parser/javascript/escape.js', function() {
             rx: '3',
             ry: '3'
           }));
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
   });

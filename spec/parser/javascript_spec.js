@@ -1,7 +1,6 @@
 import Parser from 'src/js/parser/javascript.js';
 import regexpParser from 'src/js/parser/javascript/grammar.peg';
 import Snap from 'snapsvg';
-import Q from 'q';
 
 describe('parser/javascript.js', function() {
 
@@ -54,36 +53,33 @@ describe('parser/javascript.js', function() {
       this.parser.parse('example expression')
         .then(() => {
           expect(regexpParser.parse).toHaveBeenCalledWith('example expression');
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
     it('replaces newlines with "\\n"', function(done) {
       this.parser.parse('multiline\nexpression')
         .then(() => {
           expect(regexpParser.parse).toHaveBeenCalledWith('multiline\\nexpression');
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
     it('resolves the returned promise with the parser instance', function(done) {
       this.parser.parse('example expression')
         .then(result => {
           expect(result).toEqual(this.parser);
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
     it('rejects the returned promise with the exception thrown', function(done) {
-      this.parser.parse('/example')
+      regexpParser.parse.and.throwError('fail');
+      this.parser.parse('(example')
         .then(null, result => {
           expect(result).toBeDefined();
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
   });
@@ -91,7 +87,7 @@ describe('parser/javascript.js', function() {
   describe('#render', function() {
 
     beforeEach(function() {
-      this.renderPromise = Q.defer();
+      this.renderPromise = this.testablePromise();
       this.parser.parsed = jasmine.createSpyObj('parsed', ['render']);
       this.parser.parsed.render.and.returnValue(this.renderPromise.promise);
     });
@@ -120,9 +116,8 @@ describe('parser/javascript.js', function() {
           .then(() => {
             expect(this.result.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(6, 8));
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('sets the dimensions of the image', function(done) {
@@ -132,9 +127,8 @@ describe('parser/javascript.js', function() {
 
             expect(svg.getAttribute('width')).toEqual('62');
             expect(svg.getAttribute('height')).toEqual('44');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('removes the "loading" class', function(done) {
@@ -142,18 +136,16 @@ describe('parser/javascript.js', function() {
         this.parser.render()
           .then(() => {
             expect(this.parser._removeClass).toHaveBeenCalledWith('loading');
-          })
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('removes the progress element', function(done) {
         this.parser.render()
           .then(() => {
             expect(this.container.querySelector('.loading')).toBeNull();
-          })
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });

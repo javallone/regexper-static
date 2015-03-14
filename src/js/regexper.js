@@ -1,6 +1,5 @@
 import util from './util.js';
 import Parser from './parser/javascript.js';
-import Q from 'q';
 import _ from 'lodash';
 
 export default class Regexper {
@@ -98,7 +97,11 @@ export default class Regexper {
     this.state = '';
 
     if (expression !== '') {
-      this.renderRegexp(expression).done();
+      this.renderRegexp(expression).catch(message => {
+        setTimeout(() => {
+          throw message;
+        });
+      });
     }
   }
 
@@ -142,15 +145,13 @@ export default class Regexper {
         startTime, endTime;
 
     if (this.running) {
-      let deferred = Q.defer();
-
       this.running.cancel();
 
-      setTimeout(() => {
-        deferred.resolve(this.renderRegexp(expression));
-      }, 10);
-
-      return deferred.promise;
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve(this.renderRegexp(expression));
+        }, 10);
+      });
     }
 
     this.state = 'is-loading';
@@ -161,7 +162,7 @@ export default class Regexper {
 
     return this.running
       .parse(expression)
-      .then(null, message => {
+      .catch(message => {
         this.state = 'has-error';
         this.error.innerHTML = '';
         this.error.appendChild(document.createTextNode(message));
@@ -170,7 +171,9 @@ export default class Regexper {
 
         throw message;
       })
-      .invoke('render')
+      .then(parser => {
+        return parser.render();
+      })
       .then(() => {
         this.state = 'has-results';
         this.updateLinks();
@@ -180,7 +183,7 @@ export default class Regexper {
         endTime = new Date().getTime();
         window._gaq.push(['_trackTiming', 'visualization', 'total time', endTime - startTime]);
       })
-      .then(null, message => {
+      .catch(message => {
         if (message === 'Render cancelled') {
           window._gaq.push(['_trackEvent', 'visualization', 'cancelled']);
           this.state = '';
@@ -190,8 +193,14 @@ export default class Regexper {
           throw message;
         }
       })
-      .finally(() => {
-        this.running = false;
-      });
+      .then(
+        () => {
+          this.running = false;
+        },
+        message => {
+          this.running = false;
+          throw message;
+        }
+      );
   }
 }

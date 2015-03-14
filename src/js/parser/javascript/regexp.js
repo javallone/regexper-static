@@ -1,6 +1,5 @@
 import util from '../../util.js';
 import _ from 'lodash';
-import Q from 'q';
 
 export default {
   type: 'regexp',
@@ -11,7 +10,7 @@ export default {
       .transform(Snap.matrix()
         .translate(20, 0));
 
-    return Q.all(_.map(this.matches, match => {
+    return Promise.all(_.map(this.matches, match => {
       return match.render(matchContainer.group());
     }))
       .then(() => {

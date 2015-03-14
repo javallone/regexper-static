@@ -43,9 +43,8 @@ describe('parser/javascript/literal.js', function() {
         .then(label => {
           expect(label.selectAll('tspan')[0].hasClass('quote')).toBeTruthy();
           expect(label.selectAll('tspan')[2].hasClass('quote')).toBeTruthy();
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
     it('sets the edge radius of the rect', function(done) {
@@ -55,9 +54,8 @@ describe('parser/javascript/literal.js', function() {
             rx: '3',
             ry: '3'
           }));
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
   });

@@ -3,7 +3,6 @@ import Node from 'src/js/parser/javascript/node.js';
 import util from 'src/js/util.js';
 import _ from 'lodash';
 import Snap from 'snapsvg';
-import Q from 'q';
 
 describe('parser/javascript/charset.js', function() {
 
@@ -100,9 +99,9 @@ describe('parser/javascript/charset.js', function() {
         jasmine.createSpyObj('item', ['render'])
       ];
       this.elementDeferred = [
-        Q.defer(),
-        Q.defer(),
-        Q.defer()
+        this.testablePromise(),
+        this.testablePromise(),
+        this.testablePromise()
       ];
       this.node.elements[0].render.and.returnValue(this.elementDeferred[0].promise);
       this.node.elements[1].render.and.returnValue(this.elementDeferred[1].promise);
@@ -143,9 +142,8 @@ describe('parser/javascript/charset.js', function() {
         this.node._render()
           .then(() => {
             expect(util.spaceVertically).toHaveBeenCalledWith(this.node.elements, { padding: 5 });
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('renders a labeled box', function(done) {
@@ -153,9 +151,8 @@ describe('parser/javascript/charset.js', function() {
           .then(result => {
             expect(this.node.renderLabeledBox).toHaveBeenCalledWith('example label', this.partContainer, { padding: 5 });
             expect(result).toEqual('labeled box promise');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });

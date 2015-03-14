@@ -2,7 +2,6 @@ import javascript from 'src/js/parser/javascript/parser.js';
 import util from 'src/js/util.js';
 import _ from 'lodash';
 import Snap from 'snapsvg';
-import Q from 'q';
 
 describe('parser/javascript/regexp.js', function() {
 
@@ -60,9 +59,9 @@ describe('parser/javascript/regexp.js', function() {
       ];
 
       this.matchDeferred = [
-        Q.defer(),
-        Q.defer(),
-        Q.defer()
+        this.testablePromise(),
+        this.testablePromise(),
+        this.testablePromise()
       ];
 
       this.node.matches[0].render.and.returnValue(this.matchDeferred[0].promise);
@@ -104,9 +103,8 @@ describe('parser/javascript/regexp.js', function() {
         this.node._render()
           .then(() => {
             expect(util.spaceVertically).toHaveBeenCalledWith(this.node.matches, { padding: 5 });
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('renders the sides and curves into the container', function(done) {
@@ -118,9 +116,8 @@ describe('parser/javascript/regexp.js', function() {
             expect(this.node.makeSide).toHaveBeenCalledWith('container bbox', this.node.matches[0]);
             expect(this.node.makeSide).toHaveBeenCalledWith('container bbox', this.node.matches[2]);
             expect(this.node.container.path).toHaveBeenCalledWith('curvecurvecurvesideside');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('renders the connectors into the match container', function(done) {
@@ -130,9 +127,8 @@ describe('parser/javascript/regexp.js', function() {
             expect(this.node.makeConnector).toHaveBeenCalledWith('group bbox', this.node.matches[1]);
             expect(this.node.makeConnector).toHaveBeenCalledWith('group bbox', this.node.matches[2]);
             expect(this.group.path).toHaveBeenCalledWith('connectorconnectorconnector');
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });

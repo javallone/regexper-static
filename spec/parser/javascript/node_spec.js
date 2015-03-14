@@ -1,5 +1,4 @@
 import Node from 'src/js/parser/javascript/node.js';
-import Q from 'q';
 import Snap from 'snapsvg';
 
 describe('parser/javascript/node.js', function() {
@@ -126,9 +125,8 @@ describe('parser/javascript/node.js', function() {
         .then(() => {
           expect(resolve).toHaveBeenCalledWith('result');
           expect(reject).not.toHaveBeenCalled();
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
     it('rejects the returned promise when the render is canceled', function(done) {
@@ -141,9 +139,8 @@ describe('parser/javascript/node.js', function() {
         .then(() => {
           expect(resolve).not.toHaveBeenCalled();
           expect(reject).toHaveBeenCalledWith('Render cancelled');
-        }, fail)
-        .finally(done)
-        .done();
+          done();
+        });
     });
 
   });
@@ -193,9 +190,8 @@ describe('parser/javascript/node.js', function() {
           .then(() => {
             expect(this.text.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(5, 22));
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('sets the dimensions of the rect element', function(done) {
@@ -205,18 +201,16 @@ describe('parser/javascript/node.js', function() {
               width: 52,
               height: 34
             });
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('resolves with the group element', function(done) {
         this.node.renderLabel('example label')
           .then(group => {
             expect(group).toEqual(this.group);
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });
@@ -271,7 +265,7 @@ describe('parser/javascript/node.js', function() {
     describe('when a proxy node is not used', function() {
 
       beforeEach(function() {
-        this.deferred = Q.defer();
+        this.deferred = this.testablePromise();
         this.node._render = jasmine.createSpy('_render').and.returnValue(this.deferred.promise);
         spyOn(this.node, 'startRender');
         spyOn(this.node, 'doneRender');
@@ -302,18 +296,16 @@ describe('parser/javascript/node.js', function() {
           this.node.render(this.container)
             .then(() => {
               expect(this.node.doneRender).toHaveBeenCalled();
-            }, fail)
-            .finally(done)
-            .done();
+              done();
+            });
         });
 
         it('ultimately resolves with the node instance', function(done) {
           this.node.render(this.container)
             .then(result => {
               expect(result).toEqual(this.node);
-            }, fail)
-            .finally(done)
-            .done();
+              done();
+            });
         });
 
       });
@@ -389,9 +381,8 @@ describe('parser/javascript/node.js', function() {
           .then(() => {
             expect(this.text.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(0, 20));
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('positions the rect element', function(done) {
@@ -400,9 +391,8 @@ describe('parser/javascript/node.js', function() {
           .then(() => {
             expect(this.rect.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(0, 20));
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
       it('sets the dimensions of the rect element', function(done) {
@@ -412,10 +402,9 @@ describe('parser/javascript/node.js', function() {
             expect(this.rect.attr).toHaveBeenCalledWith({
               width: 210,
               height: 110
-            })
-          }, fail)
-          .finally(done)
-          .done();
+            });
+            done();
+          });
       });
 
       it('sets the dimensions of the rect element (based on the text element)', function(done) {
@@ -430,10 +419,9 @@ describe('parser/javascript/node.js', function() {
             expect(this.rect.attr).toHaveBeenCalledWith({
               width: 100,
               height: 110
-            })
-          }, fail)
-          .finally(done)
-          .done();
+            });
+            done();
+          });
       });
 
       it('positions the content element', function(done) {
@@ -442,9 +430,8 @@ describe('parser/javascript/node.js', function() {
           .then(() => {
             expect(this.content.transform).toHaveBeenCalledWith(Snap.matrix()
               .translate(5, 25));
-          }, fail)
-          .finally(done)
-          .done();
+            done();
+          });
       });
 
     });

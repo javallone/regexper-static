@@ -1,6 +1,5 @@
 import util from '../../util.js';
 import _ from 'lodash';
-import Q from 'q';
 
 export default {
   type: 'match',
@@ -28,12 +27,16 @@ export default {
 
     if (this.anchorStart) {
       start = this.renderLabel('Start of line')
-        .invoke('addClass', 'anchor');
+        .then(label => {
+          return label.addClass('anchor');
+        });
     }
 
     if (this.anchorEnd) {
       end = this.renderLabel('End of line')
-        .invoke('addClass', 'anchor');
+        .then(label => {
+          return label.addClass('anchor');
+        });
     }
 
     partPromises = _.map(this.parts, part => {
@@ -46,7 +49,7 @@ export default {
       items = [this.container.group()];
     }
 
-    return Q.all(items)
+    return Promise.all(items)
       .then(items => {
         this.start = _.first(items);
         this.end = _.last(items);
