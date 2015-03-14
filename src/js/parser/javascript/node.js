@@ -66,7 +66,6 @@ export default class Node {
       if (this.state.cancelRender) {
         deferred.reject('Render cancelled');
       } else {
-        deferred.notify(1 - this.state.renderCounter / this.state.maxCounter);
         deferred.resolve.apply(this, result);
       }
     }, 1);
@@ -99,8 +98,6 @@ export default class Node {
 
   startRender() {
     this.state.renderCounter++;
-
-    this.state.maxCounter = Math.max(this.state.maxCounter, this.state.renderCounter);
   }
 
   doneRender() {

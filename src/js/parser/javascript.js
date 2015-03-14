@@ -3,23 +3,18 @@ import Snap from 'snapsvg';
 import _ from 'lodash';
 
 import javascript from './javascript/parser.js';
+import ParserState from './javascript/parser_state.js';
 
 export default class Parser {
   constructor(container, options) {
-    this.state = {
-      groupCounter: 1,
-      renderCounter: 0,
-      maxCounter: 0,
-      cancelRender: false,
-      warnings: []
-    };
-
     this.options = options || {};
     _.defaults(this.options, {
       keepContent: false
     });
 
     this.container = container;
+
+    this.state = new ParserState(this.container.querySelector('.progress div'));
   }
 
   set container(cont) {
@@ -70,26 +65,19 @@ export default class Parser {
   }
 
   render() {
-    var svg = Snap(this.container.querySelector('svg')),
-        progress = this.container.querySelector('.progress div');
+    var svg = Snap(this.container.querySelector('svg'));
 
     return this.parsed.render(svg.group())
-      .then(
-        result => {
-          var box = result.getBBox();
+      .then(result => {
+        var box = result.getBBox();
 
-          result.transform(Snap.matrix()
-            .translate(10 - box.x, 10 - box.y));
-          svg.attr({
-            width: box.width + 20,
-            height: box.height + 20
-          });
-        },
-        null,
-        percent => {
-          progress.style.width = percent * 100 + '%';
-        }
-      )
+        result.transform(Snap.matrix()
+          .translate(10 - box.x, 10 - box.y));
+        svg.attr({
+          width: box.width + 20,
+          height: box.height + 20
+        });
+      })
       .finally(() => {
         this._removeClass('loading');
         this.container.removeChild(this.container.querySelector('.progress'));

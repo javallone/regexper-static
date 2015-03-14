@@ -131,18 +131,6 @@ describe('parser/javascript/node.js', function() {
         .done();
     });
 
-    it('notifies of the progress when the render is not canceled', function(done) {
-      this.node.state.renderCounter = 116;
-      this.node.state.maxCounter = 200;
-
-      this.node.deferredStep('result')
-        .then(null, null, progress => {
-          expect(Math.round(100 * progress)).toEqual(42);
-        })
-        .finally(done)
-        .done();
-    });
-
     it('rejects the returned promise when the render is canceled', function(done) {
       var resolve = jasmine.createSpy('resolve'),
           reject = jasmine.createSpy('reject');
@@ -241,16 +229,6 @@ describe('parser/javascript/node.js', function() {
       this.node.state.renderCounter = 0;
       this.node.startRender();
       expect(this.node.state.renderCounter).toEqual(1);
-    });
-
-    it('sets the maxCounter', function() {
-      this.node.state.renderCounter = 42;
-      this.node.state.maxCounter = 0;
-      this.node.startRender();
-      expect(this.node.state.maxCounter).toEqual(43);
-      this.node.state.maxCounter = 50;
-      this.node.startRender();
-      expect(this.node.state.maxCounter).toEqual(50);
     });
 
   });
