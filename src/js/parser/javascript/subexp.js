@@ -25,24 +25,37 @@ export default {
   },
 
   _render() {
+    // NOTE: this.label() MUST be called here, in _render and before any child
+    // nodes are rendered. This is to keep the group numbers in the correct
+    // order.
+    var label = this.label();
+
     return this.regexp.render(this.container.group())
       .then(() => {
-        return this.renderLabeledBox(this.label, this.regexp, {
+        return this.renderLabeledBox(label, this.regexp, {
           padding: 10
         });
       });
   },
 
-  setup() {
-    if (_.has(this.labelMap, this.properties.capture.textValue)) {
-      this.label = this.labelMap[this.properties.capture.textValue];
-    } else {
-      this.label = 'group #' + (this.state.groupCounter++);
+  label() {
+    if (typeof this._label === 'undefined') {
+      if (_.has(this.labelMap, this.properties.capture.textValue)) {
+        this._label = this.labelMap[this.properties.capture.textValue];
+      } else {
+        this._label = 'group #' + (this.state.groupCounter++);
+      }
     }
 
+    return this._label;
+  },
+
+  setup() {
+    // NOTE: DO NOT call this.label() in setup. It will lead to groups being
+    // numbered in reverse order
     this.regexp = this.properties.regexp;
 
-    if (!this.label) {
+    if (this.properties.capture.textValue == '?:') {
       this.proxy = this.regexp;
     }
   }

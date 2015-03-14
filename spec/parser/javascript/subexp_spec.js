@@ -12,25 +12,17 @@ describe('parser/javascript/subexp.js', function() {
 
   _.forIn({
     '(test)': {
-      label: 'group #1',
-      regexp: jasmine.objectContaining({ textValue: 'test' }),
-      state: { groupCounter: 2 }
+      regexp: jasmine.objectContaining({ textValue: 'test' })
     },
     '(?=test)': {
-      label: 'positive lookahead',
-      regexp: jasmine.objectContaining({ textValue: 'test' }),
-      state: { groupCounter: 1 }
+      regexp: jasmine.objectContaining({ textValue: 'test' })
     },
     '(?!test)': {
-      label: 'negative lookahead',
-      regexp: jasmine.objectContaining({ textValue: 'test' }),
-      state: { groupCounter: 1 }
+      regexp: jasmine.objectContaining({ textValue: 'test' })
     },
     '(?:test)': {
-      label: '',
       regexp: jasmine.objectContaining({ textValue: 'test' }),
-      proxy: jasmine.objectContaining({ textValue: 'test' }),
-      state: { groupCounter: 1 }
+      proxy: jasmine.objectContaining({ textValue: 'test' })
     }
   }, (content, str) => {
     it(`parses "${str}" as a Subexp`, function() {
@@ -71,9 +63,9 @@ describe('parser/javascript/subexp.js', function() {
       this.renderDeferred = Q.defer();
 
       this.node = new javascript.Parser('(test)').__consume__subexp();
-      this.node.label = 'example label';
       this.node.regexp = jasmine.createSpyObj('regexp', ['render']);
       this.node.container = jasmine.createSpyObj('container', ['addClass', 'group']);
+      spyOn(this.node, 'label').and.returnValue('example label')
 
       this.node.regexp.render.and.returnValue(this.renderDeferred.promise);
     });
@@ -92,6 +84,35 @@ describe('parser/javascript/subexp.js', function() {
         }, fail)
         .finally(done)
         .done();
+    });
+
+  });
+
+  describe('#label', function() {
+
+    _.forIn({
+      '(test)': {
+        label: 'group #1',
+        groupCounter: 2
+      },
+      '(?=test)': {
+        label: 'positive lookahead',
+        groupCounter: 1
+      },
+      '(?!test)': {
+        label: 'negative lookahead',
+        groupCounter: 1
+      },
+      '(?:test)': {
+        label: '',
+        groupCounter: 1
+      }
+    }, (data, str) => {
+      it(`generates the correct label for "${str}"`, function() {
+        var node = new javascript.Parser(str).__consume__subexp();
+        expect(node.label()).toEqual(data.label);
+        expect(node.state.groupCounter).toEqual(data.groupCounter);
+      });
     });
 
   });
