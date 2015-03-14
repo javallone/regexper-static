@@ -57,15 +57,13 @@ export default class Node {
     return this.container.transform(matrix);
   }
 
-  deferredStep() {
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        if (this.state.cancelRender) {
-          reject('Render cancelled');
-        } else {
-          resolve.apply(this, arguments);
-        }
-      }, 1);
+  deferredStep(value) {
+    return util.tick().then(() => {
+      if (this.state.cancelRender) {
+        throw 'Render cancelled';
+      }
+
+      return value;
     });
   }
 

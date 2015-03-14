@@ -97,11 +97,7 @@ export default class Regexper {
     this.state = '';
 
     if (expression !== '') {
-      this.renderRegexp(expression).catch(message => {
-        setTimeout(() => {
-          throw message;
-        });
-      });
+      this.renderRegexp(expression).catch(util.exposeError);
     }
   }
 
@@ -147,10 +143,8 @@ export default class Regexper {
     if (this.running) {
       this.running.cancel();
 
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(this.renderRegexp(expression));
-        }, 10);
+      util.wait(10).then(() => {
+        return this.renderRegexp(expression);
       });
     }
 

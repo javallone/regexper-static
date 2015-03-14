@@ -33,7 +33,7 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
 
     regexper.bindListeners();
 
-    setTimeout(() => {
+    util.tick().then(() => {
       window.dispatchEvent(util.customEvent('hashchange'));
     });
   }
@@ -44,10 +44,6 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
       .then(parser => {
         parser.render();
       })
-      .catch(error => {
-        setTimeout(() => {
-          throw error;
-        });
-      });
+      .catch(util.exposeError);
   });
 }());

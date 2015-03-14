@@ -71,9 +71,28 @@ function spaceVertically(items, options) {
   }
 }
 
+function wait(delay) {
+  return new Promise((resolve, reject) => {
+    setTimeout(resolve, delay);
+  });
+}
+
+function tick() {
+  return wait(0);
+}
+
+function exposeError(error) {
+  tick().then(() => {
+    throw error;
+  });
+}
+
 export default {
   customEvent,
   normalizeBBox,
   spaceHorizontally,
-  spaceVertically
+  spaceVertically,
+  wait,
+  tick,
+  exposeError
 };

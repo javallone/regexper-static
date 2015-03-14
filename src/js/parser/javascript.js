@@ -1,6 +1,7 @@
 import Snap from 'snapsvg';
 import _ from 'lodash';
 
+import util from '../util.js';
 import javascript from './javascript/parser.js';
 import ParserState from './javascript/parser_state.js';
 
@@ -46,18 +47,11 @@ export default class Parser {
   parse(expression) {
     this._addClass('loading');
 
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        try {
-          javascript.Parser.SyntaxNode.state = this.state;
+    return util.tick().then(() => {
+      javascript.Parser.SyntaxNode.state = this.state;
 
-          this.parsed = javascript.parse(expression.replace(/\n/g, '\\n'));
-          resolve(this);
-        }
-        catch(e) {
-          reject(e);
-        }
-      });
+      this.parsed = javascript.parse(expression.replace(/\n/g, '\\n'));
+      return this;
     });
   }
 
