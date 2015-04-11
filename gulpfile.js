@@ -9,10 +9,26 @@ function errorHandler() {
   });
 }
 
-gulp.task('default', ['server'], function() {
+gulp.task('default', ['server', 'docs'], function() {
   gulp.watch(config.globs.other, ['static']);
   gulp.watch([config.globs.html, config.templateFile, config.globs.sass], ['markup']);
-  gulp.watch(config.globs.js, ['browserify']);
+  gulp.watch(config.globs.js, ['browserify', 'docs']);
+});
+
+gulp.task('docs', ['docs:files'], function() {
+  var folderToc = require('folder-toc');
+
+  folderToc('./docs', {
+    filter: '*.html'
+  });
+});
+
+gulp.task('docs:files', function() {
+  var docco = require('gulp-docco');
+
+  return gulp.src(config.globs.js)
+    .pipe(docco())
+    .pipe(gulp.dest('./docs'));
 });
 
 gulp.task('server', ['build'], function() {
