@@ -31,7 +31,13 @@ To build the site for deployment, run the following:
 
     $ gulp build
 
-The site will be built into the "build" directory.
+The site will be built into the ./build directory.
+
+To build developer documentation, run the following:
+
+    $ gulp docs
+
+The documentation will be build into the ./docs directory.
 
 ## License
 
