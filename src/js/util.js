@@ -36,34 +36,32 @@ function normalizeBBox(box) {
 // - __items__ - Array of items to be positioned
 // - __options.padding__ - Number of pixels to leave between items
 function spaceHorizontally(items, options) {
-  var verticalCenter = 0;
+  var verticalCenter,
+      values;
 
   options = _.defaults(options || {}, {
     padding: 0
   });
 
-  // Set horizontal position of items with padding between them, and calculate
-  // where the axis points should be positioned vertically.
-  _.reduce(items, (offset, item) => {
-    var box;
+  values = _.map(items, item => {
+    return {
+      box: normalizeBBox(item.getBBox()),
+      item
+    };
+  });
 
+  // Calculate where the axis points should be positioned vertically.
+  verticalCenter = _.reduce(values, (center, { box }) => {
+    return Math.max(center, box.ay);
+  }, 0);
+
+  // Position items with padding between them and aligned their axis points.
+  _.reduce(values, (offset, { item, box }) => {
     item.transform(Snap.matrix()
-      .translate(offset, 0));
-
-    box = normalizeBBox(item.getBBox());
-    verticalCenter = Math.max(verticalCenter, box.ay);
+      .translate(offset, verticalCenter - box.ay));
 
     return offset + options.padding + box.width;
   }, 0);
-
-  // Set vertical position of items to align their axis points.
-  for (var item of items) {
-    let box = normalizeBBox(item.getBBox());
-
-    item.transform(Snap.matrix()
-      .add(item.transform().localMatrix)
-      .translate(0, verticalCenter - box.ay));
-  }
 }
 
 // Positions a collection of items centered horizontally in a vertical stack.
@@ -71,33 +69,32 @@ function spaceHorizontally(items, options) {
 // - __items__ - Array of items to be positioned
 // - __options.padding__ - Number of pixels to leave between items
 function spaceVertically(items, options) {
-  var horizontalCenter = 0;
+  var horizontalCenter,
+      values;
 
   options = _.defaults(options || {}, {
     padding: 0
   });
 
-  // Set vertical position of items with padding between them, and calculate
-  // where the center of each item should be positioned horizontally.
-  _.reduce(items, (offset, item) => {
-    var box;
+  values = _.map(items, item => {
+    return {
+      box: item.getBBox(),
+      item
+    };
+  });
 
+  // Calculate where the center of each item should be positioned horizontally.
+  horizontalCenter = _.reduce(values, (center, { box }) => {
+    return Math.max(center, box.cx);
+  }, 0);
+
+  // Position items with padding between them and align their centers.
+  _.reduce(values, (offset, { item, box }) => {
     item.transform(Snap.matrix()
-      .translate(0, offset));
-
-    box = item.getBBox();
-
-    horizontalCenter = Math.max(horizontalCenter, box.cx);
+      .translate(horizontalCenter - box.cx, offset));
 
     return offset + options.padding + box.height;
   }, 0);
-
-  // Set horizontal position of items to align their centers.
-  for (var item of items) {
-    item.transform(Snap.matrix()
-      .add(item.transform().localMatrix)
-      .translate(horizontalCenter - item.getBBox().cx, 0));
-  }
 }
 
 // Creates a Promise that will be resolved after a specified delay.
