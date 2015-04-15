@@ -1,5 +1,9 @@
 <div class="copy changelog">
   <dl>
+    <dt>April 14, 2015 Release</dt>
+    <dd>Rendering speed improved. Most users will probably not see much improvement since logging data indicates that expressing rendering time is typically less than 1 second. Using the <a href="http://www.ex-parrot.com/pdw/Mail-RFC822-Address.html">RFC822 email regular expression</a> though shows a rendering speed improvement from ~120 seconds down to ~80 seconds.</dd>
+    <dd>Fixing a bug that would only occur when attempting to render an expression while another is in the process of rendering</dd>
+
     <dt>March 14, 2015 Release</dt>
     <dd>Removing use of Q for promises in favor of "native" ES6 promises (even though they aren't quite native everywhere yet)</dd>
 
