@@ -113,14 +113,7 @@ export default class Node {
             this.doneRender();
             return this;
           },
-          null,
-          progress => {
-            if (typeof progress.value !== 'undefined') {
-              return progress.value;
-            } else {
-              return progress;
-            }
-          }
+          null
         );
     }
   }
