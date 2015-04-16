@@ -6,12 +6,9 @@ export default {
   definedProperties: {
     _anchor: {
       get: function() {
-        var box = this.container.getBBox(),
-            matrix = this.transform().localMatrix;
+        var matrix = this.transform().localMatrix;
 
         return {
-          ax: box.x,
-          ax2: box.x2,
           ay: matrix.y(0, this.partContainer.getBBox().cy)
         };
       }

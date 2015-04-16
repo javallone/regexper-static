@@ -6,7 +6,7 @@ export default {
   definedProperties: {
     _anchor: {
       get: function() {
-        var anchor = this.regexp.anchor,
+        var anchor = this.regexp.getBBox(),
             matrix = this.transform().localMatrix;
 
         return {

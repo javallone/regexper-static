@@ -36,10 +36,12 @@ describe('parser/javascript/subexp.js', function() {
       var node = new javascript.Parser('(test)').__consume__subexp();
 
       node.regexp = {
-        anchor: {
-          ax: 10,
-          ax2: 15,
-          ay: 20
+        getBBox() {
+          return {
+            ax: 10,
+            ax2: 15,
+            ay: 20
+          };
         }
       };
 

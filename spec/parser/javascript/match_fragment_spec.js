@@ -31,10 +31,12 @@ describe('parser/javascript/match_fragment.js', function() {
       this.node = new javascript.Parser('a').__consume__match_fragment();
 
       this.node.content = {
-        anchor: {
-          ax: 1,
-          ax2: 2,
-          ay: 3
+        getBBox() {
+          return {
+            ax: 1,
+            ax2: 2,
+            ay: 3
+          };
         }
       };
       spyOn(this.node, 'transform').and.returnValue({

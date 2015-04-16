@@ -6,7 +6,7 @@ export default {
   definedProperties: {
     _anchor: {
       get: function() {
-        var anchor = this.content.anchor,
+        var anchor = this.content.getBBox(),
             matrix = this.transform().localMatrix;
 
         return {

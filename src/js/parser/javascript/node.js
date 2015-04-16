@@ -34,23 +34,15 @@ export default class Node {
   }
 
   get anchor() {
-    var box;
-
     if (this.proxy) {
       return this.proxy.anchor;
     } else {
-      box = this.container.getBBox();
-
-      return _.extend({
-        ax: box.x,
-        ax2: box.x2,
-        ay: box.cy
-      }, this._anchor || {});
+      return this._anchor || {};
     }
   }
 
   getBBox() {
-    return _.extend(this.container.getBBox(), this.anchor);
+    return _.extend(util.normalizeBBox(this.container.getBBox()), this.anchor);
   }
 
   transform(matrix) {

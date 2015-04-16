@@ -63,18 +63,9 @@ describe('parser/javascript/node.js', function() {
 
     describe('when a proxy node is not used', function() {
 
-      it('returns anchor data from the bbox of the container merged _anchor of the node', function() {
+      it('returns _anchor of the node', function() {
         this.node._anchor = { example: 'value' };
-        this.node.container = jasmine.createSpyObj('container', ['addClass', 'getBBox']);
-        this.node.container.getBBox.and.returnValue({
-          x: 'bbox x',
-          x2: 'bbox x2',
-          cy: 'bbox cy'
-        });
         expect(this.node.anchor).toEqual({
-          ax: 'bbox x',
-          ax2: 'bbox x2',
-          ay: 'bbox cy',
           example: 'value'
         });
       });
@@ -85,7 +76,7 @@ describe('parser/javascript/node.js', function() {
 
   describe('#getBBox', function() {
 
-    it('returns the bbox of the container merged with the anchor', function() {
+    it('returns the normalized bbox of the container merged with the anchor', function() {
         this.node.proxy = {
           anchor: {
             anchor: 'example anchor'
@@ -93,11 +84,20 @@ describe('parser/javascript/node.js', function() {
         };
         this.node.container = jasmine.createSpyObj('container', ['addClass', 'getBBox']);
         this.node.container.getBBox.and.returnValue({
-          bbox: 'example bbox'
+          bbox: 'example bbox',
+          x: 'left',
+          x2: 'right',
+          cy: 'center'
         });
         expect(this.node.getBBox()).toEqual({
           bbox: 'example bbox',
-          anchor: 'example anchor'
+          anchor: 'example anchor',
+          x: 'left',
+          x2: 'right',
+          cy: 'center',
+          ax: 'left',
+          ax2: 'right',
+          ay: 'center'
         });
     });
 

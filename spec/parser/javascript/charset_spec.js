@@ -67,19 +67,11 @@ describe('parser/javascript/charset.js', function() {
         cy: 20
       });
 
-      node.container = jasmine.createSpyObj('container', ['addClass', 'getBBox']);
-      node.container.getBBox.and.returnValue({
-        x: 10,
-        x2: 15
-      });
-
       spyOn(node, 'transform').and.returnValue({
         localMatrix: Snap.matrix().translate(3, 8)
       });
 
       expect(node._anchor).toEqual({
-        ax: 10,
-        ax2: 15,
         ay: 28
       });
     });
