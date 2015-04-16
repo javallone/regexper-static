@@ -22,11 +22,11 @@ function customEvent(name, detail) {
 // - __box__ - Bounding box object to update. Attributes `ax`, `ax2`, and `ay`
 //    will be added if they are not already defined.
 function normalizeBBox(box) {
-  return _.extend({
+  return _.defaults(box, {
     ax: box.x,
     ax2: box.x2,
     ay: box.cy
-  }, box);
+  });
 }
 
 // Positions a collection of items with their axis points aligned along a
