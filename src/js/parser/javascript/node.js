@@ -59,6 +59,23 @@ export default class Node {
     });
   }
 
+  render(container) {
+    if (container) {
+      this.container = container;
+    }
+
+    if (this.proxy) {
+      return this.proxy.render(this.container);
+    } else {
+      this.state.renderCounter++;
+      return this._render()
+        .then(() => {
+          this.state.renderCounter--;
+          return this;
+        });
+    }
+  }
+
   renderLabel(text) {
     var group = this.container.group()
           .addClass('label'),
@@ -80,34 +97,6 @@ export default class Node {
 
         return group;
       });
-  }
-
-  startRender() {
-    this.state.renderCounter++;
-  }
-
-  doneRender() {
-    this.state.renderCounter--;
-  }
-
-  render(container) {
-    if (container) {
-      this.container = container;
-    }
-
-    if (this.proxy) {
-      return this.proxy.render(this.container);
-    } else {
-      this.startRender();
-      return this._render()
-        .then(
-          () => {
-            this.doneRender();
-            return this;
-          },
-          null
-        );
-    }
   }
 
   renderLabeledBox(label, content, options) {

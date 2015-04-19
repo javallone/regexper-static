@@ -217,26 +217,6 @@ describe('parser/javascript/node.js', function() {
 
   });
 
-  describe('#startRender', function() {
-
-    it('increments the renderCounter', function() {
-      this.node.state.renderCounter = 0;
-      this.node.startRender();
-      expect(this.node.state.renderCounter).toEqual(1);
-    });
-
-  });
-
-  describe('#doneRender', function() {
-
-    it('decrements the renderCounter', function() {
-      this.node.state.renderCounter = 42;
-      this.node.doneRender();
-      expect(this.node.state.renderCounter).toEqual(41);
-    });
-
-  });
-
   describe('#render', function() {
 
     beforeEach(function() {
@@ -267,8 +247,6 @@ describe('parser/javascript/node.js', function() {
       beforeEach(function() {
         this.deferred = this.testablePromise();
         this.node._render = jasmine.createSpy('_render').and.returnValue(this.deferred.promise);
-        spyOn(this.node, 'startRender');
-        spyOn(this.node, 'doneRender');
       });
 
       it('sets the container', function() {
@@ -276,9 +254,10 @@ describe('parser/javascript/node.js', function() {
         expect(this.node.container).toEqual(this.container);
       });
 
-      it('calls #startRender', function() {
+      it('increments the renderCounter', function() {
+        this.node.state.renderCounter = 0;
         this.node.render(this.container);
-        expect(this.node.startRender).toHaveBeenCalled();
+        expect(this.node.state.renderCounter).toEqual(1);
       });
 
       it('calls #_render', function() {
@@ -288,19 +267,18 @@ describe('parser/javascript/node.js', function() {
 
       describe('when #_render is complete', function() {
 
-        beforeEach(function() {
+        it('decrements the renderCounter', function(done) {
+          this.node.render(this.container)
+            .then(() => {
+              expect(this.node.state.renderCounter).toEqual(41);
+              done();
+            });
+          this.node.state.renderCounter = 42;
           this.deferred.resolve();
         });
 
-        it('calls #doneRender', function(done) {
-          this.node.render(this.container)
-            .then(() => {
-              expect(this.node.doneRender).toHaveBeenCalled();
-              done();
-            });
-        });
-
         it('ultimately resolves with the node instance', function(done) {
+          this.deferred.resolve();
           this.node.render(this.container)
             .then(result => {
               expect(result).toEqual(this.node);
