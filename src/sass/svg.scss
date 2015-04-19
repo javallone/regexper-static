@@ -44,14 +44,14 @@ circle {
   fill: $tan;
 }
 
-.subexp .subexp-label,
-.charset .charset-label,
-.match-fragment .repeat-label {
+.subexp .subexp-label tspan,
+.charset .charset-label tspan,
+.match-fragment .repeat-label tspan {
   font-size: 10px;
 }
 
-.subexp .subexp-label,
-.charset .charset-label {
+.subexp .subexp-label tspan,
+.charset .charset-label tspan {
   dominant-baseline: text-after-edge;
 }
 

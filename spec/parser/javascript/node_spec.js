@@ -310,7 +310,7 @@ describe('parser/javascript/node.js', function() {
 
     it('creates a text element', function() {
       this.node.renderLabeledBox('example label', this.content, { padding: 5 });
-      expect(this.node.container.text).toHaveBeenCalledWith(0, 0, 'example label');
+      expect(this.node.container.text).toHaveBeenCalledWith(0, 0, ['example label']);
     });
 
     it('sets the class on the text element', function() {
