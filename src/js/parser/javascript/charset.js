@@ -35,7 +35,7 @@ export default {
   setup() {
     this.label = (this.properties.invert.textValue === '^') ? 'None of:' : 'One of:';
     this.elements = _.unique(this.properties.parts.elements, part => {
-      return [part.type, part.textValue].join(':');
+      return `${part.type}:${part.textValue}`;
     });
 
     if (this.textValue.match(/\\c[^a-zA-Z]/)) {
