@@ -1,3 +1,7 @@
+// Escape nodes are used for escape sequences. It is rendered as a label with
+// the description of the escape and the numeric code it matches when
+// appropriate.
+
 import _ from 'lodash';
 
 function hex(value) {
@@ -13,6 +17,7 @@ function hex(value) {
 export default {
   type: 'escape',
 
+  // Renders the escape into the currently set container.
   _render() {
     return this.renderLabel(this.label)
       .then(label => {
@@ -27,10 +32,15 @@ export default {
   setup() {
     var addHex;
 
+    // The escape code. For an escape such as `\b` it would be "b".
     this.code = this.properties.esc.properties.code.textValue;
+    // The argument. For an escape such as `\xab` it would be "ab".
     this.arg = this.properties.esc.properties.arg.textValue;
+    // Retrieves the label, ordinal value, an flag to control adding hex value
+    // from the escape code mappings
     [this.label, this.ordinal, addHex] = _.result(this, this.code);
 
+    // When requested, add hex code to the label.
     if (addHex) {
       this.label = `${this.label} ${hex(this.ordinal)}`;
     }
