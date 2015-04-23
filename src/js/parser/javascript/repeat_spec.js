@@ -1,3 +1,7 @@
+// RepeatSpec nodes are used for `a{m,n}` regular expression syntax. It is not
+// rendered directly; it just indicates how many times the
+// [Repeat](./repeat.html) node loops.
+
 export default {
   setup() {
     if (this.properties.min) {
@@ -16,6 +20,7 @@ export default {
       this.maximum = -1;
     }
 
+    // Report invalid repeat when the minimum is larger than the maximum.
     if (this.minimum > this.maximum && this.maximum !== -1) {
       throw `Numbers out of order: ${this.textValue}`;
     }
