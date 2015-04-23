@@ -1,3 +1,7 @@
+// Repeat nodes are for the various repetition syntaxes (`a*`, `a+`, `a?`, and
+// `a{1,3}`). It is not rendered directly, but contains data used for the
+// rendering of [MatchFragment](./match_fragment.html) nodes.
+
 function formatTimes(times) {
   if (times === 1) {
     return 'once';
@@ -8,32 +12,33 @@ function formatTimes(times) {
 
 export default {
   definedProperties: {
+    // Translation to apply to content to be repeated to account for the loop
+    // and skip lines.
     contentPosition: {
       get: function() {
-        var x = 0, y = 0;
-
-        if (this.hasLoop) {
-          x = 10;
-        }
+        var matrix = Snap.matrix();
 
         if (this.hasSkip) {
-          y = 10;
-          x = 15;
+          return matrix.translate(15, 10);
+        } else if (this.hasLoop) {
+          return matrix.translate(10, 0);
+        } else {
+          return matrix.translate(0, 0);
         }
-
-        return Snap.matrix().translate(x, y);
       }
     },
 
+    // Label to place of loop path to indicate the number of times that path
+    // may be followed.
     label: {
       get: function() {
-        if (this.minimum >= 2 && this.maximum === -1) {
-          return `${this.minimum - 1}+ times`;
+        if (this.minimum === this.maximum) {
+          return formatTimes(this.minimum - 1);
         } else if (this.minimum <= 1 && this.maximum >= 2) {
           return `at most ${formatTimes(this.maximum - 1)}`;
-        } else if (this.minimum >= 2 && this.maximum >= 2) {
-          if (this.minimum === this.maximum) {
-            return formatTimes(this.minimum - 1);
+        } else if (this.minimum >= 2) {
+          if (this.maximum === -1) {
+            return `${this.minimum - 1}+ times`;
           } else {
             return `${this.minimum - 1}\u2026${formatTimes(this.maximum - 1)}`;
           }
