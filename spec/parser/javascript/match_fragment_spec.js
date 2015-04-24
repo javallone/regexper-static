@@ -77,11 +77,11 @@ describe('parser/javascript/match_fragment.js', function() {
       this.node.content.render.and.returnValue(this.renderDeferred.promise);
 
       this.node.repeat = {
-        contentPosition: 'example position'
+        contentPosition: 'example position',
+        skipPath: jasmine.createSpy('skipPath').and.returnValue('skip path'),
+        loopPath: jasmine.createSpy('loopPath').and.returnValue('loop path')
       };
 
-      spyOn(this.node, 'skipPath').and.returnValue('skip path');
-      spyOn(this.node, 'loopPath').and.returnValue('loop path');
       spyOn(this.node, 'loopLabel');
     });
 
@@ -107,8 +107,8 @@ describe('parser/javascript/match_fragment.js', function() {
       it('renders a skip path and loop path', function(done) {
         this.node._render()
           .then(() => {
-            expect(this.node.skipPath).toHaveBeenCalledWith('content bbox');
-            expect(this.node.loopPath).toHaveBeenCalledWith('content bbox');
+            expect(this.node.repeat.skipPath).toHaveBeenCalledWith('content bbox');
+            expect(this.node.repeat.loopPath).toHaveBeenCalledWith('content bbox');
             expect(this.node.container.path).toHaveBeenCalledWith('skip pathloop path');
             done();
           });
@@ -122,85 +122,6 @@ describe('parser/javascript/match_fragment.js', function() {
           });
       });
 
-    });
-
-  });
-
-  describe('#skipPath', function() {
-
-    beforeEach(function() {
-      this.node = new javascript.Parser('a').__consume__match_fragment();
-
-      this.node.repeat = {};
-
-      this.box = {
-        y: 11,
-        ay: 22,
-        width: 33
-      };
-    });
-
-    it('returns nothing when there is no skip', function() {
-      this.node.repeat.hasSkip = false;
-      expect(this.node.skipPath(this.box)).toEqual([]);
-    });
-
-    it('returns a path when there is a skip', function() {
-      this.node.repeat.hasSkip = true;
-      this.node.repeat.greedy = true;
-      expect(this.node.skipPath(this.box)).toEqual([
-        'M0,22q10,0 10,-10v-1q0,-10 10,-10h23q10,0 10,10v1q0,10 10,10'
-      ]);
-    });
-
-    it('returns a path with arrow when there is a non-greedy skip', function() {
-      this.node.repeat.hasSkip = true;
-      this.node.repeat.greedy = false;
-      expect(this.node.skipPath(this.box)).toEqual([
-        'M0,22q10,0 10,-10v-1q0,-10 10,-10h23q10,0 10,10v1q0,10 10,10',
-        'M10,7l5,5m-5,-5l-5,5'
-      ]);
-    });
-
-
-  });
-
-  describe('#loopPath', function() {
-
-    beforeEach(function() {
-      this.node = new javascript.Parser('a').__consume__match_fragment();
-
-      this.node.repeat = {};
-
-      this.box = {
-        x: 11,
-        x2: 22,
-        ay: 33,
-        y2: 44,
-        width: 55
-      };
-    });
-
-    it('returns nothing when there is no loop', function() {
-      this.node.repeat.hasLoop = false;
-      expect(this.node.loopPath(this.box)).toEqual([]);
-    });
-
-    it('returns a path when there is a loop', function() {
-      this.node.repeat.hasLoop = true;
-      this.node.repeat.greedy = false;
-      expect(this.node.loopPath(this.box)).toEqual([
-        'M11,33q-10,0 -10,10v1q0,10 10,10h55q10,0 10,-10v-1q0,-10 -10,-10'
-      ]);
-    });
-
-    it('returns a path with arrow when there is a greedy loop', function() {
-      this.node.repeat.hasLoop = true;
-      this.node.repeat.greedy = true;
-      expect(this.node.loopPath(this.box)).toEqual([
-        'M11,33q-10,0 -10,10v1q0,10 10,10h55q10,0 10,-10v-1q0,-10 -10,-10',
-        'M32,48l5,-5m-5,5l-5,-5'
-      ]);
     });
 
   });

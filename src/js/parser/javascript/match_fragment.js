@@ -38,8 +38,8 @@ export default {
 
         // Add skip or repeat paths to the container.
         paths = _.flatten([
-          this.skipPath(box),
-          this.loopPath(box)
+          this.repeat.skipPath(box),
+          this.repeat.loopPath(box)
         ]);
 
         this.container.prepend(
@@ -47,45 +47,6 @@ export default {
 
         this.loopLabel();
       });
-  },
-
-  // Returns the path spec to render the line that skips over the content for
-  // fragments that are optionally matched.
-  skipPath(box) {
-    var paths = [];
-
-    if (this.repeat.hasSkip) {
-      let vert = Math.max(0, box.ay - box.y - 10),
-          horiz = box.width - 10;
-
-      paths.push(`M0,${box.ay}q10,0 10,-10v${-vert}q0,-10 10,-10h${horiz}q10,0 10,10v${vert}q0,10 10,10`);
-
-      // When the repeat is not greedy, the skip path gets a preference arrow.
-      if (!this.repeat.greedy) {
-        paths.push(`M10,${box.ay - 15}l5,5m-5,-5l-5,5`);
-      }
-    }
-
-    return paths;
-  },
-
-  // Returns the path spec to render the line that repeats the content for
-  // fragments that are matched more than once.
-  loopPath(box) {
-    var paths = [];
-
-    if (this.repeat.hasLoop) {
-      let vert = box.y2 - box.ay - 10;
-
-      paths.push(`M${box.x},${box.ay}q-10,0 -10,10v${vert}q0,10 10,10h${box.width}q10,0 10,-10v${-vert}q0,-10 -10,-10`);
-
-      // When the repeat is greedy, the loop path gets the preference arrow.
-      if (this.repeat.greedy) {
-        paths.push(`M${box.x2 + 10},${box.ay + 15}l5,-5m-5,5l-5,-5`);
-      }
-    }
-
-    return paths;
   },
 
   // Renders label for the loop path indicating how many times the content may
