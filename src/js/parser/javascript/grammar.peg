@@ -25,14 +25,16 @@ grammar JavascriptRegexp
        / octal_escape
        / hex_escape
        / unicode_escape
-       / null_escape )
+       / null_escape
+       / unicode_category_escape )
   charset_range_escape <- "\\" esc:(
          code:[bfnrtv] arg:""?
        / control_escape
        / octal_escape
        / hex_escape
        / unicode_escape
-       / null_escape )
+       / null_escape
+       / unicode_category_escape )
   charset_literal <- ( ""? literal:[^\\\]] )
                    / ( literal:"\\" &"c" )
                    / ( "\\" literal:[^bdDfnrsStvwW] )
@@ -45,7 +47,8 @@ grammar JavascriptRegexp
        / octal_escape
        / hex_escape
        / unicode_escape
-       / null_escape )
+       / null_escape
+       / unicode_category_escape )
   literal <- ( ""? literal:[^|\\/.\[\(\)?+*$^] )
            / ( literal:"\\" &"c" )
            / ( "\\" literal:. )
@@ -55,3 +58,4 @@ grammar JavascriptRegexp
   hex_escape <- code:"x" arg:( [0-9a-fA-F] [0-9a-fA-F] )
   unicode_escape <- code:"u" arg:( [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] [0-9a-fA-F] )
   null_escape <- code:"0" arg:""?
+  unicode_category_escape <- code:"p" "{" arg:([_0-9a-zA-Z-]+) "}"
