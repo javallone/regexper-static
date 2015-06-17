@@ -46,6 +46,7 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
   if (document.body.querySelector('#content .application')) {
     var regexper = new Regexper(document.body);
 
+    regexper.detectBuggyHash();
     regexper.bindListeners();
 
     util.tick().then(() => {

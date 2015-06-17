@@ -8,6 +8,7 @@ import _ from 'lodash';
 export default class Regexper {
   constructor(root) {
     this.root = root;
+    this.buggyHash = false;
     this.form = root.querySelector('#regexp-form');
     this.field = root.querySelector('#regexp-input');
     this.error = root.querySelector('#error');
@@ -82,6 +83,16 @@ export default class Regexper {
     window.addEventListener('hashchange', this.hashchangeListener.bind(this));
   }
 
+  // Detect if https://bugzilla.mozilla.org/show_bug.cgi?id=483304 is in effect
+  detectBuggyHash() {
+    var url;
+
+    if (typeof window.URL !== 'undefined') {
+      url = new URL('http://regexper.com/#%25');
+      this.buggyHash = (url.hash === '#%');
+    }
+  }
+
   // Set the URL hash. This method exists to facilitate automated testing
   // (since changing the URL can throw off most JavaScript testing tools).
   _setHash(hash) {
@@ -92,8 +103,10 @@ export default class Regexper {
   // automated testing, but also does some basic error handling for malformed
   // URLs.
   _getHash() {
+    var hash;
     try {
-      return decodeURIComponent(location.hash.slice(1));
+      hash = location.hash.slice(1)
+      return this.buggyHash ? hash : decodeURIComponent(hash);
     }
     catch(e) {
       return e;
