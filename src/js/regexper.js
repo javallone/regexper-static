@@ -87,9 +87,14 @@ export default class Regexper {
   detectBuggyHash() {
     var url;
 
-    if (typeof window.URL !== 'undefined') {
-      url = new URL('http://regexper.com/#%25');
-      this.buggyHash = (url.hash === '#%');
+    if (typeof window.URL === 'function') {
+      try {
+        url = new URL('http://regexper.com/#%25');
+        this.buggyHash = (url.hash === '#%');
+      }
+      catch(e) {
+        this.buggyHash = false;
+      }
     }
   }
 
