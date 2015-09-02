@@ -119,9 +119,9 @@ function tick() {
 //
 // - __error__ - Error/exception object to be re-thrown to the browser.
 function exposeError(error) {
-  tick().then(() => {
+  setTimeout(() => {
     throw error;
-  });
+  }, 0);
 }
 
 export default {
