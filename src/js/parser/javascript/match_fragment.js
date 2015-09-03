@@ -56,7 +56,7 @@ export default {
         label, labelBox, box;
 
     if (labelStr) {
-      label = this.container.text(0, 0, labelStr)
+      label = this.container.text(0, 0, [labelStr])
         .addClass('repeat-label');
 
       box = this.getBBox();

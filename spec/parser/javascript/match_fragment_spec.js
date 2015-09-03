@@ -163,7 +163,7 @@ describe('parser/javascript/match_fragment.js', function() {
 
       it('renders a text element', function() {
         this.node.loopLabel();
-        expect(this.node.container.text).toHaveBeenCalledWith(0, 0, 'example label');
+        expect(this.node.container.text).toHaveBeenCalledWith(0, 0, ['example label']);
       });
 
       describe('when there is a skip loop', function() {
