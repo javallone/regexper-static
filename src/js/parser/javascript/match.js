@@ -62,8 +62,11 @@ export default {
     // This leads to a Match node with no fragments, no start indicator, and
     // no end indicator. Something must be rendered so that the anchor can be
     // calculated based on it.
+    //
+    // Furthermore, the content rendered must have height and width or else the
+    // anchor calculations fail.
     if (items.length === 0) {
-      items = [this.container.group()];
+      items = [this.container.group().path('M0,0h10')];
     }
 
     return Promise.all(items)
