@@ -1,4 +1,4 @@
-import util from 'src/js/util.js';
+import util from '../src/js/util.js';
 
 describe('util.js', function() {
 

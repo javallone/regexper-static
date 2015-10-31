@@ -1,5 +1,5 @@
-import javascript from 'src/js/parser/javascript/parser.js';
-import util from 'src/js/util.js';
+import javascript from '../../../src/js/parser/javascript/parser.js';
+import util from '../../../src/js/util.js';
 import _ from 'lodash';
 
 describe('parser/javascript/charset_range.js', function() {

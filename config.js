@@ -29,13 +29,12 @@ module.exports = {
     sourcemap: true
   },
   browserify: {
-    basedir: './src/js',
     debug: true,
     fullPaths: false,
     entries: [es6ify.runtime],
-    prebundle: function(bundle) {
-      bundle.transform(require('./lib/canopy-transform'));
-      bundle.transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/));
-    }
+  },
+  prebundle: function(bundle) {
+    bundle.transform(require('./lib/canopy-transform'));
+    bundle.transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/));
   }
 };

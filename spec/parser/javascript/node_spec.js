@@ -1,4 +1,4 @@
-import Node from 'src/js/parser/javascript/node.js';
+import Node from '../../../src/js/parser/javascript/node.js';
 import Snap from 'snapsvg';
 
 describe('parser/javascript/node.js', function() {

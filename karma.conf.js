@@ -21,6 +21,10 @@ module.exports = function(karma) {
     browsers: ['Chrome'],
     autoWatch: true,
     singleRun: false,
-    browserify: config.browserify
+    browserify: _.extend({
+      configure: function(bundle) {
+        config.prebundle(bundle);
+      }
+    }, config.browserify)
   });
 };

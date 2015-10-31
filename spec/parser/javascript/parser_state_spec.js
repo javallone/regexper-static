@@ -1,4 +1,4 @@
-import ParserState from 'src/js/parser/javascript/parser_state.js';
+import ParserState from '../../../src/js/parser/javascript/parser_state.js';
 
 describe('parser/javascript/parser_state.js', function() {
 

@@ -1,4 +1,4 @@
-import javascript from 'src/js/parser/javascript/parser.js';
+import javascript from '../../../src/js/parser/javascript/parser.js';
 import _ from 'lodash';
 import Snap from 'snapsvg';
 

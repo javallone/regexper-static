@@ -1,6 +1,6 @@
-import util from 'src/js/util.js';
-import Regexper from 'src/js/regexper.js';
-import Parser from 'src/js/parser/javascript.js';
+import util from '../src/js/util.js';
+import Regexper from '../src/js/regexper.js';
+import Parser from '../src/js/parser/javascript.js';
 import Snap from 'snapsvg';
 
 describe('regexper.js', function() {

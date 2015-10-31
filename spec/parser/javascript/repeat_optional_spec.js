@@ -1,4 +1,4 @@
-import javascript from 'src/js/parser/javascript/parser.js';
+import javascript from '../../../src/js/parser/javascript/parser.js';
 
 describe('parser/javascript/repeat_optional.js', function() {
 

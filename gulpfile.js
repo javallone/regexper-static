@@ -91,7 +91,7 @@ gulp.task('scripts', function() {
     .pipe(tap(function(file) {
       var bundler = browserify(config.browserify);
 
-      config.browserify.prebundle(bundler);
+      config.prebundle(bundler);
 
       bundler.add(file.path);
 
