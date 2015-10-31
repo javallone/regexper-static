@@ -1,5 +1,14 @@
 [
   {
+    "label": "October 31, 2015 Release",
+    "changes": [
+      "Reducing file size for title font",
+      "Cleaning up gulpfile",
+      "Upgrading most dependencies",
+      "Switching to Handlebars for template rendering"
+    ]
+  },
+  {
     "label": "September 17, 2015 Release",
     "changes": [
       "Fixing styling of labels on repetitions",
