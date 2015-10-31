@@ -32,11 +32,11 @@ gulp.task('docs:files', function() {
 });
 
 gulp.task('server', ['build'], function() {
-  var connect = require('gulp-connect'),
-      watch = require('gulp-watch');
+  var connect = require('gulp-connect');
 
-  watch(config.buildPath('**/*'), { name: 'Server' })
-    .pipe(connect.reload());
+  gulp.watch(config.buildPath('**/*'), function(file) {
+    return gulp.src(file.path).pipe(connect.reload());
+  });
 
   return connect.server({
     root: config.buildRoot,
