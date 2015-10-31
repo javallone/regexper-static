@@ -5,18 +5,14 @@ var path = require('path'),
     buildPath = _.bind(path.join, path, buildRoot);
 
 module.exports = {
-  titles: {
-    '_': 'Regexper',
-    'changelog.html': 'Regexper - Changelog',
-    'documentation.html': 'Regexper - Documentation',
-    '404.html': 'Regexper - Page Not Found'
-  },
   buildRoot: buildRoot,
   buildPath: buildPath,
-  templateFile: './template.html',
   globs: {
-    other: './src/**/*.!(html|scss|js|peg)',
-    html: './src/**/*.html',
+    other: './src/**/*.!(hbs|scss|js|peg)',
+    templates: './src/**/*.hbs',
+    data: ['./lib/data/**/*.json', './lib/data/**/*.js'],
+    helpers: './lib/helpers/**/*.js',
+    partials: './lib/partials/**/*.hbs',
     sass: './src/**/*.scss',
     js: ['./src/**/*.js', './src/**/*.peg'],
     spec: './spec/**/*_spec.js'

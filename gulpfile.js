@@ -1,4 +1,5 @@
 var gulp = require('gulp'),
+    _ = require('lodash'),
     notify = require('gulp-notify'),
     plumber = require('gulp-plumber'),
     config = require('./config');
@@ -11,7 +12,13 @@ function errorHandler() {
 
 gulp.task('default', ['server', 'docs'], function() {
   gulp.watch(config.globs.other, ['static']);
-  gulp.watch([config.globs.html, config.templateFile, config.globs.sass], ['markup']);
+  gulp.watch(_.flatten([
+    config.globs.templates,
+    config.globs.data,
+    config.globs.helpers,
+    config.globs.partials,
+    config.globs.sass
+  ]), ['markup']);
   gulp.watch(config.globs.js, ['browserify', 'docs']);
 });
 
@@ -53,23 +60,21 @@ gulp.task('static', function() {
 });
 
 gulp.task('markup', ['styles'], function() {
-  var wrap = require('gulp-wrap'),
-      path = require('path'),
-      fs = require('fs');
+  var hb = require('gulp-hb'),
+      frontMatter = require('gulp-front-matter'),
+      rename = require('gulp-rename');
 
-  return gulp.src(config.globs.html, { base: './src' })
+  return gulp.src(config.globs.templates)
     .pipe(errorHandler())
-    .pipe(wrap({ src: config.templateFile }, {
-      date: new Date().toISOString(),
-      title: function() {
-        var root = path.join(this.file.cwd, this.file.base),
-            file = path.relative(root, this.file.history[0]);
-
-        return config.titles[file] || config.titles['_'];
-      },
-      svgStyles: fs.readFileSync(path.join(config.compass.css, 'svg.css'), {
-        encoding: 'utf-8'
-      })
+    .pipe(frontMatter())
+    .pipe(hb({
+      data: config.globs.data,
+      helpers: config.globs.helpers,
+      partials: config.globs.partials,
+      bustCache: true,
+    }))
+    .pipe(rename(function(path) {
+      path.extname = '.html';
     }))
     .pipe(gulp.dest(config.buildRoot));
 });

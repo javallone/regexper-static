@@ -1,0 +1,17 @@
+---
+title: Changelog
+---
+{{#extend "layout"}}
+	{{#content "body"}}
+		<div class="copy changelog">
+			<dl>
+				{{#each changelog}}
+					<dt>{{label}}</dt>
+					{{#each changes}}
+						<dd>{{{this}}}</dd>
+					{{/each}}
+				{{/each}}
+			</dl>
+		</div>
+	{{/content}}
+{{/extend}}
