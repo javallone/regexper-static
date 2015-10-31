@@ -10,7 +10,7 @@
   "license": "MIT",
   "private": true,
   "devDependencies": {
-    "browserify": "^9.0.8",
+    "browserify": "^12.0.1",
     "canopy": "^0.2.0",
     "es6ify": "^1.5.1",
     "folder-toc": "^0.1.0",
@@ -22,13 +22,14 @@
     "gulp-plumber": "^1.0.0",
     "gulp-tap": "^0.1.3",
     "gulp-wrap": "^0.11.0",
-    "karma": "^0.12.31",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.14",
     "karma-browserify": "^1.0.1",
-    "karma-chrome-launcher": "^0.1.8",
+    "karma-chrome-launcher": "^0.2.1",
     "karma-jasmine": "^0.3.1",
     "karma-notify-reporter": "^0.1.1",
-    "lodash": "^3.7.0",
+    "lodash": "^3.10.1",
     "snapsvg": "^0.4.0",
-    "through": "^2.3.7"
+    "through": "^2.3.8"
   }
 }

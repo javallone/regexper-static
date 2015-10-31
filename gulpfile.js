@@ -102,19 +102,21 @@ gulp.task('scripts', function() {
 
 gulp.task('karma', function(done) {
   var karma = require('karma'),
-      path = require('path');
+      path = require('path'),
+      server = new karma.Server({
+        configFile: path.join(__dirname, 'karma.conf.js')
+      }, done);
 
-  karma.server.start({
-    configFile: path.join(__dirname, 'karma.conf.js')
-  }, done);
+  server.start();
 });
 
 gulp.task('karma:single', function(done) {
   var karma = require('karma'),
-      path = require('path');
+      path = require('path'),
+      server = new karma.Server({
+        configFile: path.join(__dirname, 'karma.conf.js'),
+        singleRun: true
+      }, done);
 
-  karma.server.start({
-    configFile: path.join(__dirname, 'karma.conf.js'),
-    singleRun: true
-  }, done);
+  server.start();
 });
