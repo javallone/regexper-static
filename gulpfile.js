@@ -44,7 +44,7 @@ gulp.task('server', ['build'], function() {
   });
 });
 
-gulp.task('build', ['static', 'markup', 'compass', 'browserify']);
+gulp.task('build', ['static', 'markup', 'styles', 'scripts']);
 
 gulp.task('static', function() {
   return gulp.src(config.globs.other, { base: './src' })
@@ -52,7 +52,7 @@ gulp.task('static', function() {
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('markup', ['compass'], function() {
+gulp.task('markup', ['styles'], function() {
   var wrap = require('gulp-wrap'),
       path = require('path'),
       fs = require('fs');
@@ -74,7 +74,7 @@ gulp.task('markup', ['compass'], function() {
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('compass', function() {
+gulp.task('styles', function() {
   var compass = require('gulp-compass');
 
   return gulp.src(config.globs.sass)
@@ -82,7 +82,7 @@ gulp.task('compass', function() {
     .pipe(compass(config.compass));
 });
 
-gulp.task('browserify', function() {
+gulp.task('scripts', function() {
   var browserify = require('browserify'),
       tap = require('gulp-tap');
 
