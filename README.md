@@ -22,21 +22,13 @@ There are several gulp tasks available to build various parts of the site, but t
 
 This will build the site into the ./build directory, start a local start on port 8080, and begin watching the source files for modifications. The site will automatically be rebuilt when files are changed. Also, if you browser has the LiveReload extension, then the page will be reloaded.
 
-To automatically run Karma test, run the following:
+These other gulp tasks are available:
 
-    $ gulp karma
-
-To build the site for deployment, run the following:
-
-    $ gulp build
-
-The site will be built into the ./build directory.
-
-To build developer documentation, run the following:
-
-    $ gulp docs
-
-The documentation will be build into the ./docs directory.
+    $ gulp docs # Build documentation into the ./docs directory
+    $ gulp build # Build the site into the ./build directory
+    $ gulp verify # Run JSCS lint and Karma tests
+    $ gulp verify:watch # Run JSCS lint and Karma tests when files change
+    $ gulp lint:fix # Automatically fix some lint errors
 
 ## License
 

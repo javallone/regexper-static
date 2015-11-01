@@ -137,6 +137,10 @@ gulp.task('scripts', function() {
     .pipe(gulp.dest(config.buildPath('js')));
 });
 
+gulp.task('verify', ['karma:single', 'lint']);
+
+gulp.task('verify:watch', ['karma', 'lint:watch']);
+
 gulp.task('karma', function(done) {
   var karma = require('karma'),
       path = require('path'),
@@ -156,4 +160,38 @@ gulp.task('karma:single', function(done) {
       }, done);
 
   server.start();
+});
+
+gulp.task('lint', function() {
+  var jscs = require('gulp-jscs');
+
+  return gulp.src(config.globs.lint)
+    .pipe(jscs())
+    .pipe(jscs.reporter())
+    .pipe(jscs.reporter('fail'))
+    .on('error', notify.onError())
+});
+
+gulp.task('lint:watch', function() {
+  gulp.watch(config.globs.lint, ['lint']);
+});
+
+gulp.task('lint:fix', config.lintRoots.map(function(root) {
+  return 'lint:fix:' + root;
+}), function() {
+  var jscs = require('gulp-jscs');
+
+  return gulp.src('./*.js')
+    .pipe(jscs({fix: true}))
+    .pipe(gulp.dest('.'));
+});
+
+config.lintRoots.forEach(function(root) {
+  gulp.task('lint:fix:' + root, function() {
+    var jscs = require('gulp-jscs');
+
+    return gulp.src('./' + root + '/**/*.js')
+      .pipe(jscs({fix: true}))
+      .pipe(gulp.dest('./' + root));
+  });
 });

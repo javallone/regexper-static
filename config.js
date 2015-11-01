@@ -15,8 +15,15 @@ module.exports = {
     sass: './src/**/*.scss',
     svg_sass: './src/sass/svg.scss',
     js: ['./src/**/*.js', './src/**/*.peg'],
-    spec: './spec/**/*_spec.js'
+    spec: './spec/**/*_spec.js',
+    lint: [
+      './lib/**/*.js',
+      './src/**/*.js',
+      './spec/**/*.js',
+      './*.js'
+    ]
   },
+  lintRoots: ['lib', 'src', 'spec'],
   browserify: {
     debug: true,
     fullPaths: false,
