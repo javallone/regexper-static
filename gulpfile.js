@@ -1,14 +1,7 @@
 var gulp = require('gulp'),
     _ = require('lodash'),
     notify = require('gulp-notify'),
-    plumber = require('gulp-plumber'),
     config = require('./config');
-
-function errorHandler() {
-  return plumber({
-    errorHandler: notify.onError('Error: <%= error.message %>')
-  });
-}
 
 gulp.task('default', ['server', 'docs'], function() {
   gulp.watch(config.globs.other, ['static']);
@@ -55,7 +48,6 @@ gulp.task('build', ['static', 'markup', 'styles', 'scripts']);
 
 gulp.task('static', function() {
   return gulp.src(config.globs.other, { base: './src' })
-    .pipe(errorHandler())
     .pipe(gulp.dest(config.buildRoot));
 });
 
@@ -65,7 +57,6 @@ gulp.task('markup', ['styles'], function() {
       rename = require('gulp-rename');
 
   return gulp.src(config.globs.templates)
-    .pipe(errorHandler())
     .pipe(frontMatter())
     .pipe(hb({
       data: config.globs.data,
@@ -73,6 +64,7 @@ gulp.task('markup', ['styles'], function() {
       partials: config.globs.partials,
       bustCache: true,
     }))
+    .on('error', notify.onError())
     .pipe(rename(function(path) {
       path.extname = '.html';
     }))
@@ -85,16 +77,16 @@ gulp.task('styles', function() {
       rename = require('gulp-rename');
 
   return gulp.src(config.globs.sass)
-    .pipe(errorHandler())
     .pipe(sourcemaps.init())
     .pipe(sass({
       includePaths: require('node-bourbon').includePaths
     }))
+    .on('error', notify.onError())
     .pipe(rename(function(path) {
       path.dirname = '';
     }))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(config.buildPath('css')));
+    .pipe(gulp.dest(config.buildPath('css')))
 });
 
 gulp.task('scripts', function() {
@@ -110,6 +102,7 @@ gulp.task('scripts', function() {
     .add('./src/js/main.js');
 
   return b.bundle()
+    .on('error', notify.onError())
     .pipe(source('./src/js/main.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
