@@ -79,9 +79,7 @@ gulp.task('markup', 'Build markup into ./build directory.', ['markup:svg_styles'
       bustCache: true
     }))
     .on('error', notify.onError())
-    .pipe(rename(function(path) {
-      path.extname = '.html';
-    }))
+    .pipe(rename({ extname: '.html' }))
     .pipe(gulp.dest(config.buildRoot));
 });
 
@@ -91,10 +89,10 @@ gulp.task('markup:svg_styles', false, function() {
       includePaths: bourbon.includePaths
     }))
     .on('error', notify.onError())
-    .pipe(rename(function(path) {
-      path.dirname = '';
-      path.basename = 'svg_styles';
-      path.extname = '.hbs';
+    .pipe(rename({
+      dirname: '',
+      basename: 'svg_styles',
+      extname: '.hbs'
     }))
     .pipe(gulp.dest('./tmp/build'))
 });
@@ -106,9 +104,7 @@ gulp.task('styles', 'Build stylesheets into ./build directory.', function() {
       includePaths: bourbon.includePaths
     }))
     .on('error', notify.onError())
-    .pipe(rename(function(path) {
-      path.dirname = '';
-    }))
+    .pipe(rename({ dirname: '' }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.buildPath('css')))
 });
@@ -123,9 +119,7 @@ gulp.task('scripts', 'Build scripts into ./build directory', function() {
     .pipe(source('./src/js/main.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(rename(function(path) {
-      path.dirname = '';
-    }))
+    .pipe(rename({ dirname: '' }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.buildPath('js')));
 });
