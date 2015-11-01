@@ -18,6 +18,7 @@ const gulp = require('gulp-help')(require('gulp')),
       karma = require('karma'),
       path = require('path'),
       jscs = require('gulp-jscs'),
+      uglify = require('gulp-uglify'),
       config = require('./config');
 
 gulp.task('default', 'Auto-rebuild site on changes.', ['server', 'docs'], function() {
@@ -86,7 +87,8 @@ gulp.task('markup', 'Build markup into ./build directory.', ['markup:svg_styles'
 gulp.task('markup:svg_styles', false, function() {
   return gulp.src('./src/sass/svg.scss')
     .pipe(sass({
-      includePaths: bourbon.includePaths
+      includePaths: bourbon.includePaths,
+      outputStyle: 'compressed'
     }))
     .on('error', notify.onError())
     .pipe(rename({
@@ -101,7 +103,8 @@ gulp.task('styles', 'Build stylesheets into ./build directory.', function() {
   return gulp.src('./src/sass/main.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({
-      includePaths: bourbon.includePaths
+      includePaths: bourbon.includePaths,
+      outputStyle: 'compressed'
     }))
     .on('error', notify.onError())
     .pipe(rename({ dirname: '' }))
@@ -119,6 +122,7 @@ gulp.task('scripts', 'Build scripts into ./build directory', function() {
     .pipe(source('./src/js/main.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(uglify())
     .pipe(rename({ dirname: '' }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.buildPath('js')));
