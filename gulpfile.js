@@ -1,7 +1,24 @@
-var gulp = require('gulp'),
-    _ = require('lodash'),
-    notify = require('gulp-notify'),
-    config = require('./config');
+const gulp = require('gulp'),
+      _ = require('lodash'),
+      notify = require('gulp-notify'),
+      folderToc = require('folder-toc'),
+      docco = require('gulp-docco'),
+      connect = require('gulp-connect'),
+      hb = require('gulp-hb'),
+      frontMatter = require('gulp-front-matter'),
+      rename = require('gulp-rename'),
+      sass = require('gulp-sass'),
+      bourbon = require('node-bourbon'),
+      browserify = require('browserify'),
+      source = require('vinyl-source-stream'),
+      buffer = require('vinyl-buffer'),
+      sourcemaps = require('gulp-sourcemaps'),
+      canopy = require('./lib/canopy-transform'),
+      babelify = require('babelify'),
+      karma = require('karma'),
+      path = require('path'),
+      jscs = require('gulp-jscs'),
+      config = require('./config');
 
 gulp.task('default', ['server', 'docs'], function() {
   gulp.watch(config.globs.other, ['static']);
@@ -17,24 +34,18 @@ gulp.task('default', ['server', 'docs'], function() {
 });
 
 gulp.task('docs', ['docs:files'], function() {
-  var folderToc = require('folder-toc');
-
   folderToc('./docs', {
     filter: '*.html'
   });
 });
 
 gulp.task('docs:files', function() {
-  var docco = require('gulp-docco');
-
   return gulp.src(config.globs.js)
     .pipe(docco())
     .pipe(gulp.dest('./docs'));
 });
 
 gulp.task('server', ['build'], function() {
-  var connect = require('gulp-connect');
-
   gulp.watch(config.buildPath('**/*'), function(file) {
     return gulp.src(file.path).pipe(connect.reload());
   });
@@ -53,10 +64,6 @@ gulp.task('static', function() {
 });
 
 gulp.task('markup', ['markup:svg_styles'], function() {
-  var hb = require('gulp-hb'),
-      frontMatter = require('gulp-front-matter'),
-      rename = require('gulp-rename');
-
   return gulp.src(config.globs.templates)
     .pipe(frontMatter())
     .pipe(hb({
@@ -79,12 +86,9 @@ gulp.task('markup', ['markup:svg_styles'], function() {
 });
 
 gulp.task('markup:svg_styles', function() {
-  var sass = require('gulp-sass'),
-      rename = require('gulp-rename');
-
   return gulp.src('./src/sass/svg.scss')
     .pipe(sass({
-      includePaths: require('node-bourbon').includePaths
+      includePaths: bourbon.includePaths
     }))
     .on('error', notify.onError())
     .pipe(rename(function(path) {
@@ -96,14 +100,10 @@ gulp.task('markup:svg_styles', function() {
 });
 
 gulp.task('styles', function() {
-  var sourcemaps = require('gulp-sourcemaps'),
-      sass = require('gulp-sass'),
-      rename = require('gulp-rename');
-
   return gulp.src('./src/sass/main.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({
-      includePaths: require('node-bourbon').includePaths
+      includePaths: bourbon.includePaths
     }))
     .on('error', notify.onError())
     .pipe(rename(function(path) {
@@ -114,15 +114,9 @@ gulp.task('styles', function() {
 });
 
 gulp.task('scripts', function() {
-  var browserify = require('browserify'),
-      source = require('vinyl-source-stream'),
-      buffer = require('vinyl-buffer'),
-      sourcemaps = require('gulp-sourcemaps'),
-      rename = require('gulp-rename');
-
   return browserify(config.browserify)
-    .transform(require('./lib/canopy-transform'))
-    .transform(require('babelify'))
+    .transform(canopy)
+    .transform(babelify)
     .add('./src/js/main.js')
     .bundle()
     .on('error', notify.onError())
@@ -141,29 +135,19 @@ gulp.task('verify', ['karma:single', 'lint']);
 gulp.task('verify:watch', ['karma', 'lint:watch']);
 
 gulp.task('karma', function(done) {
-  var karma = require('karma'),
-      path = require('path'),
-      server = new karma.Server({
-        configFile: path.join(__dirname, 'karma.conf.js')
-      }, done);
-
-  server.start();
+  new karma.Server({
+    configFile: path.join(__dirname, 'karma.conf.js')
+  }, done).start();
 });
 
 gulp.task('karma:single', function(done) {
-  var karma = require('karma'),
-      path = require('path'),
-      server = new karma.Server({
-        configFile: path.join(__dirname, 'karma.conf.js'),
-        singleRun: true
-      }, done);
-
-  server.start();
+  new karma.Server({
+    configFile: path.join(__dirname, 'karma.conf.js'),
+    singleRun: true
+  }, done).start();
 });
 
 gulp.task('lint', function() {
-  var jscs = require('gulp-jscs');
-
   return gulp.src(config.globs.lint)
     .pipe(jscs())
     .pipe(jscs.reporter())
@@ -178,8 +162,6 @@ gulp.task('lint:watch', function() {
 gulp.task('lint:fix', config.lintRoots.map(function(root) {
   return 'lint:fix:' + root;
 }), function() {
-  var jscs = require('gulp-jscs');
-
   return gulp.src('./*.js')
     .pipe(jscs({fix: true}))
     .pipe(gulp.dest('.'));
@@ -187,8 +169,6 @@ gulp.task('lint:fix', config.lintRoots.map(function(root) {
 
 config.lintRoots.forEach(function(root) {
   gulp.task('lint:fix:' + root, function() {
-    var jscs = require('gulp-jscs');
-
     return gulp.src('./' + root + '/**/*.js')
       .pipe(jscs({fix: true}))
       .pipe(gulp.dest('./' + root));
