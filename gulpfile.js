@@ -80,11 +80,21 @@ gulp.task('markup', ['styles'], function() {
 });
 
 gulp.task('styles', function() {
-  var compass = require('gulp-compass');
+  var sourcemaps = require('gulp-sourcemaps'),
+      sass = require('gulp-sass'),
+      rename = require('gulp-rename');
 
   return gulp.src(config.globs.sass)
     .pipe(errorHandler())
-    .pipe(compass(config.compass));
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+      includePaths: require('node-bourbon').includePaths
+    }))
+    .pipe(rename(function(path) {
+      path.dirname = '';
+    }))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(config.buildPath('css')));
 });
 
 gulp.task('scripts', function() {

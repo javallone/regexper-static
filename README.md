@@ -10,11 +10,10 @@ When sending pull requests, please keep them focused on a single issue. I would 
 
 ### Working with the code
 
-Node and Ruby are required for working with this site. It is recommended to use rbenv or rvm to manage your Ruby installation, and configuration files are included to set the Ruby version and gemset.
+Node is required for working with this site.
 
-To start with, install the necessary dependencies for Node and Ruby:
+To start with, install the necessary dependencies:
 
-    $ bundle install
     $ npm install
 
 There are several gulp tasks available to build various parts of the site, but to get started you only need:

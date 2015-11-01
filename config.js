@@ -17,13 +17,6 @@ module.exports = {
     js: ['./src/**/*.js', './src/**/*.peg'],
     spec: './spec/**/*_spec.js'
   },
-  compass: {
-    sass: './src/sass',
-    css: buildPath('css'),
-    javascript: buildPath('js'),
-    font: buildPath('font'),
-    sourcemap: true
-  },
   browserify: {
     debug: true,
     fullPaths: false,
