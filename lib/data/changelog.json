@@ -1,5 +1,14 @@
 [
   {
+    "label": "November 1, 2015 Release",
+    "changes": [
+      "Switching from Compass to node-sass and Bourbon (no more need for Ruby)",
+      "Switching to Babel instead of es6ify",
+      "Improving sourcemap generation",
+      "Cleanup of the build process"
+    ]
+  },
+  {
     "label": "October 31, 2015 Release",
     "changes": [
       "Reducing file size for title font",
