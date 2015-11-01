@@ -10,8 +10,9 @@ gulp.task('default', ['server', 'docs'], function() {
     config.globs.data,
     config.globs.helpers,
     config.globs.partials,
-    config.globs.sass
+    config.globs.svg_sass
   ]), ['markup']);
+  gulp.watch(config.globs.sass, ['styles']);
   gulp.watch(config.globs.js, ['scripts', 'docs']);
 });
 
@@ -51,7 +52,7 @@ gulp.task('static', function() {
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('markup', ['styles'], function() {
+gulp.task('markup', ['markup:svg_styles'], function() {
   var hb = require('gulp-hb'),
       frontMatter = require('gulp-front-matter'),
       rename = require('gulp-rename');
@@ -61,8 +62,14 @@ gulp.task('markup', ['styles'], function() {
     .pipe(hb({
       data: config.globs.data,
       helpers: config.globs.helpers,
-      partials: config.globs.partials,
-      bustCache: true,
+      partials: _.flatten([
+        config.globs.partials,
+        './tmp/build/svg_styles.hbs'
+      ]),
+      parsePartialName: function(file) {
+        return _.last(file.shortPath.split('/'));
+      },
+      bustCache: true
     }))
     .on('error', notify.onError())
     .pipe(rename(function(path) {
@@ -71,12 +78,29 @@ gulp.task('markup', ['styles'], function() {
     .pipe(gulp.dest(config.buildRoot));
 });
 
+gulp.task('markup:svg_styles', function() {
+  var sass = require('gulp-sass'),
+      rename = require('gulp-rename');
+
+  return gulp.src('./src/sass/svg.scss')
+    .pipe(sass({
+      includePaths: require('node-bourbon').includePaths
+    }))
+    .on('error', notify.onError())
+    .pipe(rename(function(path) {
+      path.dirname = '';
+      path.basename = 'svg_styles';
+      path.extname = '.hbs';
+    }))
+    .pipe(gulp.dest('./tmp/build'))
+});
+
 gulp.task('styles', function() {
   var sourcemaps = require('gulp-sourcemaps'),
       sass = require('gulp-sass'),
       rename = require('gulp-rename');
 
-  return gulp.src(config.globs.sass)
+  return gulp.src('./src/sass/main.scss')
     .pipe(sourcemaps.init())
     .pipe(sass({
       includePaths: require('node-bourbon').includePaths

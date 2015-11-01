@@ -13,6 +13,7 @@ module.exports = {
     helpers: './lib/helpers/**/*.js',
     partials: './lib/partials/**/*.hbs',
     sass: './src/**/*.scss',
+    svg_sass: './src/sass/svg.scss',
     js: ['./src/**/*.js', './src/**/*.peg'],
     spec: './spec/**/*_spec.js'
   },
