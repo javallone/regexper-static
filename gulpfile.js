@@ -19,7 +19,7 @@ gulp.task('default', ['server', 'docs'], function() {
     config.globs.partials,
     config.globs.sass
   ]), ['markup']);
-  gulp.watch(config.globs.js, ['browserify', 'docs']);
+  gulp.watch(config.globs.js, ['scripts', 'docs']);
 });
 
 gulp.task('docs', ['docs:files'], function() {
@@ -99,18 +99,24 @@ gulp.task('styles', function() {
 
 gulp.task('scripts', function() {
   var browserify = require('browserify'),
-      tap = require('gulp-tap');
+      source = require('vinyl-source-stream'),
+      buffer = require('vinyl-buffer'),
+      sourcemaps = require('gulp-sourcemaps'),
+      rename = require('gulp-rename');
 
-  return gulp.src('./src/js/main.js', { read: false })
-    .pipe(errorHandler())
-    .pipe(tap(function(file) {
-      var bundler = browserify(config.browserify)
-        .transform(require('./lib/canopy-transform'))
-        .transform(require('babelify'))
-        .add(file.path);
+  var b = browserify(config.browserify)
+    .transform(require('./lib/canopy-transform'))
+    .transform(require('babelify'))
+    .add('./src/js/main.js');
 
-      file.contents = bundler.bundle();
+  return b.bundle()
+    .pipe(source('./src/js/main.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init({ loadMaps: true }))
+    .pipe(rename(function(path) {
+      path.dirname = '';
     }))
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.buildPath('js')));
 });
 
