@@ -100,7 +100,7 @@ gulp.task('markup:svg_styles', false, function() {
 });
 
 gulp.task('styles', 'Build stylesheets into ./build directory.', function() {
-  return gulp.src('./src/sass/main.scss')
+  return gulp.src('./src/sass/main.scss', { base: '.' })
     .pipe(sourcemaps.init())
     .pipe(sass({
       includePaths: bourbon.includePaths,
@@ -119,11 +119,10 @@ gulp.task('scripts', 'Build scripts into ./build directory', function() {
     .add('./src/js/main.js')
     .bundle()
     .on('error', notify.onError())
-    .pipe(source('./src/js/main.js'))
+    .pipe(source('main.js'))
     .pipe(buffer())
     .pipe(sourcemaps.init({ loadMaps: true }))
     .pipe(uglify())
-    .pipe(rename({ dirname: '' }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.buildPath('js')));
 });
