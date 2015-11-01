@@ -1,6 +1,5 @@
 var path = require('path'),
     _ = require('lodash'),
-    es6ify = require('es6ify'),
     buildRoot = process.env.BUILD_PATH || './build',
     buildPath = _.bind(path.join, path, buildRoot);
 
@@ -20,10 +19,5 @@ module.exports = {
   browserify: {
     debug: true,
     fullPaths: false,
-    entries: [es6ify.runtime],
-  },
-  prebundle: function(bundle) {
-    bundle.transform(require('./lib/canopy-transform'));
-    bundle.transform(es6ify.configure(/^(?!.*node_modules)+.+\.js$/));
   }
 };

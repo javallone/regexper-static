@@ -104,11 +104,10 @@ gulp.task('scripts', function() {
   return gulp.src('./src/js/main.js', { read: false })
     .pipe(errorHandler())
     .pipe(tap(function(file) {
-      var bundler = browserify(config.browserify);
-
-      config.prebundle(bundler);
-
-      bundler.add(file.path);
+      var bundler = browserify(config.browserify)
+        .transform(require('./lib/canopy-transform'))
+        .transform(require('babelify'))
+        .add(file.path);
 
       file.contents = bundler.bundle();
     }))

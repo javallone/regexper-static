@@ -3,7 +3,6 @@ var _ = require('lodash'),
 
 module.exports = function(karma) {
   var globs = _.flatten([
-    require('es6ify').runtime, // Hack to get traceurRuntime in the build
     config.globs.js,
     config.globs.spec
   ]);
@@ -22,8 +21,9 @@ module.exports = function(karma) {
     autoWatch: true,
     singleRun: false,
     browserify: _.extend({
-      configure: function(bundle) {
-        config.prebundle(bundle);
+      configure: function(bundler) {
+        bundler.transform(require('./lib/canopy-transform'));
+        bundler.transform(require('babelify'));
       }
     }, config.browserify)
   });
