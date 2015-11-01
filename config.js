@@ -26,6 +26,6 @@ module.exports = {
   lintRoots: ['lib', 'src', 'spec'],
   browserify: {
     debug: true,
-    fullPaths: false,
+    fullPaths: false
   }
 };

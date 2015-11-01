@@ -25,7 +25,7 @@ describe('parser/javascript/match.js', function() {
         jasmine.objectContaining({
           content: jasmine.objectContaining({ literal: 'example' })
         })
-      ],
+      ]
     },
     'example$': {
       anchorStart: false,

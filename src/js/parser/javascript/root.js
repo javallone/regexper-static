@@ -24,7 +24,7 @@ export default {
     // Render the content of the regular expression.
     return this.regexp.render(this.container.group())
       .then(() => {
-        var box;
+        let box;
 
         // Move rendered regexp to account for flag label and to allow for
         // decorative elements.

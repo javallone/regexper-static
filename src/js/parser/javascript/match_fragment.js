@@ -29,7 +29,7 @@ export default {
   _render() {
     return this.content.render(this.container.group())
       .then(() => {
-        var box, paths;
+        let box, paths;
 
         // Contents must be transformed based on the repeat that is applied.
         this.content.transform(this.repeat.contentPosition);

@@ -123,7 +123,7 @@ describe('parser/javascript.js', function() {
       it('sets the dimensions of the image', function(done) {
         this.parser.render()
           .then(() => {
-            var svg = this.container.querySelector('svg');
+            let svg = this.container.querySelector('svg');
 
             expect(svg.getAttribute('width')).toEqual('62');
             expect(svg.getAttribute('height')).toEqual('44');

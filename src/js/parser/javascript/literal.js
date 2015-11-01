@@ -10,7 +10,7 @@ export default {
   _render() {
     return this.renderLabel(['\u201c', this.literal, '\u201d'])
       .then(label => {
-        var spans = label.selectAll('tspan');
+        let spans = label.selectAll('tspan');
 
         // The quote marks get some styling to lighten their color so they are
         // distinct from the actual literal value.

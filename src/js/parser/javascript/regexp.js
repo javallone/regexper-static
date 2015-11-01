@@ -19,7 +19,7 @@ export default {
       return match.render(matchContainer.group());
     }))
       .then(() => {
-        var containerBox,
+        let containerBox,
             paths;
 
         // Space matches vertically in the match container.

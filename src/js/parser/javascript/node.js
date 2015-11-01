@@ -121,7 +121,7 @@ export default class Node {
 
     return this.deferredStep()
       .then(() => {
-        var box = text.getBBox(),
+        let box = text.getBBox(),
             margin = 5;
 
         text.transform(Snap.matrix()
@@ -161,7 +161,7 @@ export default class Node {
 
     return this.deferredStep()
       .then(() => {
-        var labelBox = label.getBBox(),
+        let labelBox = label.getBBox(),
             contentBox = content.getBBox();
 
         label.transform(Snap.matrix()

@@ -84,7 +84,7 @@ export default class Parser {
       // Once rendering is complete, the rendered expression is positioned and
       // the SVG resized to create some padding around the image contents.
       .then(result => {
-        var box = result.getBBox();
+        let box = result.getBBox();
 
         result.transform(Snap.matrix()
           .translate(10 - box.x, 10 - box.y));

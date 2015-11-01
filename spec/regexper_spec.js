@@ -17,7 +17,7 @@ describe('regexper.js', function() {
       '</form>',
       '<div id="error"></div>',
       '<ul id="warnings"></ul>',
-      '<div id="regexp-render"></div>',
+      '<div id="regexp-render"></div>'
     ].join('');
 
     this.regexper = new Regexper(this.root);

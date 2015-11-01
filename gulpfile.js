@@ -120,12 +120,11 @@ gulp.task('scripts', function() {
       sourcemaps = require('gulp-sourcemaps'),
       rename = require('gulp-rename');
 
-  var b = browserify(config.browserify)
+  return browserify(config.browserify)
     .transform(require('./lib/canopy-transform'))
     .transform(require('babelify'))
-    .add('./src/js/main.js');
-
-  return b.bundle()
+    .add('./src/js/main.js')
+    .bundle()
     .on('error', notify.onError())
     .pipe(source('./src/js/main.js'))
     .pipe(buffer())

@@ -44,7 +44,7 @@ window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
   // Initialize the main page of the site. Functionality is kept in the
   // [Regexper class](./regexper.html).
   if (document.body.querySelector('#content .application')) {
-    var regexper = new Regexper(document.body);
+    let regexper = new Regexper(document.body);
 
     regexper.detectBuggyHash();
     regexper.bindListeners();
