@@ -113,11 +113,9 @@ gulp.task('styles', 'Build stylesheets into ./build directory.', function() {
 });
 
 gulp.task('scripts', 'Build scripts into ./build directory', function() {
-  return browserify(config.browserify)
+  return browserify([require.resolve('babel-polyfill'), './src/js/main.js'], config.browserify)
     .transform(canopy)
     .transform(babelify)
-    .add(require.resolve('babel-polyfill'))
-    .add('./src/js/main.js')
     .bundle()
     .on('error', notify.onError())
     .pipe(source('main.js'))
