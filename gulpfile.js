@@ -116,6 +116,7 @@ gulp.task('scripts', 'Build scripts into ./build directory', function() {
   return browserify(config.browserify)
     .transform(canopy)
     .transform(babelify)
+    .add(require.resolve('babel-polyfill'))
     .add('./src/js/main.js')
     .bundle()
     .on('error', notify.onError())
