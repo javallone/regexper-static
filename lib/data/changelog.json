@@ -1,5 +1,11 @@
 [
   {
+    "label": "November 10, 2015 Release",
+    "changes": [
+      "Fixing Babel integration to include polyfills"
+    ]
+  },
+  {
     "label": "November 1, 2015 Release",
     "changes": [
       "Switching from Compass to node-sass and Bourbon (no more need for Ruby)",
