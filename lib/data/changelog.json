@@ -1,5 +1,11 @@
 [
   {
+    "label": "December 21, 2015 Release",
+    "changes": [
+      "Updating NPM dependencies to fix JS error that only appeared when running site from a local development environment (see <a href=\"https://github.com/javallone/regexper-static/issues/21\">GitHub issue</a>)"
+    ]
+  },
+  {
     "label": "November 10, 2015 Release",
     "changes": [
       "Fixing Babel integration to include polyfills"
