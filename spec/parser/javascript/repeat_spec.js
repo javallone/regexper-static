@@ -54,6 +54,13 @@ describe('parser/javascript/repeat.js', function() {
       hasSkip: false,
       hasLoop: false
     },
+    '{0}': {
+      minimum: 0,
+      maximum: 0,
+      greedy: true,
+      hasSkip: true,
+      hasLoop: false
+    },
     '{1}?': {
       minimum: 1,
       maximum: 1,
@@ -200,6 +207,11 @@ describe('parser/javascript/repeat.js', function() {
       {
         minimum: 1,
         maximum: -1,
+        label: undefined
+      },
+      {
+        minimum: 0,
+        maximum: 0,
         label: undefined
       },
       {
