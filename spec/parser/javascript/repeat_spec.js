@@ -47,6 +47,13 @@ describe('parser/javascript/repeat.js', function() {
       hasSkip: true,
       hasLoop: false
     },
+    '{0}': {
+      minimum: 0,
+      maximum: 0,
+      greedy: true,
+      hasSkip: true,
+      hasLoop: false
+    },
     '{1}': {
       minimum: 1,
       maximum: 1,
@@ -198,49 +205,54 @@ describe('parser/javascript/repeat.js', function() {
 
     _.each([
       {
-        minimum: 1,
+        minimum: 0,
         maximum: -1,
         label: undefined
       },
       {
-        minimum: 2,
+        minimum: 1,
         maximum: -1,
         label: '1+ times'
       },
       {
         minimum: 3,
         maximum: -1,
-        label: '2+ times'
+        label: '3+ times'
       },
       {
         minimum: 0,
-        maximum: 2,
+        maximum: 0,
+        label: undefined
+      },
+      {
+        minimum: 0,
+        maximum: 1,
         label: 'at most once'
       },
       {
         minimum: 0,
-        maximum: 3,
+        maximum: 2,
         label: 'at most 2 times'
       },
       {
-        minimum: 2,
-        maximum: 2,
+        minimum: 1,
+        maximum: 1,
         label: 'once'
       },
       {
         minimum: 3,
         maximum: 3,
-        label: '2 times'
+        label: '3 times'
+      },
+      {
+        minimum: 1,
+        maximum: 2,
+        label: '1\u{2026}2 times'
       },
       {
         minimum: 2,
         maximum: 3,
-        label: '1\u20262 times'
-      },
-      {
-        minimum: 3,
-        maximum: 4,
-        label: '2\u20263 times'
+        label: '2\u{2026}3 times'
       }
 
     ], t => {

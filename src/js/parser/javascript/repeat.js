@@ -33,14 +33,17 @@ export default {
     label: {
       get: function() {
         if (this.minimum === this.maximum) {
-          return formatTimes(this.minimum - 1);
-        } else if (this.minimum <= 1 && this.maximum >= 2) {
-          return `at most ${formatTimes(this.maximum - 1)}`;
-        } else if (this.minimum >= 2) {
+          if (this.minimum === 0) {
+            return undefined;
+          }
+          return formatTimes(this.minimum);
+        } else if (this.minimum <= 0 && this.maximum >= 1) {
+          return `at most ${formatTimes(this.maximum)}`;
+        } else if (this.minimum >= 1) {
           if (this.maximum === -1) {
-            return `${this.minimum - 1}+ times`;
+            return `${this.minimum}+ times`;
           } else {
-            return `${this.minimum - 1}\u2026${formatTimes(this.maximum - 1)}`;
+            return `${this.minimum}\u{2026}${formatTimes(this.maximum)}`;
           }
         }
       }
