@@ -33,6 +33,9 @@ export default {
     label: {
       get: function() {
         if (this.minimum === this.maximum) {
+          if (this.minimum === 0) {
+            return undefined;
+          }
           return formatTimes(this.minimum - 1);
         } else if (this.minimum <= 1 && this.maximum >= 2) {
           return `at most ${formatTimes(this.maximum - 1)}`;
