@@ -30,6 +30,8 @@ export default class Node {
     _.forOwn(this.definedProperties || {}, (methods, name) => {
       Object.defineProperty(this, name, methods);
     });
+
+    delete this.definedProperties;
   }
 
   // The SVG element to render this node into. A node-type class is

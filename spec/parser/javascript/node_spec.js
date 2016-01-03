@@ -26,7 +26,7 @@ describe('parser/javascript/node.js', function() {
       expect(setup).toHaveBeenCalled();
     });
 
-    it('sets up any defined properties', function() {
+    it('sets up any defined properties and removes \'definedProperties\' field', function() {
       this.node.module = {
         definedProperties: {
           example: {
@@ -37,6 +37,7 @@ describe('parser/javascript/node.js', function() {
         }
       };
       expect(this.node.example).toEqual('value');
+      expect(this.node.definedProperties).toBeUndefined();
     });
 
   });
