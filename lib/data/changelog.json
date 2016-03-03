@@ -1,5 +1,12 @@
 [
   {
+    "label": "March 3, 2016 Release",
+    "changes": [
+      "Merged some code cleanup and a bugfix from <a href=\"https://github.com/Byron\">Sebastian Thiel</a>",
+      "Updated notice for IE8 users to no longer include link to legacy site"
+    ]
+  },
+  {
     "label": "December 21, 2015 Release",
     "changes": [
       "Updating NPM dependencies to fix JS error that only appeared when running site from a local development environment (see <a href=\"https://github.com/javallone/regexper-static/issues/21\">GitHub issue</a>)"
