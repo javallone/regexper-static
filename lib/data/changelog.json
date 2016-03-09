@@ -1,5 +1,11 @@
 [
   {
+    "label": "March 8, 2016 Release",
+    "changes": [
+      "Replaced icon font with individual SVG images"
+    ]
+  },
+  {
     "label": "March 3, 2016 Release",
     "changes": [
       "Merged some code cleanup and a bugfix from <a href=\"https://github.com/Byron\">Sebastian Thiel</a>",
