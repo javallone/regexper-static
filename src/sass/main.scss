@@ -1,5 +1,4 @@
 @import 'base';
-@import 'open-iconic';
 @import 'reset';
 
 body {
@@ -14,8 +13,13 @@ a {
   color: $black;
 }
 
-.oi.with-text[data-glyph]:before {
-  margin-right: rhythm(1/4);
+.inline-icon {
+  img {
+    margin-right: rhythm(1/4);
+    width: 1em;
+    height: 1em;
+    vertical-align: middle;
+  }
 }
 
 h1 {

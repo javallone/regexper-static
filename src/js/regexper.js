@@ -15,8 +15,8 @@ export default class Regexper {
     this.warnings = root.querySelector('#warnings');
 
     this.links = this.form.querySelector('ul');
-    this.permalink = this.links.querySelector('a[data-glyph="link-intact"]');
-    this.download = this.links.querySelector('a[data-glyph="data-transfer-download"]');
+    this.permalink = this.links.querySelector('a[data-action="permalink"]');
+    this.download = this.links.querySelector('a[data-action="download"]');
 
     this.svgContainer = root.querySelector('#regexp-render');
   }
@@ -184,7 +184,7 @@ export default class Regexper {
   // - __warnings__ - Array of warning messages to display.
   displayWarnings(warnings) {
     this.warnings.innerHTML = _.map(warnings, warning => {
-      return `<li class="oi with-text" data-glyph="warning">${warning}</li>`;
+      return `<li class="inline-icon"><img alt="" src="/images/open-iconic/warning.svg">${warning}</li>`;
     }).join('');
   }
 

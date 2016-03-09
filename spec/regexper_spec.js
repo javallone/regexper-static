@@ -11,8 +11,8 @@ describe('regexper.js', function() {
       '<form id="regexp-form" action="/">',
         '<input type="text" id="regexp-input">',
         '<ul class="example">',
-          '<ul><a href="#" data-glyph="link-intact"></a></ul>',
-          '<ul><a href="#" data-glyph="data-transfer-download"></a></ul>',
+          '<ul><a href="#" data-action="permalink"></a></ul>',
+          '<ul><a href="#" data-action="download"></a></ul>',
         '</ul>',
       '</form>',
       '<div id="error"></div>',
@@ -365,7 +365,7 @@ describe('regexper.js', function() {
 
     it('adds a list item for each warning', function() {
       this.regexper.displayWarnings(['warning 1', 'warning 2']);
-      expect(this.regexper.warnings.innerHTML).toEqual('<li class="oi with-text" data-glyph="warning">warning 1</li><li class="oi with-text" data-glyph="warning">warning 2</li>');
+      expect(this.regexper.warnings.innerHTML).toEqual('<li class="inline-icon"><img alt="" src="/images/open-iconic/warning.svg">warning 1</li><li class="inline-icon"><img alt="" src="/images/open-iconic/warning.svg">warning 2</li>');
     });
 
   });
