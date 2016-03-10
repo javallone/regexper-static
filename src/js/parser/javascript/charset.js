@@ -54,7 +54,7 @@ export default {
     // and text value of the part, so `[aa]` will have only one item, but
     // `[a\x61]` will contain two since the first matches "a" and the second
     // matches 0x61 (even though both are an "a").
-    this.elements = _.unique(this.properties.parts.elements, part => {
+    this.elements = _.uniqBy(this.properties.parts.elements, part => {
       return `${part.type}:${part.textValue}`;
     });
 
