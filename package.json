@@ -14,7 +14,7 @@
     "babel-preset-es2015": "^6.3.13",
     "babel-runtime": "^6.3.19",
     "babelify": "^7.1.0",
-    "browserify": "^12.0.1",
+    "browserify": "^13.0.0",
     "canopy": "^0.2.0",
     "folder-toc": "^0.1.0",
     "gulp": "^3.8.10",
@@ -32,7 +32,7 @@
     "handlebars-layouts": "^3.1.2",
     "jasmine-core": "^2.4.1",
     "karma": "^0.13.14",
-    "karma-browserify": "^4.4.2",
+    "karma-browserify": "^5.0.2",
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.1",
     "karma-notify-reporter": "^0.1.1",
@@ -41,6 +41,7 @@
     "snapsvg": "^0.4.0",
     "through": "^2.3.8",
     "vinyl-buffer": "^1.0.0",
-    "vinyl-source-stream": "^1.1.0"
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.7.0"
   }
 }
