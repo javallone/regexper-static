@@ -1,5 +1,13 @@
 [
   {
+    "label": "March 10, 2016 Release",
+    "changes": [
+      "Embedding SVG icon images into markup",
+      "Some changes for minor performance improvements",
+      "Updating several dependencies"
+    ]
+  },
+  {
     "label": "March 8, 2016 Release",
     "changes": [
       "Replaced icon font with individual SVG images"
