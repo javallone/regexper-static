@@ -184,7 +184,7 @@ export default class Regexper {
   // - __warnings__ - Array of warning messages to display.
   displayWarnings(warnings) {
     this.warnings.innerHTML = _.map(warnings, warning => {
-      return `<li class="inline-icon"><img alt="" src="/images/open-iconic/warning.svg">${warning}</li>`;
+      return `<li class="inline-icon">${util.icon("#warning")}${warning}</li>`;
     }).join('');
   }
 

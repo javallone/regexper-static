@@ -124,6 +124,10 @@ function exposeError(error) {
   }, 0);
 }
 
+function icon(selector) {
+  return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 8 8"><use xlink:href="${selector}" /></svg>`;
+}
+
 export default {
   customEvent,
   normalizeBBox,
@@ -131,5 +135,6 @@ export default {
   spaceVertically,
   wait,
   tick,
-  exposeError
+  exposeError,
+  icon
 };

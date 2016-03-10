@@ -364,8 +364,9 @@ describe('regexper.js', function() {
   describe('#displayWarnings', function() {
 
     it('adds a list item for each warning', function() {
+      spyOn(util, 'icon').and.returnValue('(icon-markup)');
       this.regexper.displayWarnings(['warning 1', 'warning 2']);
-      expect(this.regexper.warnings.innerHTML).toEqual('<li class="inline-icon"><img alt="" src="/images/open-iconic/warning.svg">warning 1</li><li class="inline-icon"><img alt="" src="/images/open-iconic/warning.svg">warning 2</li>');
+      expect(this.regexper.warnings.innerHTML).toEqual('<li class="inline-icon">(icon-markup)warning 1</li><li class="inline-icon">(icon-markup)warning 2</li>');
     });
 
   });
