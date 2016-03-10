@@ -47,7 +47,7 @@ export default {
 
   setup() {
     // Convert list of flags into text describing each flag.
-    this.flags = _(this.properties.flags.textValue).unique().sort().map(flag => {
+    this.flags = _(this.properties.flags.textValue).uniq().sort().map(flag => {
       return this.flagLabels[flag];
     }).value();
 
