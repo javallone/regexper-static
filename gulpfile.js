@@ -71,8 +71,8 @@ gulp.task('markup', 'Build markup into ./build directory.', function() {
       data: config.globs.data,
       helpers: config.globs.helpers,
       partials: config.globs.partials,
-      parsePartialName: function(file) {
-        return _.last(file.shortPath.split('/'));
+      parsePartialName: function(option, file) {
+        return _.last(file.path.split('/')).replace('.hbs', '');
       },
       bustCache: true
     }))
