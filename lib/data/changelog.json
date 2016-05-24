@@ -1,5 +1,11 @@
 [
   {
+    "label": "May 23, 2016 Release",
+    "changes": [
+      "Refactored tracking code to support latest Google Analytics setup"
+    ]
+  },
+  {
     "label": "March 10, 2016 Release",
     "changes": [
       "Embedding SVG icon images into markup",
