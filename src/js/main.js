@@ -10,33 +10,17 @@ import Regexper from './regexper.js';
 import Parser from './parser/javascript.js';
 import _ from 'lodash';
 
-// Add a dummy version of `_gaq` (the Google Analytics global object). This
-// dummy object will log out tracking commands that would otherwise be sent to
-// Google Analytics.
-window._gaq = (typeof _gaq !== 'undefined') ? _gaq : {
-  push: console.debug.bind(console)
-};
-
 (function() {
   // Global error handler that will send unhandled JavaScript exceptions and
   // stack-traces to Google Analytics. This data can be used to find errors in
   // code that were not found during testing.
   window.addEventListener('error', function(error) {
     if (error.lineno !== 0) {
-      _gaq.push([
-        '_trackEvent',
-        'global',
-        'exception',
-        `${error.filename}(${error.lineno},${error.colno}): ${error.message}`
-      ]);
+      util.track('send', 'event', 'global', 'exception',
+        `${error.filename}(${error.lineno},${error.colno}): ${error.message}`);
 
       if (typeof error.error !== 'undefined' && typeof error.error.stack !== 'undefined') {
-        _gaq.push([
-          '_trackEvent',
-          'global',
-          'stack trace',
-          error.error.stack
-        ]);
+        util.track('send', 'event', 'global', 'stack trace', error.error.stack);
       }
     }
   });

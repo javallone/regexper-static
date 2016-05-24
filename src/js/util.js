@@ -124,8 +124,20 @@ function exposeError(error) {
   }, 0);
 }
 
+// Renders an SVG icon.
+//
+// - __selector__ - Selector to the SVG icon to render.
 function icon(selector) {
   return `<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 8 8"><use xlink:href="${selector}" /></svg>`;
+}
+
+// Send tracking data.
+function track() {
+  if (window.ga) {
+    ga.apply(ga, arguments);
+  } else {
+    console.debug.apply(console, arguments);
+  }
 }
 
 export default {
@@ -136,5 +148,6 @@ export default {
   wait,
   tick,
   exposeError,
-  icon
+  icon,
+  track
 };

@@ -68,7 +68,7 @@ export default class Regexper {
     if (expr instanceof Error) {
       this.state = 'has-error';
       this.error.innerHTML = 'Malformed expression in URL';
-      window._gaq.push(['_trackEvent', 'visualization', 'malformed URL']);
+      util.track('send', 'event', 'visualization', 'malformed URL');
     } else {
       this.permalinkEnabled = true;
       this.showExpression(expr);
@@ -206,7 +206,7 @@ export default class Regexper {
     }
 
     this.state = 'is-loading';
-    window._gaq.push(['_trackEvent', 'visualization', 'start']);
+    util.track('send', 'event', 'visualization', 'start');
     startTime = new Date().getTime();
 
     this.running = new Parser(this.svgContainer);
@@ -236,20 +236,20 @@ export default class Regexper {
         this.state = 'has-results';
         this.updateLinks();
         this.displayWarnings(this.running.warnings);
-        window._gaq.push(['_trackEvent', 'visualization', 'complete']);
+        util.track('send', 'event', 'visualization', 'complete');
 
         endTime = new Date().getTime();
-        window._gaq.push(['_trackTiming', 'visualization', 'total time', endTime - startTime]);
+        util.track('send', 'timing', 'visualization', 'total time', endTime - startTime);
       })
       // Handle any errors that happened during the rendering pipeline.
       // Swallows parse errors and render cancellations. Any other exceptions
       // are allowed to continue on to be tracked by the global error handler.
       .catch(message => {
         if (message === 'Render cancelled') {
-          window._gaq.push(['_trackEvent', 'visualization', 'cancelled']);
+          util.track('send', 'event', 'visualization', 'cancelled');
           this.state = '';
         } else if (parseError) {
-          window._gaq.push(['_trackEvent', 'visualization', 'parse error']);
+          util.track('send', 'event', 'visualization', 'parse error');
         } else {
           throw message;
         }
