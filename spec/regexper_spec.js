@@ -23,7 +23,6 @@ describe('regexper.js', function() {
     this.regexper = new Regexper(this.root);
     spyOn(this.regexper, '_setHash');
     spyOn(this.regexper, '_getHash');
-    spyOn(window._gaq, 'push');
   });
 
   describe('#keypressListener', function() {
@@ -193,7 +192,7 @@ describe('regexper.js', function() {
 
       it('tracks the event', function() {
         this.regexper.hashchangeListener();
-        expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'malformed URL']);
+        expect(util.track).toHaveBeenCalledWith('send', 'event', 'visualization', 'malformed URL');
       });
 
     });
@@ -391,7 +390,7 @@ describe('regexper.js', function() {
 
     it('tracks the beginning of the render', function() {
       this.regexper.renderRegexp('example expression');
-      expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'start']);
+      expect(util.track).toHaveBeenCalledWith('send', 'event', 'visualization', 'start');
     });
 
     it('keeps a copy of the running property parser', function() {
@@ -429,7 +428,7 @@ describe('regexper.js', function() {
       it('tracks the parse error', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
-            expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'parse error']);
+            expect(util.track).toHaveBeenCalledWith('send', 'event', 'visualization', 'parse error');
             done();
           });
       });
@@ -489,7 +488,7 @@ describe('regexper.js', function() {
       it('tracks the complete render', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
-            expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'complete']);
+            expect(util.track).toHaveBeenCalledWith('send', 'event', 'visualization', 'complete');
             done();
           });
       });
@@ -505,7 +504,7 @@ describe('regexper.js', function() {
       it('tracks the total rendering time', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
-            expect(window._gaq.push).toHaveBeenCalledWith(['_trackTiming', 'visualization', 'total time', jasmine.any(Number)]);
+            expect(util.track).toHaveBeenCalledWith('send', 'timing', 'visualization', 'total time', jasmine.any(Number));
             done();
           });
       });
@@ -531,7 +530,7 @@ describe('regexper.js', function() {
       it('tracks the cancelled render', function(done) {
         this.regexper.renderRegexp('example expression')
           .then(() => {
-            expect(window._gaq.push).toHaveBeenCalledWith(['_trackEvent', 'visualization', 'cancelled']);
+            expect(util.track).toHaveBeenCalledWith('send', 'event', 'visualization', 'cancelled');
             done();
           });
       });

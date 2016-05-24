@@ -1,3 +1,5 @@
+import util from '../src/js/util.js';
+
 // Setup (and teardown) SVG container template
 beforeEach(function() {
   var template = document.createElement('script');
@@ -25,7 +27,7 @@ afterEach(function() {
   document.body.removeChild(document.body.querySelector('#svg-container-base'));
 });
 
-// Spy on _gaq.push to prevent unnecessary logging
-window._gaq = {
-  push() {}
-}
+// Spy on util.track to prevent unnecessary logging
+beforeEach(function() {
+  spyOn(util, 'track');
+});
