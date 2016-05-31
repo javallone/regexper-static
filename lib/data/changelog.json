@@ -1,5 +1,11 @@
 [
   {
+    "label": "May 31, 2016 Release",
+    "changes": [
+      "Putting separate CSS for generated SVG images back into the build. Downloaded images have been broken since the March 10 release because the SVG styles were merged into the page styles."
+    ]
+  },
+  {
     "label": "May 23, 2016 Release",
     "changes": [
       "Refactored tracking code to support latest Google Analytics setup"
