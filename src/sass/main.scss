@@ -19,6 +19,7 @@ a {
     width: 1em;
     height: 1em;
     vertical-align: middle;
+    background: transparent;
   }
 }
 
@@ -352,6 +353,15 @@ header {
   body.is-loading &,
   body.has-results & {
     display: block;
+  }
+}
+
+#open-iconic {
+  display: none;
+
+  path {
+    stroke: none;
+    fill-opacity: 1;
   }
 }
 
