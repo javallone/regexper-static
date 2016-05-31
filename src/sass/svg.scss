@@ -1,71 +1,67 @@
 @import 'base';
 
-#open-iconic {
-  display: none;
+svg {
+  background-color: $white;
 }
 
-svg.regexp-svg {
-  background-color: $white;
+text, tspan {
+  font: 12px Arial;
+}
 
-  text, tspan {
-    font: 12px Arial;
-  }
+path {
+  fill-opacity: 0;
+  stroke-width: 2px;
+  stroke: $black;
+}
 
-  path {
-    fill-opacity: 0;
-    stroke-width: 2px;
-    stroke: $black;
-  }
+circle {
+  fill: $gray;
+  stroke-width: 2px;
+  stroke: $black;
+}
 
-  circle {
-    fill: $gray;
-    stroke-width: 2px;
-    stroke: $black;
-  }
+.anchor text, .any-character text {
+  fill: $white;
+}
 
-  .anchor text, .any-character text {
-    fill: $white;
-  }
+.anchor rect, .any-character rect {
+  fill: $gray;
+}
 
-  .anchor rect, .any-character rect {
-    fill: $gray;
-  }
+.escape text, .charset-escape text, .literal text {
+  fill: $black;
+}
 
-  .escape text, .charset-escape text, .literal text {
-    fill: $black;
-  }
+.escape rect, .charset-escape rect {
+  fill: $green;
+}
 
-  .escape rect, .charset-escape rect {
-    fill: $green;
-  }
+.literal rect {
+  fill: $blue;
+}
 
-  .literal rect {
-    fill: $blue;
-  }
+.charset .charset-box {
+  fill: $tan;
+}
 
-  .charset .charset-box {
-    fill: $tan;
-  }
+.subexp .subexp-label tspan,
+.charset .charset-label tspan,
+.match-fragment .repeat-label tspan {
+  font-size: 10px;
+}
 
-  .subexp .subexp-label tspan,
-  .charset .charset-label tspan,
-  .match-fragment .repeat-label tspan {
-    font-size: 10px;
-  }
+.subexp .subexp-label tspan,
+.charset .charset-label tspan {
+  dominant-baseline: text-after-edge;
+}
 
-  .subexp .subexp-label tspan,
-  .charset .charset-label tspan {
-    dominant-baseline: text-after-edge;
-  }
+.subexp .subexp-box {
+  stroke: $light-gray;
+  stroke-dasharray: 6,2;
+  stroke-width: 2px;
+  fill-opacity: 0;
+}
 
-  .subexp .subexp-box {
-    stroke: $light-gray;
-    stroke-dasharray: 6,2;
-    stroke-width: 2px;
-    fill-opacity: 0;
-  }
-
-  .quote {
-    fill: $light-gray;
-  }
+.quote {
+  fill: $light-gray;
 }
