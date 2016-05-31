@@ -64,13 +64,16 @@ gulp.task('static', 'Build static files into ./build directory.', function() {
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('markup', 'Build markup into ./build directory.', function() {
+gulp.task('markup', 'Build markup into ./build directory.', ['markup:svg_styles'], function() {
   return gulp.src(config.globs.templates)
     .pipe(frontMatter())
     .pipe(hb({
       data: config.globs.data,
       helpers: config.globs.helpers,
-      partials: config.globs.partials,
+      partials: _.flatten([
+        config.globs.partials,
+        './tmp/build/svg_styles.hbs'
+      ]),
       parsePartialName: function(option, file) {
         return _.last(file.path.split(/\\|\//)).replace('.hbs', '');
       },
@@ -79,6 +82,21 @@ gulp.task('markup', 'Build markup into ./build directory.', function() {
     .on('error', notify.onError())
     .pipe(rename({ extname: '.html' }))
     .pipe(gulp.dest(config.buildRoot));
+});
+
+gulp.task('markup:svg_styles', false, function() {
+  return gulp.src('./src/sass/svg.scss')
+    .pipe(sass({
+      includePaths: bourbon.includePaths,
+      outputStyle: 'compressed'
+    }))
+    .on('error', notify.onError())
+    .pipe(rename({
+      dirname: '',
+      basename: 'svg_styles',
+      extname: '.hbs'
+    }))
+    .pipe(gulp.dest('./tmp/build'))
 });
 
 gulp.task('styles', 'Build stylesheets into ./build directory.', function() {
