@@ -7,8 +7,6 @@ describe('parser/javascript/match.js', function() {
 
   _.forIn({
     'example': {
-      anchorStart: false,
-      anchorEnd: false,
       parts: [
         jasmine.objectContaining({
           content: jasmine.objectContaining({ literal: 'example' })
@@ -18,27 +16,7 @@ describe('parser/javascript/match.js', function() {
         content: jasmine.objectContaining({ literal: 'example' })
       })
     },
-    '^example': {
-      anchorStart: true,
-      anchorEnd: false,
-      parts: [
-        jasmine.objectContaining({
-          content: jasmine.objectContaining({ literal: 'example' })
-        })
-      ]
-    },
-    'example$': {
-      anchorStart: false,
-      anchorEnd: true,
-      parts: [
-        jasmine.objectContaining({
-          content: jasmine.objectContaining({ literal: 'example' })
-        })
-      ]
-    },
     'example*': {
-      anchorStart: false,
-      anchorEnd: false,
       parts: [
         jasmine.objectContaining({
           content: jasmine.objectContaining({ literal: 'exampl' })
@@ -49,8 +27,6 @@ describe('parser/javascript/match.js', function() {
       ]
     },
     '': {
-      anchorStart: false,
-      anchorEnd: false,
       parts: []
     }
   }, (content, str) => {
@@ -99,9 +75,6 @@ describe('parser/javascript/match.js', function() {
     beforeEach(function() {
       this.node = new javascript.Parser('a').__consume__match();
 
-      this.node.anchorStart = true;
-      this.node.anchorEnd = true;
-
       this.node.container = jasmine.createSpyObj('container', [
         'addClass',
         'group',
@@ -109,14 +82,6 @@ describe('parser/javascript/match.js', function() {
         'path'
       ]);
       this.node.container.group.and.returnValue('example group');
-
-      this.labelDeferreds = {
-        'Start of line': this.testablePromise(),
-        'End of line': this.testablePromise()
-      };
-      spyOn(this.node, 'renderLabel').and.callFake(label => {
-        return this.labelDeferreds[label].promise;
-      });
 
       this.node.parts = [
         jasmine.createSpyObj('part 0', ['render']),
@@ -135,58 +100,6 @@ describe('parser/javascript/match.js', function() {
       this.node.parts[2].render.and.returnValue(this.partDeferreds[2].promise);
     });
 
-    describe('when there is no start anchor', function() {
-
-      beforeEach(function() {
-        this.node.anchorStart = false;
-      });
-
-      it('does not render a start anchor label', function() {
-        this.node._render();
-        expect(this.node.renderLabel).not.toHaveBeenCalledWith('Start of line');
-      });
-
-    });
-
-    describe('when there is a start anchor', function() {
-
-      beforeEach(function() {
-        this.node.anchorStart = true;
-      });
-
-      it('renders a start anchor label', function() {
-        this.node._render();
-        expect(this.node.renderLabel).toHaveBeenCalledWith('Start of line');
-      });
-
-    });
-
-    describe('when there is no end anchor', function() {
-
-      beforeEach(function() {
-        this.node.anchorEnd = false;
-      });
-
-      it('does not render an end anchor label', function() {
-        this.node._render();
-        expect(this.node.renderLabel).not.toHaveBeenCalledWith('End of line');
-      });
-
-    });
-
-    describe('when there is an end anchor', function() {
-
-      beforeEach(function() {
-        this.node.anchorEnd = true;
-      });
-
-      it('renders an end anchor label', function() {
-        this.node._render();
-        expect(this.node.renderLabel).toHaveBeenCalledWith('End of line');
-      });
-
-    });
-
     it('renders each part', function() {
       this.node._render();
       expect(this.node.parts[0].render).toHaveBeenCalledWith('example group');
@@ -197,12 +110,6 @@ describe('parser/javascript/match.js', function() {
     describe('positioning of items', function() {
 
       beforeEach(function() {
-        this.startLabel = jasmine.createSpyObj('start', ['addClass']);
-        this.startLabel.addClass.and.returnValue('start label');
-        this.endLabel = jasmine.createSpyObj('end', ['addClass']);
-        this.endLabel.addClass.and.returnValue('end label');
-        this.labelDeferreds['Start of line'].resolve(this.startLabel);
-        this.labelDeferreds['End of line'].resolve(this.endLabel);
         this.partDeferreds[0].resolve('part 0');
         this.partDeferreds[1].resolve('part 1');
         this.partDeferreds[2].resolve('part 2');
@@ -214,8 +121,8 @@ describe('parser/javascript/match.js', function() {
       it('sets the start and end properties', function(done) {
         this.node._render()
           .then(() => {
-            expect(this.node.start).toEqual('start label');
-            expect(this.node.end).toEqual('end label');
+            expect(this.node.start).toEqual('part 0');
+            expect(this.node.end).toEqual('part 2');
             done();
           });
       });
@@ -224,11 +131,9 @@ describe('parser/javascript/match.js', function() {
         this.node._render()
           .then(() => {
             expect(util.spaceHorizontally).toHaveBeenCalledWith([
-              'start label',
               'part 0',
               'part 1',
-              'part 2',
-              'end label'
+              'part 2'
             ], { padding: 10 });
             done();
           });
@@ -238,11 +143,9 @@ describe('parser/javascript/match.js', function() {
         this.node._render()
           .then(() => {
             expect(this.node.connectorPaths).toHaveBeenCalledWith([
-              'start label',
               'part 0',
               'part 1',
-              'part 2',
-              'end label'
+              'part 2'
             ]);
             expect(this.node.container.path).toHaveBeenCalledWith('connector paths');
             done();

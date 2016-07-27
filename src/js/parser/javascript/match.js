@@ -29,39 +29,19 @@ export default {
 
   // Renders the match into the currently set container.
   _render() {
-    var start, end,
-        partPromises,
+    var partPromises,
         items;
-
-    // A `^` at the beginning of the match leads to the "Start of line"
-    // indicator being rendered.
-    if (this.anchorStart) {
-      start = this.renderLabel('Start of line')
-        .then(label => {
-          return label.addClass('anchor');
-        });
-    }
-
-    // A `$` at the end of the match leads to the "End of line" indicator
-    // being rendered.
-    if (this.anchorEnd) {
-      end = this.renderLabel('End of line')
-        .then(label => {
-          return label.addClass('anchor');
-        });
-    }
 
     // Render each of the match fragments.
     partPromises = _.map(this.parts, part => {
       return part.render(this.container.group());
     });
 
-    items = _([start, partPromises, end]).flatten().compact().value();
+    items = _(partPromises).compact().value();
 
     // Handle the situation where a regular expression of `()` is rendered.
-    // This leads to a Match node with no fragments, no start indicator, and
-    // no end indicator. Something must be rendered so that the anchor can be
-    // calculated based on it.
+    // This leads to a Match node with no fragments. Something must be rendered
+    // so that the anchor can be calculated based on it.
     //
     // Furthermore, the content rendered must have height and width or else the
     // anchor calculations fail.
@@ -120,13 +100,8 @@ export default {
       return result;
     }, []);
 
-    // Indicates if the expression starts with a `^`.
-    this.anchorStart = (this.properties.anchor_start.textValue !== '');
-    // Indicates if the expression ends with a `$`.
-    this.anchorEnd = (this.properties.anchor_end.textValue !== '');
-
-    // When there are no anchors and only one part, then proxy to the part.
-    if (!this.anchorStart && !this.anchorEnd && this.parts.length === 1) {
+    // When there is only one part, then proxy to the part.
+    if (this.parts.length === 1) {
       this.proxy = this.parts[0];
     }
   }
