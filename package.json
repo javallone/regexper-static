@@ -36,6 +36,7 @@
     "karma-chrome-launcher": "^0.2.2",
     "karma-jasmine": "^0.3.1",
     "karma-notify-reporter": "^0.1.1",
+    "karma-phantomjs-launcher": "^0.2.2",
     "lodash": "^4.6.1",
     "node-bourbon": "^4.2.3",
     "snapsvg": "^0.4.0",
