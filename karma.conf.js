@@ -5,13 +5,7 @@ module.exports = function(karma) {
   var globs = _.flatten([
     config.globs.js,
     config.globs.spec
-  ]),
-    browser = 'Chrome';
-
-  if (process.env.TRAVIS) {
-    globs.unshift('node_modules/babel-polyfill/dist/polyfill.js');
-    browser = 'PhantomJS';
-  }
+  ]);
 
   karma.set({
     frameworks: ['browserify', 'jasmine'],
@@ -23,7 +17,7 @@ module.exports = function(karma) {
     reporters: ['progress', 'notify'],
     colors: true,
     logLevel: karma.LOG_INFO,
-    browsers: [browser],
+    browsers: ['Firefox'],
     autoWatch: true,
     singleRun: false,
     browserify: _.extend({
