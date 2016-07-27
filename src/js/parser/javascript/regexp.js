@@ -9,7 +9,7 @@ export default {
 
   // Renders the regexp into the currently set container.
   _render() {
-    var matchContainer = this.container.group()
+    let matchContainer = this.container.group()
       .addClass('regexp-matches')
       .transform(Snap.matrix()
         .translate(20, 0));
@@ -56,7 +56,7 @@ export default {
   // - __containerBox__ - Bounding box of the container.
   // - __match__ - Match node that the line will be drawn to.
   makeSide(containerBox, match) {
-    var box = match.getBBox(),
+    let box = match.getBBox(),
         distance = Math.abs(box.ay - containerBox.cy);
 
     // Only need to draw side lines if the match is more than 15 pixels from
@@ -79,7 +79,7 @@ export default {
   // - __containerBox__ - Bounding box of the container.
   // - __match__ - Match node that the line will be drawn to.
   makeCurve(containerBox, match) {
-    var box = match.getBBox(),
+    let box = match.getBBox(),
         distance = Math.abs(box.ay - containerBox.cy);
 
     if (distance >= 15) {
@@ -109,7 +109,7 @@ export default {
   // - __containerBox__ - Bounding box of the container.
   // - __match__ - Match node that the line will be drawn to.
   makeConnector(containerBox, match) {
-    var box = match.getBBox();
+    let box = match.getBBox();
 
     return `M0,${box.ay}h${box.ax}M${box.ax2},${box.ay}H${containerBox.width}`;
   },

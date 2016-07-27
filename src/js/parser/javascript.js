@@ -78,7 +78,7 @@ export default class Parser {
 
   // Render the parsed expression to an SVG.
   render() {
-    var svg = Snap(this.container.querySelector('svg'));
+    let svg = Snap(this.container.querySelector('svg'));
 
     return this.parsed.render(svg.group())
       // Once rendering is complete, the rendered expression is positioned and

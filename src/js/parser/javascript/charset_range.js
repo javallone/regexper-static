@@ -9,7 +9,7 @@ export default {
 
   // Renders the charset range into the currently set container
   _render() {
-    var contents = [
+    let contents = [
       this.first,
       this.container.text(0, 0, '-'),
       this.last

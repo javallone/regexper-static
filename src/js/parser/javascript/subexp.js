@@ -34,7 +34,7 @@ export default {
     // **NOTE:** `this.label()` **MUST** be called here, in _render, and before
     // any child nodes are rendered. This is to keep the group numbers in the
     // correct order.
-    var label = this.label();
+    let label = this.label();
 
     // Render the contained regexp.
     return this.regexp.render(this.container.group())

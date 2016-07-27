@@ -14,7 +14,7 @@ export default {
 
   // Renders the root into the currently set container.
   _render() {
-    var flagText;
+    let flagText;
 
     // Render a label for any flags that have been set of the expression.
     if (this.flags.length > 0) {
@@ -24,8 +24,6 @@ export default {
     // Render the content of the regular expression.
     return this.regexp.render(this.container.group())
       .then(() => {
-        let box;
-
         // Move rendered regexp to account for flag label and to allow for
         // decorative elements.
         if (flagText) {
@@ -36,7 +34,7 @@ export default {
             .translate(10, 0));
         }
 
-        box = this.regexp.getBBox();
+        let box = this.regexp.getBBox();
 
         // Render decorative elements.
         this.container.path(`M${box.ax},${box.ay}H0M${box.ax2},${box.ay}H${box.x2 + 10}`);

@@ -30,7 +30,7 @@ export default {
   },
 
   setup() {
-    var addHex;
+    let addHex;
 
     // The escape code. For an escape such as `\b` it would be "b".
     this.code = this.properties.esc.properties.code.textValue;
@@ -69,7 +69,7 @@ export default {
   7: ['Back reference (group = 7)', -1, false],
   8: ['Back reference (group = 8)', -1, false],
   9: ['Back reference (group = 9)', -1, false],
-  0() {
+  0: function() {
     if (this.arg) {
       return [`octal: ${this.arg}`, parseInt(this.arg, 8), true];
     } else {

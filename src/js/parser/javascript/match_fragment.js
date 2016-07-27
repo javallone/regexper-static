@@ -52,22 +52,21 @@ export default {
   // Renders label for the loop path indicating how many times the content may
   // be matched.
   loopLabel() {
-    var labelStr = this.repeat.label,
-        tooltipStr = this.repeat.tooltip,
-        label, tooltip, labelBox, box;
+    let labelStr = this.repeat.label,
+        tooltipStr = this.repeat.tooltip;
 
     if (labelStr) {
-      label = this.container.text(0, 0, [labelStr])
-        .addClass('repeat-label');
+      let label = this.container.text(0, 0, [labelStr])
+            .addClass('repeat-label'),
+          labelBox = label.getBBox(),
+          box = this.getBBox();
 
       if (tooltipStr) {
-        tooltip = this.container.el('title')
+        let tooltip = this.container.el('title')
           .append(this.container.text(0, 0, tooltipStr));
         label.append(tooltip);
       }
 
-      box = this.getBBox();
-      labelBox = label.getBBox();
       label.transform(Snap.matrix().translate(
         box.x2 - labelBox.width - (this.repeat.hasSkip ? 5 : 0),
         box.y2 + labelBox.height));

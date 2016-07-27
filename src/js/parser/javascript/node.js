@@ -116,17 +116,17 @@ export default class Node {
   //
   // - __text__ - String or array of strings to render as a label.
   renderLabel(text) {
-    var group = this.container.group()
+    let group = this.container.group()
           .addClass('label'),
         rect = group.rect(),
-        text = group.text(0, 0, _.flatten([text]));
+        label = group.text(0, 0, _.flatten([text]));
 
     return this.deferredStep()
       .then(() => {
-        let box = text.getBBox(),
+        let box = label.getBBox(),
             margin = 5;
 
-        text.transform(Snap.matrix()
+        label.transform(Snap.matrix()
           .translate(margin, box.height / 2 + 2 * margin));
 
         rect.attr({
@@ -140,12 +140,12 @@ export default class Node {
 
   // Renders a labeled box around another SVG element. Returns a Promise.
   //
-  // - __label__ - String or array of strings to label the box with.
+  // - __text__ - String or array of strings to label the box with.
   // - __content__ - SVG element to wrap in the box.
   // - __options.padding__ - Pixels of padding to place between the content and
   //    the box.
-  renderLabeledBox(label, content, options) {
-    var label = this.container.text(0, 0, _.flatten([label]))
+  renderLabeledBox(text, content, options) {
+    let label = this.container.text(0, 0, _.flatten([text]))
           .addClass(`${this.type}-label`),
         box = this.container.rect()
           .addClass(`${this.type}-box`)

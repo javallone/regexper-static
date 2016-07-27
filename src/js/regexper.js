@@ -63,7 +63,7 @@ export default class Regexper {
 
   // Event handler for URL hash changes. Starts rendering of the expression.
   hashchangeListener() {
-    var expr = this._getHash();
+    let expr = this._getHash();
 
     if (expr instanceof Error) {
       this.state = 'has-error';
@@ -85,11 +85,9 @@ export default class Regexper {
 
   // Detect if https://bugzilla.mozilla.org/show_bug.cgi?id=483304 is in effect
   detectBuggyHash() {
-    var url;
-
     if (typeof window.URL === 'function') {
       try {
-        url = new URL('http://regexper.com/#%25');
+        let url = new URL('http://regexper.com/#%25');
         this.buggyHash = (url.hash === '#%');
       }
       catch(e) {
@@ -108,9 +106,8 @@ export default class Regexper {
   // automated testing, but also does some basic error handling for malformed
   // URLs.
   _getHash() {
-    var hash;
     try {
-      hash = location.hash.slice(1)
+      let hash = location.hash.slice(1)
       return this.buggyHash ? hash : decodeURIComponent(hash);
     }
     catch(e) {
@@ -155,7 +152,7 @@ export default class Regexper {
 
   // Update the URLs of the 'download' and 'permalink' links.
   updateLinks() {
-    var classes = _.without(this.links.className.split(' '), ['hide-download', 'hide-permalink']);
+    let classes = _.without(this.links.className.split(' '), ['hide-download', 'hide-permalink']);
 
     // Create the 'download' image URL.
     try {
@@ -192,7 +189,7 @@ export default class Regexper {
   //
   // - __expression__ - Regular expression to render
   renderRegexp(expression) {
-    var parseError = false,
+    let parseError = false,
         startTime, endTime;
 
     // When a render is already in progress, cancel it and try rendering again

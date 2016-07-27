@@ -76,7 +76,7 @@ export default {
   // Returns the path spec to render the line that skips over the content for
   // fragments that are optionally matched.
   skipPath(box) {
-    var paths = [];
+    let paths = [];
 
     if (this.hasSkip) {
       let vert = Math.max(0, box.ay - box.y - 10),
@@ -96,7 +96,7 @@ export default {
   // Returns the path spec to render the line that repeats the content for
   // fragments that are matched more than once.
   loopPath(box) {
-    var paths = [];
+    let paths = [];
 
     if (this.hasLoop) {
       let vert = box.y2 - box.ay - 10;

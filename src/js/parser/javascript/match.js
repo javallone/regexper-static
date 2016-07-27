@@ -29,13 +29,9 @@ export default {
 
   // Renders the match into the currently set container.
   _render() {
-    var partPromises,
-        items;
-
     // Render each of the match fragments.
-    partPromises = _.map(this.parts, part => part.render(this.container.group()));
-
-    items = _(partPromises).compact().value();
+    let partPromises = _.map(this.parts, part => part.render(this.container.group())),
+        items = _(partPromises).compact().value();
 
     // Handle the situation where a regular expression of `()` is rendered.
     // This leads to a Match node with no fragments. Something must be rendered
@@ -66,7 +62,7 @@ export default {
   // Returns an array of SVG path strings between each item.
   // - __items__ - Array of SVG elements or nodes.
   connectorPaths(items) {
-    var prev, next;
+    let prev, next;
 
     prev = util.normalizeBBox(_.first(items).getBBox());
     return _.map(items.slice(1), item => {
