@@ -33,9 +33,7 @@ export default {
         items;
 
     // Render each of the match fragments.
-    partPromises = _.map(this.parts, part => {
-      return part.render(this.container.group());
-    });
+    partPromises = _.map(this.parts, part => part.render(this.container.group()));
 
     items = _(partPromises).compact().value();
 

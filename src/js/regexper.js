@@ -183,9 +183,9 @@ export default class Regexper {
   //
   // - __warnings__ - Array of warning messages to display.
   displayWarnings(warnings) {
-    this.warnings.innerHTML = _.map(warnings, warning => {
-      return `<li class="inline-icon">${util.icon("#warning")}${warning}</li>`;
-    }).join('');
+    this.warnings.innerHTML = _.map(warnings, warning => (
+      `<li class="inline-icon">${util.icon("#warning")}${warning}</li>`
+    )).join('');
   }
 
   // Render regular expression
@@ -200,9 +200,7 @@ export default class Regexper {
     if (this.running) {
       this.running.cancel();
 
-      return util.wait(10).then(() => {
-        return this.renderRegexp(expression);
-      });
+      return util.wait(10).then(() => this.renderRegexp(expression));
     }
 
     this.state = 'is-loading';
@@ -225,9 +223,7 @@ export default class Regexper {
         throw message;
       })
       // When parsing is successful, render the parsed expression.
-      .then(parser => {
-        return parser.render();
-      })
+      .then(parser => parser.render())
       // Once rendering is complete:
       //  - Update links
       //  - Display any warnings

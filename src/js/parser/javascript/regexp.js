@@ -15,9 +15,9 @@ export default {
         .translate(20, 0));
 
     // Renders each match into the match container.
-    return Promise.all(_.map(this.matches, match => {
-      return match.render(matchContainer.group());
-    }))
+    return Promise.all(_.map(this.matches,
+      match => match.render(matchContainer.group())
+    ))
       .then(() => {
         let containerBox,
             paths;
@@ -30,9 +30,7 @@ export default {
         containerBox = this.getBBox();
 
         // Creates the curves from the side lines for each match.
-        paths = _.map(this.matches, match => {
-          return this.makeCurve(containerBox, match)
-        });
+        paths = _.map(this.matches, match => this.makeCurve(containerBox, match));
 
         // Add side lines to the list of paths.
         paths.push(this.makeSide(containerBox, _.first(this.matches)));
@@ -46,9 +44,7 @@ export default {
 
         // Create connections from side lines to each match and render into
         // the match container.
-        paths = _.map(this.matches, match => {
-          return this.makeConnector(containerBox, match);
-        });
+        paths = _.map(this.matches, match => this.makeConnector(containerBox, match));
         matchContainer.prepend(
           matchContainer.path(paths.join('')));
       });
@@ -124,10 +120,10 @@ export default {
       this.proxy = this.properties.match;
     } else {
       // Merge all the match nodes into one array.
-      this.matches = [this.properties.match]
-        .concat(_.map(this.properties.alternates.elements, element => {
-          return element.properties.match;
-        }));
+      this.matches = [this.properties.match].concat(
+        _.map(this.properties.alternates.elements,
+          element => element.properties.match)
+      );
     }
   }
 };

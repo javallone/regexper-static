@@ -1,8 +1,6 @@
 export default {
   _render() {
-    return this.renderLabel(this.label).then(label => {
-      return label.addClass('anchor');
-    });
+    return this.renderLabel(this.label).then(label => label.addClass('anchor'));
   },
 
   setup() {

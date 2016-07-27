@@ -43,17 +43,15 @@ function spaceHorizontally(items, options) {
     padding: 0
   });
 
-  values = _.map(items, item => {
-    return {
-      box: normalizeBBox(item.getBBox()),
-      item
-    };
-  });
+  values = _.map(items, item => ({
+    box: normalizeBBox(item.getBBox()),
+    item
+  }));
 
   // Calculate where the axis points should be positioned vertically.
-  verticalCenter = _.reduce(values, (center, { box }) => {
-    return Math.max(center, box.ay);
-  }, 0);
+  verticalCenter = _.reduce(values,
+    (center, { box }) => Math.max(center, box.ay),
+    0);
 
   // Position items with padding between them and aligned their axis points.
   _.reduce(values, (offset, { item, box }) => {
@@ -76,17 +74,15 @@ function spaceVertically(items, options) {
     padding: 0
   });
 
-  values = _.map(items, item => {
-    return {
-      box: item.getBBox(),
-      item
-    };
-  });
+  values = _.map(items, item => ({
+    box: item.getBBox(),
+    item
+  }));
 
   // Calculate where the center of each item should be positioned horizontally.
-  horizontalCenter = _.reduce(values, (center, { box }) => {
-    return Math.max(center, box.cx);
-  }, 0);
+  horizontalCenter = _.reduce(values,
+    (center, { box }) =>  Math.max(center, box.cx),
+    0);
 
   // Position items with padding between them and align their centers.
   _.reduce(values, (offset, { item, box }) => {
