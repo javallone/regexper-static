@@ -68,8 +68,6 @@ export default {
             repeatCount = `${this.minimum}\u2026${formatTimes(this.maximum)}`;
           }
         }
-
-        console.log(repeatCount, this.minimum, this.maximum);
         return repeatCount ? `repeats ${repeatCount} in total` : repeatCount;
       }
     }
