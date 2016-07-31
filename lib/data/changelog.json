@@ -1,5 +1,15 @@
 [
   {
+    "label": "July 31, 2016 Release",
+    "changes": [
+      "Merged code to enable automated testing with Travis CI from <a href=\"https://github.com/Byron\">Sebastian Thiel</a>",
+      "Merged feature to show an informational tooltip on loop labels from <a href=\"https://github.com/ThibWeb\">Thibaud Colas</a>",
+      "Fixed issue with '^' and '$' not being allowed in the middle of a fragment (see <a href=\"https://github.com/javallone/regexper-static/issues/29\">GitHub issue</a>)",
+      "Updating several dependencies",
+      "Some stylistic code cleanup"
+    ]
+  },
+  {
     "label": "May 31, 2016 Release",
     "changes": [
       "Putting separate CSS for generated SVG images back into the build. Downloaded images have been broken since the March 10 release because the SVG styles were merged into the page styles."
