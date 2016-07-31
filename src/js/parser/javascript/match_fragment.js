@@ -61,7 +61,7 @@ export default {
         .addClass('repeat-label');
 
       if (tooltipStr) {
-        tooltip = Snap().el('title')
+        tooltip = this.container.el('title')
           .append(this.container.text(0, 0, tooltipStr));
         label.append(tooltip);
       }
