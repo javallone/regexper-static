@@ -47,6 +47,31 @@ export default {
           }
         }
       }
+    },
+
+    // Tooltip to place of loop path label to provide further details.
+    tooltip: {
+      get: function() {
+        let repeatCount;
+        if (this.minimum === this.maximum) {
+          if (this.minimum === 0) {
+            repeatCount = undefined;
+          } else {
+            repeatCount = formatTimes(this.minimum);
+          }
+        } else if (this.minimum <= 1 && this.maximum >= 2) {
+          repeatCount = `at most ${formatTimes(this.maximum)}`;
+        } else if (this.minimum >= 2) {
+          if (this.maximum === -1) {
+            repeatCount = `${this.minimum}+ times`;
+          } else {
+            repeatCount = `${this.minimum}\u2026${formatTimes(this.maximum)}`;
+          }
+        }
+
+        console.log(repeatCount, this.minimum, this.maximum);
+        return repeatCount ? `repeats ${repeatCount} in total` : repeatCount;
+      }
     }
   },
 

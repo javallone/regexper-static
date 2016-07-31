@@ -265,6 +265,74 @@ describe('parser/javascript/repeat.js', function() {
 
   });
 
+  describe('tooltip property', function() {
+
+    beforeEach(function() {
+      this.node = new javascript.Parser('*').__consume__repeat();
+    });
+
+    _.each([
+      {
+        minimum: 1,
+        maximum: -1,
+        tooltip: undefined
+      },
+      {
+        minimum: 0,
+        maximum: 0,
+        tooltip: undefined
+      },
+      {
+        minimum: 2,
+        maximum: -1,
+        tooltip: 'repeats 2+ times in total'
+      },
+      {
+        minimum: 3,
+        maximum: -1,
+        tooltip: 'repeats 3+ times in total'
+      },
+      {
+        minimum: 0,
+        maximum: 2,
+        tooltip: 'repeats at most 2 times in total'
+      },
+      {
+        minimum: 0,
+        maximum: 3,
+        tooltip: 'repeats at most 3 times in total'
+      },
+      {
+        minimum: 2,
+        maximum: 2,
+        tooltip: 'repeats 2 times in total'
+      },
+      {
+        minimum: 3,
+        maximum: 3,
+        tooltip: 'repeats 3 times in total'
+      },
+      {
+        minimum: 2,
+        maximum: 3,
+        tooltip: 'repeats 2\u20263 times in total'
+      },
+      {
+        minimum: 3,
+        maximum: 4,
+        tooltip: 'repeats 3\u20264 times in total'
+      }
+
+    ], t => {
+      it(`is "${t.tooltip}" when minimum=${t.minimum} and maximum=${t.maximum}`, function() {
+        this.node.minimum = t.minimum;
+        this.node.maximum = t.maximum;
+        expect(this.node.tooltip).toEqual(t.tooltip);
+      });
+    });
+
+  });
+
   describe('#skipPath', function() {
 
     beforeEach(function() {
