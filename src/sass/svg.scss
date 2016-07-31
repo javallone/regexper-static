@@ -50,6 +50,10 @@ circle {
   font-size: 10px;
 }
 
+.repeat-label {
+    cursor: help;
+}
+
 .subexp .subexp-label tspan,
 .charset .charset-label tspan {
   dominant-baseline: text-after-edge;

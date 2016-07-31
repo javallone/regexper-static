@@ -53,11 +53,18 @@ export default {
   // be matched.
   loopLabel() {
     var labelStr = this.repeat.label,
-        label, labelBox, box;
+        tooltipStr = this.repeat.tooltip,
+        label, tooltip, labelBox, box;
 
     if (labelStr) {
       label = this.container.text(0, 0, [labelStr])
         .addClass('repeat-label');
+
+      if (tooltipStr) {
+        tooltip = Snap().el('title')
+          .append(this.container.text(0, 0, tooltipStr));
+        label.append(tooltip);
+      }
 
       box = this.getBBox();
       labelBox = label.getBBox();
