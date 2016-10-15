@@ -1,30 +1,21 @@
-var _ = require('lodash'),
-    config = require('./config');
+var webpack = require('./webpack.config.js');
 
 module.exports = function(karma) {
-  var globs = _.flatten([
-    config.globs.js,
-    config.globs.spec
-  ]);
-
   karma.set({
     frameworks: ['browserify', 'jasmine'],
-    files: globs,
-    preprocessors: _(globs)
-      .zipObject()
-      .mapValues(_.constant(['browserify']))
-      .valueOf(),
+    files: [ 'spec/test_index.js' ],
+    preprocessors: {
+      'spec/test_index.js': ['webpack', 'sourcemap']
+    },
     reporters: ['progress', 'notify'],
     colors: true,
     logLevel: karma.LOG_INFO,
     browsers: ['Firefox'],
     autoWatch: true,
     singleRun: false,
-    browserify: _.extend({
-      configure: function(bundler) {
-        bundler.transform(require('./lib/canopy-transform'));
-        bundler.transform(require('babelify'));
-      }
-    }, config.browserify)
+    webpack: {
+      devtool: 'inline-source-map',
+      module: webpack.module
+    }
   });
 };
