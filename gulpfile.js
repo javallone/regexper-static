@@ -14,7 +14,6 @@ const gulp = require('gulp-help')(require('gulp')),
       sourcemaps = require('gulp-sourcemaps'),
       babelify = require('babelify'),
       path = require('path'),
-      jscs = require('gulp-jscs'),
       config = require('./config');
 
 gulp.task('default', 'Auto-rebuild site on changes.', ['server', 'docs'], function() {
@@ -106,36 +105,4 @@ gulp.task('styles', 'Build stylesheets into ./build directory.', function() {
     .pipe(rename({ dirname: '' }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.buildPath('css')))
-});
-
-gulp.task('verify', 'Verify (lint and run tests) scripts.', ['lint']);
-
-gulp.task('verify:watch', 'Auto-verify scripts.', ['lint:watch']);
-
-gulp.task('lint', 'Lint scripts', function() {
-  return gulp.src(config.globs.lint)
-    .pipe(jscs())
-    .pipe(jscs.reporter())
-    .pipe(jscs.reporter('fail'))
-    .on('error', notify.onError())
-});
-
-gulp.task('lint:watch', 'Auto-lint scripts', function() {
-  gulp.watch(config.globs.lint, ['lint']);
-});
-
-gulp.task('lint:fix', 'Fix some lint errors.', config.lintRoots.map(function(root) {
-  return 'lint:fix:' + root;
-}), function() {
-  return gulp.src('./*.js')
-    .pipe(jscs({fix: true}))
-    .pipe(gulp.dest('.'));
-});
-
-config.lintRoots.forEach(function(root) {
-  gulp.task('lint:fix:' + root, false, function() {
-    return gulp.src('./' + root + '/**/*.js')
-      .pipe(jscs({fix: true}))
-      .pipe(gulp.dest('./' + root));
-  });
 });
