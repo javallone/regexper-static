@@ -5,7 +5,8 @@ module.exports = {
   devtool: 'source-map',
   entry: {
     'js/main.js': './src/js/main.js',
-    'css/main.css.js': './src/sass/main.scss'
+    '__discard__/css/main.css.js': './src/sass/main.scss',
+    '__discard__/css/svg.css.js': './src/sass/svg.scss'
   },
   output: {
     path: __dirname + '/build',
@@ -31,7 +32,7 @@ module.exports = {
       },
       {
         test: /\.peg$/,
-        loader: __dirname + '/lib/canopy-loader'
+        loader: require.resolve('./lib/canopy-loader')
       },
       {
         test: /\.scss$/,
