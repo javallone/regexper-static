@@ -11,7 +11,9 @@
   "private": true,
   "scripts": {
     "pretest": "jscs lib/ src/ spec/",
-    "test": "karma start --single-run"
+    "test": "karma start --single-run",
+    "build": "gulp build",
+    "start": "gulp server"
   },
   "devDependencies": {
     "babel-core": "^6.17.0",
