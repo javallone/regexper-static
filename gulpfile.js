@@ -14,7 +14,11 @@ const gulp = require('gulp-help')(require('gulp')),
       sourcemaps = require('gulp-sourcemaps'),
       babelify = require('babelify'),
       path = require('path'),
-      config = require('./config');
+      config = require('./config'),
+      gutil = require('gulp-util'),
+      webpack = require('webpack')
+      webpackConfig = require('./webpack.config'),
+      fs = require('fs');
 
 gulp.task('default', 'Auto-rebuild site on changes.', ['server', 'docs'], function() {
   gulp.watch(config.globs.other, ['static']);
@@ -25,7 +29,10 @@ gulp.task('default', 'Auto-rebuild site on changes.', ['server', 'docs'], functi
     config.globs.partials,
     config.globs.svg_sass
   ]), ['markup']);
-  gulp.watch(config.globs.sass, ['styles']);
+  gulp.watch(_.flatten([
+    config.globs.sass,
+    config.globs.js
+  ]), ['webpack']);
   gulp.watch(config.globs.js, ['docs']);
 });
 
@@ -52,44 +59,40 @@ gulp.task('server', 'Start development server.', ['build'], function() {
   });
 });
 
-gulp.task('build', 'Build site into ./build directory.', ['static', 'markup']);
+gulp.task('build', 'Build site into ./build directory.', ['static', 'webpack', 'markup']);
 
 gulp.task('static', 'Build static files into ./build directory.', function() {
   return gulp.src(config.globs.other, { base: './src' })
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('markup', 'Build markup into ./build directory.', ['markup:svg_styles'], function() {
+gulp.task('markup', 'Build markup into ./build directory.', ['webpack'], function() {
+  var hbStream = hb({
+    data: config.globs.data,
+    helpers: config.globs.helpers,
+    partials: config.globs.partials,
+    parsePartialName: function(option, file) {
+      return _.last(file.path.split(/\\|\//)).replace('.hbs', '');
+    },
+    bustCache: true
+  });
+  hbStream.partials({
+    svg_styles: fs.readFileSync(__dirname + '/build/css/svg.css').toString()
+  });
   return gulp.src(config.globs.templates)
     .pipe(frontMatter())
-    .pipe(hb({
-      data: config.globs.data,
-      helpers: config.globs.helpers,
-      partials: _.flatten([
-        config.globs.partials,
-        './tmp/build/svg_styles.hbs'
-      ]),
-      parsePartialName: function(option, file) {
-        return _.last(file.path.split(/\\|\//)).replace('.hbs', '');
-      },
-      bustCache: true
-    }))
+    .pipe(hbStream)
     .on('error', notify.onError())
     .pipe(rename({ extname: '.html' }))
     .pipe(gulp.dest(config.buildRoot));
 });
 
-gulp.task('markup:svg_styles', false, function() {
-  return gulp.src('./src/sass/svg.scss')
-    .pipe(sass({
-      includePaths: bourbon.includePaths,
-      outputStyle: 'compressed'
-    }))
-    .on('error', notify.onError())
-    .pipe(rename({
-      dirname: '',
-      basename: 'svg_styles',
-      extname: '.hbs'
-    }))
-    .pipe(gulp.dest('./tmp/build'))
+gulp.task('webpack', 'Build JS & CSS into ./build directory.', function(callback) {
+  webpack(webpackConfig, function(err, stats) {
+    if (err) {
+      throw new gutil.PluginError('webpack', err);
+    }
+    gutil.log('[webpack]', stats.toString());
+    callback();
+  });
 });
