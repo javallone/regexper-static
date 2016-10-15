@@ -52,7 +52,7 @@ gulp.task('server', 'Start development server.', ['build'], function() {
   });
 });
 
-gulp.task('build', 'Build site into ./build directory.', ['static', 'markup', 'styles']);
+gulp.task('build', 'Build site into ./build directory.', ['static', 'markup']);
 
 gulp.task('static', 'Build static files into ./build directory.', function() {
   return gulp.src(config.globs.other, { base: './src' })
@@ -92,17 +92,4 @@ gulp.task('markup:svg_styles', false, function() {
       extname: '.hbs'
     }))
     .pipe(gulp.dest('./tmp/build'))
-});
-
-gulp.task('styles', 'Build stylesheets into ./build directory.', function() {
-  return gulp.src('./src/sass/main.scss', { base: '.' })
-    .pipe(sourcemaps.init())
-    .pipe(sass({
-      includePaths: bourbon.includePaths,
-      outputStyle: 'compressed'
-    }))
-    .on('error', notify.onError())
-    .pipe(rename({ dirname: '' }))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(config.buildPath('css')))
 });
