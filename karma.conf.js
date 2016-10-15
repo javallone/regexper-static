@@ -2,7 +2,7 @@ var webpack = require('./webpack.config.js');
 
 module.exports = function(karma) {
   karma.set({
-    frameworks: ['browserify', 'jasmine'],
+    frameworks: ['jasmine'],
     files: [ 'spec/test_index.js' ],
     preprocessors: {
       'spec/test_index.js': ['webpack', 'sourcemap']
