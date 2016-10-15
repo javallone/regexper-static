@@ -9,6 +9,9 @@
   },
   "license": "MIT",
   "private": true,
+  "scripts": {
+    "test": "karma start --single-run"
+  },
   "devDependencies": {
     "babel-core": "^6.17.0",
     "babel-loader": "^6.2.5",

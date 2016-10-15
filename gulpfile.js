@@ -13,7 +13,6 @@ const gulp = require('gulp-help')(require('gulp')),
       buffer = require('vinyl-buffer'),
       sourcemaps = require('gulp-sourcemaps'),
       babelify = require('babelify'),
-      karma = require('karma'),
       path = require('path'),
       jscs = require('gulp-jscs'),
       config = require('./config');
@@ -109,22 +108,9 @@ gulp.task('styles', 'Build stylesheets into ./build directory.', function() {
     .pipe(gulp.dest(config.buildPath('css')))
 });
 
-gulp.task('verify', 'Verify (lint and run tests) scripts.', ['karma:single', 'lint']);
+gulp.task('verify', 'Verify (lint and run tests) scripts.', ['lint']);
 
-gulp.task('verify:watch', 'Auto-verify scripts.', ['karma', 'lint:watch']);
-
-gulp.task('karma', 'Auto-run scripting tests.', function(done) {
-  new karma.Server({
-    configFile: path.join(__dirname, 'karma.conf.js')
-  }, done).start();
-});
-
-gulp.task('karma:single', 'Run scripting tests', function(done) {
-  new karma.Server({
-    configFile: path.join(__dirname, 'karma.conf.js'),
-    singleRun: true
-  }, done).start();
-});
+gulp.task('verify:watch', 'Auto-verify scripts.', ['lint:watch']);
 
 gulp.task('lint', 'Lint scripts', function() {
   return gulp.src(config.globs.lint)
