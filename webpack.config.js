@@ -1,9 +1,11 @@
-var webpack = require('webpack');
+var webpack = require('webpack'),
+    bourbon = require('bourbon');
 
 module.exports = {
   devtool: 'source-map',
   entry: {
-    'js/main.js': './src/js/main.js'
+    'js/main.js': './src/js/main.js',
+    'css/main.css.js': './src/sass/main.scss'
   },
   output: {
     path: __dirname + '/build',
@@ -30,6 +32,11 @@ module.exports = {
       {
         test: /\.peg$/,
         loader: __dirname + '/lib/canopy-loader'
+      },
+      {
+        test: /\.scss$/,
+        exclude: /node_modules/,
+        loader: 'file?name=css/[name].css!extract!css!sass?includePaths[]=' + bourbon.includePaths
       }
     ]
   }
