@@ -9,16 +9,13 @@ const gulp = require('gulp-help')(require('gulp')),
       rename = require('gulp-rename'),
       sass = require('gulp-sass'),
       bourbon = require('node-bourbon'),
-      browserify = require('browserify'),
       source = require('vinyl-source-stream'),
       buffer = require('vinyl-buffer'),
       sourcemaps = require('gulp-sourcemaps'),
-      canopy = require('./lib/canopy-transform'),
       babelify = require('babelify'),
       karma = require('karma'),
       path = require('path'),
       jscs = require('gulp-jscs'),
-      uglify = require('gulp-uglify'),
       config = require('./config');
 
 gulp.task('default', 'Auto-rebuild site on changes.', ['server', 'docs'], function() {
@@ -31,7 +28,7 @@ gulp.task('default', 'Auto-rebuild site on changes.', ['server', 'docs'], functi
     config.globs.svg_sass
   ]), ['markup']);
   gulp.watch(config.globs.sass, ['styles']);
-  gulp.watch(config.globs.js, ['scripts', 'docs']);
+  gulp.watch(config.globs.js, ['docs']);
 });
 
 gulp.task('docs', 'Build documentation into ./docs directory.', ['docs:files'], function() {
@@ -57,7 +54,7 @@ gulp.task('server', 'Start development server.', ['build'], function() {
   });
 });
 
-gulp.task('build', 'Build site into ./build directory.', ['static', 'markup', 'styles', 'scripts']);
+gulp.task('build', 'Build site into ./build directory.', ['static', 'markup', 'styles']);
 
 gulp.task('static', 'Build static files into ./build directory.', function() {
   return gulp.src(config.globs.other, { base: './src' })
@@ -110,20 +107,6 @@ gulp.task('styles', 'Build stylesheets into ./build directory.', function() {
     .pipe(rename({ dirname: '' }))
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(config.buildPath('css')))
-});
-
-gulp.task('scripts', 'Build scripts into ./build directory', function() {
-  return browserify([require.resolve('babel-polyfill'), './src/js/main.js'], config.browserify)
-    .transform(canopy)
-    .transform(babelify)
-    .bundle()
-    .on('error', notify.onError())
-    .pipe(source('main.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init({ loadMaps: true }))
-    .pipe(uglify())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(config.buildPath('js')));
 });
 
 gulp.task('verify', 'Verify (lint and run tests) scripts.', ['karma:single', 'lint']);
