@@ -77,6 +77,11 @@ gulp.task('markup', 'Build markup into ./build directory.', ['webpack'], functio
       'gaPropertyId': process.env.GA_PROP
     });
   }
+  if (process.env.SENTRY_KEY) {
+    hbStream.data({
+      'sentryKey': process.env.SENTRY_KEY
+    });
+  }
   return gulp.src(config.globs.templates)
     .pipe(frontMatter())
     .pipe(hbStream)
