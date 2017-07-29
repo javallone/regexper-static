@@ -72,6 +72,11 @@ gulp.task('markup', 'Build markup into ./build directory.', ['webpack'], functio
   hbStream.partials({
     svg_styles: fs.readFileSync(__dirname + '/build/css/svg.css').toString()
   });
+  if (process.env.GA_PROP) {
+    hbStream.data({
+      'gaPropertyId': process.env.GA_PROP
+    });
+  }
   return gulp.src(config.globs.templates)
     .pipe(frontMatter())
     .pipe(hbStream)
