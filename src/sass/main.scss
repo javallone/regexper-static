@@ -57,7 +57,8 @@ ul.inline-list {
 }
 
 #deprecation-notice {
-  @include linear-gradient(top, $green, $dark-green);
+  background: $green;
+  background: linear-gradient(to bottom, $green 0%, $dark-green 100%);
   padding: rhythm(1);
   margin: rhythm(1);
   @include box-shadow;
@@ -73,7 +74,8 @@ ul.inline-list {
 }
 
 header {
-  @include linear-gradient(top, $green, $dark-green);
+  background: $green;
+  background: linear-gradient(to bottom, $green 0%, $dark-green 100%);
   padding: rhythm(1);
   @include box-shadow;
   @include clearfix;
@@ -260,7 +262,8 @@ header {
       @include adjust-font-size-to($base-font-size);
       width: 100px;
       border: 0 none;
-      @include linear-gradient(top, $green, $dark-green);
+      background: $green;
+      background: linear-gradient(to bottom, $green 0%, $dark-green 100%);
       float: left;
       cursor: pointer;
     }
@@ -299,16 +302,16 @@ header {
   margin: rhythm(1) auto;
 
   div {
-    @include linear-gradient(-45deg, $green 25%, $light-green 25%, $light-green 50%, $green 50%, $green 75%, $light-green 75%, $light-green 100%);
+    background: $green;
+    background: linear-gradient(135deg, $green 25%, $light-green 25%, $light-green 50%, $green 50%, $green 75%, $light-green 75%, $light-green 100%);
     background-size: rhythm(2) rhythm(2);
     background-repeat: repeat-x;
     height: 100%;
-
-    @include animation(progress 1.0s infinite linear);
+    animation: progress 1s infinite linear
   }
 }
 
-@include keyframes(progress) {
+@keyframes progress {
   0% { background-position-x: rhythm(2); }
   100% { background-position-x: 0; }
 }
