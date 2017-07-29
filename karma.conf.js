@@ -18,7 +18,7 @@ module.exports = function(karma) {
           {
             test: /\.js$/,
             exclude: /node_modules/,
-            loader: 'babel'
+            loader: 'babel-loader'
           },
           {
             test: require.resolve('snapsvg'),

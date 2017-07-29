@@ -24,7 +24,7 @@ module.exports = {
       {
         test: /\.js$/,
         exclude: /node_modules/,
-        loader: 'babel'
+        loader: 'babel-loader'
       },
       {
         test: require.resolve('snapsvg'),
@@ -37,7 +37,12 @@ module.exports = {
       {
         test: /\.scss$/,
         exclude: /node_modules/,
-        loader: 'file?name=css/[name].css!extract!css!sass?includePaths[]=' + bourbon.includePaths
+        loaders: [
+          'file-loader?name=css/[name].css',
+          'extract-loader',
+          'css-loader',
+          'sass-loader?includePaths[]=' + bourbon.includePaths
+        ]
       }
     ]
   }
