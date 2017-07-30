@@ -4,17 +4,18 @@ svg {
   background-color: $white;
 }
 
-text, tspan {
+.root text,
+.root tspan {
   font: 12px Arial;
 }
 
-path {
+.root path {
   fill-opacity: 0;
   stroke-width: 2px;
   stroke: $black;
 }
 
-circle {
+.root circle {
   fill: $gray;
   stroke-width: 2px;
   stroke: $black;
