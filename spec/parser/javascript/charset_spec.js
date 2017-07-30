@@ -99,7 +99,7 @@ describe('parser/javascript/charset.js', function() {
       this.node.elements[1].render.and.returnValue(this.elementDeferred[1].promise);
       this.node.elements[2].render.and.returnValue(this.elementDeferred[2].promise);
 
-      this.node.container = Snap(document.createElement('svg'));
+      this.node.container = Snap(document.createElement('svg')).group();
       this.partContainer = this.node.container.group();
       spyOn(this.node.container, 'group').and.returnValue(this.partContainer);
       spyOn(this.partContainer, 'group').and.callFake(function() {

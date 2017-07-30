@@ -164,7 +164,9 @@ export default class Node {
     return this.deferredStep()
       .then(() => {
         let labelBox = label.getBBox(),
-            contentBox = content.getBBox();
+            contentBox = content.getBBox(),
+            boxWidth = Math.max(contentBox.width + options.padding * 2, labelBox.width),
+            boxHeight = contentBox.height + options.padding * 2;
 
         label.transform(Snap.matrix()
           .translate(0, labelBox.height));
@@ -173,12 +175,12 @@ export default class Node {
           .transform(Snap.matrix()
             .translate(0, labelBox.height))
           .attr({
-            width: Math.max(contentBox.width + options.padding * 2, labelBox.width),
-            height: contentBox.height + options.padding * 2
+            width: boxWidth,
+            height: boxHeight
           });
 
         content.transform(Snap.matrix()
-          .translate(box.getBBox().cx - contentBox.cx, labelBox.height + options.padding));
+          .translate(boxWidth / 2 - contentBox.cx, labelBox.height + options.padding));
       });
   }
 };
