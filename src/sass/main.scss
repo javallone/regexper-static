@@ -110,6 +110,7 @@ header {
 
 #content {
   padding: rhythm(1);
+  display: block;
 
   .copy {
     background-color: $tan;
@@ -243,12 +244,17 @@ header {
     position: relative;
     @include clearfix;
 
+    form {
+      overflow: hidden;
+    }
+
     textarea {
       @include adjust-font-size-to($base-font-size);
       border: 0 none;
       outline: none;
       background: $tan;
       padding: 0 0.5em;
+      margin-bottom: 0.25em;
       width: 100% !important; // "!important" prevents user changing width
       box-sizing: border-box;
       font-family:Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
