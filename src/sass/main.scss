@@ -56,23 +56,6 @@ ul.inline-list {
   }
 }
 
-#deprecation-notice {
-  background: $green;
-  background: linear-gradient(to bottom, $green 0%, $dark-green 100%);
-  padding: rhythm(1);
-  margin: rhythm(1);
-  @include box-shadow;
-  @include clearfix;
-
-  h1 {
-    font-family: 'Bangers', 'cursive';
-  }
-
-  p {
-    margin-top: rhythm(1);
-  }
-}
-
 header {
   background: $green;
   background: linear-gradient(to bottom, $green 0%, $dark-green 100%);
