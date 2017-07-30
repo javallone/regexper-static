@@ -5,7 +5,7 @@ var webpack = require('webpack'),
 module.exports = {
   devtool: 'source-map',
   entry: {
-    'js/main.js': './src/js/main.js',
+    'js/main.js': ['babel-polyfill', './src/js/main.js'],
     '__discard__/css/main.css.js': './src/sass/main.scss',
     '__discard__/css/svg.css.js': './src/sass/svg.scss'
   },
