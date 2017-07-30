@@ -70,7 +70,7 @@ gulp.task('markup', 'Build markup into ./build directory.', ['webpack'], functio
     bustCache: true
   });
   hbStream.partials({
-    svg_styles: fs.readFileSync(__dirname + '/build/css/svg.css').toString()
+    svg_styles: fs.readFileSync(config.buildRoot + '/css/svg.css').toString()
   });
   if (process.env.GA_PROP) {
     hbStream.data({
