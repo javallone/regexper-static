@@ -1,6 +1,8 @@
 {{#if sentryKey}}
 <script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
 <script>
-Raven.config('{{{sentryKey}}}').install()
+  Raven.config('{{{sentryKey}}}', {
+    whitelistUrls: [/https:\/\/(.*\.)?regexper\.com/]
+  }).install()
 </script>
 {{/if}}
