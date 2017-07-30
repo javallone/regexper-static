@@ -1,6 +1,6 @@
 var path = require('path'),
     _ = require('lodash'),
-    buildRoot = process.env.BUILD_PATH || './build',
+    buildRoot = process.env.BUILD_PATH || path.join(__dirname, './build'),
     buildPath = _.bind(path.join, path, buildRoot);
 
 module.exports = {

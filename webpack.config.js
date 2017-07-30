@@ -1,5 +1,6 @@
 var webpack = require('webpack'),
-    bourbon = require('bourbon');
+    bourbon = require('bourbon'),
+    config = require('./config');
 
 module.exports = {
   devtool: 'source-map',
@@ -9,7 +10,7 @@ module.exports = {
     '__discard__/css/svg.css.js': './src/sass/svg.scss'
   },
   output: {
-    path: __dirname + '/build',
+    path: config.buildRoot,
     filename: '[name]'
   },
   plugins: [
