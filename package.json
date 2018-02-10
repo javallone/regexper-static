@@ -14,8 +14,15 @@
     "start:prod": "run-s build start:http-server",
     "start:http-server": "http-server ./build",
     "build": "webpack --config webpack.prod.js",
+    "test": "jest",
     "test:lint": "eslint .",
     "precommit": "run-s test:lint"
+  },
+  "jest": {
+    "moduleNameMapper": {
+      "\\.svg$": "<rootDir>/src/__mocks__/svgMock.js",
+      "\\.css$": "<rootDir>/src/__mocks__/styleMock.js"
+    }
   },
   "dependencies": {
     "autoprefixer": "^7.2.5",
@@ -42,11 +49,15 @@
     "workbox-webpack-plugin": "^2.1.2"
   },
   "devDependencies": {
+    "babel-jest": "^22.2.2",
     "eslint": "^4.17.0",
+    "eslint-plugin-jest": "^21.8.0",
     "eslint-plugin-react": "^7.6.1",
     "http-server": "^0.11.1",
     "husky": "^0.14.3",
+    "jest": "^22.2.2",
     "npm-run-all": "^4.1.2",
+    "react-test-renderer": "^16.2.0",
     "webpack-dev-server": "^2.11.1"
   }
 }

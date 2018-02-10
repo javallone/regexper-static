@@ -1,0 +1,29 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message rendering 1`] = `
+<div
+  className={undefined}
+>
+  <h2>
+    
+    Testing
+  </h2>
+  <p>
+    Message content
+  </p>
+</div>
+`;
+
+exports[`Message rendering with icon 1`] = `
+<div
+  className={undefined}
+>
+  <h2>
+    Sample icon SVG
+    Testing
+  </h2>
+  <p>
+    Message content
+  </p>
+</div>
+`;

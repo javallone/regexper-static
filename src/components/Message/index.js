@@ -12,7 +12,10 @@ const Message = ({ icon, heading, children }) => {
 };
 
 Message.propTypes = {
-  icon: PropTypes.element,
+  icon: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.func
+  ]),
   heading: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired
 };
