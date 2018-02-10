@@ -181,9 +181,12 @@ export default class Regexper {
         try {
           context.drawImage(loader, 0, 0, loader.width, loader.height);
           canvas.toBlob(blob => {
-            window.pngBlob = blob;
-            this.downloadPng.href = URL.createObjectURL(window.pngBlob);
-            this.links.className = this.links.className.replace(/\bhide-download-png\b/, '');
+            try {
+              window.pngBlob = blob;
+              this.downloadPng.href = URL.createObjectURL(window.pngBlob);
+              this.links.className = this.links.className.replace(/\bhide-download-png\b/, '');
+            }
+            catch(e) {}
           }, 'image/png');
         }
         catch(e) {}
