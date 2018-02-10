@@ -99,7 +99,9 @@ export default class Regexper {
   // Set the URL hash. This method exists to facilitate automated testing
   // (since changing the URL can throw off most JavaScript testing tools).
   _setHash(hash) {
-    location.hash = encodeURIComponent(hash);
+    location.hash = encodeURIComponent(hash)
+      .replace(/\(/g, '%28')
+      .replace(/\)/g, '%29');
   }
 
   // Retrieve the current URL hash. This method is also mostly for supporting
