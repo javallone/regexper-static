@@ -265,9 +265,14 @@ header {
         display: inline-block;
       }
 
+      &.hide-download-png.hide-permalink .download-svg:after,
+      &.hide-permalink .download-png:after {
+        display: none;
+      }
+
       &.hide-permalink .permalink,
-      &.hide-permalink .download::after,
-      &.hide-download .download {
+      &.hide-download-svg .download-svg,
+      &.hide-download-png .download-png {
         display: none;
       }
     }

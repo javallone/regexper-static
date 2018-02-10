@@ -12,7 +12,8 @@ describe('regexper.js', function() {
         '<input type="text" id="regexp-input">',
         '<ul class="example">',
           '<ul><a href="#" data-action="permalink"></a></ul>',
-          '<ul><a href="#" data-action="download"></a></ul>',
+          '<ul><a href="#" data-action="download-svg"></a></ul>',
+          '<ul><a href="#" data-action="download-png"></a></ul>',
         '</ul>',
       '</form>',
       '<div id="error"></div>',
@@ -312,7 +313,7 @@ describe('regexper.js', function() {
 
       it('sets the download link href', function() {
         this.regexper.updateLinks();
-        expect(this.regexper.download.href).toEqual('http://example.com/blob');
+        expect(this.regexper.downloadSvg.href).toEqual('http://example.com/blob');
       });
 
     });

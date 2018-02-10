@@ -16,7 +16,8 @@ export default class Regexper {
 
     this.links = this.form.querySelector('ul');
     this.permalink = this.links.querySelector('a[data-action="permalink"]');
-    this.download = this.links.querySelector('a[data-action="download"]');
+    this.downloadSvg = this.links.querySelector('a[data-action="download-svg"]');
+    this.downloadPng = this.links.querySelector('a[data-action="download-png"]');
 
     this.svgContainer = root.querySelector('#regexp-render');
   }
@@ -154,18 +155,43 @@ export default class Regexper {
 
   // Update the URLs of the 'download' and 'permalink' links.
   updateLinks() {
-    let classes = _.without(this.links.className.split(' '), ['hide-download', 'hide-permalink']);
+    let classes = _.without(this.links.className.split(' '), ['hide-download-svg', 'hide-permalink']);
+    let svg = this.svgContainer.querySelector('.svg');
 
-    // Create the 'download' image URL.
+    // Create the SVG 'download' image URL.
     try {
-      this.download.parentNode.style.display = null;
-      this.download.href = this.buildBlobURL(this.svgContainer.querySelector('.svg').innerHTML);
+      this.downloadSvg.parentNode.style.display = null;
+      this.downloadSvg.href = this.buildBlobURL(svg.innerHTML);
     }
     catch(e) {
       // Blobs or URLs created from a blob URL don't work in the current
       // browser. Giving up on the download link.
-      classes.push('hide-download');
+      classes.push('hide-download-svg');
     }
+
+    //Create the PNG 'download' image URL.
+    try {
+      let canvas = document.createElement('canvas');
+      let context = canvas.getContext('2d');
+      let loader = new Image;
+
+      loader.width = canvas.width = Number(svg.querySelector('svg').getAttribute('width'));
+      loader.height = canvas.height = Number(svg.querySelector('svg').getAttribute('height'));
+      loader.onload = () => {
+        try {
+          context.drawImage(loader, 0, 0, loader.width, loader.height);
+          canvas.toBlob(blob => {
+            window.pngBlob = blob;
+            this.downloadPng.href = URL.createObjectURL(window.pngBlob);
+            this.links.className = this.links.className.replace(/\bhide-download-png\b/, '');
+          }, 'image/png');
+        }
+        catch(e) {}
+      };
+      loader.src = 'data:image/svg+xml,' + encodeURIComponent(svg.innerHTML);
+      classes.push('hide-download-png');
+    }
+    catch(e) {}
 
     // Create the 'permalink' URL.
     if (this.permalinkEnabled) {
