@@ -1,0 +1,20 @@
+.message {
+  background: var(--color-tan);
+  padding: var(--spacing-margin);
+  margin: var(--spacing-margin) 0;
+}
+
+.message h2 {
+  margin: var(--spacing-margin) 0;
+}
+
+.message h2 svg {
+  margin-right: 0.5rem;
+  height: 3rem;
+  width: 3rem;
+  vertical-align: bottom;
+}
+
+.message p {
+  margin: var(--spacing-margin) 0;
+}

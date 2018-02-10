@@ -25,7 +25,7 @@ body {
   font-size: 1.6rem;
 }
 
-#main {
+:global(#main) {
   background: var(--color-green) linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
   box-shadow: 0 0 1rem var(--color-black);
   padding: 0 var(--content-margin);
@@ -33,7 +33,7 @@ body {
   position: relative;
 }
 
-#main h1 {
+:global(#main) h1 {
   font-family: 'Bangers', 'cursive';
   font-size: 4rem;
   font-weight: normal;
@@ -42,20 +42,20 @@ body {
   line-height: var(--header-height);
 }
 
-#main a {
+:global(#main) a {
   text-decoration: none;
   display: inline-block;
 }
 
-#main ul {
+:global(#main) ul {
   line-height: var(--header-height);
   position: absolute;
   top: 0;
   right: var(--content-margin);
 }
 
-#main li a:hover,
-#main li a:active {
+:global(#main) li a:hover,
+:global(#main) li a:active {
   text-decoration: underline;
 }
 
@@ -84,15 +84,15 @@ li {
   display: inline-block;
 }
 
-.inline-list li {
+:global(.inline-list) li {
   white-space: nowrap;
 }
 
-.inline-list li:after {
+:global(.inline-list) li:after {
   content: '//';
   padding: 0 0.5rem;
 }
 
-.inline-list li:last-child:after {
+:global(.inline-list) li:last-child:after {
   content: '';
 }
