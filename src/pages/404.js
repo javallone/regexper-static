@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 
 import '../style.css';
 
-import Message from '../componets/Message';
+import Message from '../components/Message';
 import ErrorIcon from 'feather-icons/dist/icons/alert-octagon.svg';
 
 ReactDOM.render(
