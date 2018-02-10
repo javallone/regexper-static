@@ -1,5 +1,1 @@
-node_modules
-.sass-cache
-build
-docs
-tmp
+node_modules/
