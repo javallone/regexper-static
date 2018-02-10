@@ -1,5 +1,13 @@
 [
   {
+    "label": "February 10, 2018 Release",
+    "changes": [
+      "Adding 'sticky' and 'unicode' flag support",
+      "Encoding parenthesis in the permalink and browser URLs",
+      "Adding PNG download support"
+    ]
+  },
+  {
     "label": "July 31, 2016 Release",
     "changes": [
       "Merged code to enable automated testing with Travis CI from <a href=\"https://github.com/Byron\">Sebastian Thiel</a>",
