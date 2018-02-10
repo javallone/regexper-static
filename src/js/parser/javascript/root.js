@@ -9,7 +9,9 @@ export default {
   flagLabels: {
     i: 'Ignore Case',
     g: 'Global',
-    m: 'Multiline'
+    m: 'Multiline',
+    y: 'Sticky',
+    u: 'Unicode'
   },
 
   // Renders the root into the currently set container.

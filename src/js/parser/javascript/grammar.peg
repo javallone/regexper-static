@@ -1,5 +1,5 @@
 grammar JavascriptRegexp
-  root <- ( ( "/" regexp "/" flags:[igm]* ) / regexp flags:""? ) <Root>
+  root <- ( ( "/" regexp "/" flags:[yigmu]* ) / regexp flags:""? ) <Root>
   regexp <- match:match alternates:( "|" match )* <Regexp>
   match <- (!repeat) parts:match_fragment* <Match>
   anchor <- ( "^" / "$" ) <Anchor>

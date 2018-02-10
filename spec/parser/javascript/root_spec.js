@@ -25,6 +25,14 @@ describe('parser/javascript/root.js', function() {
       flags: ['Multiline'],
       regexp: jasmine.objectContaining({ textValue: 'test' })
     },
+    '/test/y': {
+      flags: ['Sticky'],
+      regexp: jasmine.objectContaining({ textValue: 'test' })
+    },
+    '/test/u': {
+      flags: ['Unicode'],
+      regexp: jasmine.objectContaining({ textValue: 'test' })
+    },
     '/test/mgi': {
       flags: ['Global', 'Ignore Case', 'Multiline'],
       regexp: jasmine.objectContaining({ textValue: 'test' })
