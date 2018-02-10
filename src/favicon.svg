@@ -1,0 +1,25 @@
+<?xml version="1.0" standalone="no"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="512px" height="512px" viewBox="0 0 512 512">
+  <style><![CDATA[
+    @import url('https://fonts.googleapis.com/css?family=Bangers&text=R');
+
+    text {
+      font-family: 'Bangers';
+      font-size: 400px;
+    }
+
+    rect {
+      stroke: #000;
+      stroke-width: 5px;
+    }
+  ]]></style>
+  <defs>
+    <radialGradient id="shade" cx="0.5" cy="0.5" fx="0.5" fy="0" r="1">
+      <stop stop-color="#000" stop-opacity="0.0" offset="0%" />
+      <stop stop-color="#000" stop-opacity="0.4" offset="100%" />
+    </radialGradient>
+  </defs>
+  <rect x="0" y="0" width="512" height="512" fill="#bada55"></rect>
+  <rect x="0" y="0" width="512" height="512" fill="url(#shade)"></rect>
+  <text transform="translate(0 353) translate(-103 -212) translate(256 256)">R</text>
+</svg>
