@@ -25,7 +25,7 @@ body {
   font-size: 1.6rem;
 }
 
-:global(#main) {
+#main {
   background: var(--color-green) linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
   box-shadow: 0 0 1rem var(--color-black);
   padding: 0 var(--content-margin);
@@ -33,7 +33,7 @@ body {
   position: relative;
 }
 
-:global(#main) h1 {
+#main h1 {
   font-family: 'Bangers', 'cursive';
   font-size: 4rem;
   font-weight: normal;
@@ -42,20 +42,20 @@ body {
   line-height: var(--header-height);
 }
 
-:global(#main) a {
+#main a {
   text-decoration: none;
   display: inline-block;
 }
 
-:global(#main) ul {
+#main ul {
   line-height: var(--header-height);
   position: absolute;
   top: 0;
   right: var(--content-margin);
 }
 
-:global(#main) li a:hover,
-:global(#main) li a:active {
+#main li a:hover,
+#main li a:active {
   text-decoration: underline;
 }
 
@@ -84,15 +84,28 @@ li {
   display: inline-block;
 }
 
-:global(.inline-list) li {
+.inline-list li {
   white-space: nowrap;
 }
 
-:global(.inline-list) li:after {
+.inline-list li:after {
   content: '//';
   padding: 0 0.5rem;
 }
 
-:global(.inline-list) li:last-child:after {
+.inline-list li:last-child:after {
   content: '';
+}
+
+[icon] {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  background-size: 1em 1em;
+  margin-right: 0.5rem;
+  vertical-align: text-top;
+}
+
+[icon="github"] {
+  background-image: url('~feather-icons/dist/icons/github.svg');
 }

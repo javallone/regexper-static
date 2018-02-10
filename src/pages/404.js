@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import '../style.css';
 
 import Message from '../components/Message';
-import ErrorIcon from 'feather-icons/dist/icons/alert-octagon.svg';
+import ErrorIcon from '!svg-react-loader!feather-icons/dist/icons/alert-octagon.svg';
 
 ReactDOM.render(
   <Message icon={ ErrorIcon } heading="404 Page Not Found">
