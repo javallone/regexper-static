@@ -15,7 +15,7 @@
     "start:http-server": "http-server ./build",
     "build": "webpack --config webpack.prod.js",
     "test": "jest",
-    "test:lint": "eslint .",
+    "test:lint": "eslint --ignore-path .gitignore .",
     "precommit": "run-s test:lint"
   },
   "jest": {
