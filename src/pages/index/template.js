@@ -10,7 +10,12 @@ export default renderToString(
     <noscript>
       <Message icon={ AlertIcon } heading="JavaScript Required">
         <p>You need to enable JavaScript to use Regexper.</p>
-        <p>Regexper and the tools used to create it are all open source. If you are concerned that the JavaScript being delivered is in any way malicious, please inspect the source by following the GitHub link in the header. There are two data collection tools integrated in the app: Google Analytics and Sentry.io. Google Analytics is used to track browser usage data and application performance. Sentry.io is a tool used to capture and report client-side JavaScript errors. Most popular ad blockers will prevent these tools from sending any tracking data, and doing so will <b>not</b> impact the performance of this app. Regexper is not supported by ad revenue or sales of any kind.</p>
+        <p>Regexper and the tools used to create it are all open source. If you are concerned that the JavaScript being delivered is in any way malicious, please inspect the source by following the GitHub link in the header. There are two data collection tools integrated in the app:</p>
+        <ul>
+          <li><b>Google Analytics</b> is used to track browser usage data and application performance.</li>
+          <li><b>Sentry.io</b> is a tool used to capture and report client-side JavaScript errors.</li>
+        </ul>
+        <p>Most popular ad blockers will prevent these tools from sending any tracking data, and doing so will <b>not</b> impact the performance of this app. Regexper is not supported by ad revenue or sales of any kind. The information collected by these tools is used to monitor application performance, determine browser support, and collect error reports.</p>
       </Message>
     </noscript>
 

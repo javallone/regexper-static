@@ -23,7 +23,7 @@ const PageTemplate = ({ title, children }) => (
           <a href="/">Regexper</a>
         </h1>
 
-        <ul>
+        <ul className="inline">
           <li><a href="https://github.com/javallone/regexper-static">
             <GithubIcon/>Source on GitHub
           </a></li>
@@ -33,7 +33,7 @@ const PageTemplate = ({ title, children }) => (
       { children }
 
       <footer>
-        <ul className="inline-list">
+        <ul className="inline with-separator">
           <li>
             Created by <a href="mailto:jeff.avallone@gmail.com">Jeff Avallone</a>
           </li>

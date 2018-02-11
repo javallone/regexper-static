@@ -97,27 +97,24 @@ a {
   color: inherit;
 }
 
-ul {
+.inline {
   list-style: none;
   margin: 0;
   padding: 0;
 }
 
-li {
+.inline li {
   list-style-type: none;
   display: inline-block;
-}
-
-.inline-list li {
   white-space: nowrap;
 }
 
-.inline-list li:after {
+.with-separator li:after {
   content: '//';
   padding: 0 0.5rem;
 }
 
-.inline-list li:last-child:after {
+.with-separator li:last-child:after {
   content: '';
 }
 
