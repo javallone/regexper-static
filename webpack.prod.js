@@ -6,7 +6,9 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 module.exports = merge(common, {
   devtool: 'source-map',
   plugins: [
-    new UglifyJSPlugin(),
+    new UglifyJSPlugin({
+      sourceMap: true
+    }),
     new WorkboxPlugin({
       clientsClaim: true,
       skipWaiting: true
