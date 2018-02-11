@@ -23,11 +23,19 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
-      - run: yarn test
+      - run:
+          name: Run tests
+          command: yarn test
 
-      - run: yarn build
+      - run:
+          name: Build site
+          command: yarn build
 
-      # TODO: Deploy to preview.regexper.com
+      - run:
+          name: Deploy to S3
+          command: |
+            pip install awscli --upgrade --user
+            aws s3 sync build s3://$DEPLOY_BUCKET/ --delete
 
 workflows:
   version: 2
