@@ -14,7 +14,7 @@
     "start:prod": "run-s build start:http-server",
     "start:http-server": "http-server ./build",
     "build": "webpack --config webpack.prod.js",
-    "test": "run-s test:lint test:unit",
+    "test": "run-s test:lint 'test:unit --coverage'",
     "test:unit": "jest",
     "test:lint": "eslint --ignore-path .gitignore .",
     "test:watch": "yarn test:unit --watch",
@@ -28,7 +28,13 @@
     "moduleNameMapper": {
       "\\.svg$": "<rootDir>/src/__mocks__/svgMock.js",
       "\\.css$": "<rootDir>/src/__mocks__/styleMock.js"
-    }
+    },
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/pages/**"
+    ],
+    "coverageDirectory": "<rootDir>/coverage",
+    "coverageReporters": ["text-summary", "html"]
   },
   "dependencies": {
     "autoprefixer": "^7.2.5",
