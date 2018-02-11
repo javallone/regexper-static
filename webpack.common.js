@@ -41,7 +41,12 @@ module.exports = {
       NODE_ENV: 'development',
       GA_PROPERTY: null,
       SENTRY_KEY: null,
-      BANNER: process.env.NODE_ENV === 'production' ? null : (process.env.NODE_ENV || 'development')
+      BANNER: process.env.NODE_ENV === 'production' ? null : (process.env.NODE_ENV || 'development'),
+      BUILD_ID: [
+        process.env.CIRCLE_BRANCH || 'prerelease',
+        process.env.CIRCLE_BUILD_NUM || '##',
+        (process.env.CIRCLE_SHA1 || 'gitsha').slice(-7)
+      ].join('-')
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',
