@@ -3,6 +3,19 @@ import renderer from 'react-test-renderer';
 
 import PageTemplate from './PageTemplate';
 
+const env = { ...process.env };
+
+afterEach(() => {
+  process.env = env;
+});
+
+beforeEach(() => {
+  process.env = {
+    ...process.env,
+    BANNER: 'testing'
+  };
+});
+
 test('PageTemplate rendering', () => {
   const component = renderer.create(
     <PageTemplate>
