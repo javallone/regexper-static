@@ -34,7 +34,7 @@ jobs:
       - run:
           name: Deploy to S3
           command: |
-            pip install awscli --upgrade --user
+            apt-get install -y -qq install awscli
             aws s3 sync build s3://$DEPLOY_BUCKET/ --delete
 
 workflows:
