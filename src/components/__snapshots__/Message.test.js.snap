@@ -2,10 +2,9 @@
 
 exports[`Message rendering 1`] = `
 <div
-  className={undefined}
+  className="message"
 >
   <h2>
-    
     Testing
   </h2>
   <p>
@@ -16,7 +15,7 @@ exports[`Message rendering 1`] = `
 
 exports[`Message rendering with icon 1`] = `
 <div
-  className={undefined}
+  className="message"
 >
   <h2>
     Sample icon SVG

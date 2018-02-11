@@ -1,7 +1,7 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
 
-import Message from './index';
+import Message from './Message';
 
 test('Message rendering', () => {
   const component = renderer.create(
