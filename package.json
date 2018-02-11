@@ -1,7 +1,7 @@
 {
   "name": "regexper",
   "version": "1.0.0",
-  "description": "Regular expression visualization tool",
+  "description": "Regular expression visualization tool using railroad diagrams",
   "homepage": "http://regexper.com",
   "author": {
     "name": "Jeffrey Avallone",

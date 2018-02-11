@@ -2,6 +2,8 @@ import 'babel-register';
 import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 
+import pkg from '../package.json';
+
 import Message from './components/Message';
 import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
 import GithubIcon from 'feather-icons/dist/icons/github.svg';
@@ -11,7 +13,7 @@ module.exports = '<!DOCTYPE html>' + ReactDOMServer.renderToString(
     <head>
       <meta charSet="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-      <meta name="description" content="Regular expression visualizer using railroad diagrams" />
+      <meta name="description" content={ pkg.description } />
 
       <link rel="author" href="/humans.txt" />
 
