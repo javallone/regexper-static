@@ -14,8 +14,9 @@ test('Message rendering', () => {
 });
 
 test('Message rendering with icon', () => {
+  const Icon = () => 'Sample icon SVG';
   const component = renderer.create(
-    <Message heading="Testing" icon="sample-icon-url">
+    <Message heading="Testing" icon={ Icon }>
       <p>Message content</p>
     </Message>
   );

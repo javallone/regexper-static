@@ -44,8 +44,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "style-loader": "^0.20.1",
+    "svg-react-loader": "^0.4.5",
     "uglifyjs-webpack-plugin": "^1.1.8",
-    "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1",
     "workbox-webpack-plugin": "^2.1.2"

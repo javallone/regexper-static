@@ -18,9 +18,7 @@ exports[`Message rendering with icon 1`] = `
   className="message"
 >
   <h2>
-    <img
-      src="sample-icon-url"
-    />
+    Sample icon SVG
     Testing
   </h2>
   <p>

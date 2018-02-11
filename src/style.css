@@ -59,7 +59,7 @@ body {
   text-decoration: underline;
 }
 
-#main li img {
+#main li svg {
   display: inline-block;
   width: 1em;
   height: 1em;
@@ -115,7 +115,7 @@ li {
   margin: var(--spacing-margin) 0;
 }
 
-.message h2 img {
+.message h2 svg {
   margin-right: 0.5rem;
   height: 3rem;
   width: 3rem;

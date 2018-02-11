@@ -130,7 +130,7 @@ module.exports = {
       },
       {
         test: /\.svg$/,
-        loader: 'url-loader'
+        loader: 'svg-react-loader'
       }
     ]
   }

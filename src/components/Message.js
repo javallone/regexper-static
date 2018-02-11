@@ -6,7 +6,8 @@ const renderIcon = icon => {
     return;
   }
 
-  return <img src={ icon }/>;
+  const Icon = icon;
+  return <Icon/>;
 };
 
 const Message = ({ icon, heading, children }) => (
@@ -17,7 +18,10 @@ const Message = ({ icon, heading, children }) => (
 );
 
 Message.propTypes = {
-  icon: PropTypes.string,
+  icon: PropTypes.oneOfType([
+    PropTypes.element,
+    PropTypes.func
+  ]),
   heading: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired
 };
