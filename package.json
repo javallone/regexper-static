@@ -20,6 +20,11 @@
     "test:watch": "yarn test:unit --watch",
     "precommit": "run-s test:lint"
   },
+  "browserslist": [
+    ">1%",
+    "last 2 versions",
+    "not ie < 11"
+  ],
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/src/setup-jest.js",
     "snapshotSerializers": [
