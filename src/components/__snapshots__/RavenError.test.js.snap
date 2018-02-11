@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RavenError rendering 1`] = `
+<Message
+  heading="Test error"
+  icon={[Function]}
+>
+  <p>
+    This error has been logged. You may also 
+    <a
+      href="#error-report"
+      onClick={[Function]}
+    >
+      fill out a report
+    </a>
+    .
+  </p>
+</Message>
+`;
