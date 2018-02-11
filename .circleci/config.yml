@@ -27,9 +27,15 @@ jobs:
           name: Run tests
           command: yarn test
 
+      - store_artifacts:
+          path: coverage
+
       - run:
           name: Build site
           command: yarn build
+
+      - store_artifacts:
+          path: build
 
       - run:
           name: Deploy to S3
