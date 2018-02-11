@@ -25,10 +25,7 @@ jobs:
 
       - run: yarn test
 
-      - run: |
-          echo $GA_PROPERTY
-          echo $SENTRY_KEY
-          yarn build
+      - run: yarn build
 
       # TODO: Deploy to preview.regexper.com
 
