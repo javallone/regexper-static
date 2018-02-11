@@ -26,71 +26,75 @@ body {
 }
 
 #main {
-  background: var(--color-green) linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.4) 100%);
+  background: var(--color-green) linear-gradient(to bottom,
+    var(--color-green) 0%,
+    color(var(--color-green) shade(40%)) 100%);
   box-shadow: 0 0 1rem var(--color-black);
   padding: 0 var(--content-margin);
   margin: 0 calc(-1 * var(--content-margin)) var(--spacing-margin) calc(-1 * var(--content-margin));
   position: relative;
-}
 
-#main:after {
-  content: attr(data-banner);
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: var(--header-height);
-  line-height: var(--header-height);
-  text-transform: uppercase;
-  text-align: center;
-  font-size: calc(var(--header-height) * 0.7);
-  font-weight: bold;
-  opacity: 0.2;
-}
+  &:after {
+    content: attr(data-banner);
+    pointer-events: none;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    line-height: var(--header-height);
+    text-transform: uppercase;
+    text-align: center;
+    font-size: calc(var(--header-height) * 0.7);
+    font-weight: bold;
+    opacity: 0.2;
+  }
 
-#main h1 {
-  font-family: 'Bangers', 'cursive';
-  font-size: 4rem;
-  font-weight: normal;
-  display: inline-block;
-  margin: 0;
-  line-height: var(--header-height);
-}
+  & h1 {
+    font-family: 'Bangers', 'cursive';
+    font-size: 4rem;
+    font-weight: normal;
+    display: inline-block;
+    margin: 0;
+    line-height: var(--header-height);
+  }
 
-#main a {
-  text-decoration: none;
-  display: inline-block;
-}
+  & a {
+    text-decoration: none;
+    display: inline-block;
+  }
 
-#main ul {
-  line-height: var(--header-height);
-  position: absolute;
-  top: 0;
-  right: var(--content-margin);
-}
+  & ul {
+    line-height: var(--header-height);
+    position: absolute;
+    top: 0;
+    right: var(--content-margin);
+  }
 
-#main li a:hover,
-#main li a:active {
-  text-decoration: underline;
-}
+  & li {
+    & a:hover,
+    & a:active {
+      text-decoration: underline;
+    }
 
-#main li svg {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  margin-right: 0.5rem;
-  vertical-align: text-top;
+    & svg {
+      display: inline-block;
+      width: 1em;
+      height: 1em;
+      margin-right: 0.5rem;
+      vertical-align: text-top;
+    }
+  }
 }
 
 footer {
   margin: var(--spacing-margin) 0;
-}
 
-footer img {
-  vertical-align: text-top;
-  width: 80px;
-  height: 15px;
+  & img {
+    vertical-align: text-top;
+    width: 80px;
+    height: 15px;
+  }
 }
 
 a {
@@ -101,40 +105,42 @@ a {
   list-style: none;
   margin: 0;
   padding: 0;
+
+  & li {
+    list-style-type: none;
+    display: inline-block;
+    white-space: nowrap;
+  }
 }
 
-.inline li {
-  list-style-type: none;
-  display: inline-block;
-  white-space: nowrap;
-}
+.with-separator {
+  & li:after {
+    content: '//';
+    padding: 0 0.5rem;
+  }
 
-.with-separator li:after {
-  content: '//';
-  padding: 0 0.5rem;
-}
-
-.with-separator li:last-child:after {
-  content: '';
+  & li:last-child:after {
+    content: '';
+  }
 }
 
 .message {
   background: var(--color-tan);
   padding: var(--spacing-margin);
   margin: var(--spacing-margin) 0;
-}
 
-.message h2 {
-  margin: var(--spacing-margin) 0;
-}
+  & h2 {
+    margin: var(--spacing-margin) 0;
+  }
 
-.message h2 svg {
-  margin-right: 0.5rem;
-  height: 3rem;
-  width: 3rem;
-  vertical-align: bottom;
-}
+  & h2 svg {
+    margin-right: 0.5rem;
+    height: 3rem;
+    width: 3rem;
+    vertical-align: bottom;
+  }
 
-.message p {
-  margin: var(--spacing-margin) 0;
+  & p {
+    margin: var(--spacing-margin) 0;
+  }
 }
