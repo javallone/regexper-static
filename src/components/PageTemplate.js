@@ -18,7 +18,7 @@ const PageTemplate = ({ title, children }) => (
       <title>Regexper{ title && (' - ' + title) }</title>
     </head>
     <body>
-      <header id="main">
+      <header id="main" data-banner={ process.env.BANNER }>
         <h1>
           <a href="/">Regexper</a>
         </h1>

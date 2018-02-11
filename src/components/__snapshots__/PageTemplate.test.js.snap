@@ -24,6 +24,7 @@ exports[`PageTemplate rendering 1`] = `
   </head>
   <body>
     <header
+      data-banner={undefined}
       id="main"
     >
       <h1>
@@ -102,6 +103,7 @@ exports[`PageTemplate rendering with title 1`] = `
   </head>
   <body>
     <header
+      data-banner={undefined}
       id="main"
     >
       <h1>

@@ -33,6 +33,22 @@ body {
   position: relative;
 }
 
+#main:after {
+  content: attr(data-banner);
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: var(--header-height);
+  line-height: var(--header-height);
+  text-transform: uppercase;
+  text-align: center;
+  font-size: calc(var(--header-height) * 0.7);
+  font-weight: bold;
+  opacity: 0.2;
+}
+
 #main h1 {
   font-family: 'Bangers', 'cursive';
   font-size: 4rem;
