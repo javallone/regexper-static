@@ -59,6 +59,14 @@ body {
   text-decoration: underline;
 }
 
+#main li img {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  margin-right: 0.5rem;
+  vertical-align: text-top;
+}
+
 footer {
   margin: var(--spacing-margin) 0;
 }
@@ -95,19 +103,6 @@ li {
 
 .inline-list li:last-child:after {
   content: '';
-}
-
-[icon] {
-  display: inline-block;
-  width: 1em;
-  height: 1em;
-  background-size: 1em 1em;
-  margin-right: 0.5rem;
-  vertical-align: text-top;
-}
-
-[icon="github"] {
-  background-image: url('~feather-icons/dist/icons/github.svg');
 }
 
 .message {
