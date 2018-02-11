@@ -22,7 +22,9 @@
   },
   "jest": {
     "setupTestFrameworkScriptFile": "<rootDir>/src/setup-jest.js",
-    "snapshotSerializers": ["enzyme-to-json/serializer"],
+    "snapshotSerializers": [
+      "enzyme-to-json/serializer"
+    ],
     "moduleNameMapper": {
       "\\.svg$": "<rootDir>/src/__mocks__/svgMock.js",
       "\\.css$": "<rootDir>/src/__mocks__/styleMock.js"
@@ -58,7 +60,6 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-ga": "^2.4.1",
-    "react-test-renderer": "^16.2.0",
     "style-loader": "^0.20.1",
     "svg-react-loader": "^0.4.5",
     "uglifyjs-webpack-plugin": "^1.1.8",
