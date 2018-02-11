@@ -1,5 +1,5 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow } from 'enzyme';
 
 import PageTemplate from './PageTemplate';
 
@@ -18,21 +18,19 @@ beforeEach(() => {
 });
 
 test('PageTemplate rendering', () => {
-  const component = renderer.create(
+  const component = shallow(
     <PageTemplate>
       <p>Content</p>
     </PageTemplate>
   );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(component).toMatchSnapshot();
 });
 
 test('PageTemplate rendering with title', () => {
-  const component = renderer.create(
+  const component = shallow(
     <PageTemplate title="Example">
       <p>Content</p>
     </PageTemplate>
   );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(component).toMatchSnapshot();
 });

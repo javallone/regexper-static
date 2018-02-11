@@ -41,7 +41,7 @@ exports[`PageTemplate rendering 1`] = `
           <a
             href="https://github.com/javallone/regexper-static"
           >
-            mock SVG
+            <Component />
             Source on GitHub
           </a>
         </li>
@@ -122,7 +122,7 @@ exports[`PageTemplate rendering with title 1`] = `
           <a
             href="https://github.com/javallone/regexper-static"
           >
-            mock SVG
+            <Component />
             Source on GitHub
           </a>
         </li>
