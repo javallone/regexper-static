@@ -1,25 +1,23 @@
 import React from 'react';
-import renderer from 'react-test-renderer';
+import { shallow, render } from 'enzyme';
 
 import Message from './Message';
 
 test('Message rendering', () => {
-  const component = renderer.create(
+  const component = shallow(
     <Message heading="Testing">
       <p>Message content</p>
     </Message>
   );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(component).toMatchSnapshot();
 });
 
 test('Message rendering with icon', () => {
   const Icon = () => 'Sample icon SVG';
-  const component = renderer.create(
+  const component = render(
     <Message heading="Testing" icon={ Icon }>
       <p>Message content</p>
     </Message>
   );
-  let tree = component.toJSON();
-  expect(tree).toMatchSnapshot();
+  expect(component).toMatchSnapshot();
 });

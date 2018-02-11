@@ -15,11 +15,10 @@ exports[`Message rendering 1`] = `
 
 exports[`Message rendering with icon 1`] = `
 <div
-  className="message"
+  class="message"
 >
   <h2>
-    Sample icon SVG
-    Testing
+    Sample icon SVGTesting
   </h2>
   <p>
     Message content
