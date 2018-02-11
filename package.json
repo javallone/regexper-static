@@ -49,6 +49,7 @@
     "precss": "^3.1.0",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
+    "react-ga": "^2.4.1",
     "react-test-renderer": "^16.2.0",
     "style-loader": "^0.20.1",
     "svg-react-loader": "^0.4.5",
