@@ -52,7 +52,10 @@ const PageTemplate = ({ title, children }) => (
 
 PageTemplate.propTypes = {
   title: PropTypes.string,
-  children: PropTypes.element
+  children: PropTypes.oneOfType([
+    PropTypes.arrayOf(PropTypes.node),
+    PropTypes.node
+  ])
 };
 
 const renderToString = content => '<!DOCTYPE html>' + ReactDOMServer.renderToString(content);
