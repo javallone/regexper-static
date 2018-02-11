@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 
 import pkg from '../../package.json';
@@ -54,4 +55,7 @@ PageTemplate.propTypes = {
   children: PropTypes.element
 };
 
+const renderToString = content => '<!DOCTYPE html>' + ReactDOMServer.renderToString(content);
+
 export default PageTemplate;
+export { renderToString };

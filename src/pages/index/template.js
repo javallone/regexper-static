@@ -1,12 +1,11 @@
 import 'babel-register';
 import React from 'react';
-import ReactDOMServer from 'react-dom/server';
 
-import PageTemplate from './components/PageTemplate';
-import Message from './components/Message';
+import PageTemplate, { renderToString } from '../../components/PageTemplate';
+import Message from '../../components/Message';
 import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
 
-module.exports = '<!DOCTYPE html>' + ReactDOMServer.renderToString(
+export default renderToString(
   <PageTemplate>
     <noscript>
       <Message icon={ AlertIcon } heading="JavaScript Required">
