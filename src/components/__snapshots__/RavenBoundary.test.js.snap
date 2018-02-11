@@ -1,0 +1,23 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`RavenBoundary rendering (with error) 1`] = `<Child />`;
+
+exports[`RavenBoundary rendering (with error) 2`] = `
+<RavenError
+  details={
+    Object {
+      "extra": Object {
+        "details": "test details",
+      },
+    }
+  }
+  error={
+    Object {
+      "error": "test error",
+    }
+  }
+  heading="An error has occurred."
+/>
+`;
+
+exports[`RavenBoundary rendering 1`] = `<Child />`;
