@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  build_preview:
+  build_deploy:
     docker:
       - image: circleci/node:7.10
 
@@ -25,57 +25,30 @@ jobs:
 
       - run: yarn test
 
-      - run:
-          command: yarn build
-          environment:
-            GA_PROPERTY: "UA-37364632-2"
-            SENTRY_KEY: "https://37efcfdc7c6d4f0d942497c4dd609254@sentry.io/197339"
+      - run: |
+          echo $GA_PROPERTY
+          echo $SENTRY_KEY
+          yarn build
 
       # TODO: Deploy to preview.regexper.com
-  build_prod:
-    docker:
-      - image: circleci/node:7.10
-
-    working_directory: ~/repo
-
-    steps:
-      - checkout
-
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-
-      - run: yarn install
-
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "package.json" }}
-
-      - run: yarn test
-
-      - run:
-          command: yarn build
-          environment:
-            GA_PROPERTY: "UA-37364632-1"
-            SENTRY_KEY: "https://37efcfdc7c6d4f0d942497c4dd609254@sentry.io/197339"
-
-      # TODO: Deploy to regexper.com
 
 workflows:
   version: 2
-  build_deploy_preview:
+  preview:
     jobs:
       - build_preview:
+          context: preview-context
           filters:
             tags:
               ignore: /.*/
-  build_deploy_prod:
+            branches:
+              only: /.*/
+  prod:
     jobs:
       - build_prod:
+          context: prod-context
           filters:
             tags:
               only: /.*/
+            branches:
+              ignore: /.*/
