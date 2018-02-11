@@ -18,7 +18,5 @@ export default renderToString(
         <p>Most popular ad blockers will prevent these tools from sending any tracking data, and doing so will <b>not</b> impact the performance of this app. Regexper is not supported by ad revenue or sales of any kind. The information collected by these tools is used to monitor application performance, determine browser support, and collect error reports.</p>
       </Message>
     </noscript>
-
-    <div id="root"></div>
   </PageTemplate>
 );

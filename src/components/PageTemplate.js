@@ -4,7 +4,8 @@ import PropTypes from 'prop-types';
 
 import pkg from '../../package.json';
 
-import GithubIcon from 'feather-icons/dist/icons/github.svg';
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 const PageTemplate = ({ title, children }) => (
   <html>
@@ -18,34 +19,11 @@ const PageTemplate = ({ title, children }) => (
       <title>Regexper{ title && (' - ' + title) }</title>
     </head>
     <body data-build-id={ process.env.BUILD_ID }>
-      <header id="main" data-banner={ process.env.BANNER }>
-        <h1>
-          <a href="/">Regexper</a>
-        </h1>
-
-        <ul className="inline">
-          <li><a href="https://github.com/javallone/regexper-static">
-            <GithubIcon/>Source on GitHub
-          </a></li>
-        </ul>
-      </header>
-
-      { children }
-
-      <footer>
-        <ul className="inline with-separator">
-          <li>
-            Created by <a href="mailto:jeff.avallone@gmail.com">Jeff Avallone</a>
-          </li>
-          <li>
-            Generated images licensed: <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
-              <img
-                alt="Creative Commons CC-BY-3.0 License"
-                src="https://licensebuttons.net/l/by/3.0/80x15.png" />
-            </a>
-          </li>
-        </ul>
-      </footer>
+      <div id="root">
+        <Header/>
+        { children }
+        <Footer/>
+      </div>
     </body>
   </html>
 );

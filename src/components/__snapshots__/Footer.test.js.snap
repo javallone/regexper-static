@@ -1,0 +1,30 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Footer rendering 1`] = `
+<footer>
+  <ul
+    className="inline with-separator"
+  >
+    <li>
+      Created by 
+      <a
+        href="mailto:jeff.avallone@gmail.com"
+      >
+        Jeff Avallone
+      </a>
+    </li>
+    <li>
+      Generated images licensed: 
+      <a
+        href="http://creativecommons.org/licenses/by/3.0/"
+        rel="license"
+      >
+        <img
+          alt="Creative Commons CC-BY-3.0 License"
+          src="https://licensebuttons.net/l/by/3.0/80x15.png"
+        />
+      </a>
+    </li>
+  </ul>
+</footer>
+`;

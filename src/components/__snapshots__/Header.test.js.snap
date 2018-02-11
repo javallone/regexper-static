@@ -1,0 +1,28 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Header rendering 1`] = `
+<header
+  data-banner="testing"
+  id="main"
+>
+  <h1>
+    <a
+      href="/"
+    >
+      Regexper
+    </a>
+  </h1>
+  <ul
+    className="inline"
+  >
+    <li>
+      <a
+        href="https://github.com/javallone/regexper-static"
+      >
+        <Component />
+        Source on GitHub
+      </a>
+    </li>
+  </ul>
+</header>
+`;

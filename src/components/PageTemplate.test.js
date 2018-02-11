@@ -12,7 +12,6 @@ afterEach(() => {
 beforeEach(() => {
   process.env = {
     ...process.env,
-    BANNER: 'testing',
     BUILD_ID: 'test-id'
   };
 });
