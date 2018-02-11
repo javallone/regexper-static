@@ -1,19 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-//import style from './style.css';
-
 const renderIcon = icon => {
   if (!icon) {
     return;
   }
 
-  if (typeof icon === 'string') {
-    return <img src={ icon }/>;
-  } else {
-    const Icon = icon;
-    return <Icon/>;
-  }
+  return <img src={ icon }/>;
 };
 
 const Message = ({ icon, heading, children }) => (
@@ -24,11 +17,7 @@ const Message = ({ icon, heading, children }) => (
 );
 
 Message.propTypes = {
-  icon: PropTypes.oneOfType([
-    PropTypes.element,
-    PropTypes.func,
-    PropTypes.string
-  ]),
+  icon: PropTypes.string,
   heading: PropTypes.string.isRequired,
   children: PropTypes.element.isRequired
 };

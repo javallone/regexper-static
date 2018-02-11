@@ -120,7 +120,6 @@ li {
   margin: var(--spacing-margin) 0;
 }
 
-.message h2 svg,
 .message h2 img {
   margin-right: 0.5rem;
   height: 3rem;
