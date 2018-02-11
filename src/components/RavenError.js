@@ -22,7 +22,7 @@ class RavenError extends React.Component {
   render() {
     const { heading } = this.props;
 
-    return <Message icon={ AlertIcon } heading={ heading }>
+    return <Message className="error" icon={ AlertIcon } heading={ heading }>
       <p>This error has been logged. You may also <a href="#error-report" onClick={ this.reportError }>fill out a report</a>.</p>
     </Message>;
   }

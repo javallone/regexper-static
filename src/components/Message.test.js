@@ -5,7 +5,7 @@ import Message from './Message';
 
 test('Message rendering', () => {
   const component = shallow(
-    <Message heading="Testing">
+    <Message heading="Testing" className="testing">
       <p>Message content</p>
     </Message>
   );

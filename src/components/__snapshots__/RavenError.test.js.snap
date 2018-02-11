@@ -2,6 +2,7 @@
 
 exports[`RavenError rendering 1`] = `
 <Message
+  className="error"
   heading="Test error"
   icon={[Function]}
 >

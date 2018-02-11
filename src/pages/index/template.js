@@ -8,7 +8,7 @@ import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
 export default renderToString(
   <PageTemplate>
     <noscript>
-      <Message icon={ AlertIcon } heading="JavaScript Required">
+      <Message className="error" icon={ AlertIcon } heading="JavaScript Required">
         <p>You need to enable JavaScript to use Regexper.</p>
         <p>Regexper and the tools used to create it are all open source. If you are concerned that the JavaScript being delivered is in any way malicious, please inspect the source by following the GitHub link in the header. There are two data collection tools integrated in the app:</p>
         <ul>

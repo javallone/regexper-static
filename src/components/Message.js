@@ -10,14 +10,19 @@ const renderIcon = icon => {
   return <Icon/>;
 };
 
-const Message = ({ icon, heading, children }) => (
-  <div className="message">
-    <h2>{ renderIcon(icon) }{ heading }</h2>
-    { children }
+const Message = ({ className, icon, heading, children }) => (
+  <div className={ ['message', className].filter(Boolean).join(' ') }>
+    <div className="header">
+      <h2>{ renderIcon(icon) }{ heading }</h2>
+    </div>
+    <div className="content">
+      { children }
+    </div>
   </div>
 );
 
 Message.propTypes = {
+  className: PropTypes.string,
   icon: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.func
