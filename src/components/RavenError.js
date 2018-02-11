@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { translate, Trans } from 'react-i18next';
 import { Raven } from '../sentry';
 
 import Message from './Message';
@@ -20,10 +21,12 @@ class RavenError extends React.Component {
   }
 
   render() {
-    const { heading } = this.props;
+    const { t } = this.props;
 
-    return <Message className="error" icon={ AlertIcon } heading={ heading }>
-      <p>This error has been logged. You may also <a href="#error-report" onClick={ this.reportError }>fill out a report</a>.</p>
+    return <Message className="error" icon={ AlertIcon } heading={ t('An error has occurred') }>
+      <p><Trans i18nKey="This error has been logged">
+        This error has been logged. You may also <a href="#error-report" onClick={ this.reportError }>fill out a report</a>.
+      </Trans></p>
     </Message>;
   }
 }
@@ -31,7 +34,8 @@ class RavenError extends React.Component {
 RavenError.propTypes = {
   error: PropTypes.object.isRequired,
   details: PropTypes.object.isRequired,
-  heading: PropTypes.string.isRequired
+  t: PropTypes.func
 };
 
-export default RavenError;
+export default translate()(RavenError);
+export { RavenError };

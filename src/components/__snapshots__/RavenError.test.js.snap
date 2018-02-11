@@ -3,18 +3,22 @@
 exports[`RavenError rendering 1`] = `
 <Message
   className="error"
-  heading="Test error"
+  heading="translate(An error has occurred)"
   icon={[Function]}
 >
   <p>
-    This error has been logged. You may also 
-    <a
-      href="#error-report"
-      onClick={[Function]}
+    <Trans
+      i18nKey="This error has been logged"
     >
-      fill out a report
-    </a>
-    .
+      This error has been logged. You may also 
+      <a
+        href="#error-report"
+        onClick={[Function]}
+      >
+        fill out a report
+      </a>
+      .
+    </Trans>
   </p>
 </Message>
 `;

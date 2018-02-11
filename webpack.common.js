@@ -139,6 +139,17 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'svg-react-loader'
+      },
+      {
+        test: /\.yaml$/,
+        use: [
+          {
+            loader: 'json-loader'
+          },
+          {
+            loader: 'yaml-loader'
+          }
+        ]
       }
     ]
   }

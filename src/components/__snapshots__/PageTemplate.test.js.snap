@@ -28,11 +28,9 @@ exports[`PageTemplate rendering 1`] = `
     <div
       id="root"
     >
-      <Header />
       <p>
         Content
       </p>
-      <Footer />
     </div>
   </body>
 </html>
@@ -67,11 +65,9 @@ exports[`PageTemplate rendering with title 1`] = `
     <div
       id="root"
     >
-      <Header />
       <p>
         Content
       </p>
-      <Footer />
     </div>
   </body>
 </html>

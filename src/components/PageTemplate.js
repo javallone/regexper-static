@@ -4,9 +4,6 @@ import PropTypes from 'prop-types';
 
 import pkg from '../../package.json';
 
-import Header from '../components/Header';
-import Footer from '../components/Footer';
-
 const PageTemplate = ({ title, children }) => (
   <html>
     <head>
@@ -20,9 +17,7 @@ const PageTemplate = ({ title, children }) => (
     </head>
     <body data-build-id={ process.env.BUILD_ID }>
       <div id="root">
-        <Header/>
         { children }
-        <Footer/>
       </div>
     </body>
   </html>

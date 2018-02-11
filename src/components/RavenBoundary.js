@@ -21,7 +21,6 @@ class RavenBoundary extends React.Component {
 
     if (error) {
       const errorProps = {
-        heading: 'An error has occurred.',
         details: { extra: errorInfo },
         error
       };

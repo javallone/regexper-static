@@ -6,24 +6,30 @@ exports[`Footer rendering 1`] = `
     className="inline with-separator"
   >
     <li>
-      Created by 
-      <a
-        href="mailto:jeff.avallone@gmail.com"
-      >
-        Jeff Avallone
-      </a>
+      <Trans>
+        Created by 
+        <a
+          href="mailto:jeff.avallone@gmail.com"
+        >
+          Jeff Avallone
+        </a>
+      </Trans>
     </li>
     <li>
-      Generated images licensed: 
-      <a
-        href="http://creativecommons.org/licenses/by/3.0/"
-        rel="license"
+      <Trans
+        i18nKey="Generated images licensed"
       >
-        <img
-          alt="Creative Commons CC-BY-3.0 License"
-          src="https://licensebuttons.net/l/by/3.0/80x15.png"
-        />
-      </a>
+        Generated images licensed: 
+        <a
+          href="http://creativecommons.org/licenses/by/3.0/"
+          rel="license"
+        >
+          <img
+            alt="Creative Commons CC-BY-3.0 License"
+            src="https://licensebuttons.net/l/by/3.0/80x15.png"
+          />
+        </a>
+      </Trans>
     </li>
   </ul>
 </footer>

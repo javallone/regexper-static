@@ -5,6 +5,7 @@ import App from '../../components/App';
 import RavenBoundary from '../../components/RavenBoundary';
 
 import '../../style.css';
+import '../../i18n';
 import { setupServiceWorker } from '../../service-worker';
 import { setupGA } from '../../analytics';
 import { Raven, setupRaven } from '../../sentry';

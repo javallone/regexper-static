@@ -65,7 +65,9 @@
     "favicons-webpack-plugin-cesco": "^0.0.6",
     "feather-icons": "^4.5.0",
     "html-webpack-plugin": "^2.30.1",
+    "i18next": "^10.3.0",
     "jest": "^22.2.2",
+    "json-loader": "^0.5.7",
     "npm-run-all": "^4.1.2",
     "postcss-cssnext": "^3.1.0",
     "postcss-loader": "^2.1.0",
@@ -73,12 +75,14 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-ga": "^2.4.1",
+    "react-i18next": "^7.3.6",
     "style-loader": "^0.20.1",
     "svg-react-loader": "^0.4.5",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1",
-    "workbox-webpack-plugin": "^2.1.2"
+    "workbox-webpack-plugin": "^2.1.2",
+    "yaml-loader": "^0.5.0"
   },
   "devDependencies": {
     "http-server": "^0.11.1",

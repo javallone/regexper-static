@@ -1,4 +1,5 @@
 import React from 'react';
+import { translate, Trans } from 'react-i18next';
 
 import GithubIcon from 'feather-icons/dist/icons/github.svg';
 
@@ -10,10 +11,11 @@ const Header = () => (
 
     <ul className="inline">
       <li><a href="https://github.com/javallone/regexper-static">
-        <GithubIcon/>Source on GitHub
+        <GithubIcon/><Trans>Source on GitHub</Trans>
       </a></li>
     </ul>
   </header>
 );
 
-export default Header;
+export default translate()(Header);
+export { Header };

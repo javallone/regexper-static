@@ -3,7 +3,7 @@
 exports[`RavenBoundary rendering (with error) 1`] = `<Child />`;
 
 exports[`RavenBoundary rendering (with error) 2`] = `
-<RavenError
+<Translate(RavenError)
   details={
     Object {
       "extra": Object {
@@ -16,7 +16,6 @@ exports[`RavenBoundary rendering (with error) 2`] = `
       "error": "test error",
     }
   }
-  heading="An error has occurred."
 />
 `;
 

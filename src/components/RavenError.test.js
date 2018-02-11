@@ -3,11 +3,12 @@ import { shallow } from 'enzyme';
 
 jest.mock('../sentry');
 
-import RavenError from './RavenError';
+import { RavenError } from './RavenError';
 import { Raven } from '../sentry';
 
 const testError = { error: 'test error' };
 const testDetails = { details: 'test details' };
+const translate = v => `translate(${ v })`;
 
 describe('RavenError', () => {
   test('rendering', () => {
@@ -15,7 +16,7 @@ describe('RavenError', () => {
       <RavenError
         error={ testError }
         details={ testDetails }
-        heading="Test error"/>
+        t={ translate }/>
     );
     expect(component).toMatchSnapshot();
   });
@@ -25,7 +26,7 @@ describe('RavenError', () => {
       <RavenError
         error={ testError }
         details={ testDetails }
-        heading="Test error"/>
+        t={ translate }/>
     );
     expect(Raven.captureException).toHaveBeenCalledWith(testError, testDetails);
   });
@@ -36,7 +37,7 @@ describe('RavenError', () => {
       <RavenError
         error={ testError }
         details={ testDetails }
-        heading="Test error"/>
+        t={ translate }/>
     );
     const eventObj = { preventDefault: jest.fn() };
     component.find('a').simulate('click', eventObj);
