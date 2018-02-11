@@ -45,7 +45,7 @@ module.exports = {
       BUILD_ID: [
         process.env.CIRCLE_BRANCH || 'prerelease',
         process.env.CIRCLE_BUILD_NUM || '##',
-        (process.env.CIRCLE_SHA1 || 'gitsha').slice(-7)
+        (process.env.CIRCLE_SHA1 || 'gitsha').slice(0, 7)
       ].join('-')
     }),
     new webpack.optimize.CommonsChunkPlugin({
