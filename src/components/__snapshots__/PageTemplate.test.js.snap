@@ -22,7 +22,9 @@ exports[`PageTemplate rendering 1`] = `
       Regexper
     </title>
   </head>
-  <body>
+  <body
+    data-build-id="test-id"
+  >
     <header
       data-banner="testing"
       id="main"
@@ -101,7 +103,9 @@ exports[`PageTemplate rendering with title 1`] = `
        - Example
     </title>
   </head>
-  <body>
+  <body
+    data-build-id="test-id"
+  >
     <header
       data-banner="testing"
       id="main"
