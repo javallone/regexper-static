@@ -14,8 +14,10 @@
     "start:prod": "run-s build start:http-server",
     "start:http-server": "http-server ./build",
     "build": "webpack --config webpack.prod.js",
-    "test": "jest",
+    "test": "run-s test:lint test:unit",
+    "test:unit": "jest",
     "test:lint": "eslint --ignore-path .gitignore .",
+    "test:watch": "yarn test:unit --watch",
     "precommit": "run-s test:lint"
   },
   "jest": {
