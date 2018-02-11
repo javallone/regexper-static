@@ -21,6 +21,8 @@
     "precommit": "run-s test:lint"
   },
   "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setup-jest.js",
+    "snapshotSerializers": ["enzyme-to-json/serializer"],
     "moduleNameMapper": {
       "\\.svg$": "<rootDir>/src/__mocks__/svgMock.js",
       "\\.css$": "<rootDir>/src/__mocks__/styleMock.js"
@@ -38,6 +40,9 @@
     "babel-register": "^6.26.0",
     "copy-webpack-plugin": "^4.4.1",
     "css-loader": "^0.28.9",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "enzyme-to-json": "^3.3.1",
     "eslint": "^4.17.0",
     "eslint-plugin-jest": "^21.8.0",
     "eslint-plugin-react": "^7.6.1",
