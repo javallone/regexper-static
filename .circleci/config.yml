@@ -36,7 +36,7 @@ workflows:
   version: 2
   preview:
     jobs:
-      - build_preview:
+      - build_deploy:
           context: preview-context
           filters:
             tags:
@@ -45,7 +45,7 @@ workflows:
               only: /.*/
   prod:
     jobs:
-      - build_prod:
+      - build_deploy:
           context: prod-context
           filters:
             tags:
