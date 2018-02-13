@@ -47,6 +47,7 @@
     ]
   },
   "dependencies": {
+    "@alienfast/i18next-loader": "^1.0.14",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.1",
     "babel-jest": "^22.2.2",
@@ -73,7 +74,6 @@
     "i18next-browser-languagedetector": "^2.1.0",
     "identity-obj-proxy": "^3.0.0",
     "jest": "^22.2.2",
-    "json-loader": "^0.5.7",
     "npm-run-all": "^4.1.2",
     "postcss-cssnext": "^3.1.0",
     "postcss-import": "^11.1.0",
@@ -89,8 +89,7 @@
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1",
     "webpack-node-externals": "^1.6.0",
-    "workbox-webpack-plugin": "^2.1.2",
-    "yaml-loader": "^0.5.0"
+    "workbox-webpack-plugin": "^2.1.2"
   },
   "devDependencies": {
     "http-server": "^0.11.1",

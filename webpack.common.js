@@ -86,6 +86,13 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /locales/,
+        loader: '@alienfast/i18next-loader',
+        options: {
+          basenameAsNamespace: true
+        }
+      },
+      {
         test: /\.js$/,
         exclude: /node_modules/,
         loader: 'babel-loader'
@@ -143,17 +150,6 @@ module.exports = {
       {
         test: /\.svg$/,
         loader: 'svg-react-loader'
-      },
-      {
-        test: /\.yaml$/,
-        use: [
-          {
-            loader: 'json-loader'
-          },
-          {
-            loader: 'yaml-loader'
-          }
-        ]
       }
     ]
   }

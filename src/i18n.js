@@ -9,6 +9,7 @@ i18n
   .use(LangDetector)
   .init({
     fallbackLng: 'en',
+    fallbackNS: 'missing',
     debug: (process.env.NODE_ENV !== 'production'),
     resources: locales
   });
