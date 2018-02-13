@@ -2,14 +2,18 @@
 
 exports[`Message rendering 1`] = `
 <div
-  className=""
+  className="message"
 >
-  <div>
+  <div
+    className="header"
+  >
     <h2>
       Testing
     </h2>
   </div>
-  <div>
+  <div
+    className="content"
+  >
     <p>
       Message content
     </p>
@@ -19,14 +23,18 @@ exports[`Message rendering 1`] = `
 
 exports[`Message rendering with icon 1`] = `
 <div
-  class=""
+  class="message"
 >
-  <div>
+  <div
+    class="header"
+  >
     <h2>
       Sample icon SVGTesting
     </h2>
   </div>
-  <div>
+  <div
+    class="content"
+  >
     <p>
       Message content
     </p>

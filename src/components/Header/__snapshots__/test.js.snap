@@ -2,6 +2,7 @@
 
 exports[`Header rendering 1`] = `
 <header
+  className="header"
   data-banner="testing"
 >
   <h1>
