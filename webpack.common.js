@@ -98,54 +98,27 @@ module.exports = {
         loader: 'babel-loader'
       },
       {
-        oneOf: [
-          {
-            test: /\.css$/,
-            exclude: /components/,
-            use: ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: [
-                {
-                  loader: 'css-loader',
-                  options: {
-                    importLoaders: 1,
-                    minimize: true,
-                    sourceMap: true,
-                  }
-                },
-                {
-                  loader: 'postcss-loader',
-                  options: {
-                    ident: 'postcss'
-                  }
-                }
-              ]
-            })
-          },
-          {
-            test: /\.css$/,
-            use: ExtractTextPlugin.extract({
-              fallback: 'style-loader',
-              use: [
-                {
-                  loader: 'css-loader',
-                  options: {
-                    importLoaders: 1,
-                    minimize: true,
-                    sourceMap: true,
-                    modules: true
-                  }
-                },
-                {
-                  loader: 'postcss-loader',
-                  options: {
-                    ident: 'postcss'
-                  }
-                }
-              ]
-            })
-          },
-        ]
+        test: /\.css$/,
+        use: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          use: [
+            {
+              loader: 'css-loader',
+              options: {
+                importLoaders: 1,
+                minimize: true,
+                sourceMap: true,
+                modules: true
+              }
+            },
+            {
+              loader: 'postcss-loader',
+              options: {
+                ident: 'postcss'
+              }
+            }
+          ]
+        })
       },
       {
         test: /\.svg$/,

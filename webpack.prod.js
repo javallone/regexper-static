@@ -43,9 +43,12 @@ module.exports = [
         // Replace the rule for CSS files
         {
           test: /\.css$/,
-          loader: 'css-loader/locals'
+          loader: 'css-loader/locals',
+          options: {
+            modules: true
+          }
         },
-        ...common.module.rules.filter(rule => !rule.oneOf)
+        ...common.module.rules.filter(rule => !rule.test.test('file.css'))
       ]
     }
   }

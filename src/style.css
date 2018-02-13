@@ -17,7 +17,7 @@ a {
   color: inherit;
 }
 
-ul.inline {
+ul:global(.inline) {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -28,7 +28,7 @@ ul.inline {
     white-space: nowrap;
   }
 
-  &.with-separator {
+  &:global(.with-separator) {
     & li:after {
       content: '//';
       padding: 0 0.5rem;
