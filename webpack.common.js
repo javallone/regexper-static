@@ -10,7 +10,7 @@ const pkg = require('./package.json');
 
 const pages = fs.readdirSync(path.resolve(__dirname, 'src/pages'));
 const pagePlugins = pages.map(name => new HtmlPlugin({
-  template: `./src/pages/${ name }/template.js`,
+  template: './src/template.html',
   filename: `${ name }.html`,
   chunks: ['common', name],
   minify: {
@@ -28,7 +28,7 @@ const pagePlugins = pages.map(name => new HtmlPlugin({
 
 module.exports = {
   entry: pages.reduce((pages, name) => {
-    pages[name] = `./src/pages/${ name }`;
+    pages[name] = `./src/pages/${ name }/browser`;
     return pages;
   }, {}),
   output: {

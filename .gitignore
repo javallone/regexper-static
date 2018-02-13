@@ -20,6 +20,7 @@ node_modules/
 
 # Build output
 build/
+prerender/
 
 # Coverage reports
 coverage/

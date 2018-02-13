@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import App from '../../components/App';
+import Component from './Component';
 import RavenBoundary from '../../components/RavenBoundary';
 
 import '../../style.css';
@@ -20,7 +20,7 @@ try {
 
   ReactDOM.render(
     <RavenBoundary>
-      <App/>
+      <Component/>
     </RavenBoundary>,
     document.getElementById('root'));
 }

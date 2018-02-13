@@ -1,16 +1,13 @@
-import 'babel-register';
 import React from 'react';
 
-import '../../i18n';
-
-import PageTemplate, { renderToString } from '../../components/PageTemplate';
 import Message from '../../components/Message';
 import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
+import App from '../../components/App';
 
-export default renderToString(
-  <PageTemplate>
+const Component = () => (
+  <React.Fragment>
     <Header/>
     <noscript>
       <Message className="error" icon={ AlertIcon } heading="JavaScript Required">
@@ -23,6 +20,9 @@ export default renderToString(
         <p>Most popular ad blockers will prevent these tools from sending any tracking data, and doing so will <b>not</b> impact the performance of this app. Regexper is not supported by ad revenue or sales of any kind. The information collected by these tools is used to monitor application performance, determine browser support, and collect error reports.</p>
       </Message>
     </noscript>
+    <App/>
     <Footer/>
-  </PageTemplate>
+  </React.Fragment>
 );
+
+export default Component;
