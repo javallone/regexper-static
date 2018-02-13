@@ -20,6 +20,16 @@ To start a development server, run:
 
     $ yarn start
 
+### Available scripts
+
+* `yarn start` - Start a development server on port 8080
+* `yarn start:prod` - Run a build and start a web server on port 8080. This will not automatically rebuild.
+* `yarn build` - Run a production build (used for deployments and for rebuilding when running `yarn start:prod`)
+* `yarn test` - Run lint and unit tests
+* `yarn test:lint` - Run eslint
+* `yarn test:unit` - Run jest unit tests
+* `yarn test:watch` - Run jest in watch mode
+
 ## License
 
 See [LICENSE.txt](/LICENSE.txt) file for licensing details.
