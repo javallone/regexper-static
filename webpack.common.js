@@ -7,9 +7,16 @@ const FaviconsPlugin = require('favicons-webpack-plugin-cesco');
 const HtmlPlugin = require('html-webpack-plugin');
 
 const pkg = require('./package.json');
+const buildId = [
+  process.env.CIRCLE_BRANCH || 'prerelease',
+  process.env.CIRCLE_BUILD_NUM || '##',
+  (process.env.CIRCLE_SHA1 || 'gitsha').slice(0, 7)
+].join('-');
 
 const pages = fs.readdirSync(path.resolve(__dirname, 'src/pages'));
 const pagePlugins = pages.map(name => new HtmlPlugin({
+  description: pkg.description,
+  buildId,
   template: './src/template.html',
   filename: `${ name }.html`,
   chunks: ['common', name],
@@ -23,7 +30,8 @@ const pagePlugins = pages.map(name => new HtmlPlugin({
     minifyJS: true,
     minifyCSS: true,
     minifyURLs: true
-  }
+  },
+  ...require(`./src/pages/${ name }/config`)
 }));
 
 module.exports = {
@@ -42,11 +50,7 @@ module.exports = {
       GA_PROPERTY: null,
       SENTRY_KEY: null,
       BANNER: process.env.NODE_ENV === 'production' ? null : (process.env.NODE_ENV || 'development'),
-      BUILD_ID: [
-        process.env.CIRCLE_BRANCH || 'prerelease',
-        process.env.CIRCLE_BUILD_NUM || '##',
-        (process.env.CIRCLE_SHA1 || 'gitsha').slice(0, 7)
-      ].join('-')
+      BUILD_ID: buildId
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: 'common',

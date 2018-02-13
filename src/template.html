@@ -3,13 +3,13 @@
   <head>
     <meta charSet="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content={ pkg.description } />
+    <meta name="description" content="<%= htmlWebpackPlugin.options.description %>" />
 
     <link rel="author" href="/humans.txt" />
 
-    <title>Regexper</title>
+    <title><%= htmlWebpackPlugin.options.title %></title>
   </head>
-  <body data-build-id="<%= process.env.BUILD_ID %>">
+  <body data-build-id="<%= htmlWebpackPlugin.options.buildId %>">
     <div id="root"></div>
   </body>
 </html>
