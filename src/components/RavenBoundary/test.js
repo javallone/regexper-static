@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import RavenBoundary from './RavenBoundary';
+import RavenBoundary from './index';
 
 const testError = { error: 'test error' };
 const testDetails = { details: 'test details' };

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import RavenError from './RavenError';
+import RavenError from '../RavenError';
 
 class RavenBoundary extends React.Component {
   constructor() {

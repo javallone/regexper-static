@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import PageTemplate from './PageTemplate';
+import PageTemplate from './index';
 
 const env = { ...process.env };
 

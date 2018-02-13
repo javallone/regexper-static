@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate, Trans } from 'react-i18next';
-import { Raven } from '../sentry';
+import { Raven } from '../../sentry';
 
-import Message from './Message';
+import Message from '../Message';
 import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
 
 class RavenError extends React.Component {

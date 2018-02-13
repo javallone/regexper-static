@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import PropTypes from 'prop-types';
 
-import pkg from '../../package.json';
+import pkg from '../../../package.json';
 
 const PageTemplate = ({ title, children }) => (
   <html>
