@@ -19,7 +19,7 @@ exports[`Header rendering 1`] = `
       <a
         href="https://github.com/javallone/regexper-static"
       >
-        <Component />
+        <SvgMock />
         <Trans>
           Source on GitHub
         </Trans>
