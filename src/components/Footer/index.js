@@ -1,6 +1,8 @@
 import React from 'react';
 import { translate, Trans } from 'react-i18next';
 
+import './style.css';
+
 const Footer = () => (
   <footer>
     <ul className="inline with-separator">

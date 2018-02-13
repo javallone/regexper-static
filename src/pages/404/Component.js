@@ -9,7 +9,7 @@ import Footer from '../../components/Footer';
 const Component = ({ t }) => ( // eslint-disable-line react/prop-types
   <React.Fragment>
     <Header/>
-    <Message className="error" icon={ AlertIcon } heading={ t('404 Page Not Found') }>
+    <Message type="error" icon={ AlertIcon } heading={ t('404 Page Not Found') }>
       <p><Trans>The page you have requested could not be found</Trans></p>
     </Message>
     <Footer/>

@@ -1,17 +1,5 @@
 @import url('//fonts.googleapis.com/css?family=Bangers&text=Regxpr');
-
-:root {
-  --color-green: #bada55;
-  --color-brown: #6b6659;
-  --color-tan: #cbcbba;
-  --color-black: #000;
-  --color-white: #fff;
-  --color-red: #b3151a;
-
-  --header-height: 6rem;
-  --content-margin: 2rem;
-  --spacing-margin: 1rem;
-}
+@import url('./globals.css');
 
 html {
   font-size: 62.5%;
@@ -25,83 +13,11 @@ body {
   font-size: 1.6rem;
 }
 
-#main {
-  background: var(--color-green) linear-gradient(to bottom,
-    var(--color-green) 0%,
-    color(var(--color-green) shade(40%)) 100%);
-  box-shadow: 0 0 1rem var(--color-black);
-  padding: 0 var(--content-margin);
-  margin: 0 calc(-1 * var(--content-margin)) var(--spacing-margin) calc(-1 * var(--content-margin));
-  position: relative;
-
-  &:after {
-    content: attr(data-banner);
-    pointer-events: none;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: var(--header-height);
-    line-height: var(--header-height);
-    text-transform: uppercase;
-    text-align: center;
-    font-size: calc(var(--header-height) * 0.7);
-    font-weight: bold;
-    opacity: 0.2;
-  }
-
-  & h1 {
-    font-family: 'Bangers', 'cursive';
-    font-size: 4rem;
-    font-weight: normal;
-    display: inline-block;
-    margin: 0;
-    line-height: var(--header-height);
-  }
-
-  & a {
-    text-decoration: none;
-    display: inline-block;
-  }
-
-  & ul {
-    line-height: var(--header-height);
-    position: absolute;
-    top: 0;
-    right: var(--content-margin);
-  }
-
-  & li {
-    & a:hover,
-    & a:active {
-      text-decoration: underline;
-    }
-
-    & svg {
-      display: inline-block;
-      width: 1em;
-      height: 1em;
-      margin-right: 0.5rem;
-      vertical-align: text-top;
-    }
-  }
-}
-
-footer {
-  margin: var(--spacing-margin) 0;
-
-  & img {
-    vertical-align: text-top;
-    width: 80px;
-    height: 15px;
-  }
-}
-
 a {
   color: inherit;
 }
 
-.inline {
+ul.inline {
   list-style: none;
   margin: 0;
   padding: 0;
@@ -111,55 +27,15 @@ a {
     display: inline-block;
     white-space: nowrap;
   }
-}
 
-.with-separator {
-  & li:after {
-    content: '//';
-    padding: 0 0.5rem;
-  }
-
-  & li:last-child:after {
-    content: '';
-  }
-}
-
-.message {
-  background: var(--color-tan);
-  margin: var(--spacing-margin) 0;
-
-  & .header {
-    padding: var(--spacing-margin);
-
-    & h2 {
-      margin: 0;
+  &.with-separator {
+    & li:after {
+      content: '//';
+      padding: 0 0.5rem;
     }
 
-    & h2 svg {
-      margin-right: 0.5rem;
-      height: 3rem;
-      width: 3rem;
-      vertical-align: bottom;
-    }
-  }
-
-  & .content {
-    padding: var(--spacing-margin);
-  }
-
-  & p {
-    margin-top: 0;
-    margin-bottom: var(--spacing-margin) 0;
-  }
-
-  & p:last-child {
-    margin-bottom: 0;
-  }
-
-  &.error {
-    & .header {
-      background: var(--color-red);
-      color: var(--color-white);
+    & li:last-child:after {
+      content: '';
     }
   }
 }

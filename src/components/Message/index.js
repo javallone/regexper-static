@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import style from './style.css';
+
 const renderIcon = icon => {
   if (!icon) {
     return;
@@ -10,19 +12,21 @@ const renderIcon = icon => {
   return <Icon/>;
 };
 
-const Message = ({ className, icon, heading, children }) => (
-  <div className={ ['message', className].filter(Boolean).join(' ') }>
-    <div className="header">
+const Message = ({ type, icon, heading, children }) => (
+  <div className={ [ style.message, type && style[type] ].filter(Boolean).join(' ') }>
+    <div className={ style.header }>
       <h2>{ renderIcon(icon) }{ heading }</h2>
     </div>
-    <div className="content">
+    <div className={ style.content }>
       { children }
     </div>
   </div>
 );
 
 Message.propTypes = {
-  className: PropTypes.string,
+  type: PropTypes.oneOf([
+    'error'
+  ]),
   icon: PropTypes.oneOfType([
     PropTypes.element,
     PropTypes.func

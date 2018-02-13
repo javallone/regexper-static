@@ -23,7 +23,7 @@ class RavenError extends React.Component {
   render() {
     const { t } = this.props;
 
-    return <Message className="error" icon={ AlertIcon } heading={ t('An error has occurred') }>
+    return <Message type="error" icon={ AlertIcon } heading={ t('An error has occurred') }>
       <p><Trans i18nKey="This error has been logged">
         This error has been logged. You may also <a href="#error-report" onClick={ this.reportError }>fill out a report</a>.
       </Trans></p>

@@ -2,9 +2,9 @@
 
 exports[`RavenError rendering 1`] = `
 <Message
-  className="error"
   heading="translate(An error has occurred)"
   icon={[Function]}
+  type="error"
 >
   <p>
     <Trans

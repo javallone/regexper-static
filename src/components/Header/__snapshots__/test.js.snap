@@ -3,7 +3,6 @@
 exports[`Header rendering 1`] = `
 <header
   data-banner="testing"
-  id="main"
 >
   <h1>
     <a

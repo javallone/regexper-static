@@ -1,0 +1,41 @@
+@import url('../../globals.css');
+
+.message {
+  background: var(--color-tan);
+  margin: var(--spacing-margin) 0;
+
+  & .header {
+    padding: var(--spacing-margin);
+
+    & h2 {
+      margin: 0;
+    }
+
+    & h2 svg {
+      margin-right: 0.5rem;
+      height: 3rem;
+      width: 3rem;
+      vertical-align: bottom;
+    }
+  }
+
+  & .content {
+    padding: var(--spacing-margin);
+  }
+
+  & p {
+    margin-top: 0;
+    margin-bottom: var(--spacing-margin) 0;
+  }
+
+  & p:last-child {
+    margin-bottom: 0;
+  }
+
+  &.error {
+    & .header {
+      background: var(--color-red);
+      color: var(--color-white);
+    }
+  }
+}

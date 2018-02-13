@@ -75,6 +75,7 @@
     "json-loader": "^0.5.7",
     "npm-run-all": "^4.1.2",
     "postcss-cssnext": "^3.1.0",
+    "postcss-import": "^11.1.0",
     "postcss-loader": "^2.1.0",
     "raven-js": "^3.22.2",
     "react": "^16.2.0",

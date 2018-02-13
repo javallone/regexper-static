@@ -1,10 +1,11 @@
 import React from 'react';
 import { translate, Trans } from 'react-i18next';
 
+import style from './style.css';
 import GithubIcon from 'feather-icons/dist/icons/github.svg';
 
 const Header = () => (
-  <header id="main" data-banner={ process.env.BANNER }>
+  <header className={ style.header } data-banner={ process.env.BANNER }>
     <h1>
       <a href="/">Regexper</a>
     </h1>
