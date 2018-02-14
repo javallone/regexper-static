@@ -5,10 +5,10 @@ jest.mock('sentry');
 
 import { RavenError } from 'components/RavenError';
 import { Raven } from 'sentry';
+import translate from '__mocks__/translate';
 
 const testError = { error: 'test error' };
 const testDetails = { details: 'test details' };
-const translate = v => `translate(${ v })`;
 
 describe('RavenError', () => {
   test('rendering', () => {
