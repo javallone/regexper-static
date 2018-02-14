@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import { Header } from './index';
+import { Header } from 'components/Header';
 
 const env = { ...process.env };
 

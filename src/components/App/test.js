@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-import App from './index';
+import App from 'components/App';
 
 test('Message rendering', () => {
   const component = shallow(

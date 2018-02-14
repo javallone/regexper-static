@@ -1,7 +1,7 @@
 import React from 'react';
 import { shallow, render } from 'enzyme';
 
-import Message from './index';
+import Message from 'components/Message';
 
 test('Message rendering', () => {
   const component = shallow(

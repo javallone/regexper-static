@@ -1,10 +1,10 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 
-jest.mock('../../sentry');
+jest.mock('sentry');
 
-import { RavenError } from './index';
-import { Raven } from '../../sentry';
+import { RavenError } from 'components/RavenError';
+import { Raven } from 'sentry';
 
 const testError = { error: 'test error' };
 const testDetails = { details: 'test details' };
