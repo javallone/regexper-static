@@ -4,7 +4,6 @@ import { translate, Trans } from 'react-i18next';
 import { Raven } from 'sentry';
 
 import Message from 'components/Message';
-import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
 
 class RavenError extends React.Component {
   componentDidMount() {
@@ -23,7 +22,7 @@ class RavenError extends React.Component {
   render() {
     const { t } = this.props;
 
-    return <Message type="error" icon={ AlertIcon } heading={ t('An error has occurred') }>
+    return <Message type="error" heading={ t('An error has occurred') }>
       <p><Trans i18nKey="This error has been logged">
         This error has been logged. You may also <a href="#error-report" onClick={ this.reportError }>fill out a report</a>.
       </Trans></p>

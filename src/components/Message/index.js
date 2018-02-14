@@ -3,7 +3,15 @@ import PropTypes from 'prop-types';
 
 import style from './style.css';
 
-const renderIcon = icon => {
+import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
+
+const iconTypes = {
+  error: AlertIcon
+};
+
+const renderIcon = (type, icon) => {
+  icon = icon || iconTypes[type];
+
   if (!icon) {
     return;
   }
@@ -15,7 +23,7 @@ const renderIcon = icon => {
 const Message = ({ type, icon, heading, children }) => (
   <div className={ [ style.message, type && style[type] ].filter(Boolean).join(' ') }>
     <div className={ style.header }>
-      <h2>{ renderIcon(icon) }{ heading }</h2>
+      <h2>{ renderIcon(type, icon) }{ heading }</h2>
     </div>
     <div className={ style.content }>
       { children }
