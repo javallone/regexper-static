@@ -3,10 +3,12 @@ import PropTypes from 'prop-types';
 
 import style from './style.css';
 
-import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
+import ErrorIcon from 'feather-icons/dist/icons/alert-octagon.svg';
+import WarningIcon from 'feather-icons/dist/icons/alert-triangle.svg';
 
 const iconTypes = {
-  error: AlertIcon
+  error: ErrorIcon,
+  warning: WarningIcon
 };
 
 const renderIcon = (type, icon) => {
@@ -33,7 +35,8 @@ const Message = ({ type, icon, heading, children }) => (
 
 Message.propTypes = {
   type: PropTypes.oneOf([
-    'error'
+    'error',
+    'warning'
   ]),
   icon: PropTypes.oneOfType([
     PropTypes.element,

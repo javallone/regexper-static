@@ -29,10 +29,19 @@ exports[`Message rendering 1`] = `
     }
   />
   <Message
-    heading="React App"
+    heading="Sample Error"
+    type="error"
   >
     <p>
-      Placeholder app content
+      Sample error message
+    </p>
+  </Message>
+  <Message
+    heading="Sample Warning"
+    type="warning"
+  >
+    <p>
+      Sample warning message
     </p>
   </Message>
 </React.Fragment>

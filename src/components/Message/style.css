@@ -38,4 +38,10 @@
       color: var(--color-white);
     }
   }
+
+  &.warning {
+    & .header {
+      background: var(--color-orange);
+    }
+  }
 }

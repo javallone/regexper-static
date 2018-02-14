@@ -41,3 +41,25 @@ exports[`Message rendering with icon 1`] = `
   </div>
 </div>
 `;
+
+exports[`Message rendering with type 1`] = `
+<div
+  class="message error"
+>
+  <div
+    class="header"
+  >
+    <h2>
+      <svg />
+      Testing
+    </h2>
+  </div>
+  <div
+    class="content"
+  >
+    <p>
+      Message content
+    </p>
+  </div>
+</div>
+`;

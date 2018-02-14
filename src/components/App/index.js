@@ -21,8 +21,11 @@ const App = () => <React.Fragment>
     downloadUrls={ downloadUrls }
     permalinkUrl="#permalink"
     onSubmit={ handleSubmit }/>
-  <Message heading="React App">
-    <p>Placeholder app content</p>
+  <Message type="error" heading="Sample Error">
+    <p>Sample error message</p>
+  </Message>
+  <Message type="warning" heading="Sample Warning">
+    <p>Sample warning message</p>
   </Message>
 </React.Fragment>;
 

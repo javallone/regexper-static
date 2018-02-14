@@ -5,6 +5,7 @@
   --color-black: #000;
   --color-white: #fff;
   --color-red: #b3151a;
+  --color-orange: #fa0;
 
   --gradient-green: linear-gradient(to bottom,
     var(--color-green) 0%,

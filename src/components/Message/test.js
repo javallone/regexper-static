@@ -21,3 +21,12 @@ test('Message rendering with icon', () => {
   );
   expect(component).toMatchSnapshot();
 });
+
+test('Message rendering with type', () => {
+  const component = render(
+    <Message heading="Testing" type="error">
+      <p>Message content</p>
+    </Message>
+  );
+  expect(component).toMatchSnapshot();
+});
