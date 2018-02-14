@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Message rendering 1`] = `
+<Message
+  heading="React App"
+>
+  <p>
+    Placeholder app content
+  </p>
+</Message>
+`;
