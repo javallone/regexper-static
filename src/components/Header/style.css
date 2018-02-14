@@ -1,9 +1,7 @@
 @import url('../../globals.css');
 
 .header {
-  background: var(--color-green) linear-gradient(to bottom,
-    var(--color-green) 0%,
-    color(var(--color-green) shade(40%)) 100%);
+  background: var(--color-green) var(--gradient-green);
   box-shadow: 0 0 1rem var(--color-black);
   padding: 0 var(--content-margin);
   margin: 0 calc(-1 * var(--content-margin)) var(--spacing-margin) calc(-1 * var(--content-margin));

@@ -6,6 +6,10 @@
   --color-white: #fff;
   --color-red: #b3151a;
 
+  --gradient-green: linear-gradient(to bottom,
+    var(--color-green) 0%,
+    color(var(--color-green) shade(40%)) 100%);
+
   --header-height: 6rem;
   --content-margin: 2rem;
   --spacing-margin: 1rem;
