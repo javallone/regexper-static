@@ -1,10 +1,10 @@
 import React from 'react';
 
-import Message from '../../components/Message';
+import Message from 'components/Message';
 import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
-import App from '../../components/App';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
+import App from 'components/App';
 
 const Component = () => (
   <React.Fragment>

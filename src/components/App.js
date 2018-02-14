@@ -1,6 +1,6 @@
 import React from 'react';
 
-import Message from './Message';
+import Message from 'components/Message';
 
 const App = () => (
   <Message heading="React App">

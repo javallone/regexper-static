@@ -34,6 +34,9 @@ module.exports = [
       chunkFilename: '[name].chunk.js',
       path: path.resolve(__dirname, 'prerender')
     },
+    resolve: {
+      modules: ['src', 'node_modules']
+    },
     plugins: [
       // Only want the EnvironmentPlugin
       common.plugins.find(plugin => plugin instanceof webpack.EnvironmentPlugin)

@@ -44,6 +44,9 @@ module.exports = {
     chunkFilename: 'js/[name].[chunkhash:8].js',
     path: path.resolve(__dirname, 'build')
   },
+  resolve: {
+    modules: ['src', 'node_modules']
+  },
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',

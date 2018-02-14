@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { translate, Trans } from 'react-i18next';
 
-import Message from '../../components/Message';
+import Message from 'components/Message';
 import AlertIcon from 'feather-icons/dist/icons/alert-octagon.svg';
-import Header from '../../components/Header';
-import Footer from '../../components/Footer';
+import Header from 'components/Header';
+import Footer from 'components/Footer';
 
 const Component = ({ t }) => (
   <React.Fragment>

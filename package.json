@@ -32,8 +32,12 @@
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
+    "modulePaths": [
+      "src",
+      "node_modules"
+    ],
     "moduleNameMapper": {
-      "\\.svg$": "<rootDir>/src/__mocks__/svgMock.js",
+      "\\.svg$": "__mocks__/svgMock.js",
       "\\.css$": "identity-obj-proxy"
     },
     "collectCoverageFrom": [
