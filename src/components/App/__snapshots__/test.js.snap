@@ -1,11 +1,39 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Message rendering 1`] = `
-<Message
-  heading="React App"
->
-  <p>
-    Placeholder app content
-  </p>
-</Message>
+<React.Fragment>
+  <Translate(Form)
+    downloadUrls={
+      Array [
+        Object {
+          "filename": "image.svg",
+          "label": "Download SVG",
+          "type": "image/svg+xml",
+          "url": "#svg",
+        },
+        Object {
+          "filename": "image.png",
+          "label": "Download PNG",
+          "type": "image/png",
+          "url": "#png",
+        },
+      ]
+    }
+    onSubmit={[Function]}
+    permalinkUrl="#permalink"
+    syntaxes={
+      Object {
+        "js": "JavaScript",
+        "pcre": "PCRE",
+      }
+    }
+  />
+  <Message
+    heading="React App"
+  >
+    <p>
+      Placeholder app content
+    </p>
+  </Message>
+</React.Fragment>
 `;

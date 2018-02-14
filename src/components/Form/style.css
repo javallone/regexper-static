@@ -1,0 +1,75 @@
+@import url('../../globals.css');
+
+:root {
+  --control-gradient: var(--color-green) var(--gradient-green);
+  --select-height: 2.8rem;
+  --select-width: 12rem;
+}
+
+.form {
+  margin: var(--spacing-margin) 0;
+
+  & textarea {
+    display: block;
+    font-size: inherit;
+    line-height: 1.5em;
+    border: 0 none;
+    outline: none;
+    background: var(--color-tan);
+    padding: 0 1rem;
+    margin-bottom: var(--spacing-margin);
+    width: 100% !important; /* "!important" to prevent user changing width */
+    box-sizing: border-box;
+    font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
+  }
+
+  & textarea::placeholder {
+    color: var(--color-brown);
+  }
+
+  & button {
+    font-size: inherit;
+    font-weight: bold;
+    line-height: 2.8rem;
+    width: 10rem;
+    border: 0 none;
+    background: var(--control-gradient);
+    cursor: pointer;
+    padding: 0;
+    margin-right: 1rem;
+  }
+}
+
+.actions {
+  float: right;
+
+  & svg {
+    height: 1em;
+    vertical-align: middle;
+  }
+}
+
+.select {
+  position: relative;
+  vertical-align: bottom;
+  display: inline-block;
+  height: var(--select-height);
+  width: var(--select-width);
+  background: var(--control-gradient);
+  overflow: hidden;
+
+  & select {
+    background: transparent;
+    border: 0 none;
+    font-size: inherit;
+    height: var(--select-height);
+    width: calc(var(--select-width) + 2rem);
+  }
+
+  & svg {
+    position: absolute;
+    top: calc((var(--select-height) - 24px) / 2);
+    right: 0;
+    pointer-events: none;
+  }
+}

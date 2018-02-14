@@ -1,0 +1,46 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Form rendering 1`] = `
+<div
+  className="form"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <textarea
+      autoFocus={true}
+      onKeyPress={[Function]}
+      placeholder="translate(Enter regular expression to display)"
+    />
+    <button
+      type="submit"
+    >
+      <Trans>
+        Display
+      </Trans>
+    </button>
+    <div
+      className="select"
+    >
+      <select>
+        <option
+          key="js"
+          value="js"
+        >
+          Javascript
+        </option>
+        <option
+          key="pcre"
+          value="pcre"
+        >
+          PCRE
+        </option>
+      </select>
+      <SvgMock />
+    </div>
+    <ul
+      className="inline with-separator actions"
+    />
+  </form>
+</div>
+`;
