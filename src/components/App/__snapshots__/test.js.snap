@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Message rendering 1`] = `
+exports[`App rendering 1`] = `
 <React.Fragment>
   <Translate(Form)
     downloadUrls={

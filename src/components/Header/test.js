@@ -5,22 +5,24 @@ import { Header } from 'components/Header';
 
 const env = { ...process.env };
 
-afterEach(() => {
-  process.env = env;
-});
+describe('Header', () => {
+  afterEach(() => {
+    process.env = env;
+  });
 
-beforeEach(() => {
-  process.env = {
-    ...process.env,
-    BANNER: 'testing'
-  };
-});
+  beforeEach(() => {
+    process.env = {
+      ...process.env,
+      BANNER: 'testing'
+    };
+  });
 
-test('Header rendering', () => {
-  const component = shallow(
-    <Header>
-      <p>Content</p>
-    </Header>
-  );
-  expect(component).toMatchSnapshot();
+  test('rendering', () => {
+    const component = shallow(
+      <Header>
+        <p>Content</p>
+      </Header>
+    );
+    expect(component).toMatchSnapshot();
+  });
 });
