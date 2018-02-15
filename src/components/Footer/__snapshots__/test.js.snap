@@ -2,9 +2,7 @@
 
 exports[`Footer rendering 1`] = `
 <footer>
-  <ul
-    className="inline with-separator"
-  >
+  <ul>
     <li>
       <Trans>
         Created by 

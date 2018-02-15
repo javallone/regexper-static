@@ -5,7 +5,7 @@ import './style.css';
 
 const Footer = () => (
   <footer>
-    <ul className="inline with-separator">
+    <ul>
       <li>
         <Trans>Created by <a href="mailto:jeff.avallone@gmail.com">Jeff Avallone</a></Trans>
       </li>

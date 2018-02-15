@@ -3,6 +3,11 @@
 footer {
   margin: var(--spacing-margin) 0;
 
+  & ul {
+    @apply --inline-list;
+    @apply --with-separator;
+  }
+
   & img {
     vertical-align: text-top;
     width: 80px;

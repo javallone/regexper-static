@@ -16,26 +16,3 @@ body {
 a {
   color: inherit;
 }
-
-ul:global(.inline) {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-
-  & li {
-    list-style-type: none;
-    display: inline-block;
-    white-space: nowrap;
-  }
-
-  &:global(.with-separator) {
-    & li:after {
-      content: '//';
-      padding: 0 0.5rem;
-    }
-
-    & li:last-child:after {
-      content: '';
-    }
-  }
-}

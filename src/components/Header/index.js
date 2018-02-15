@@ -10,7 +10,7 @@ const Header = () => (
       <a href="/">Regexper</a>
     </h1>
 
-    <ul className="inline">
+    <ul>
       <li><a href="https://github.com/javallone/regexper-static">
         <GithubIcon/><Trans>Source on GitHub</Trans>
       </a></li>

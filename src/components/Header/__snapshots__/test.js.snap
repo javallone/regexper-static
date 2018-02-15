@@ -12,9 +12,7 @@ exports[`Header rendering 1`] = `
       Regexper
     </a>
   </h1>
-  <ul
-    className="inline"
-  >
+  <ul>
     <li>
       <a
         href="https://github.com/javallone/regexper-static"

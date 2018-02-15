@@ -38,6 +38,7 @@
   }
 
   & ul {
+    @apply --inline-list;
     line-height: var(--header-height);
     position: absolute;
     top: 0;
