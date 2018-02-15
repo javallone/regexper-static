@@ -28,6 +28,7 @@
     "not ie < 11"
   ],
   "jest": {
+    "clearMocks": true,
     "setupTestFrameworkScriptFile": "<rootDir>/src/setup-jest.js",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
@@ -42,7 +43,11 @@
     },
     "collectCoverageFrom": [
       "src/**/*.js",
-      "!src/pages/**"
+      "!src/prerender.js",
+      "!src/service-worker.js",
+      "!src/setup-jest.js",
+      "!src/pages/**/config.js",
+      "!src/pages/**/browser.js"
     ],
     "coverageDirectory": "<rootDir>/coverage",
     "coverageReporters": [
