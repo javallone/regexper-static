@@ -44,3 +44,129 @@ exports[`Form rendering 1`] = `
   </form>
 </div>
 `;
+
+exports[`Form rendering with download URLs 1`] = `
+<div
+  className="form"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <textarea
+      autoFocus={true}
+      onKeyPress={[Function]}
+      placeholder="translate(Enter regular expression to display)"
+    />
+    <button
+      type="submit"
+    >
+      <Trans>
+        Display
+      </Trans>
+    </button>
+    <div
+      className="select"
+    >
+      <select>
+        <option
+          key="js"
+          value="js"
+        >
+          Javascript
+        </option>
+        <option
+          key="pcre"
+          value="pcre"
+        >
+          PCRE
+        </option>
+      </select>
+      <SvgMock />
+    </div>
+    <ul
+      className="actions"
+    >
+      <li
+        key="0"
+      >
+        <a
+          download="image.svg"
+          href="#svg"
+          type="image/svg+xml"
+        >
+          <SvgMock />
+          Download SVG
+        </a>
+      </li>
+      <li
+        key="1"
+      >
+        <a
+          download="image.png"
+          href="#png"
+          type="image/png"
+        >
+          <SvgMock />
+          Download PNG
+        </a>
+      </li>
+    </ul>
+  </form>
+</div>
+`;
+
+exports[`Form rendering with permalink URL 1`] = `
+<div
+  className="form"
+>
+  <form
+    onSubmit={[Function]}
+  >
+    <textarea
+      autoFocus={true}
+      onKeyPress={[Function]}
+      placeholder="translate(Enter regular expression to display)"
+    />
+    <button
+      type="submit"
+    >
+      <Trans>
+        Display
+      </Trans>
+    </button>
+    <div
+      className="select"
+    >
+      <select>
+        <option
+          key="js"
+          value="js"
+        >
+          Javascript
+        </option>
+        <option
+          key="pcre"
+          value="pcre"
+        >
+          PCRE
+        </option>
+      </select>
+      <SvgMock />
+    </div>
+    <ul
+      className="actions"
+    >
+      <li>
+        <a
+          href="#permalink"
+        >
+          <SvgMock />
+          <Trans>
+            Permalink
+          </Trans>
+        </a>
+      </li>
+    </ul>
+  </form>
+</div>
+`;
