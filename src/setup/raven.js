@@ -9,4 +9,4 @@ const setupRaven = () => {
   });
 };
 
-export { Raven, setupRaven };
+export default setupRaven;

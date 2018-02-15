@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Raven from 'raven-js';
 
 import Component from './Component';
 import RavenBoundary from 'components/RavenBoundary';
 
 import 'site.css';
 import 'i18n';
-import { setupServiceWorker } from 'service-worker';
-import { setupGA } from 'analytics';
-import { Raven, setupRaven } from 'sentry';
+import setupServiceWorker from 'setup/service-worker';
+import setupAnalytics from 'setup/analytics';
+import setupRaven from 'setup/raven';
 
 setupRaven();
 
 try {
-  setupGA();
+  setupAnalytics();
   if (process.env.NODE_ENV === 'production') {
     setupServiceWorker();
   }

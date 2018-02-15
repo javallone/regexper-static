@@ -44,8 +44,8 @@
     "collectCoverageFrom": [
       "src/**/*.js",
       "!src/prerender.js",
-      "!src/service-worker.js",
-      "!src/setup-jest.js",
+      "!src/setup/service-worker.js",
+      "!src/setup/jest.js",
       "!src/pages/**/config.js",
       "!src/pages/**/browser.js"
     ],

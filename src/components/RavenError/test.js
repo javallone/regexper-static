@@ -1,10 +1,10 @@
+jest.mock('raven-js');
+
 import React from 'react';
 import { shallow } from 'enzyme';
-
-jest.mock('sentry');
+import Raven from 'raven-js';
 
 import { RavenError } from 'components/RavenError';
-import { Raven } from 'sentry';
 import translate from '__mocks__/translate';
 
 const testError = { error: 'test error' };

@@ -12,4 +12,4 @@ const setupServiceWorker = () => {
   }
 };
 
-export { setupServiceWorker };
+export default setupServiceWorker;

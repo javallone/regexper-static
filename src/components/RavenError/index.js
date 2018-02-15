@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate, Trans } from 'react-i18next';
-import { Raven } from 'sentry';
+import Raven from 'raven-js';
 
 import Message from 'components/Message';
 
