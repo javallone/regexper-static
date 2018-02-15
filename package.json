@@ -27,6 +27,16 @@
     "last 2 versions",
     "not ie < 11"
   ],
+  "babel": {
+    "presets": ["env", "react"],
+    "plugins": ["transform-class-properties", "syntax-dynamic-import"]
+  },
+  "postcss": {
+    "plugins": {
+      "postcss-import": {},
+      "postcss-cssnext": {}
+    }
+  },
   "jest": {
     "clearMocks": true,
     "setupTestFrameworkScriptFile": "<rootDir>/src/setup/jest.js",
@@ -55,6 +65,44 @@
       "text-summary",
       "html"
     ]
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": true,
+      "es6": true,
+      "node": true,
+      "jest/globals": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended"
+    ],
+    "parser": "babel-eslint",
+    "parserOptions": {
+      "sourceType": "module"
+    },
+    "plugins": [
+      "react",
+      "jest"
+    ],
+    "rules": {
+      "indent": [
+        "error",
+        2
+      ],
+      "linebreak-style": [
+        "error",
+        "unix"
+      ],
+      "quotes": [
+        "error",
+        "single"
+      ],
+      "semi": [
+        "error",
+        "always"
+      ]
+    }
   },
   "dependencies": {
     "@alienfast/i18next-loader": "^1.0.14",
