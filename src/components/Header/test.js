@@ -19,9 +19,7 @@ describe('Header', () => {
 
   test('rendering', () => {
     const component = shallow(
-      <Header>
-        <p>Content</p>
-      </Header>
+      <Header/>
     );
     expect(component).toMatchSnapshot();
   });

@@ -6,9 +6,7 @@ import { Footer } from 'components/Footer';
 describe('Footer', () => {
   test('rendering', () => {
     const component = shallow(
-      <Footer>
-        <p>Content</p>
-      </Footer>
+      <Footer/>
     );
     expect(component).toMatchSnapshot();
   });
