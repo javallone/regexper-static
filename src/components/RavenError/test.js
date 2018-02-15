@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 import Raven from 'raven-js';
 
 import { RavenError } from 'components/RavenError';
-import translate from '__mocks__/translate';
+import { translate } from '__mocks__/i18n';
 
 const testError = { error: 'test error' };
 const testDetails = { details: 'test details' };

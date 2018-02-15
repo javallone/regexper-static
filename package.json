@@ -43,6 +43,7 @@
     },
     "collectCoverageFrom": [
       "src/**/*.js",
+      "!src/i18n.js",
       "!src/prerender.js",
       "!src/setup/service-worker.js",
       "!src/setup/jest.js",

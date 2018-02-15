@@ -2,7 +2,7 @@ import React from 'react';
 import { shallow } from 'enzyme';
 
 import { Form } from 'components/Form';
-import translate from '__mocks__/translate';
+import { translate, I18nWrapper } from '__mocks__/i18n';
 
 const syntaxes = {
   js: 'Javascript',
