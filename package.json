@@ -29,7 +29,7 @@
   ],
   "jest": {
     "clearMocks": true,
-    "setupTestFrameworkScriptFile": "<rootDir>/src/setup-jest.js",
+    "setupTestFrameworkScriptFile": "<rootDir>/src/setup/jest.js",
     "snapshotSerializers": [
       "enzyme-to-json/serializer"
     ],
