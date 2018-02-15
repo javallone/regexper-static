@@ -3,6 +3,7 @@
 .message {
   background: var(--color-tan);
   margin: var(--spacing-margin) 0;
+  box-shadow: 0 0 1rem color(var(--color-black) alpha(0.7));
 
   & .header {
     padding: var(--spacing-margin);

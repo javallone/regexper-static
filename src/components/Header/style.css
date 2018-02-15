@@ -2,7 +2,7 @@
 
 .header {
   background: var(--color-green) var(--gradient-green);
-  box-shadow: 0 0 1rem var(--color-black);
+  box-shadow: 0 0 1rem color(var(--color-black) alpha(0.7));
   padding: 0 var(--content-margin);
   margin: 0 calc(-1 * var(--content-margin)) var(--spacing-margin) calc(-1 * var(--content-margin));
   position: relative;
