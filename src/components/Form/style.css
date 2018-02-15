@@ -8,6 +8,7 @@
 
 .form {
   margin: var(--spacing-margin) 0;
+  overflow: hidden; /* Keep floated content in the box */
 
   & textarea {
     display: block;
@@ -41,7 +42,13 @@
 }
 
 .actions {
+  @apply --list-reset;
   float: right;
+
+  @media (min-width: 700px) {
+    @apply --inline-list;
+    @apply --with-separator;
+  }
 
   & svg {
     height: 1em;

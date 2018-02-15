@@ -39,7 +39,7 @@ exports[`Form rendering 1`] = `
       <SvgMock />
     </div>
     <ul
-      className="inline with-separator actions"
+      className="actions"
     />
   </form>
 </div>

@@ -72,7 +72,7 @@ class Form extends React.Component {
           </select>
           <ExpandIcon/>
         </div>
-        <ul className={ ['inline', 'with-separator', style.actions].join(' ') }>
+        <ul className={ style.actions }>
           { this.downloadActions() }
           { this.permalinkAction() }
         </ul>

@@ -14,4 +14,29 @@
   --header-height: 6rem;
   --content-margin: 2rem;
   --spacing-margin: 1rem;
+
+  --list-reset: {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  --inline-list: {
+    @apply --list-reset;
+
+    & li {
+      list-style-type: none;
+      display: inline-block;
+      white-space: nowrap;
+    }
+  }
+  --with-separator: {
+    & li:after {
+      content: '//';
+      padding: 0 0.5rem;
+    }
+
+    & li:last-child:after {
+      content: '';
+    }
+  }
 }
