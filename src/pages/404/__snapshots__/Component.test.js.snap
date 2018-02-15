@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`404 page component rendering 1`] = `
+<React.Fragment>
+  <Translate(Header) />
+  <Message
+    heading="translate(404 Page Not Found)"
+    type="error"
+  >
+    <p>
+      <Trans>
+        The page you have requested could not be found
+      </Trans>
+    </p>
+  </Message>
+  <Translate(Footer) />
+</React.Fragment>
+`;

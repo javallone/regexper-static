@@ -21,3 +21,4 @@ Component.propTypes = {
 };
 
 export default translate()(Component);
+export { Component };
