@@ -50,6 +50,7 @@ module.exports = {
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
+      DEPLOY_ENV: 'development',
       GA_PROPERTY: null,
       SENTRY_KEY: null,
       BANNER: process.env.NODE_ENV === 'production' ? null : (process.env.NODE_ENV || 'development'),

@@ -15,7 +15,7 @@ describe('setupRaven', () => {
   });
 
   it('sets the environment', () => {
-    process.env.NODE_ENV='test environment';
+    process.env.DEPLOY_ENV='test environment';
     setupRaven();
     expect(Raven.config).toHaveBeenCalledWith(expect.anything(), expect.objectContaining({
       environment: 'test environment'
