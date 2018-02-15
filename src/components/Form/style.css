@@ -4,6 +4,7 @@
   --control-gradient: var(--color-green) var(--gradient-green);
   --select-height: 2.8rem;
   --select-width: 12rem;
+  --entry-line-height: 1.5em;
 }
 
 .form {
@@ -13,13 +14,14 @@
   & textarea {
     display: block;
     font-size: inherit;
-    line-height: 1.5em;
+    line-height: var(--entry-line-height);
     border: 0 none;
     outline: none;
     background: var(--color-tan);
     padding: 0 1rem;
     margin-bottom: var(--spacing-margin);
     width: 100% !important; /* "!important" to prevent user changing width */
+    height: calc(3 * var(--entry-line-height));
     box-sizing: border-box;
     font-family: Consolas,Monaco,Lucida Console,Liberation Mono,DejaVu Sans Mono,Bitstream Vera Sans Mono,Courier New, monospace;
   }
