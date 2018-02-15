@@ -80,5 +80,6 @@
     top: calc((var(--select-height) - 24px) / 2);
     right: 0;
     pointer-events: none;
+    border-left: 0.2rem solid var(--color-black);
   }
 }
