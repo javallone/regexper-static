@@ -31,18 +31,35 @@ describe('RavenError', () => {
     expect(Raven.captureException).toHaveBeenCalledWith(testError, testDetails);
   });
 
-  test('error reporting', () => {
-    Raven.lastEventId.mockReturnValue(1);
-    const component = shallow(
-      <RavenError
-        error={ testError }
-        details={ testDetails }
-        t={ translate }/>
-    );
-    const eventObj = { preventDefault: jest.fn() };
-    component.find('a').simulate('click', eventObj);
+  describe('error reporting', () => {
+    test('clicking to fill out a report when an event has been logged', () => {
+      Raven.lastEventId.mockReturnValue(1);
+      const component = shallow(
+        <RavenError
+          error={ testError }
+          details={ testDetails }
+          t={ translate }/>
+      );
+      const eventObj = { preventDefault: jest.fn() };
+      component.find('a').simulate('click', eventObj);
 
-    expect(eventObj.preventDefault).toHaveBeenCalled();
-    expect(Raven.showReportDialog).toHaveBeenCalled();
+      expect(eventObj.preventDefault).toHaveBeenCalled();
+      expect(Raven.showReportDialog).toHaveBeenCalled();
+    });
+
+    test('clicking to fill out a report when an event has not been logged', () => {
+      Raven.lastEventId.mockReturnValue(false);
+      const component = shallow(
+        <RavenError
+          error={ testError }
+          details={ testDetails }
+          t={ translate }/>
+      );
+      const eventObj = { preventDefault: jest.fn() };
+      component.find('a').simulate('click', eventObj);
+
+      expect(eventObj.preventDefault).toHaveBeenCalled();
+      expect(Raven.showReportDialog).not.toHaveBeenCalled();
+    });
   });
 });
