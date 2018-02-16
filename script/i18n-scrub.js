@@ -2,6 +2,7 @@ const util = require('util');
 const path = require('path');
 const fs = require('fs');
 const yaml = require('js-yaml');
+const colors = require('colors/safe');
 
 const readdir = util.promisify(fs.readdir);
 const readFile = util.promisify(fs.readFile);
@@ -46,12 +47,17 @@ const saveLocales = async locales => {
 
 loadLocales()
   .then(async locales => {
-    const requiredKeys = Object.keys(locales.en.translation);
+    const sourceLocale = locales.en.translation;
+    const requiredKeys = Object.keys(sourceLocale);
     const languages = Object.keys(locales).filter(lang => lang !== 'en');
 
     languages.forEach(langName => {
       const lang = locales[langName];
-      const presentKeys = Object.keys(lang.translation || {});
+      const presentKeys = Object.keys(lang).reduce((list, nsName) => {
+        return list.concat(Object.keys(lang[nsName]));
+      }, []);
+      const missingKeys = requiredKeys.filter(key => !presentKeys.includes(key));
+      const extraKeys = presentKeys.filter(key => !requiredKeys.includes(key));
 
       if (!lang.translation) {
         lang.translation = {};
@@ -61,20 +67,23 @@ loadLocales()
         lang.missing = {};
       }
 
-      requiredKeys.forEach(key => {
-        if (!presentKeys.includes(key)) {
-          console.log(`es needs translation for "${ key }"`); // eslint-disable-line no-console
-          lang.missing[key] = locales.en.translation[key];
-        }
+      missingKeys.forEach(key => {
+        console.log(colors.yellow.bold('MISSING:'), `${ langName } need values for "${ colors.bold(key) }".`); //eslint-disable-line no-console
+        lang.missing[key] = sourceLocale[key];
+      });
+
+      extraKeys.forEach(key => {
+        console.log(colors.yellow.bold('EXTRA:'), `${ langName } has extra key for "${ colors.bold(key) }". It should be removed.`); // eslint-disable-line no-console
       });
     });
 
-    await saveLocales(locales);
+    return locales;
   })
+  .then(saveLocales)
   .then(() => {
     console.log('Done updating locales'); // eslint-disable-line no-console
   })
   .catch(e => {
-    console.log(e.toString()); // eslint-disable-line no-console
+    console.error(colors.red.bold('FAILED:'), e); // eslint-disable-line no-console
     process.exit(1);
   });
