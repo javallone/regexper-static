@@ -11,7 +11,7 @@ const Header = () => (
     </h1>
 
     <ul>
-      <li><a href="https://github.com/javallone/regexper-static">
+      <li><a href="https://github.com/javallone/regexper-static" rel="external noopener noreferrer" target="_blank">
         <GithubIcon/><Trans>Source on GitHub</Trans>
       </a></li>
     </ul>

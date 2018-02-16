@@ -11,7 +11,7 @@ const Footer = () => (
       </li>
       <li>
         <Trans i18nKey="Generated images licensed">
-          Generated images licensed: <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+          Generated images licensed: <a rel="license external noopener noreferrer" target="_blank" href="http://creativecommons.org/licenses/by/3.0/">
             <img
               alt="Creative Commons CC-BY-3.0 License"
               src="https://licensebuttons.net/l/by/3.0/80x15.png" />

@@ -16,6 +16,8 @@ exports[`Header rendering 1`] = `
     <li>
       <a
         href="https://github.com/javallone/regexper-static"
+        rel="external noopener noreferrer"
+        target="_blank"
       >
         <SvgMock />
         <Trans>
