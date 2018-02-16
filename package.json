@@ -15,7 +15,7 @@
     "start:http-server": "http-server ./build",
     "build": "cross-env NODE_ENV=production run-s build:webpack build:prerender",
     "build:webpack": "webpack --config webpack.prod.js",
-    "build:prerender": "node ./prerender/prerender.js",
+    "build:prerender": "node ./script/__build__/prerender.js",
     "test": "run-s test:lint 'test:unit --coverage'",
     "test:unit": "jest",
     "test:lint": "eslint --ignore-path .gitignore .",

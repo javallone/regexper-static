@@ -27,12 +27,12 @@ module.exports = [
       whitelist: [ /\.svg$/ ]
     })],
     entry: {
-      prerender: './src/prerender.js'
+      prerender: './script/prerender.js'
     },
     output: {
       filename: '[name].js',
       chunkFilename: '[name].chunk.js',
-      path: path.resolve(__dirname, 'prerender')
+      path: path.resolve(__dirname, 'script/__build__')
     },
     resolve: {
       modules: ['src', 'node_modules']
