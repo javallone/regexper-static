@@ -28,8 +28,14 @@
     "not ie < 11"
   ],
   "babel": {
-    "presets": ["env", "react"],
-    "plugins": ["transform-class-properties", "syntax-dynamic-import"]
+    "presets": [
+      "env",
+      "react"
+    ],
+    "plugins": [
+      "transform-class-properties",
+      "syntax-dynamic-import"
+    ]
   },
   "postcss": {
     "plugins": {
