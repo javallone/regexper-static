@@ -6,16 +6,17 @@
   box-shadow: 0 0 1rem color(var(--color-black) alpha(0.7));
 
   & .header {
-    padding: var(--spacing-margin);
-
     & h2 {
+      display: inline-block;
+      padding: var(--spacing-margin);
+      line-height: 2.8rem;
       margin: 0;
     }
 
-    & h2 svg {
-      margin-right: 0.5rem;
-      height: 3rem;
-      width: 3rem;
+    & svg {
+      padding: var(--spacing-margin);
+      height: 2.8rem;
+      width: 2.8rem;
       vertical-align: bottom;
     }
   }
@@ -37,12 +38,22 @@
     & .header {
       background: var(--color-red);
       color: var(--color-white);
+
+      & svg {
+        background: var(--color-white);
+        color: var(--color-red);
+      }
     }
   }
 
   &.warning {
     & .header {
       background: var(--color-orange);
+    }
+
+    & svg {
+      background: var(--color-black);
+      color: var(--color-orange);
     }
   }
 }

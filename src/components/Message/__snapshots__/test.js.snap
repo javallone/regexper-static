@@ -28,8 +28,9 @@ exports[`Message rendering with icon 1`] = `
   <div
     class="header"
   >
+    Sample icon SVG
     <h2>
-      Sample icon SVGTesting
+      Testing
     </h2>
   </div>
   <div
@@ -49,8 +50,8 @@ exports[`Message rendering with type 1`] = `
   <div
     class="header"
   >
+    <svg />
     <h2>
-      <svg />
       Testing
     </h2>
   </div>
