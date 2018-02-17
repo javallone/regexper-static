@@ -2,13 +2,13 @@
 // instead of served as a CSS file. This is so styles are included in
 // downloaded SVG files.
 
-//const green = '#bada55';
+const green = '#bada55';
 const brown = '#6b6659';
-//const tan = '#cbcbba';
+const tan = '#cbcbba';
 const black = '#000';
+const grey = '#908c83';
 const white = '#fff';
-//const red = '#b3151a';
-//const orange = '#fa0';
+const blue = '#dae9e5';
 
 const fontFamily = 'Arial';
 const fontSize = '16px';
@@ -31,6 +31,9 @@ export default {
     fontSize: fontSize,
     fontFamily: fontFamily
   },
+  textQuote: {
+    fill: grey
+  },
   infoText: {
     fontSize: fontSizeSmall,
     fontFamily: fontFamily,
@@ -39,5 +42,24 @@ export default {
   pin: {
     fill: brown,
     ...strokeBase
+  },
+  literalBox: {
+    fill: blue,
+    strokeWidth: '1px',
+    stroke: black
+  },
+  escapeBox: {
+    fill: green,
+    strokeWidth: '1px',
+    stroke: black
+  },
+  charClassBox: {
+    fill: tan
+  },
+  captureBox: {
+    fillOpacity: 0,
+    ...strokeBase,
+    stroke: grey,
+    strokeDasharray: '6,2'
   }
 };

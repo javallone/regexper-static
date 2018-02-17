@@ -96,12 +96,12 @@ class HorizontalLayout extends Base {
 }
 
 HorizontalLayout.propTypes = {
-  spacing: PropTypes.number,
-  withConnectors: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  spacing: PropTypes.number,
+  withConnectors: PropTypes.bool
 };
 
 export default HorizontalLayout;

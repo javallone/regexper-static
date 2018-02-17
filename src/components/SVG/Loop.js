@@ -134,11 +134,11 @@ class Loop extends Base {
 }
 
 Loop.propTypes = {
-  skip: PropTypes.bool,
-  repeat: PropTypes.bool,
+  children: PropTypes.node.isRequired,
   greedy: PropTypes.bool,
   label: PropTypes.string,
-  children: PropTypes.node.isRequired
+  skip: PropTypes.bool,
+  repeat: PropTypes.bool
 };
 
 export default Loop;

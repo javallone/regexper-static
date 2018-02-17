@@ -95,9 +95,9 @@ class Image extends Base {
 }
 
 Image.propTypes = {
+  children: PropTypes.node,
   onRender: PropTypes.func,
-  padding: PropTypes.number,
-  children: PropTypes.node
+  padding: PropTypes.number
 };
 
 export default Image;

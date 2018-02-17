@@ -7,7 +7,8 @@ import style from './style';
 /** @extends React.PureComponent */
 class Box extends Base {
   static defaultProps = {
-    padding: 5
+    padding: 5,
+    radius: 3
   }
 
   preReflow() {
@@ -43,11 +44,11 @@ class Box extends Base {
   labelRef = label => this.label = label
 
   render() {
-    const { style: propStyle, radius, label, children } = this.props;
+    const { type, radius, label, children } = this.props;
     const { width, height, labelTransform, rectTransform, contentTransform } = this.state || {};
 
     const rectProps = {
-      style: propStyle,
+      style: type ? style[type] : {},
       width,
       height,
       rx: radius,
@@ -73,12 +74,12 @@ class Box extends Base {
 }
 
 Box.propTypes = {
+  children: PropTypes.node,
+  label: PropTypes.string,
   padding: PropTypes.number,
   useAnchors: PropTypes.bool,
-  style: PropTypes.object,
   radius: PropTypes.number,
-  label: PropTypes.string,
-  children: PropTypes.node
+  type: PropTypes.string
 };
 
 export default Box;

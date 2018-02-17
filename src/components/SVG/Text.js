@@ -23,29 +23,41 @@ class Text extends Base {
 
   textRef = text => this.text = text
 
+  renderContent() {
+    const { children, quoted } = this.props;
+    if (!quoted) {
+      return children;
+    }
+
+    return <React.Fragment>
+      <tspan style={ style.textQuote }>&ldquo;</tspan>
+      <tspan>{ children }</tspan>
+      <tspan style={ style.textQuote }>&rdquo;</tspan>
+    </React.Fragment>;
+  }
+
   render() {
     const { transform } = this.state || {};
-    const { style: styleProp, children } = this.props;
 
     const textProps = {
-      style: { ...style.text, ...styleProp },
+      style: { ...style.text },
       transform,
       ref: this.textRef
     };
 
     return <text { ...textProps }>
-      { children }
+      { this.renderContent() }
     </text>;
   }
 }
 
 Text.propTypes = {
-  style: PropTypes.object,
-  transform: PropTypes.string,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  quoted: PropTypes.bool,
+  transform: PropTypes.string
 };
 
 export default Text;

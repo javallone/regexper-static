@@ -138,12 +138,12 @@ class VerticalLayout extends Base {
 }
 
 VerticalLayout.propTypes = {
-  spacing: PropTypes.number,
-  withConnectors: PropTypes.bool,
   children: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
     PropTypes.node
-  ]).isRequired
+  ]).isRequired,
+  spacing: PropTypes.number,
+  withConnectors: PropTypes.bool
 };
 
 export default VerticalLayout;
