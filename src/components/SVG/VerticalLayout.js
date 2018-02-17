@@ -84,10 +84,6 @@ class VerticalLayout extends Base {
   }
 
   reflow() {
-    if (this.children.length === 0) {
-      return Promise.resolve();
-    }
-
     const { spacing, withConnectors } = this.props;
 
     const childBoxes = this.children.map(child => child.getBBox());

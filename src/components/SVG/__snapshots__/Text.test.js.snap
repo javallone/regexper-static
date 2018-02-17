@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Text rendering 1`] = `
+<Text>
+  <text
+    style={
+      Object {
+        "fontFamily": "Arial",
+        "fontSize": "16px",
+      }
+    }
+    transform="translate(-10 -10)"
+  >
+    Test content
+  </text>
+</Text>
+`;
+
+exports[`Text rendering with quotes 1`] = `
+<Text
+  quoted={true}
+>
+  <text
+    style={
+      Object {
+        "fontFamily": "Arial",
+        "fontSize": "16px",
+      }
+    }
+    transform="translate(-10 -10)"
+  >
+    <tspan
+      style={
+        Object {
+          "fill": "#908c83",
+        }
+      }
+    >
+      “
+    </tspan>
+    <tspan>
+      Test content
+    </tspan>
+    <tspan
+      style={
+        Object {
+          "fill": "#908c83",
+        }
+      }
+    >
+      ”
+    </tspan>
+  </text>
+</Text>
+`;

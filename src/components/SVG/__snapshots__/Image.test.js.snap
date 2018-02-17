@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Image rendering 1`] = `
+<Image
+  padding={10}
+>
+  <svg
+    height={120}
+    style={
+      Object {
+        "backgroundColor": "#fff",
+      }
+    }
+    viewBox="0 0 120 120"
+    width={120}
+    xmlns="http://www.w3.org/2000/svg"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  >
+    <metadata
+      dangerouslySetInnerHTML={
+        Object {
+          "__html": "<rdf:rdf>
+ <cc:license rdf:about=\\"http://creativecommons.org/licenses/by/3.0/\\">
+    <cc:permits rdf:resource=\\"http://creativecommons.org/ns#Reproduction\\"></cc:permits>
+    <cc:permits rdf:resource=\\"http://creativecommons.org/ns#Distribution\\"></cc:permits>
+    <cc:requires rdf:resource=\\"http://creativecommons.org/ns#Notice\\"></cc:requires>
+    <cc:requires rdf:resource=\\"http://creativecommons.org/ns#Attribution\\"></cc:requires>
+    <cc:permits rdf:resource=\\"http://creativecommons.org/ns#DerivativeWorks\\"></cc:permits>
+  </cc:license>
+</rdf:rdf>",
+        }
+      }
+    />
+    <g
+      transform="translate(10 10)"
+    >
+      <SVGElement
+        bbox={
+          Object {
+            "height": 100,
+            "width": 100,
+          }
+        }
+      >
+        <text>
+          Mock content
+        </text>
+      </SVGElement>
+    </g>
+  </svg>
+</Image>
+`;

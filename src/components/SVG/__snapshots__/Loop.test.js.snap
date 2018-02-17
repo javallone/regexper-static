@@ -1,0 +1,213 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Loop rendering 1`] = `
+<Loop>
+  <path
+    d=""
+    style={
+      Object {
+        "fillOpacity": 0,
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+  />
+  <g
+    transform="translate(0 0)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</Loop>
+`;
+
+exports[`Loop rendering with greedy skip and repeat paths 1`] = `
+<Loop
+  greedy={true}
+  repeat={true}
+  skip={true}
+>
+  <path
+    d="M0,60q10,0 10,-10v-40q0,-10 10,-10h90q10,0 10,10v40q0,10 10,10M125,75l5,-5m-5,5l-5,-5M15,60q-10,0 -10,10v40q0,10 10,10h100q10,0 10,-10v-40q0,-10 -10,-10"
+    style={
+      Object {
+        "fillOpacity": 0,
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+  />
+  <g
+    transform="translate(15 10)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</Loop>
+`;
+
+exports[`Loop rendering with repeat path 1`] = `
+<Loop
+  repeat={true}
+>
+  <path
+    d="M10,50q-10,0 -10,10v40q0,10 10,10h100q10,0 10,-10v-40q0,-10 -10,-10"
+    style={
+      Object {
+        "fillOpacity": 0,
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+  />
+  <g
+    transform="translate(10 0)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</Loop>
+`;
+
+exports[`Loop rendering with repeat path and label 1`] = `
+<Loop
+  label="Test label"
+  repeat={true}
+>
+  <path
+    d="M10,50q-10,0 -10,10v40q0,10 10,10h100q10,0 10,-10v-40q0,-10 -10,-10"
+    style={
+      Object {
+        "fillOpacity": 0,
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+  />
+  <text
+    style={
+      Object {
+        "dominantBaseline": "text-after-edge",
+        "fontFamily": "Arial",
+        "fontSize": "12px",
+      }
+    }
+    transform="translate(10 122)"
+  >
+    Test label
+  </text>
+  <g
+    transform="translate(10 0)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</Loop>
+`;
+
+exports[`Loop rendering with skip and repeat paths 1`] = `
+<Loop
+  repeat={true}
+  skip={true}
+>
+  <path
+    d="M10,45l5,5m-5,-5l-5,5M0,60q10,0 10,-10v-40q0,-10 10,-10h90q10,0 10,10v40q0,10 10,10M15,60q-10,0 -10,10v40q0,10 10,10h100q10,0 10,-10v-40q0,-10 -10,-10"
+    style={
+      Object {
+        "fillOpacity": 0,
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+  />
+  <g
+    transform="translate(15 10)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</Loop>
+`;
+
+exports[`Loop rendering with skip path 1`] = `
+<Loop
+  skip={true}
+>
+  <path
+    d="M10,45l5,5m-5,-5l-5,5M0,60q10,0 10,-10v-40q0,-10 10,-10h90q10,0 10,10v40q0,10 10,10"
+    style={
+      Object {
+        "fillOpacity": 0,
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+  />
+  <g
+    transform="translate(15 10)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</Loop>
+`;

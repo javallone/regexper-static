@@ -1,0 +1,139 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`VerticalLayout rendering 1`] = `
+<VerticalLayout
+  spacing={10}
+  withConnectors={false}
+>
+  <path
+    d=""
+    style={
+      Object {
+        "fillOpacity": 0,
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+  />
+  <g
+    key=".0"
+    transform="translate(0 0)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+  <g
+    key=".1"
+    transform="translate(0 110)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+  <g
+    key=".2"
+    transform="translate(0 220)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</VerticalLayout>
+`;
+
+exports[`VerticalLayout rendering with connectors 1`] = `
+<VerticalLayout
+  spacing={10}
+  withConnectors={true}
+>
+  <path
+    d="M10,60q0,-10 10,-10H20M130,60q0,-10 -10,-10H120M0,160c15,0 10,0 20,0H20M140,160c-15,0 -10,0 -20,0H120M10,260q0,10 10,10H20M130,260q0,10 -10,10H120M0,160q10,0 10,-10V60M140,160q-10,0 -10,-10V60M0,160q10,0 10,10V260M140,160q-10,0 -10,10V260"
+    style={
+      Object {
+        "fillOpacity": 0,
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+  />
+  <g
+    key=".0"
+    transform="translate(20 0)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+  <g
+    key=".1"
+    transform="translate(20 110)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+  <g
+    key=".2"
+    transform="translate(20 220)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</VerticalLayout>
+`;

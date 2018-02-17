@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Pin rendering 1`] = `
+<Pin
+  radius={5}
+>
+  <circle
+    r={5}
+    style={
+      Object {
+        "fill": "#6b6659",
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+    transform="translate(5 5)"
+  />
+</Pin>
+`;

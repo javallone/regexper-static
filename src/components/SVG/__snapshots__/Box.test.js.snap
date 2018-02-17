@@ -1,0 +1,108 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Box rendering 1`] = `
+<Box
+  padding={5}
+  radius={3}
+>
+  <rect
+    height={110}
+    rx={3}
+    ry={3}
+    transform="translate(0 0)"
+    width={110}
+  />
+  <g
+    transform="translate(5 5)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</Box>
+`;
+
+exports[`Box rendering with content anchors 1`] = `
+<Box
+  padding={5}
+  radius={3}
+  useAnchors={true}
+>
+  <rect
+    height={110}
+    rx={3}
+    ry={3}
+    transform="translate(0 0)"
+    width={110}
+  />
+  <g
+    transform="translate(5 5)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</Box>
+`;
+
+exports[`Box rendering with label 1`] = `
+<Box
+  label="Test label"
+  padding={5}
+  radius={3}
+>
+  <rect
+    height={110}
+    rx={3}
+    ry={3}
+    transform="translate(0 10)"
+    width={110}
+  />
+  <text
+    style={
+      Object {
+        "dominantBaseline": "text-after-edge",
+        "fontFamily": "Arial",
+        "fontSize": "12px",
+      }
+    }
+    transform="translate(0 10)"
+  >
+    Test label
+  </text>
+  <g
+    transform="translate(5 15)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 100,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</Box>
+`;
