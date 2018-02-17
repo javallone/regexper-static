@@ -56,7 +56,6 @@ Text.propTypes = {
     PropTypes.node
   ]).isRequired,
   quoted: PropTypes.bool,
-  transform: PropTypes.string,
   theme: PropTypes.string
 };
 
