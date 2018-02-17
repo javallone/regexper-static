@@ -46,7 +46,7 @@ class Image extends Base {
 
     if (onRender && this.publishedMarkup !== markup) {
       this.publishedMarkup = markup;
-      onRender(this.svg.outerHTML);
+      onRender({ element: this.svg, markup: this.svg.outerHTML });
     }
   }
 

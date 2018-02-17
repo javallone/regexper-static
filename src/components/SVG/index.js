@@ -25,17 +25,17 @@ const renderChildren = children => {
 
   return children.length === 1 ?
     renderImage(children[0]) :
-    children.map(renderImage);
+    children.map((node, i) => renderImage(node, { key: i }));
 };
 
-const renderImage = (node, key) => {
+const renderImage = (node, extraProps = {}) => {
   if (typeof node === 'string') {
     return node;
   }
 
   const { type, props, children } = node;
 
-  return React.createElement(nodeTypes[type], { key, ...props }, renderChildren(children));
+  return React.createElement(nodeTypes[type], { ...extraProps, ...props }, renderChildren(children));
 };
 
 export default renderImage;

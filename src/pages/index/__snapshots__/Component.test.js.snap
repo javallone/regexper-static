@@ -38,7 +38,7 @@ exports[`Index page component rendering 1`] = `
       </p>
     </Message>
   </noscript>
-  <App />
+  <Translate(App) />
   <Translate(Footer) />
 </React.Fragment>
 `;

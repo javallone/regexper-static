@@ -3,22 +3,7 @@
 exports[`App rendering 1`] = `
 <React.Fragment>
   <Translate(Form)
-    downloadUrls={
-      Array [
-        Object {
-          "filename": "image.svg",
-          "label": "Download SVG",
-          "type": "image/svg+xml",
-          "url": "#svg",
-        },
-        Object {
-          "filename": "image.png",
-          "label": "Download PNG",
-          "type": "image/png",
-          "url": "#png",
-        },
-      ]
-    }
+    downloadUrls={Array []}
     onSubmit={[Function]}
     permalinkUrl="#permalink"
     syntaxes={
