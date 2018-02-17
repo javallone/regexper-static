@@ -1,0 +1,17 @@
+@import url('../../globals.css');
+
+.render {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  background: var(--color-white);
+  box-sizing: border-box;
+  overflow: auto;
+  margin: var(--spacing-margin) 0;
+
+  & svg {
+    display: block;
+    transform: scaleZ(1); /* Move to separate render layer in Chrome */
+    flex-shrink: 0;
+  }
+}

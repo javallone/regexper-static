@@ -36,6 +36,7 @@
     "plugins": [
       "transform-runtime",
       "transform-class-properties",
+      "transform-object-rest-spread",
       "syntax-dynamic-import"
     ]
   },
@@ -120,6 +121,7 @@
     "babel-loader": "^7.1.2",
     "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-plugin-transform-runtime": "^6.23.0",
     "babel-preset-env": "^1.6.1",
     "babel-preset-react": "^6.24.1",
@@ -142,6 +144,7 @@
     "i18next": "^10.3.0",
     "i18next-browser-languagedetector": "^2.1.0",
     "identity-obj-proxy": "^3.0.0",
+    "immutable": "^3.8.2",
     "jest": "^22.2.2",
     "npm-run-all": "^4.1.2",
     "postcss-cssnext": "^3.1.0",
