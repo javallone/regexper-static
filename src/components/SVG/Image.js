@@ -32,24 +32,6 @@ class Image extends Base {
     height: 0
   }
 
-  componentDidMount() {
-    this.doReflow().then(() => this.publishMarkup());
-  }
-
-  componentDidUpdate() {
-    this.doReflow().then(() => this.publishMarkup());
-  }
-
-  publishMarkup() {
-    const { onRender } = this.props;
-    const markup = this.svg.outerHTML;
-
-    if (onRender && this.publishedMarkup !== markup) {
-      this.publishedMarkup = markup;
-      onRender({ element: this.svg, markup: this.svg.outerHTML });
-    }
-  }
-
   preReflow() {
     return this.contained;
   }
@@ -96,7 +78,6 @@ class Image extends Base {
 
 Image.propTypes = {
   children: PropTypes.node,
-  onRender: PropTypes.func,
   padding: PropTypes.number
 };
 

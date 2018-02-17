@@ -157,7 +157,6 @@
     "react-i18next": "^7.3.6",
     "style-loader": "^0.20.1",
     "svg-react-loader": "^0.4.5",
-    "throttle-debounce": "^1.0.1",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "webpack": "^3.10.0",
     "webpack-merge": "^4.1.1",

@@ -1,7 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
-import { debounce } from 'throttle-debounce';
 
 import style from './style.css';
 
@@ -12,13 +11,13 @@ import { syntaxes, demoImage } from 'devel';
 
 class App extends React.PureComponent {
   state = {
-    syntaxes,
-    image: demoImage
+    syntaxes
   }
 
-  setSvgUrl({ markup }) {
+  setSvgUrl(element) {
     try {
       const type = 'image/svg+xml';
+      const markup = element.outerHTML;
       const blob = new Blob([markup], { type });
 
       this.setState({
@@ -35,9 +34,10 @@ class App extends React.PureComponent {
     }
   }
 
-  async setPngUrl({ element, markup }) {
+  async setPngUrl(element) {
     try {
       const type = 'image/png';
+      const markup = element.outerHTML;
       const canvas = document.createElement('canvas');
       const context = canvas.getContext('2d');
       const loader = new Image();
@@ -67,14 +67,18 @@ class App extends React.PureComponent {
     }
   }
 
-  handleRender = debounce(0, result => {
-    this.setSvgUrl(result);
-    this.setPngUrl(result);
-  })
-
   handleSubmit = ({expr, syntax}) => {
     console.log(syntax, expr); // eslint-disable-line no-console
+    this.setState({
+      image: demoImage
+    }, async () => {
+      await this.image.doReflow();
+      this.setSvgUrl(this.image.svg);
+      this.setPngUrl(this.image.svg);
+    });
   }
+
+  imageRef = image => this.image = image
 
   render() {
     const { svgUrl, pngUrl, syntaxes, image } = this.state;
@@ -95,9 +99,9 @@ class App extends React.PureComponent {
       <Message type="warning" heading="Sample Warning">
         <p>Sample warning message</p>
       </Message>
-      <div className={ style.render }>
-        { renderImage(image, { onRender: this.handleRender }) }
-      </div>
+      { image && <div className={ style.render }>
+        { renderImage(image, { ref: this.imageRef }) }
+      </div> }
     </React.Fragment>;
   }
 }

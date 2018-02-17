@@ -29,10 +29,5 @@ exports[`App rendering 1`] = `
       Sample warning message
     </p>
   </Message>
-  <div
-    className="render"
-  >
-    Testing image
-  </div>
 </React.Fragment>
 `;
