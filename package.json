@@ -30,7 +30,12 @@
   ],
   "babel": {
     "presets": [
-      "env",
+      [
+        "env",
+        {
+          "modules": false
+        }
+      ],
       "react"
     ],
     "plugins": [
@@ -38,7 +43,26 @@
       "transform-class-properties",
       "transform-object-rest-spread",
       "syntax-dynamic-import"
-    ]
+    ],
+    "env": {
+      "test": {
+        "presets": [
+          [
+            "env",
+            {
+              "modules": "commonjs"
+            }
+          ],
+          "react"
+        ],
+        "plugins": [
+          "transform-runtime",
+          "transform-class-properties",
+          "transform-object-rest-spread",
+          "syntax-dynamic-import"
+        ]
+      }
+    }
   },
   "postcss": {
     "plugins": {
