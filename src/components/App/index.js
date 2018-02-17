@@ -6,7 +6,7 @@ import style from './style.css';
 
 import Form from 'components/Form';
 import Message from 'components/Message';
-import renderImage from 'components/SVG';
+import SVG from 'components/SVG';
 import { syntaxes, demoImage } from 'devel';
 
 class App extends React.PureComponent {
@@ -100,7 +100,7 @@ class App extends React.PureComponent {
         <p>Sample warning message</p>
       </Message>
       { image && <div className={ style.render }>
-        { renderImage(image, { ref: this.imageRef }) }
+        <SVG data={ image } imageRef={ this.imageRef }/>
       </div> }
     </React.Fragment>;
   }

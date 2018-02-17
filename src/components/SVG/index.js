@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import Box from './Box';
 import HorizontalLayout from './HorizontalLayout';
@@ -18,24 +19,26 @@ const nodeTypes = {
   VerticalLayout
 };
 
-const renderChildren = children => {
-  if (!children || children.length === 0) {
-    return;
+const render = (data, extraProps = {}) => {
+  if (typeof data === 'string') {
+    return data;
   }
 
-  return children.length === 1 ?
-    renderImage(children[0]) :
-    children.map((node, i) => renderImage(node, { key: i }));
+  const { type, props } = data;
+  const children = (data.children || []).map(
+    (data, key) => render(data, { key }));
+
+  return React.createElement(
+    nodeTypes[type],
+    { ...extraProps, ...props },
+    children.length === 1 ? children[0] : children);
 };
 
-const renderImage = (node, extraProps = {}) => {
-  if (typeof node === 'string') {
-    return node;
-  }
+const SVG = ({ data, imageRef: ref }) => render(data, { ref });
 
-  const { type, props, children } = node;
-
-  return React.createElement(nodeTypes[type], { ...extraProps, ...props }, renderChildren(children));
+SVG.propTypes = {
+  data: PropTypes.object.isRequired,
+  imageRef: PropTypes.func
 };
 
-export default renderImage;
+export default SVG;
