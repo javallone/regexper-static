@@ -25,8 +25,6 @@ class Image extends Base {
     padding: 10
   }
 
-  publishedMarkup = ''
-
   state = {
     width: 0,
     height: 0
