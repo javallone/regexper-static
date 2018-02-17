@@ -1,8 +1,6 @@
 @import url('../../globals.css');
 
 .render {
-  display: flex;
-  justify-content: center;
   width: 100%;
   background: var(--color-white);
   box-sizing: border-box;
@@ -12,6 +10,6 @@
   & svg {
     display: block;
     transform: scaleZ(1); /* Move to separate render layer in Chrome */
-    flex-shrink: 0;
+    margin: 0 auto;
   }
 }
