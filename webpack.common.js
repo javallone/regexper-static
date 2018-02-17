@@ -83,7 +83,10 @@ module.exports = {
         }
       }
     }),
-    new ExtractTextPlugin('css/[name].[contenthash:8].css'),
+    new ExtractTextPlugin({
+      filename: 'css/[name].[contenthash:8].css',
+      allChunks: true
+    }),
     new CopyPlugin(['./public']),
     ...pagePlugins
   ],
