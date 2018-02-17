@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Base from './Base';
 import style from './style';
+
+import reflowable from './reflowable';
 import Path from './path';
 
 const skipPath = (box, greedy) => {
@@ -54,8 +55,8 @@ const repeatPath = (box, greedy) => {
     .quadraticCurveTo({ cx: 0, cy: -10, x: -10, y: -10 });
 };
 
-/** @extends React.PureComponent */
-class Loop extends Base {
+@reflowable
+class Loop extends React.PureComponent {
   get contentOffset() {
     const { skip, repeat } = this.props;
 

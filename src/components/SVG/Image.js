@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Base from './Base';
 import style from './style';
+
+import reflowable from './reflowable';
 
 const namespaceProps = {
   'xmlns': 'http://www.w3.org/2000/svg',
@@ -19,8 +20,8 @@ const metadata = `<rdf:rdf>
   </cc:license>
 </rdf:rdf>`;
 
-/** @extends React.PureComponent */
-class Image extends Base {
+@reflowable
+class Image extends React.PureComponent {
   static defaultProps = {
     padding: 10
   }

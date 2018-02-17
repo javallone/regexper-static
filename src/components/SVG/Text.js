@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Base from './Base';
 import style from './style';
 
-/** @extends React.PureComponent */
-class Text extends Base {
+import reflowable from './reflowable';
+
+@reflowable
+class Text extends React.PureComponent {
   reflow() {
     const box = this.text.getBBox();
 

@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Base from './Base';
 import style from './style';
 
-/** @extends React.PureComponent */
-class Box extends Base {
+import reflowable from './reflowable';
+
+@reflowable
+class Box extends React.PureComponent {
   static defaultProps = {
     padding: 5,
     radius: 3

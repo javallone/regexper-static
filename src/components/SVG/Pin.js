@@ -1,11 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Base from './Base';
 import style from './style';
 
-/** @extends React.PureComponent */
-class Pin extends Base {
+import reflowable from './reflowable';
+
+@reflowable
+class Pin extends React.PureComponent {
   static defaultProps = {
     radius: 5
   }

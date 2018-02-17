@@ -1,8 +1,11 @@
+/* eslint-disable react/prop-types */
+
 import React from 'react';
 
-import Base from 'components/SVG/Base';
+import reflowable from 'components/SVG/reflowable';
 
-class SVGElement extends Base {
+@reflowable
+class SVGElement extends React.PureComponent {
   reflow() {
     return this.setBBox(this.props.bbox);
   }

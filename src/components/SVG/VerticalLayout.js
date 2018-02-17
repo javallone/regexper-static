@@ -2,14 +2,15 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import Base from './Base';
 import style from './style';
+
+import reflowable from './reflowable';
 import Path from './path';
 
 const connectorMargin = 20;
 
-/** @extends React.PureComponent */
-class VerticalLayout extends Base {
+@reflowable
+class VerticalLayout extends React.PureComponent {
   static defaultProps = {
     withConnectors: false,
     spacing: 10

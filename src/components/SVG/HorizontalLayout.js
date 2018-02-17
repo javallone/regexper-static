@@ -2,12 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { List } from 'immutable';
 
-import Base from './Base';
 import style from './style';
+
+import reflowable from './reflowable';
 import Path from './path';
 
-/** @extends React.PureComponent */
-class HorizontalLayout extends Base {
+@reflowable
+class HorizontalLayout extends React.PureComponent {
   static defaultProps = {
     withConnectors: false,
     spacing: 10
