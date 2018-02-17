@@ -46,38 +46,26 @@ class Base extends React.PureComponent {
     };
   }
 
-  async doPreReflow() {
-    const components = this.preReflow();
-
+  async reflowChildren() {
     // No child components
-    if (components === undefined) {
+    if (this.children === undefined) {
       return true;
     }
 
-    // List of child components
-    if (components.map) {
-      const componentsReflowed = await Promise.all(components.map(c => c.doReflow()));
+    const reflowed = await Promise.all(this.children.map(c => c.doReflow()));
 
-      return componentsReflowed.reduce((memo, value) => memo || value, false);
-    }
-
-    // One child component
-    return components.doReflow();
+    return reflowed.reduce((memo, value) => memo || value, false);
   }
 
   async doReflow() {
     const oldBBox = this._currentBBox();
-    const shouldReflow = await this.doPreReflow();
+    const shouldReflow = await this.reflowChildren();
 
     if (shouldReflow) {
       this.reflow();
     }
 
     return this._currentBBox() !== oldBBox;
-  }
-
-  preReflow() {
-    // Implemented in subclass, return array of components to reflow before this
   }
 
   reflow() {

@@ -30,13 +30,9 @@ class Image extends Base {
     height: 0
   }
 
-  preReflow() {
-    return this.contained;
-  }
-
   reflow() {
     const { padding } = this.props;
-    const box = this.contained.getBBox();
+    const box = this.children[0].getBBox();
 
     return this.setStateAsync({
       width: Math.round(box.width + 2 * padding),
@@ -44,7 +40,7 @@ class Image extends Base {
     });
   }
 
-  containedRef = contained => this.contained = contained
+  containedRef = contained => this.children = [contained]
 
   svgRef = svg => this.svg = svg
 

@@ -40,10 +40,6 @@ class HorizontalLayout extends Base {
     }, new Path()).toString();
   }
 
-  preReflow() {
-    return this.children;
-  }
-
   reflow() {
     const { spacing, withConnectors } = this.props;
 

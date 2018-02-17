@@ -78,10 +78,6 @@ class VerticalLayout extends Base {
     }
   }
 
-  preReflow() {
-    return this.children;
-  }
-
   reflow() {
     const { spacing, withConnectors } = this.props;
 

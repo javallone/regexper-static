@@ -68,13 +68,9 @@ class Loop extends Base {
     }
   }
 
-  preReflow() {
-    return this.contained;
-  }
-
   reflow() {
     const { skip, repeat, greedy } = this.props;
-    const box = this.contained.getBBox();
+    const box = this.children[0].getBBox();
     const labelBox = this.label ? this.label.getBBox() : { width: 0, height: 0 };
 
     let height = box.height + labelBox.height;
@@ -105,7 +101,7 @@ class Loop extends Base {
     });
   }
 
-  containedRef = contained => this.contained = contained
+  containedRef = contained => this.children = [contained]
 
   labelRef = label => this.label = label
 
