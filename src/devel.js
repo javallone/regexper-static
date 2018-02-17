@@ -22,14 +22,14 @@ const demoImage = {
         {
           type: 'Box',
           props: {
-            type: 'anchorBox',
+            theme: 'anchorBox',
             radius: 0
           },
           children: [
             {
               type: 'Text',
               props: {
-                type: 'anchorText'
+                theme: 'anchorText'
               },
               children: [
                 'Anchor'
@@ -41,7 +41,7 @@ const demoImage = {
         {
           type: 'Box',
           props: {
-            type: 'literalBox'
+            theme: 'literalBox'
           },
           children: [
             {
@@ -59,7 +59,7 @@ const demoImage = {
         {
           type: 'Box',
           props: {
-            type: 'escapeBox'
+            theme: 'escapeBox'
           },
           children: [
             {
@@ -74,7 +74,7 @@ const demoImage = {
         {
           type: 'Box',
           props: {
-            type: 'charClassBox',
+            theme: 'charClassBox',
             label: 'Label',
             padding: 10
           },
@@ -91,7 +91,7 @@ const demoImage = {
                     {
                       type: 'Box',
                       props: {
-                        type: 'literalBox'
+                        theme: 'literalBox'
                       },
                       children: [
                         {
@@ -114,7 +114,7 @@ const demoImage = {
                     {
                       type: 'Box',
                       props: {
-                        type: 'literalBox'
+                        theme: 'literalBox'
                       },
                       children: [
                         {
@@ -133,7 +133,7 @@ const demoImage = {
                 {
                   type: 'Box',
                   props: {
-                    type: 'escapeBox'
+                    theme: 'escapeBox'
                   },
                   children: [
                     {
@@ -152,7 +152,7 @@ const demoImage = {
         {
           type: 'Box',
           props: {
-            type: 'captureBox',
+            theme: 'captureBox',
             label: 'group #1',
             useAnchors: true,
             padding: 10
@@ -167,7 +167,7 @@ const demoImage = {
                 {
                   type: 'Box',
                   props: {
-                    type: 'literalBox'
+                    theme: 'literalBox'
                   },
                   children: [
                     {
@@ -184,7 +184,7 @@ const demoImage = {
                 {
                   type: 'Box',
                   props: {
-                    type: 'literalBox'
+                    theme: 'literalBox'
                   },
                   children: [
                     {
@@ -201,7 +201,7 @@ const demoImage = {
                 {
                   type: 'Box',
                   props: {
-                    type: 'literalBox'
+                    theme: 'literalBox'
                   },
                   children: [
                     {

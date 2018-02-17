@@ -37,11 +37,11 @@ class Text extends Base {
   }
 
   render() {
-    const { type } = this.props;
+    const { theme } = this.props;
     const { transform } = this.state || {};
 
     const textProps = {
-      style: { ...style.text, ...(type ? style[type] : {}) },
+      style: { ...style.text, ...style[theme] },
       transform,
       ref: this.textRef
     };
@@ -59,7 +59,7 @@ Text.propTypes = {
   ]).isRequired,
   quoted: PropTypes.bool,
   transform: PropTypes.string,
-  type: PropTypes.string
+  theme: PropTypes.string
 };
 
 export default Text;

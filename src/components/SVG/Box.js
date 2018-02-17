@@ -44,11 +44,11 @@ class Box extends Base {
   labelRef = label => this.label = label
 
   render() {
-    const { type, radius, label, children } = this.props;
+    const { theme, radius, label, children } = this.props;
     const { width, height, labelTransform, rectTransform, contentTransform } = this.state || {};
 
     const rectProps = {
-      style: type ? style[type] : {},
+      style: style[theme],
       width,
       height,
       rx: radius,
@@ -79,7 +79,7 @@ Box.propTypes = {
   padding: PropTypes.number,
   useAnchors: PropTypes.bool,
   radius: PropTypes.number,
-  type: PropTypes.string
+  theme: PropTypes.string
 };
 
 export default Box;
