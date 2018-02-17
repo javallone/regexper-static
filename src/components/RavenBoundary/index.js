@@ -4,11 +4,8 @@ import PropTypes from 'prop-types';
 import RavenError from 'components/RavenError';
 
 class RavenBoundary extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      error: null
-    };
+  state = {
+    error: null
   }
 
   componentDidCatch(error, errorInfo) {

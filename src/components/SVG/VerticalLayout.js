@@ -15,11 +15,8 @@ class VerticalLayout extends Base {
     spacing: 10
   }
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      childTransforms: List()
-    };
+  state = {
+    childTransforms: List()
   }
 
   updateChildTransforms(childBoxes) {
