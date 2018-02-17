@@ -23,9 +23,11 @@ class VerticalLayout extends Base {
   }
 
   updateChildTransforms(childBoxes) {
-    return childBoxes.reduce((transforms, box, i) => (
-      transforms.set(i, `translate(${ box.offsetX } ${ box.offsetY })`)
-    ), this.state.childTransforms);
+    return this.state.childTransforms.withMutations(transforms => (
+      childBoxes.forEach((box, i) => (
+        transforms.set(i, `translate(${ box.offsetX } ${ box.offsetY })`)
+      ))
+    ));
   }
 
   makeCurve(box) {

@@ -13,21 +13,21 @@ class Base extends React.PureComponent {
   }
 
   async setBBox(box, recalculate = {}) {
-    let bbox = this._currentBBox() || Map({ width: 0, height: 0});
+    const bbox = (this._currentBBox() || Map({ width: 0, height: 0})).withMutations(bbox => {
+      bbox.merge(box);
 
-    bbox = bbox.merge(box);
+      if (!bbox.has('axisY') || recalculate.axisY) {
+        bbox.set('axisY', bbox.get('height') / 2);
+      }
 
-    if (!bbox.has('axisY') || recalculate.axisY) {
-      bbox = bbox.set('axisY', bbox.get('height') / 2);
-    }
+      if (!bbox.has('axisX1') || recalculate.axisX1) {
+        bbox.set('axisX1', 0);
+      }
 
-    if (!bbox.has('axisX1') || recalculate.axisX1) {
-      bbox = bbox.set('axisX1', 0);
-    }
-
-    if (!bbox.has('axisX2') || recalculate.axisX2) {
-      bbox = bbox.set('axisX2', bbox.get('width'));
-    }
+      if (!bbox.has('axisX2') || recalculate.axisX2) {
+        bbox.set('axisX2', bbox.get('width'));
+      }
+    });
 
     this.tempBBox = bbox; // Want to get the updated bbox while setState is pending
     await this.setStateAsync({ bbox });
