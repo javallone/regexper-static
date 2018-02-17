@@ -18,6 +18,25 @@ const demoImage = {
         {
           type: 'Pin'
         },
+        // Anchor
+        {
+          type: 'Box',
+          props: {
+            type: 'anchorBox',
+            radius: 0
+          },
+          children: [
+            {
+              type: 'Text',
+              props: {
+                type: 'anchorText'
+              },
+              children: [
+                'Anchor'
+              ]
+            }
+          ]
+        },
         // Literal
         {
           type: 'Box',

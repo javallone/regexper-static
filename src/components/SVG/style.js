@@ -61,5 +61,11 @@ export default {
     ...strokeBase,
     stroke: grey,
     strokeDasharray: '6,2'
+  },
+  anchorBox: {
+    fill: brown
+  },
+  anchorText: {
+    fill: white
   }
 };
