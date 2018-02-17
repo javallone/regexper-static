@@ -46,12 +46,12 @@ export default {
   literalBox: {
     fill: blue,
     strokeWidth: '1px',
-    stroke: black
+    stroke: brown
   },
   escapeBox: {
     fill: green,
     strokeWidth: '1px',
-    stroke: black
+    stroke: brown
   },
   charClassBox: {
     fill: tan
