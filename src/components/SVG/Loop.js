@@ -73,37 +73,35 @@ class Loop extends Base {
   }
 
   reflow() {
-    return new Promise(resolve => {
-      const { skip, repeat, greedy } = this.props;
-      const box = this.contained.getBBox();
-      const labelBox = this.label ? this.label.getBBox() : { width: 0, height: 0 };
+    const { skip, repeat, greedy } = this.props;
+    const box = this.contained.getBBox();
+    const labelBox = this.label ? this.label.getBBox() : { width: 0, height: 0 };
 
-      let height = box.height + labelBox.height;
-      if (skip) {
-        height += 10;
-      }
-      if (repeat) {
-        height += 10;
-      }
+    let height = box.height + labelBox.height;
+    if (skip) {
+      height += 10;
+    }
+    if (repeat) {
+      height += 10;
+    }
 
-      this.setBBox({
-        width: box.width + this.contentOffset.x * 2,
-        height,
-        axisY: box.axisY + this.contentOffset.y,
-        axisX1: box.axisX1 + this.contentOffset.x,
-        axisX2: box.axisX2 + this.contentOffset.x
-      });
+    this.setBBox({
+      width: box.width + this.contentOffset.x * 2,
+      height,
+      axisY: box.axisY + this.contentOffset.y,
+      axisX1: box.axisX1 + this.contentOffset.x,
+      axisX2: box.axisX2 + this.contentOffset.x
+    });
 
-      box.offsetX = this.contentOffset.x;
-      box.offsetY = this.contentOffset.y;
+    box.offsetX = this.contentOffset.x;
+    box.offsetY = this.contentOffset.y;
 
-      this.setState({
-        labelTransform: `translate(${ this.getBBox().width - labelBox.width - 10 } ${ this.getBBox().height + 2 })`,
-        loopPaths: [
-          skip && skipPath(box, greedy),
-          repeat && repeatPath(box, greedy)
-        ].filter(Boolean).join('')
-      }, resolve);
+    return this.setStateAsync({
+      labelTransform: `translate(${ this.getBBox().width - labelBox.width - 10 } ${ this.getBBox().height + 2 })`,
+      loopPaths: [
+        skip && skipPath(box, greedy),
+        repeat && repeatPath(box, greedy)
+      ].filter(Boolean).join('')
     });
   }
 

@@ -16,26 +16,24 @@ class Box extends Base {
   }
 
   reflow() {
-    return new Promise(resolve => {
-      const { padding, useAnchors } = this.props;
-      const box = this.contained.getBBox();
-      const labelBox = this.label ? this.label.getBBox() : { width: 0, height: 0};
+    const { padding, useAnchors } = this.props;
+    const box = this.contained.getBBox();
+    const labelBox = this.label ? this.label.getBBox() : { width: 0, height: 0};
 
-      this.setBBox({
-        width: Math.max(box.width + 2 * padding, labelBox.width),
-        height: box.height + 2 * padding + labelBox.height,
-        axisY: (useAnchors ? box.axisY : box.height / 2) + padding + labelBox.height,
-        axisX1: useAnchors ? box.axisX1 + padding : 0,
-        axisX2: useAnchors ? box.axisX2 + padding : box.width + 2 * padding
-      });
+    this.setBBox({
+      width: Math.max(box.width + 2 * padding, labelBox.width),
+      height: box.height + 2 * padding + labelBox.height,
+      axisY: (useAnchors ? box.axisY : box.height / 2) + padding + labelBox.height,
+      axisX1: useAnchors ? box.axisX1 + padding : 0,
+      axisX2: useAnchors ? box.axisX2 + padding : box.width + 2 * padding
+    });
 
-      this.setState({
-        width: this.getBBox().width,
-        height: box.height + 2 * padding,
-        contentTransform: `translate(${ padding } ${ padding + labelBox.height })`,
-        rectTransform: `translate(0 ${ labelBox.height })`,
-        labelTransform: `translate(0 ${ labelBox.height })`
-      }, resolve);
+    return this.setStateAsync({
+      width: this.getBBox().width,
+      height: box.height + 2 * padding,
+      contentTransform: `translate(${ padding } ${ padding + labelBox.height })`,
+      rectTransform: `translate(0 ${ labelBox.height })`,
+      labelTransform: `translate(0 ${ labelBox.height })`
     });
   }
 

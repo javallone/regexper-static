@@ -50,27 +50,25 @@ class HorizontalLayout extends Base {
       return;
     }
 
-    return new Promise(resolve => {
-      const { spacing, withConnectors } = this.props;
+    const { spacing, withConnectors } = this.props;
 
-      const childBoxes = this.children.map(child => child.getBBox());
-      const verticalCenter = childBoxes.reduce((center, box) => Math.max(center, box.axisY), 0);
-      const width = childBoxes.reduce((width, box) => width + box.width, 0) + (childBoxes.length - 1) * spacing;
-      const height = childBoxes.reduce((ascHeight, box) => Math.max(ascHeight, box.axisY), 0) +
-                     childBoxes.reduce((decHeight, box) => Math.max(decHeight, box.height - box.axisY), 0);
-      this.setBBox({ width, height, axisY: verticalCenter }, { axisX1: true, axisX2: true });
+    const childBoxes = this.children.map(child => child.getBBox());
+    const verticalCenter = childBoxes.reduce((center, box) => Math.max(center, box.axisY), 0);
+    const width = childBoxes.reduce((width, box) => width + box.width, 0) + (childBoxes.length - 1) * spacing;
+    const height = childBoxes.reduce((ascHeight, box) => Math.max(ascHeight, box.axisY), 0) +
+                   childBoxes.reduce((decHeight, box) => Math.max(decHeight, box.height - box.axisY), 0);
+    this.setBBox({ width, height, axisY: verticalCenter }, { axisX1: true, axisX2: true });
 
-      let offset = 0;
-      childBoxes.forEach(box => {
-        box.offsetX = offset;
-        box.offsetY = this.getBBox().axisY - box.axisY;
-        offset += box.width + spacing;
-      });
+    let offset = 0;
+    childBoxes.forEach(box => {
+      box.offsetX = offset;
+      box.offsetY = this.getBBox().axisY - box.axisY;
+      offset += box.width + spacing;
+    });
 
-      this.setState({
-        childTransforms: this.updateChildTransforms(childBoxes),
-        connectorPaths: withConnectors ? this.updateConnectorPaths(childBoxes) : ''
-      }, resolve);
+    this.setStateAsync({
+      childTransforms: this.updateChildTransforms(childBoxes),
+      connectorPaths: withConnectors ? this.updateConnectorPaths(childBoxes) : ''
     });
   }
 

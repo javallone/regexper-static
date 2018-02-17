@@ -37,14 +37,12 @@ class Image extends Base {
   }
 
   reflow() {
-    return new Promise(resolve => {
-      const { padding } = this.props;
-      const box = this.contained.getBBox();
+    const { padding } = this.props;
+    const box = this.contained.getBBox();
 
-      this.setState({
-        width: Math.round(box.width + 2 * padding),
-        height: Math.round(box.height + 2 * padding)
-      }, resolve);
+    return this.setStateAsync({
+      width: Math.round(box.width + 2 * padding),
+      height: Math.round(box.height + 2 * padding)
     });
   }
 

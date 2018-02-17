@@ -7,17 +7,15 @@ import style from './style';
 /** @extends React.PureComponent */
 class Text extends Base {
   reflow() {
-    return new Promise(resolve => {
-      const box = this.text.getBBox();
+    const box = this.text.getBBox();
 
-      this.setBBox({
-        width: box.width,
-        height: box.height
-      });
+    this.setBBox({
+      width: box.width,
+      height: box.height
+    });
 
-      this.setState({
-        transform: `translate(${-box.x} ${-box.y})`
-      }, resolve);
+    return this.setStateAsync({
+      transform: `translate(${-box.x} ${-box.y})`
     });
   }
 

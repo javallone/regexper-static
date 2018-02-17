@@ -6,7 +6,13 @@ class Base extends React.PureComponent {
     return this.tempBBox ? this.tempBBox : (this.state || {}).bbox;
   }
 
-  setBBox(box, recalculate = {}) {
+  setStateAsync(state) {
+    return new Promise(resolve => {
+      this.setState(state, resolve);
+    });
+  }
+
+  async setBBox(box, recalculate = {}) {
     let bbox = this._currentBBox() || Map({ width: 0, height: 0});
 
     bbox = bbox.merge(box);
@@ -24,9 +30,8 @@ class Base extends React.PureComponent {
     }
 
     this.tempBBox = bbox; // Want to get the updated bbox while setState is pending
-    this.setState({ bbox }, () => {
-      this.tempBBox = null;
-    });
+    await this.setStateAsync({ bbox });
+    this.tempBBox = null;
   }
 
   getBBox() {

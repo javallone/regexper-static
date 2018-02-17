@@ -88,31 +88,29 @@ class VerticalLayout extends Base {
       return Promise.resolve();
     }
 
-    return new Promise(resolve => {
-      const { spacing, withConnectors } = this.props;
+    const { spacing, withConnectors } = this.props;
 
-      const childBoxes = this.children.map(child => child.getBBox());
-      const horizontalCenter = childBoxes.reduce((center, box) => Math.max(center, box.width / 2), 0);
-      const margin = withConnectors ? connectorMargin : 0;
-      const width = childBoxes.reduce((width, box) => Math.max(width, box.width), 0) + 2 * margin;
-      const height = childBoxes.reduce((height, box) => height + box.height, 0) + (childBoxes.length - 1) * spacing;
-      this.setBBox({ width, height }, { axisY: true, axisX1: true, axisX2: true });
+    const childBoxes = this.children.map(child => child.getBBox());
+    const horizontalCenter = childBoxes.reduce((center, box) => Math.max(center, box.width / 2), 0);
+    const margin = withConnectors ? connectorMargin : 0;
+    const width = childBoxes.reduce((width, box) => Math.max(width, box.width), 0) + 2 * margin;
+    const height = childBoxes.reduce((height, box) => height + box.height, 0) + (childBoxes.length - 1) * spacing;
+    this.setBBox({ width, height }, { axisY: true, axisX1: true, axisX2: true });
 
-      let offset = 0;
-      childBoxes.forEach(box => {
-        box.offsetX = horizontalCenter - box.width / 2 + margin;
-        box.offsetY = offset;
-        offset += spacing + box.height;
-      });
+    let offset = 0;
+    childBoxes.forEach(box => {
+      box.offsetX = horizontalCenter - box.width / 2 + margin;
+      box.offsetY = offset;
+      offset += spacing + box.height;
+    });
 
-      this.setState({
-        childTransforms: this.updateChildTransforms(childBoxes),
-        connectorPaths: withConnectors ? [
-          ...childBoxes.map(box => this.makeCurve(box)),
-          this.makeSide(childBoxes[0]),
-          this.makeSide(childBoxes[childBoxes.length - 1])
-        ].join('') : ''
-      }, resolve);
+    return this.setStateAsync({
+      childTransforms: this.updateChildTransforms(childBoxes),
+      connectorPaths: withConnectors ? [
+        ...childBoxes.map(box => this.makeCurve(box)),
+        this.makeSide(childBoxes[0]),
+        this.makeSide(childBoxes[childBoxes.length - 1])
+      ].join('') : ''
     });
   }
 

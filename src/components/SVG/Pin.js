@@ -11,28 +11,21 @@ class Pin extends Base {
   }
 
   reflow() {
-    return new Promise(resolve => {
-      const { radius } = this.props;
+    const { radius } = this.props;
 
-      this.setBBox({
-        width: radius * 2,
-        height: radius * 2
-      });
-
-      this.setState({
-        transform: `translate(${ radius } ${ radius })`
-      }, resolve);
+    return this.setBBox({
+      width: radius * 2,
+      height: radius * 2
     });
   }
 
   render() {
     const { radius } = this.props;
-    const { transform } = this.state || {};
 
     const circleProps = {
       r: radius,
       style: style.pin,
-      transform
+      transform: `translate(${ radius } ${ radius })`
     };
 
     return <circle { ...circleProps }></circle>;
