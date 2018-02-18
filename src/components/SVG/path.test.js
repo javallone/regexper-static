@@ -27,4 +27,13 @@ describe('Path', () => {
       expect(path.toString()).toEqual(str);
     })
   ));
+
+  test('path resetting with closePath', () => {
+    const path = new Path()
+      .moveTo({ x: 5, y: 5 })
+      .lineTo({ x: 5, y: 5, relative: true })
+      .closePath()
+      .lineTo({ x: 5, y: 5 });
+    expect(path.toString()).toEqual('M5,5l5,5Z'); // Last lineTo is ignored since it goes nowhere
+  });
 });
