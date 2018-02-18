@@ -2,6 +2,9 @@ import Path from './path';
 
 describe('Path', () => {
   [
+    // moveTo
+    [ 'moveTo', { x: 5, y: 1 }, 'M5,1' ],
+    [ 'moveTo', { x: 5, y: 1, relative: true }, 'm5,1' ],
     // lineTo
     [ 'lineTo', { x: 5, y: 1 }, 'L5,1' ],
     [ 'lineTo', { x: 5, y: 0 }, 'H5'   ],
