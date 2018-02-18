@@ -17,7 +17,7 @@
     "build:webpack": "webpack --config webpack.prod.js",
     "build:prerender": "node ./script/__build__/prerender.js",
     "test": "run-s test:lint 'test:unit --coverage'",
-    "test:unit": "jest",
+    "test:unit": "cross-env NODE_ENV=production jest",
     "test:lint": "eslint --ignore-path .gitignore .",
     "test:watch": "yarn test:unit --watch",
     "i18n:scrub": "node ./script/i18n-scrub.js",
