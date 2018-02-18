@@ -24,7 +24,12 @@ describe('Path', () => {
     [ 'cubicCurveTo', { cx1: 5, cy1: 6, cx2: 10, cy2: 11, x: 15, y: 16 }, 'C5,6 10,11 15,16' ],
     [ 'cubicCurveTo', { cx2: 10, cy2: 11, x: 15, y: 16 }, 'S10,11 15,16' ],
     [ 'cubicCurveTo', { cx1: 5, cy1: 6, cx2: 10, cy2: 11, x: 15, y: 16, relative: true }, 'c5,6 10,11 15,16' ],
-    [ 'cubicCurveTo', { cx2: 10, cy2: 11, x: 15, y: 16, relative: true }, 's10,11 15,16' ]
+    [ 'cubicCurveTo', { cx2: 10, cy2: 11, x: 15, y: 16, relative: true }, 's10,11 15,16' ],
+    // quadraticCurveTo
+    [ 'quadraticCurveTo', { cx: 5, cy: 6, x: 10, y: 11 }, 'Q5,6 10,11' ],
+    [ 'quadraticCurveTo', { x: 10, y: 11 }, 'T10,11' ],
+    [ 'quadraticCurveTo', { cx: 5, cy: 6, x: 10, y: 11, relative: true }, 'q5,6 10,11' ],
+    [ 'quadraticCurveTo', { x: 10, y: 11, relative: true }, 't10,11' ]
   ].forEach(([ cmd, args, str ], i) => (
     test(`case #${ i }`, () => {
       const path = new Path();

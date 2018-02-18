@@ -88,14 +88,16 @@ class Path {
     relative = relative === undefined ? this.relative : relative;
     if (cx === undefined || cy === undefined) {
       const command = relative ? 't' : 'T';
-      this.pathParts.push(`${command} ${x},${y}`);
+      this.pathParts.push(`${command}${x},${y}`);
     } else {
       const command = relative ? 'q' : 'Q';
       this.pathParts.push(`${command}${cx},${cy} ${x},${y}`);
     }
 
-    this.currentPosition.x = relative ? this.currentPosition.x + x : x;
-    this.currentPosition.y = relative ? this.currentPosition.y + y : y;
+    this.currentPosition = {
+      x: relative ? this.currentPosition.x + x : x,
+      y: relative ? this.currentPosition.y + y : y
+    };
 
     return this;
   }
