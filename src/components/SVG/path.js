@@ -76,8 +76,10 @@ class Path {
       this.pathParts.push(`${command}${cx1},${cy1} ${cx2},${cy2} ${x},${y}`);
     }
 
-    this.currentPosition.x = relative ? this.currentPosition.x + x : x;
-    this.currentPosition.y = relative ? this.currentPosition.y + y : y;
+    this.currentPosition = {
+      x: relative ? this.currentPosition.x + x : x,
+      y: relative ? this.currentPosition.y + y : y
+    };
 
     return this;
   }
