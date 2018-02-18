@@ -2,6 +2,7 @@
 
 .message {
   background: var(--color-tan);
+  color: var(--color-black);
   margin: var(--spacing-margin) 0;
   box-shadow: 0 0 1rem color(var(--color-black) alpha(0.7));
 

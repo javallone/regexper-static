@@ -37,6 +37,7 @@
     width: 10rem;
     border: 0 none;
     background: var(--control-gradient);
+    color: var(--color-black);
     cursor: pointer;
     padding: 0;
     margin-right: 1rem;
@@ -65,6 +66,7 @@
   height: var(--select-height);
   width: var(--select-width);
   background: var(--control-gradient);
+  color: var(--color-black);
   overflow: hidden;
 
   & select {

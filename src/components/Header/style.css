@@ -6,6 +6,7 @@
   padding: 0 var(--content-margin);
   margin: 0 calc(-1 * var(--content-margin)) var(--spacing-margin) calc(-1 * var(--content-margin));
   position: relative;
+  color: var(--color-black);
 
   &:after {
     content: attr(data-banner);
