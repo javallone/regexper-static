@@ -29,7 +29,10 @@ describe('Path', () => {
     [ 'quadraticCurveTo', { cx: 5, cy: 6, x: 10, y: 11 }, 'Q5,6 10,11' ],
     [ 'quadraticCurveTo', { x: 10, y: 11 }, 'T10,11' ],
     [ 'quadraticCurveTo', { cx: 5, cy: 6, x: 10, y: 11, relative: true }, 'q5,6 10,11' ],
-    [ 'quadraticCurveTo', { x: 10, y: 11, relative: true }, 't10,11' ]
+    [ 'quadraticCurveTo', { x: 10, y: 11, relative: true }, 't10,11' ],
+    // arcTo
+    [ 'arcTo', { rx: 5, ry: 6, rotation: 1, arc: 0, sweep: 0, x: 10, y: 11 }, 'A5,6 1 0 0 10,11' ],
+    [ 'arcTo', { rx: 5, ry: 6, rotation: 1, arc: 0, sweep: 0, x: 10, y: 11, relative: true }, 'a5,6 1 0 0 10,11' ]
   ].forEach(([ cmd, args, str ], i) => (
     test(`case #${ i }`, () => {
       const path = new Path();
