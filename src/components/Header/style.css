@@ -30,7 +30,7 @@
     display: inline-block;
     margin: 0;
     line-height: var(--header-height);
-    text-shadow: 0 0 2px var(--color-white);
+    text-shadow: 0 0 5px var(--color-green);
   }
 
   & a {
