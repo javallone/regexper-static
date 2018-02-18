@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SVG arbitrary markup 1`] = `
+<Text>
+  <tspan
+    key="0"
+  >
+    Sample text
+  </tspan>
+</Text>
+`;
+
+exports[`SVG passing props to nodes 1`] = `
+<Text
+  theme="anchorText"
+>
+  Sample text
+</Text>
+`;
+
+exports[`SVG rendering 1`] = `
+<Pin
+  radius={5}
+/>
+`;
+
+exports[`SVG rendering 1 child 1`] = `
+<Image
+  padding={10}
+>
+  <Pin
+    key="0"
+    radius={5}
+  />
+</Image>
+`;
+
+exports[`SVG rendering a string as a child 1`] = `
+<Text>
+  Sample text
+</Text>
+`;
+
+exports[`SVG rendering multiple children 1`] = `
+<HorizontalLayout
+  spacing={10}
+  withConnectors={false}
+>
+  <Pin
+    key="0"
+    radius={5}
+  />
+  <Pin
+    key="1"
+    radius={5}
+  />
+</HorizontalLayout>
+`;

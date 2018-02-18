@@ -19,7 +19,7 @@ const nodeTypes = {
   VerticalLayout
 };
 
-const render = (data, extraProps = {}) => {
+const render = (data, extraProps) => {
   if (typeof data === 'string') {
     return data;
   }
@@ -29,7 +29,7 @@ const render = (data, extraProps = {}) => {
     (data, key) => render(data, { key }));
 
   return React.createElement(
-    nodeTypes[type],
+    nodeTypes[type] || type,
     { ...extraProps, ...props },
     children.length === 1 ? children[0] : children);
 };
@@ -37,7 +37,11 @@ const render = (data, extraProps = {}) => {
 const SVG = ({ data, imageRef: ref }) => render(data, { ref });
 
 SVG.propTypes = {
-  data: PropTypes.object.isRequired,
+  data: PropTypes.shape({
+    type: PropTypes.oneOf(Object.keys(nodeTypes)).isRequired,
+    props: PropTypes.object,
+    children: PropTypes.array
+  }).isRequired,
   imageRef: PropTypes.func
 };
 
