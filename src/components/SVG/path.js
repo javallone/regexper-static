@@ -26,21 +26,36 @@ class Path {
   }
 
   lineTo({ x, y, relative }) {
-    relative = relative === undefined ? this.relative : relative;
-    if (x !== undefined && (y === undefined || y === this.currentPosition.y)) {
+    if (relative === undefined) {
+      relative = this.relative;
+    }
+    if (x === undefined) {
+      x = relative ? 0 : this.currentPosition.x;
+    }
+    if (y === undefined) {
+      y = relative ? 0 : this.currentPosition.y;
+    }
+
+    if ((relative && x === 0 && y === 0)
+      || (!relative && x === this.currentPosition.x && y === this.currentPosition.y)) {
+      return this;
+    }
+
+    if (y === (relative ? 0 : this.currentPosition.y)) {
       const command = relative ? 'h' : 'H';
       this.pathParts.push(`${command}${x}`);
-      this.currentPosition.x = relative ? this.currentPosition.x + x : x;
-    } else if (y !== undefined && (x === undefined || x === this.currentPosition.x)) {
+    } else if (x === (relative ? 0 : this.currentPosition.x)) {
       const command = relative ? 'v' : 'V';
       this.pathParts.push(`${command}${y}`);
-      this.currentPosition.y = relative ? this.currentPosition.y + y : y;
     } else {
       const command = relative ? 'l' : 'L';
       this.pathParts.push(`${command}${x},${y}`);
-      this.currentPosition.x = relative ? this.currentPosition.x + x : x;
-      this.currentPosition.y = relative ? this.currentPosition.y + y : y;
     }
+
+    this.currentPosition = {
+      x: relative ? this.currentPosition.x + x : x,
+      y: relative ? this.currentPosition.y + y : y
+    };
 
     return this;
   }
