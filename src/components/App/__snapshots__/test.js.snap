@@ -5,7 +5,6 @@ exports[`App rendering 1`] = `
   <Translate(Form)
     downloadUrls={Array []}
     onSubmit={[Function]}
-    permalinkUrl="#permalink"
     syntaxes={
       Object {
         "js": "JavaScript",

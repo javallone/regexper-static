@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
+import URLSearchParams from 'url-search-params';
 
 import style from './style.css';
 
@@ -12,6 +13,15 @@ import { syntaxes, demoImage } from 'devel';
 class App extends React.PureComponent {
   state = {
     syntaxes
+  }
+
+  componentDidMount() {
+    window.addEventListener('hashchange', this.handleHashChange);
+    this.handleHashChange();
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('hashchange', this.handleHashChange);
   }
 
   setSvgUrl(element) {
@@ -68,9 +78,40 @@ class App extends React.PureComponent {
   }
 
   handleSubmit = ({expr, syntax}) => {
+    if (expr) {
+      const params = new URLSearchParams({ syntax, expr });
+      document.location.hash = params.toString();
+    }
+  }
+
+  handleHashChange = () => {
+    const query = document.location.hash.slice(1);
+    const params = new URLSearchParams(query);
+    const { expr, syntax } = (() => {
+      if (params.get('syntax')) {
+        return {
+          syntax: params.get('syntax'),
+          expr: params.get('expr')
+        };
+      } else {
+        // Assuming old-style URL
+        return {
+          syntax: 'js',
+          expr: query
+        };
+      }
+    })();
+
+    if (!expr) {
+      return;
+    }
+
     console.log(syntax, expr); // eslint-disable-line no-console
     this.setState({
-      image: demoImage
+      image: demoImage,
+      permalinkUrl: document.location.toString(),
+      syntax,
+      expr
     }, async () => {
       await this.image.doReflow();
       this.setSvgUrl(this.image.svg);
@@ -81,7 +122,7 @@ class App extends React.PureComponent {
   imageRef = image => this.image = image
 
   render() {
-    const { svgUrl, pngUrl, syntaxes, image } = this.state;
+    const { svgUrl, pngUrl, permalinkUrl, syntax, expr, syntaxes, image } = this.state;
     const downloadUrls = [
       svgUrl,
       pngUrl
@@ -91,7 +132,9 @@ class App extends React.PureComponent {
       <Form
         syntaxes={ syntaxes }
         downloadUrls={ downloadUrls }
-        permalinkUrl="#permalink"
+        permalinkUrl={ permalinkUrl }
+        syntax={ syntax }
+        expr={ expr }
         onSubmit={ this.handleSubmit }/>
       <Message type="error" heading="Sample Error">
         <p>Sample error message</p>

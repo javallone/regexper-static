@@ -8,12 +8,34 @@ import ExpandIcon from 'feather-icons/dist/icons/chevrons-down.svg';
 
 import style from './style.css';
 
-class Form extends React.Component {
+class Form extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      syntax: props.syntax || Object.keys(props.syntaxes)[0],
+      expr: props.expr
+    };
+  }
+
+  componentWillReceiveProps(next) {
+    if (this.props.expr !== next.expr) {
+      this.setState({
+        expr: next.expr
+      });
+    }
+
+    if (this.props.syntax !== next.syntax) {
+      this.setState({
+        syntax: next.syntax
+      });
+    }
+  }
+
   handleSubmit = event => {
     event.preventDefault();
     this.props.onSubmit.call(this, {
-      expr: this.textarea.value,
-      syntax: this.syntax.value
+      expr: this.state.expr,
+      syntax: this.state.syntax
     });
   }
 
@@ -23,9 +45,7 @@ class Form extends React.Component {
     }
   }
 
-  textareaRef = textarea => this.textarea = textarea
-
-  syntaxRef = syntax => this.syntax = syntax
+  handleChange = event => this.setState({ [event.target.name]: event.target.value })
 
   permalinkAction() {
     const { permalinkUrl } = this.props;
@@ -55,17 +75,23 @@ class Form extends React.Component {
 
   render() {
     const { syntaxes, t } = this.props;
+    const { expr, syntax } = this.state;
 
     return <div className={ style.form }>
       <form onSubmit={ this.handleSubmit }>
         <textarea
-          ref={ this.textareaRef }
+          name="expr"
+          value={ expr }
           onKeyPress={ this.handleKeyPress }
+          onChange={ this.handleChange }
           autoFocus
           placeholder={ t('Enter regular expression to display') }></textarea>
         <button type="submit"><Trans>Display</Trans></button>
         <div className={ style.select }>
-          <select ref={ this.syntaxRef }>
+          <select
+            name="syntax"
+            value={ syntax }
+            onChange={ this.handleChange }>
             { Object.keys(syntaxes).map(id => (
               <option value={ id } key={ id }>{ syntaxes[id] }</option>
             )) }
@@ -83,6 +109,8 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
+  expr: PropTypes.string,
+  syntax: PropTypes.string,
   syntaxes: PropTypes.object,
   onSubmit: PropTypes.func,
   permalinkUrl: PropTypes.string,

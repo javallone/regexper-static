@@ -9,6 +9,8 @@ exports[`Form rendering 1`] = `
   >
     <textarea
       autoFocus={true}
+      name="expr"
+      onChange={[Function]}
       onKeyPress={[Function]}
       placeholder="translate(Enter regular expression to display)"
     />
@@ -22,7 +24,11 @@ exports[`Form rendering 1`] = `
     <div
       className="select"
     >
-      <select>
+      <select
+        name="syntax"
+        onChange={[Function]}
+        value="js"
+      >
         <option
           key="js"
           value="js"
@@ -54,6 +60,8 @@ exports[`Form rendering with download URLs 1`] = `
   >
     <textarea
       autoFocus={true}
+      name="expr"
+      onChange={[Function]}
       onKeyPress={[Function]}
       placeholder="translate(Enter regular expression to display)"
     />
@@ -67,7 +75,11 @@ exports[`Form rendering with download URLs 1`] = `
     <div
       className="select"
     >
-      <select>
+      <select
+        name="syntax"
+        onChange={[Function]}
+        value="js"
+      >
         <option
           key="js"
           value="js"
@@ -124,6 +136,8 @@ exports[`Form rendering with permalink URL 1`] = `
   >
     <textarea
       autoFocus={true}
+      name="expr"
+      onChange={[Function]}
       onKeyPress={[Function]}
       placeholder="translate(Enter regular expression to display)"
     />
@@ -137,7 +151,11 @@ exports[`Form rendering with permalink URL 1`] = `
     <div
       className="select"
     >
-      <select>
+      <select
+        name="syntax"
+        onChange={[Function]}
+        value="js"
+      >
         <option
           key="js"
           value="js"

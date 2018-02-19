@@ -50,13 +50,13 @@ describe('Form', () => {
       const onSubmit = jest.fn();
       const component = build({ onSubmit });
       const eventObj = { preventDefault: jest.fn() };
-      component.find(Form).instance().textarea.value = 'Test textarea value';
+      component.find(Form).instance().setState({ syntax: 'test', expr: 'Test expression' });
       component.find('form').simulate('submit', eventObj);
 
       expect(eventObj.preventDefault).toHaveBeenCalled();
       expect(onSubmit).toHaveBeenCalledWith({
-        expr: 'Test textarea value',
-        syntax: 'js'
+        expr: 'Test expression',
+        syntax: 'test'
       });
     });
 
