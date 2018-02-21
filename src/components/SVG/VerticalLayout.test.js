@@ -31,4 +31,16 @@ describe('VerticalLayout', () => {
     component.update();
     expect(component).toMatchSnapshot();
   });
+
+  test('rendering with connectors (no sides)', async () => {
+    const component = mount(
+      <VerticalLayout withConnectors>
+        <SVGElement bbox={{ width: 100, height: 10 }}/>
+        <SVGElement bbox={{ width: 100, height: 10 }}/>
+      </VerticalLayout>
+    );
+    await component.instance().doReflow();
+    component.update();
+    expect(component).toMatchSnapshot();
+  });
 });

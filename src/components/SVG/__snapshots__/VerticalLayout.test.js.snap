@@ -69,6 +69,58 @@ exports[`VerticalLayout rendering 1`] = `
 </VerticalLayout>
 `;
 
+exports[`VerticalLayout rendering with connectors (no sides) 1`] = `
+<VerticalLayout
+  spacing={10}
+  withConnectors={true}
+>
+  <path
+    d="M0,15c15,0 10,-10 20,-10M140,15c-15,0 -10,-10 -20,-10M0,15c15,0 10,10 20,10M140,15c-15,0 -10,10 -20,10"
+    style={
+      Object {
+        "fillOpacity": 0,
+        "stroke": "#000",
+        "strokeWidth": "2px",
+      }
+    }
+  />
+  <g
+    key=".0"
+    transform="translate(20 0)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 10,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+  <g
+    key=".1"
+    transform="translate(20 20)"
+  >
+    <SVGElement
+      bbox={
+        Object {
+          "height": 10,
+          "width": 100,
+        }
+      }
+    >
+      <text>
+        Mock content
+      </text>
+    </SVGElement>
+  </g>
+</VerticalLayout>
+`;
+
 exports[`VerticalLayout rendering with connectors 1`] = `
 <VerticalLayout
   spacing={10}
