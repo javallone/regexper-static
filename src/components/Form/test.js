@@ -1,8 +1,8 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import { Form } from 'components/Form';
-import { translate, I18nWrapper } from '__mocks__/i18n';
+import { translate } from '__mocks__/i18n';
 
 const syntaxes = {
   js: 'Javascript',
@@ -81,20 +81,13 @@ describe('Form', () => {
   });
 
   describe('submitting expression', () => {
-    const build = (props = {}) => {
-      const component = mount(
-        <I18nWrapper>
-          <Form syntaxes={ syntaxes } { ...props }/>
-        </I18nWrapper>
-      );
-      return component;
-    };
-
     test('submitting form', () => {
       const onSubmit = jest.fn();
-      const component = build({ onSubmit });
+      const component = shallow(
+        <Form t={ translate } syntaxes={ syntaxes } onSubmit={ onSubmit }/>
+      );
       const eventObj = { preventDefault: jest.fn() };
-      component.find(Form).instance().setState({ syntax: 'test', expr: 'Test expression' });
+      component.setState({ syntax: 'test', expr: 'Test expression' });
       component.find('form').simulate('submit', eventObj);
 
       expect(eventObj.preventDefault).toHaveBeenCalled();
@@ -105,9 +98,15 @@ describe('Form', () => {
     });
 
     test('submitting form with Shift+Enter', () => {
-      const component = build({ onSubmit: Function.prototype });
-      const form = component.find(Form).instance();
-      const eventObj = { charCode: 13, shiftKey: true };
+      const component = shallow(
+        <Form t={ translate } syntaxes={ syntaxes } onSubmit={ Function.prototype }/>
+      );
+      const form = component.instance();
+      const eventObj = {
+        preventDefault: Function.prototype,
+        charCode: 13,
+        shiftKey: true
+      };
       jest.spyOn(form, 'handleSubmit');
       component.find('textarea').simulate('keypress', eventObj);
 
@@ -115,9 +114,15 @@ describe('Form', () => {
     });
 
     test('not submitting with just Enter', () => {
-      const component = build({ onSubmit: Function.prototype });
-      const form = component.find(Form).instance();
-      const eventObj = { charCode: 13, shiftKey: false };
+      const component = shallow(
+        <Form t={ translate } syntaxes={ syntaxes } onSubmit={ Function.protoytpe }/>
+      );
+      const form = component.instance();
+      const eventObj = {
+        preventDefault: Function.prototype,
+        charCode: 13,
+        shiftKey: false
+      };
       jest.spyOn(form, 'handleSubmit');
       component.find('textarea').simulate('keypress', eventObj);
 
