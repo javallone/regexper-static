@@ -36,6 +36,50 @@ describe('Form', () => {
     expect(component).toMatchSnapshot();
   });
 
+  test('changing expression input', () => {
+    const component = shallow(
+      <Form t={ translate } syntaxes={ syntaxes }/>
+    );
+    const eventObj = {
+      target: { name: 'expr', value: 'Testing value' }
+    };
+    component.find('[name="expr"]').simulate('change', eventObj);
+
+    expect(component.state('expr')).toEqual('Testing value');
+  });
+
+  test('changing syntax input', () => {
+    const component = shallow(
+      <Form t={ translate } syntaxes={ syntaxes }/>
+    );
+    const eventObj = {
+      target: { name: 'syntax', value: 'Testing value' }
+    };
+    component.find('[name="syntax"]').simulate('change', eventObj);
+
+    expect(component.state('syntax')).toEqual('Testing value');
+  });
+
+  test('setting expression and syntax via props', () => {
+    const component = shallow(
+      <Form t={ translate } syntaxes={ syntaxes }/>
+    );
+    expect(component.state()).toEqual(expect.objectContaining({
+      expr: undefined,
+      syntax: 'js'
+    }));
+    component.setProps({ expr: 'Testing expression' });
+    expect(component.state()).toEqual(expect.objectContaining({
+      expr: 'Testing expression',
+      syntax: 'js'
+    }));
+    component.setProps({ syntax: 'testing syntax' });
+    expect(component.state()).toEqual(expect.objectContaining({
+      expr: 'Testing expression',
+      syntax: 'testing syntax'
+    }));
+  });
+
   describe('submitting expression', () => {
     const build = (props = {}) => {
       const component = mount(
