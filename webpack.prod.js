@@ -16,7 +16,21 @@ module.exports = [
       }),
       new WorkboxPlugin({
         clientsClaim: true,
-        skipWaiting: true
+        skipWaiting: true,
+        runtimeCaching: [
+          {
+            urlPattern: new RegExp('https://licensebuttons.net'),
+            handler: 'staleWhileRevalidate'
+          },
+          {
+            urlPattern: new RegExp('http://fonts.googleapis.com'),
+            handler: 'staleWhileRevalidate'
+          },
+          {
+            urlPattern: new RegExp('http://fonts.gstatic.com'),
+            handler: 'staleWhileRevalidate'
+          }
+        ]
       })
     ]
   }),
