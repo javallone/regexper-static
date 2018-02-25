@@ -66,9 +66,7 @@ const reflowable = Component => {
       }
 
       return this._currentBBox() !== oldBBox;
-    },
-
-    ...Component.prototype
+    }
   });
 
   return Component;
