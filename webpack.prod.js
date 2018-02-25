@@ -19,15 +19,15 @@ module.exports = [
         skipWaiting: true,
         runtimeCaching: [
           {
-            urlPattern: new RegExp('https://licensebuttons.net'),
+            urlPattern: /https?:\/\/licensebuttons\.net/,
             handler: 'staleWhileRevalidate'
           },
           {
-            urlPattern: new RegExp('http://fonts.googleapis.com'),
+            urlPattern: /https?:\/\/fonts\.googleapis\.com/,
             handler: 'staleWhileRevalidate'
           },
           {
-            urlPattern: new RegExp('http://fonts.gstatic.com'),
+            urlPattern: /https?:\/\/fonts\.gstatic\.com/,
             handler: 'staleWhileRevalidate'
           }
         ]
