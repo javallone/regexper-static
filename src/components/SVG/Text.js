@@ -15,7 +15,7 @@ class Text extends React.PureComponent {
       height: box.height
     });
 
-    return this.setStateAsync({
+    this.setStateAsync({
       transform: `translate(${-box.x} ${-box.y})`
     });
   }

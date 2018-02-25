@@ -14,7 +14,7 @@ class Pin extends React.PureComponent {
   reflow() {
     const { radius } = this.props;
 
-    return this.setBBox({
+    this.setBBox({
       width: radius * 2,
       height: radius * 2
     });

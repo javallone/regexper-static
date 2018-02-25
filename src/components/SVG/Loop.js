@@ -93,7 +93,7 @@ class Loop extends React.PureComponent {
     box.offsetX = this.contentOffset.x;
     box.offsetY = this.contentOffset.y;
 
-    return this.setStateAsync({
+    this.setStateAsync({
       labelTransform: `translate(${ this.getBBox().width - labelBox.width - 10 } ${ this.getBBox().height + 2 })`,
       loopPaths: [
         skip && skipPath(box, greedy),

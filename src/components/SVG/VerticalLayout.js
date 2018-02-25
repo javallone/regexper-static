@@ -96,7 +96,7 @@ class VerticalLayout extends React.PureComponent {
       offset += spacing + box.height;
     });
 
-    return this.setStateAsync({
+    this.setStateAsync({
       childTransforms: this.updateChildTransforms(childBoxes),
       connectorPaths: withConnectors ? [
         ...childBoxes.map(box => this.makeCurve(box)),

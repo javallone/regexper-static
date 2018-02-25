@@ -25,7 +25,7 @@ class Box extends React.PureComponent {
       axisX2: useAnchors ? box.axisX2 + padding : box.width + 2 * padding
     });
 
-    return this.setStateAsync({
+    this.setStateAsync({
       width: this.getBBox().width,
       height: box.height + 2 * padding,
       contentTransform: `translate(${ padding } ${ padding + labelBox.height })`,

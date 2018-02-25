@@ -35,7 +35,7 @@ class Image extends React.PureComponent {
     const { padding } = this.props;
     const box = this.children[0].getBBox();
 
-    return this.setStateAsync({
+    this.setStateAsync({
       width: Math.round(box.width + 2 * padding),
       height: Math.round(box.height + 2 * padding)
     });
