@@ -139,10 +139,9 @@
     "eslint": "^4.17.0",
     "eslint-plugin-jest": "^21.8.0",
     "eslint-plugin-react": "^7.6.1",
-    "extract-text-webpack-plugin": "^3.0.2",
-    "favicons-webpack-plugin-cesco": "^0.0.6",
+    "extract-text-webpack-plugin": "^4.0.0-beta.0",
     "feather-icons": "^4.5.0",
-    "html-webpack-plugin": "^2.30.1",
+    "html-webpack-plugin": "^3.0.0",
     "i18next": "^10.3.0",
     "i18next-browser-languagedetector": "^2.1.0",
     "identity-obj-proxy": "^3.0.0",
@@ -161,7 +160,9 @@
     "svg-react-loader": "^0.4.5",
     "uglifyjs-webpack-plugin": "^1.1.8",
     "url-search-params": "^0.10.0",
-    "webpack": "^3.10.0",
+    "webapp-webpack-plugin": "^1.1.1",
+    "webpack": "^4.1.1",
+    "webpack-cli": "^2.0.9",
     "webpack-merge": "^4.1.1",
     "webpack-node-externals": "^1.6.0",
     "workbox-webpack-plugin": "^2.1.2"
@@ -170,6 +171,6 @@
     "http-server": "^0.11.1",
     "husky": "^0.14.3",
     "js-yaml": "^3.10.0",
-    "webpack-dev-server": "^2.11.1"
+    "webpack-dev-server": "3.1.0"
   }
 }

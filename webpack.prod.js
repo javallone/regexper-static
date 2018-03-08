@@ -9,6 +9,7 @@ const nodeExternals = require('webpack-node-externals');
 module.exports = [
   // Web
   merge(common, {
+    mode: 'production',
     devtool: 'source-map',
     plugins: [
       new UglifyJSPlugin({
@@ -36,6 +37,7 @@ module.exports = [
   }),
   // Node (prerender)
   {
+    mode: 'production',
     target: 'node',
     externals: [nodeExternals({
       whitelist: [ /\.svg$/ ]

@@ -3,7 +3,7 @@ const fs = require('fs');
 const webpack = require('webpack');
 const CopyPlugin = require('copy-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const FaviconsPlugin = require('favicons-webpack-plugin-cesco');
+const WebappPlugin = require('webapp-webpack-plugin');
 const HtmlPlugin = require('html-webpack-plugin');
 
 const pkg = require('./package.json');
@@ -47,6 +47,12 @@ module.exports = {
   resolve: {
     modules: ['src', 'node_modules']
   },
+  optimization: {
+    splitChunks: {
+      name: 'common',
+      minChunks: 2
+    }
+  },
   plugins: [
     new webpack.EnvironmentPlugin({
       NODE_ENV: 'development',
@@ -56,19 +62,21 @@ module.exports = {
       BANNER: process.env.NODE_ENV === 'production' ? null : (process.env.NODE_ENV || 'development'),
       BUILD_ID: buildId
     }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'common',
-      minChunks: 2
+    new ExtractTextPlugin({
+      filename: 'css/[name].[contenthash:8].css',
+      allChunks: true
     }),
-    new FaviconsPlugin({
+    new CopyPlugin(['./public']),
+    ...pagePlugins,
+    new WebappPlugin({ // MUST be after pagePlugins
       logo: './src/favicon.svg',
-      persistentCache: true,
+      prefix: 'icons-[hash:8]/',
       inject: true,
-      config: {
+      favicons: {
         appName: 'Regexper',
         appDescription: pkg.description,
         developerName: pkg.author.name,
-        developerUrl: 'https://github.com/javallone/',
+        developerURL: 'https://github.com/javallone/',
         background: '#6b6659',
         theme_color: '#bada55',
         start_url: '/',
@@ -82,13 +90,7 @@ module.exports = {
           yandex: false
         }
       }
-    }),
-    new ExtractTextPlugin({
-      filename: 'css/[name].[contenthash:8].css',
-      allChunks: true
-    }),
-    new CopyPlugin(['./public']),
-    ...pagePlugins
+    })
   ],
   module: {
     rules: [
