@@ -9,26 +9,24 @@ import ExpandIcon from 'feather-icons/dist/icons/chevrons-down.svg';
 import style from './style.css';
 
 class Form extends React.PureComponent {
-  constructor(props) {
-    super(props);
-    this.state = {
-      syntax: props.syntax || Object.keys(props.syntaxes)[0],
-      expr: props.expr
-    };
+  state = {
+    syntax: Object.keys(this.props.syntaxes)[0]
   }
 
-  componentWillReceiveProps(next) {
-    if (this.props.expr !== next.expr) {
-      this.setState({
-        expr: next.expr
-      });
+  static getDerivedStateFromProps(nextProps, prevState) {
+    let changes = null;
+
+    prevState = prevState || {};
+
+    if (nextProps.expr && nextProps.expr !== prevState.expr) {
+      changes = { ...(changes || {}), expr: nextProps.expr };
     }
 
-    if (this.props.syntax !== next.syntax) {
-      this.setState({
-        syntax: next.syntax
-      });
+    if (nextProps.syntax && nextProps.syntax !== prevState.syntax) {
+      changes = { ...(changes || {}), syntax: nextProps.syntax };
     }
+
+    return changes;
   }
 
   handleSubmit = event => {
