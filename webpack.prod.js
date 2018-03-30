@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const merge = require('webpack-merge');
 const common = require('./webpack.common.js');
 const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-const WorkboxPlugin = require('workbox-webpack-plugin');
+const { GenerateSW } = require('workbox-webpack-plugin');
 const nodeExternals = require('webpack-node-externals');
 
 module.exports = [
@@ -15,7 +15,7 @@ module.exports = [
       new UglifyJSPlugin({
         sourceMap: true
       }),
-      new WorkboxPlugin({
+      new GenerateSW({
         clientsClaim: true,
         skipWaiting: true,
         runtimeCaching: [
