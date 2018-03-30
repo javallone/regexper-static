@@ -3,13 +3,13 @@
 
 
 "@alienfast/i18next-loader@^1.0.14":
-  version "1.0.14"
-  resolved "https://registry.yarnpkg.com/@alienfast/i18next-loader/-/i18next-loader-1.0.14.tgz#768543058ae709d0630cb1c82b06af0c9e76dfa4"
+  version "1.0.15"
+  resolved "https://registry.yarnpkg.com/@alienfast/i18next-loader/-/i18next-loader-1.0.15.tgz#cf99db02eaad914bb7faa57a0ee513c3d09548f6"
   dependencies:
     glob-all "^3.1.0"
-    js-yaml "^3.10.0"
+    js-yaml "^3.11.0"
     loader-utils "^1.1.0"
-    lodash "^4.17.4"
+    lodash "^4.17.5"
 
 "@babel/code-frame@7.0.0-beta.40", "@babel/code-frame@^7.0.0-beta.40":
   version "7.0.0-beta.40"
@@ -3903,9 +3903,9 @@ hoek@4.x.x:
   version "4.2.1"
   resolved "https://registry.yarnpkg.com/hoek/-/hoek-4.2.1.tgz#9634502aa12c445dd5a7c5734b572bb8738aacbb"
 
-hoist-non-react-statics@2.3.1:
-  version "2.3.1"
-  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.3.1.tgz#343db84c6018c650778898240135a1420ee22ce0"
+hoist-non-react-statics@^2.3.1:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/hoist-non-react-statics/-/hoist-non-react-statics-2.5.0.tgz#d2ca2dfc19c5a91c5a6615ce8e564ef0347e2a40"
 
 home-or-tmp@^2.0.0:
   version "2.0.0"
@@ -4096,12 +4096,12 @@ husky@^0.14.3:
     strip-indent "^2.0.0"
 
 i18next-browser-languagedetector@^2.1.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-2.1.0.tgz#1b0e17b09507f84e7a1fa761539a07544f92a0df"
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/i18next-browser-languagedetector/-/i18next-browser-languagedetector-2.1.1.tgz#01115827dd51fc35bc661f2baf1b0a4965bf38ca"
 
 i18next@^10.3.0:
-  version "10.5.0"
-  resolved "https://registry.yarnpkg.com/i18next/-/i18next-10.5.0.tgz#a2a90e67774fa85b8ff9cd0063e697e482440de7"
+  version "10.6.0"
+  resolved "https://registry.yarnpkg.com/i18next/-/i18next-10.6.0.tgz#90ffd9f9bc617f34b9a12e037260f524445f7684"
 
 iconv-lite@0.4.19, iconv-lite@^0.4.17, iconv-lite@~0.4.13:
   version "0.4.19"
@@ -5009,7 +5009,7 @@ js-tokens@^3.0.0, js-tokens@^3.0.2:
   version "3.0.2"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-3.0.2.tgz#9866df395102130e38f7f996bceb65443209c25b"
 
-js-yaml@^3.10.0, js-yaml@^3.4.3, js-yaml@^3.7.0, js-yaml@^3.9.1:
+js-yaml@^3.10.0, js-yaml@^3.11.0, js-yaml@^3.4.3, js-yaml@^3.7.0, js-yaml@^3.9.1:
   version "3.11.0"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-3.11.0.tgz#597c1a8bd57152f26d622ce4117851a51f5ebaef"
   dependencies:
@@ -7356,10 +7356,10 @@ react-ga@^2.4.1:
     react "^15.6.2 || ^16.0"
 
 react-i18next@^7.3.6:
-  version "7.4.0"
-  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-7.4.0.tgz#07a336e49fc8f2599d08136d73134e3dc4830b49"
+  version "7.5.1"
+  resolved "https://registry.yarnpkg.com/react-i18next/-/react-i18next-7.5.1.tgz#5fe4cdfd2ecba22cc967213d880ab4cdd2c2ce61"
   dependencies:
-    hoist-non-react-statics "2.3.1"
+    hoist-non-react-statics "^2.3.1"
     html-parse-stringify2 "2.0.1"
     prop-types "^15.6.0"
 
