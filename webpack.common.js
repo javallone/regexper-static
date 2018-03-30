@@ -49,8 +49,12 @@ module.exports = {
   },
   optimization: {
     splitChunks: {
+      chunks: 'initial',
       name: 'common',
-      minChunks: 2
+      minChunks: 2,
+      cacheGroups: {
+        default: false
+      }
     }
   },
   plugins: [
