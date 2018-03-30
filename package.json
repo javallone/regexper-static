@@ -21,6 +21,7 @@
     "test:unit": "cross-env NODE_ENV=production jest",
     "test:lint": "eslint --ignore-path .gitignore .",
     "test:watch": "yarn test:unit --watch",
+    "test:bundle-analyzer": "cross-env NODE_ENV=production webpack --config webpack.bundle-analyzer.js",
     "i18n:scrub": "node ./script/i18n-scrub.js",
     "precommit": "run-s test:lint"
   },
@@ -172,6 +173,7 @@
     "http-server": "^0.11.1",
     "husky": "^0.14.3",
     "js-yaml": "^3.10.0",
+    "webpack-bundle-analyzer": "^2.11.1",
     "webpack-dev-server": "^3.1.1"
   }
 }
