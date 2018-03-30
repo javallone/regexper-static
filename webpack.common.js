@@ -63,7 +63,7 @@ module.exports = {
       BUILD_ID: buildId
     }),
     new ExtractTextPlugin({
-      filename: 'css/[name].[contenthash:8].css',
+      filename: 'css/[name].[chunkhash:8].css',
       allChunks: true
     }),
     new CopyPlugin(['./public']),
@@ -75,7 +75,6 @@ module.exports = {
       favicons: {
         appName: 'Regexper',
         appDescription: pkg.description,
-        developerName: pkg.author.name,
         developerURL: 'https://github.com/javallone/',
         background: '#6b6659',
         theme_color: '#bada55',

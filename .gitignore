@@ -24,3 +24,6 @@ script/__build__/
 
 # Coverage reports
 coverage/
+
+# Favicon cache
+.wwp-cache/
