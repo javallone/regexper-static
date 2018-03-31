@@ -60,14 +60,11 @@ describe('Form', () => {
     expect(component.state('syntax')).toEqual('Testing value');
   });
 
-  // Disabled due to testing with getDerivedStateFromProps appears to be broken
-  // Testing this behavior in browser works correctly
-  xtest('setting expression and syntax via props', () => {
+  test('setting expression and syntax via props', () => {
     const component = shallow(
       <Form t={ translate } syntaxes={ syntaxes }/>
     );
     expect(component.state()).toEqual(expect.objectContaining({
-      expr: undefined,
       syntax: 'js'
     }));
     component.setProps({ expr: 'Testing expression' });
