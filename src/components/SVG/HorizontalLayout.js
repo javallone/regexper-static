@@ -18,6 +18,8 @@ class HorizontalLayout extends React.PureComponent {
     childTransforms: List()
   }
 
+  children = []
+
   updateChildTransforms(childBoxes) {
     return this.state.childTransforms.withMutations(transforms => (
       childBoxes.forEach((box, i) => (
@@ -44,7 +46,7 @@ class HorizontalLayout extends React.PureComponent {
   reflow() {
     const { spacing, withConnectors } = this.props;
 
-    const childBoxes = this.children.map(child => child.getBBox());
+    const childBoxes = this.children.map(child => child.current.getBBox());
     const verticalCenter = childBoxes.reduce((center, box) => Math.max(center, box.axisY), 0);
     const width = childBoxes.reduce((width, box) => width + box.width, 0) + (childBoxes.length - 1) * spacing;
     const height = childBoxes.reduce((ascHeight, box) => Math.max(ascHeight, box.axisY), 0) +
@@ -64,20 +66,18 @@ class HorizontalLayout extends React.PureComponent {
     });
   }
 
-  childRef = i => child => this.children[i] = child
-
   render() {
     const { children } = this.props;
     const { childTransforms, connectorPaths } = this.state;
 
-    this.children = [];
+    this.makeRefCollection(this.children, React.Children.count(children));
 
     return <React.Fragment>
       <path d={ connectorPaths } style={ style.connectors }></path>
       { React.Children.map(children, (child, i) => (
         <g transform={ childTransforms.get(i) }>
           { React.cloneElement(child, {
-            ref: this.childRef(i)
+            ref: this.children[i]
           }) }
         </g>
       ))}

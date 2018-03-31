@@ -31,19 +31,19 @@ class Image extends React.PureComponent {
     height: 0
   }
 
+  svg = React.createRef()
+
+  children = [React.createRef()]
+
   reflow() {
     const { padding } = this.props;
-    const box = this.children[0].getBBox();
+    const box = this.children[0].current.getBBox();
 
     this.setStateAsync({
       width: Math.round(box.width + 2 * padding),
       height: Math.round(box.height + 2 * padding)
     });
   }
-
-  containedRef = contained => this.children = [contained]
-
-  svgRef = svg => this.svg = svg
 
   render() {
     const { width, height } = this.state;
@@ -54,7 +54,7 @@ class Image extends React.PureComponent {
       height,
       viewBox: [0, 0, width, height].join(' '),
       style: style.image,
-      ref: this.svgRef,
+      ref: this.svg,
       ...namespaceProps
     };
 
@@ -62,7 +62,7 @@ class Image extends React.PureComponent {
       <metadata dangerouslySetInnerHTML={{ __html: metadata }}></metadata>
       <g transform={ `translate(${ padding } ${ padding })` }>
         { React.cloneElement(React.Children.only(children), {
-          ref: this.containedRef
+          ref: this.children[0]
         }) }
       </g>
     </svg>;

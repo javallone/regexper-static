@@ -114,8 +114,8 @@ class App extends React.PureComponent {
       expr
     }, async () => {
       await this.image.doReflow();
-      this.setSvgUrl(this.image.svg);
-      this.setPngUrl(this.image.svg);
+      this.setSvgUrl(this.image.svg.current);
+      this.setPngUrl(this.image.svg.current);
     });
   }
 

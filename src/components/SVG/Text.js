@@ -7,8 +7,10 @@ import reflowable from './reflowable';
 
 @reflowable
 class Text extends React.PureComponent {
+  text = React.createRef()
+
   reflow() {
-    const box = this.text.getBBox();
+    const box = this.text.current.getBBox();
 
     this.setBBox({
       width: box.width,
@@ -19,8 +21,6 @@ class Text extends React.PureComponent {
       transform: `translate(${-box.x} ${-box.y})`
     });
   }
-
-  textRef = text => this.text = text
 
   renderContent() {
     const { children, quoted } = this.props;
@@ -42,7 +42,7 @@ class Text extends React.PureComponent {
     const textProps = {
       style: { ...style.text, ...style[theme] },
       transform,
-      ref: this.textRef
+      ref: this.text
     };
 
     return <text { ...textProps }>

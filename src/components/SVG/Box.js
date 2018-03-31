@@ -12,10 +12,14 @@ class Box extends React.PureComponent {
     radius: 3
   }
 
+  label = React.createRef()
+
+  children = [React.createRef()]
+
   reflow() {
     const { padding, useAnchors } = this.props;
-    const box = this.children[0].getBBox();
-    const labelBox = this.label ? this.label.getBBox() : { width: 0, height: 0};
+    const box = this.children[0].current.getBBox();
+    const labelBox = this.label.current ? this.label.current.getBBox() : { width: 0, height: 0};
 
     this.setBBox({
       width: Math.max(box.width + 2 * padding, labelBox.width),
@@ -34,10 +38,6 @@ class Box extends React.PureComponent {
     });
   }
 
-  containedRef = contained => this.children = [contained]
-
-  labelRef = label => this.label = label
-
   render() {
     const { theme, radius, label, children } = this.props;
     const { width, height, labelTransform, rectTransform, contentTransform } = this.state || {};
@@ -53,7 +53,7 @@ class Box extends React.PureComponent {
     const textProps = {
       transform: labelTransform,
       style: style.infoText,
-      ref: this.labelRef
+      ref: this.label
     };
 
     return <React.Fragment>
@@ -61,7 +61,7 @@ class Box extends React.PureComponent {
       { label && <text { ...textProps }>{ label }</text> }
       <g transform={ contentTransform }>
         { React.cloneElement(React.Children.only(children), {
-          ref: this.containedRef
+          ref: this.children[0]
         }) }
       </g>
     </React.Fragment>;

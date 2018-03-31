@@ -1,3 +1,4 @@
+import React from 'react';
 import { Map } from 'immutable';
 
 const reflowable = Component => {
@@ -46,13 +47,24 @@ const reflowable = Component => {
       };
     },
 
+    makeRefCollection(collection, count) {
+      const diff = Math.abs(collection.length - count);
+
+      if (collection.length < count) {
+        const fill = Array.apply(null, new Array(diff)).map(() => React.createRef());
+        collection.splice.apply(collection, [collection.length, diff, ...fill]);
+      } else if (collection.length > count) {
+        collection.splice(collection.length - diff, diff);
+      }
+    },
+
     async reflowChildren() {
       // No child components
       if (this.children === undefined) {
         return true;
       }
 
-      const reflowed = await Promise.all(this.children.map(c => c.doReflow()));
+      const reflowed = await Promise.all(this.children.map(c => c.current.doReflow()));
 
       return reflowed.reduce((memo, value) => memo || value, false);
     },

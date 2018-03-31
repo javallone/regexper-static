@@ -20,6 +20,8 @@ class VerticalLayout extends React.PureComponent {
     childTransforms: List()
   }
 
+  children = []
+
   updateChildTransforms(childBoxes) {
     return this.state.childTransforms.withMutations(transforms => (
       childBoxes.forEach((box, i) => (
@@ -82,7 +84,7 @@ class VerticalLayout extends React.PureComponent {
   reflow() {
     const { spacing, withConnectors } = this.props;
 
-    const childBoxes = this.children.map(child => child.getBBox());
+    const childBoxes = this.children.map(child => child.current.getBBox());
     const horizontalCenter = childBoxes.reduce((center, box) => Math.max(center, box.width / 2), 0);
     const margin = withConnectors ? connectorMargin : 0;
     const width = childBoxes.reduce((width, box) => Math.max(width, box.width), 0) + 2 * margin;
@@ -106,20 +108,18 @@ class VerticalLayout extends React.PureComponent {
     });
   }
 
-  childRef = i => child => this.children[i] = child
-
   render() {
     const { children } = this.props;
     const { childTransforms, connectorPaths } = this.state;
 
-    this.children = [];
+    this.makeRefCollection(this.children, React.Children.count(children));
 
     return <React.Fragment>
       <path d={ connectorPaths } style={ style.connectors }></path>
       { React.Children.map(children, (child, i) => (
         <g transform={ childTransforms.get(i) }>
           { React.cloneElement(child, {
-            ref: this.childRef(i)
+            ref: this.children[i]
           }) }
         </g>
       )) }
