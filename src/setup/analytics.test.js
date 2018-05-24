@@ -34,4 +34,24 @@ describe('setupAnalytics', () => {
     setupAnalytics();
     expect(ReactGA.pageview).toHaveBeenCalled();
   });
+
+  describe('when "Do Not Track" is set', () => {
+    beforeEach(() => {
+      navigator.doNotTrack = '1';
+    });
+
+    afterEach(() => {
+      navigator.doNotTrack = undefined;
+    });
+
+    it('does not initialize', () => {
+      setupAnalytics();
+      expect(ReactGA.initialize).not.toHaveBeenCalled();
+    });
+
+    it('does not trigger a pageview', () => {
+      setupAnalytics();
+      expect(ReactGA.pageview).not.toHaveBeenCalled();
+    });
+  });
 });

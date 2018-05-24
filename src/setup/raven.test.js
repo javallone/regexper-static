@@ -45,4 +45,19 @@ describe('setupRaven', () => {
       release: 'test ID'
     }));
   });
+
+  describe('when "Do Not Track" is set', () => {
+    beforeEach(() => {
+      navigator.doNotTrack = '1';
+    });
+
+    afterEach(() => {
+      navigator.doNotTrack = undefined;
+    });
+
+    it('does not intialize', () => {
+      setupRaven();
+      expect(Raven.config).not.toHaveBeenCalled();
+    });
+  });
 });
