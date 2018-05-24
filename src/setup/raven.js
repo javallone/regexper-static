@@ -8,6 +8,8 @@ const setupRaven = () => {
       debug: (process.env.NODE_ENV !== 'production'),
       release: process.env.BUILD_ID
     });
+  } else {
+    console.log('Sentry error reporting disabled by Do Not Track'); // eslint-disable-line no-console
   }
 };
 

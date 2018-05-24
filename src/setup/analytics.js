@@ -6,6 +6,8 @@ const setupAnalytics = () => {
       debug: (process.env.NODE_ENV !== 'production')
     });
     ReactGA.pageview(document.location.pathname);
+  } else {
+    console.log('Google Analytics disabled by Do Not Track'); // eslint-disable-line no-console
   }
 };
 
