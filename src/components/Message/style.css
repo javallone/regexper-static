@@ -57,4 +57,16 @@
       color: var(--color-orange);
     }
   }
+
+  &.info {
+    & .header {
+      background: var(--color-blue);
+      color: var(--color-white);
+    }
+
+    & svg {
+      background: var(--color-white);
+      color: var(--color-blue);
+    }
+  }
 }

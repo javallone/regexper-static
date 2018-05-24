@@ -6,6 +6,7 @@
   --color-white: #fff;
   --color-red: #b3151a;
   --color-orange: #fa0;
+  --color-blue: #025d8c;
 
   --gradient-green: linear-gradient(to bottom,
     var(--color-green) 0%,
