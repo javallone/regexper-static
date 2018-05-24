@@ -1,5 +1,11 @@
 [
   {
+    "label": "May 24, 2018 Release",
+    "changes": [
+      "Supporting browser \"Do Not Track\" setting. When enabled, this will prevent use of Google Analytics and Sentry error reporting."
+    ]
+  },
+  {
     "label": "February 10, 2018 Release",
     "changes": [
       "Adding 'sticky' and 'unicode' flag support",
