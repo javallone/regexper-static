@@ -1,8 +1,17 @@
 {{#if sentryKey}}
-<script src="https://cdn.ravenjs.com/3.17.0/raven.min.js" crossorigin="anonymous"></script>
 <script>
-  Raven.config('{{{sentryKey}}}', {
-    whitelistUrls: [/https:\/\/(.*\.)?regexper\.com/]
-  }).install()
+  if (navigator.doNotTrack !== '1' && window.doNotTrack !== '1') {
+    window.SENTRY_SDK = {
+      url: 'https://cdn.ravenjs.com/3.25.2/raven.min.js',
+      dsn: '{{{sentryKey}}}',
+      options: {
+        whitelistUrls: [/https:\/\/(.*\.)?regexper\.com/]
+      }
+    };
+
+    (function(a,b,g,e,h){var k=a.SENTRY_SDK,f=function(a){f.data.push(a)};f.data=[];var l=a[e];a[e]=function(c,b,e,d,h){f({e:[].slice.call(arguments)});l&&l.apply(a,arguments)};var m=a[h];a[h]=function(c){f({p:c.reason});m&&m.apply(a,arguments)};var n=b.getElementsByTagName(g)[0];b=b.createElement(g);b.src=k.url;b.crossorigin="anonymous";b.addEventListener("load",function(){try{a[e]=l;a[h]=m;var c=f.data,b=a.Raven;b.config(k.dsn,k.options).install();var g=a[e];if(c.length)for(var d=0;d<c.length;d++)c[d].e?g.apply(b.TraceKit,c[d].e):c[d].p&&b.captureException(c[d].p)}catch(p){console.log(p)}});n.parentNode.insertBefore(b,n)})(window,document,"script","onerror","onunhandledrejection");
+  } else {
+    console.log('Sentry error logging disabled by "Do Not Track"');
+  }
 </script>
 {{/if}}
