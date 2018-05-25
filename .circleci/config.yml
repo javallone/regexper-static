@@ -42,7 +42,7 @@ jobs:
           command: |
             sudo apt-get -y -qq install awscli
             aws s3 sync build s3://$DEPLOY_BUCKET/ --delete
-            aws s3api copy-object --copy-source $DEPLOY_BUCKET/service-worker.js --bucket $DEPLOY_BUCKET --key service-worker.js --metadata-directive REPLACE --cache-control "max-age=0" --content-type "applicatoin/javascript"
+            aws s3api copy-object --copy-source $DEPLOY_BUCKET/service-worker.js --bucket $DEPLOY_BUCKET --key service-worker.js --metadata-directive REPLACE --cache-control "max-age=0" --content-type "application/javascript"
 
 workflows:
   version: 2
