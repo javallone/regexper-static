@@ -6,7 +6,7 @@ import setupRaven from './raven';
 
 describe('setupRaven', () => {
   beforeEach(() => {
-    process.env.SENTRY_KEY='test key';
+    process.env.SENTRY_KEY = 'test key';
   });
 
   it('intializes with the SENTRY_KEY', () => {
