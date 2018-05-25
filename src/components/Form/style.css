@@ -46,11 +46,12 @@
 
 .actions {
   @apply --list-reset;
-  float: right;
+  margin-top: var(--spacing-margin);
 
   @media (min-width: 700px) {
     @apply --inline-list;
     @apply --with-separator;
+    float: right;
   }
 
   & svg {

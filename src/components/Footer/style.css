@@ -2,7 +2,12 @@
 
 footer {
   display: flex;
+  align-items: flex-start;
   margin: var(--spacing-margin) 0;
+
+  @media screen and (max-width: 800px) {
+    display: block;
+  }
 
   & ul {
     @apply --inline-list;
@@ -17,7 +22,6 @@ footer {
   }
 
   & .buildId {
-    align-self: flex-end;
     color: color(var(--color-brown) blend(var(--color-tan) 25%));
   }
 }
