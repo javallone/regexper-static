@@ -1,16 +1,23 @@
 @import url('../../globals.css');
 
 footer {
+  display: flex;
   margin: var(--spacing-margin) 0;
 
   & ul {
     @apply --inline-list;
     @apply --with-separator;
+    flex: 1;
   }
 
   & img {
     vertical-align: text-top;
     width: 80px;
     height: 15px;
+  }
+
+  & .buildId {
+    align-self: flex-end;
+    color: color(var(--color-brown) blend(var(--color-tan) 25%));
   }
 }

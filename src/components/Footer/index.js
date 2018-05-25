@@ -1,7 +1,7 @@
 import React from 'react';
 import { translate, Trans } from 'react-i18next';
 
-import './style.css';
+import style from './style.css';
 
 const Footer = () => (
   <footer>
@@ -22,6 +22,7 @@ const Footer = () => (
         <a href="/privacy.html"><Trans>Privacy Policy</Trans></a>
       </li>
     </ul>
+    <div className={ style.buildId }>{ process.env.BUILD_ID }</div>
   </footer>
 );
 
