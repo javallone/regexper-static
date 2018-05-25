@@ -12,7 +12,7 @@
   "scripts": {
     "start": "webpack-dev-server --config webpack.dev.js",
     "start:prod": "run-s build start:http-server",
-    "start:http-server": "http-server ./build",
+    "start:http-server": "http-server -c0 ./build",
     "build": "cross-env NODE_ENV=production run-s build:webpack:web build:webpack:prerender build:prerender",
     "build:webpack:web": "webpack --config webpack.prod-web.js",
     "build:webpack:prerender": "webpack --config webpack.prod-prerender.js",
