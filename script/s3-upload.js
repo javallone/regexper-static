@@ -13,7 +13,7 @@ const config = require(path.resolve(process.argv[2]));
 const configFor = path => {
   const { match, ...conf } = config.paths.find(conf => conf.match.test(path)); // eslint-disable-line no-unused-vars
   return {
-    ContentEncoding: mime.lookup(path) || 'application/octet-stream',
+    ContentType: mime.lookup(path) || 'application/octet-stream',
     ...conf
   };
 };
