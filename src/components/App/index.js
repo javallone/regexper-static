@@ -18,6 +18,8 @@ const syntaxes = {
 class App extends React.PureComponent {
   state = {}
 
+  image = React.createRef()
+
   componentDidMount() {
     window.addEventListener('hashchange', this.handleHashChange);
     this.handleHashChange();
@@ -116,13 +118,11 @@ class App extends React.PureComponent {
       syntax,
       expr
     }, async () => {
-      await this.image.doReflow();
-      this.setSvgUrl(this.image.svg.current);
-      this.setPngUrl(this.image.svg.current);
+      await this.image.current.doReflow();
+      this.setSvgUrl(this.image.current.svg.current);
+      this.setPngUrl(this.image.current.svg.current);
     });
   }
-
-  imageRef = image => this.image = image
 
   render() {
     const { svgUrl, pngUrl, permalinkUrl, syntax, expr, image } = this.state;
@@ -146,7 +146,7 @@ class App extends React.PureComponent {
         <p>Sample warning message</p>
       </Message>
       { image && <div className={ style.render }>
-        <SVG data={ image } imageRef={ this.imageRef }/>
+        <SVG data={ image } imageRef={ this.image }/>
       </div> }
     </React.Fragment>;
   }
