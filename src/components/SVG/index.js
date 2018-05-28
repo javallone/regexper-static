@@ -34,15 +34,14 @@ const render = (data, extraProps) => {
     children.length === 1 ? children[0] : children);
 };
 
-const SVG = ({ data, imageRef: ref }) => render(data, { ref });
+const SVG = React.forwardRef(({ data }, ref) => render(data, { ref }));
 
 SVG.propTypes = {
   data: PropTypes.shape({
     type: PropTypes.oneOf(Object.keys(nodeTypes)).isRequired,
     props: PropTypes.object,
     children: PropTypes.array
-  }).isRequired,
-  imageRef: PropTypes.func
+  }).isRequired
 };
 
 export default SVG;

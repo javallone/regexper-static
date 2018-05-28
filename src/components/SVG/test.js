@@ -1,8 +1,7 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { shallow } from 'enzyme';
 
 import SVG from 'components/SVG';
-import Pin from './Pin';
 
 describe('SVG', () => {
   test('rendering', async () => {
@@ -93,17 +92,5 @@ describe('SVG', () => {
       <SVG data={ data }/>
     );
     expect(component).toMatchSnapshot();
-  });
-
-  test('imageRef prop', () => {
-    let image;
-    const imageRef = element => image = element;
-    const data = {
-      type: 'Pin'
-    };
-    mount(
-      <SVG data={ data } imageRef={ imageRef }/>
-    );
-    expect(image).toBeInstanceOf(Pin);
   });
 });

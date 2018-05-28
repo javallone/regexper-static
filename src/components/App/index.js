@@ -146,7 +146,7 @@ class App extends React.PureComponent {
         <p>Sample warning message</p>
       </Message>
       { image && <div className={ style.render }>
-        <SVG data={ image } imageRef={ this.image }/>
+        <SVG data={ image } ref={ this.image }/>
       </div> }
     </React.Fragment>;
   }
