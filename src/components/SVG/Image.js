@@ -35,6 +35,29 @@ class Image extends React.PureComponent {
 
   children = [React.createRef()]
 
+  async svgUrl(type) {
+    const markup = this.svg.current.outerHTML;
+    return new Blob([markup], { type });
+  }
+
+  async pngUrl(type) {
+    const markup = this.svg.current.outerHTML;
+    const canvas = document.createElement('canvas');
+    const context = canvas.getContext('2d');
+    const loader = new window.Image(); // Using window.Image to avoid name conflict :(
+
+    loader.width = canvas.width = Number(this.svg.current.getAttribute('width')) * 2;
+    loader.height = canvas.height = Number(this.svg.current.getAttribute('height')) * 2;
+
+    await new Promise(resolve => {
+      loader.onload = resolve;
+      loader.src = 'data:image/svg+xml,' + encodeURIComponent(markup);
+    });
+
+    context.drawImage(loader, 0, 0, loader.width, loader.height);
+    return new Promise(resolve => canvas.toBlob(resolve, type));
+  }
+
   reflow() {
     const { padding } = this.props;
     const box = this.children[0].current.getBBox();

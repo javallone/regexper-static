@@ -29,11 +29,10 @@ class App extends React.PureComponent {
     window.removeEventListener('hashchange', this.handleHashChange);
   }
 
-  setSvgUrl(element) {
+  async setSvgUrl() {
     try {
       const type = 'image/svg+xml';
-      const markup = element.outerHTML;
-      const blob = new Blob([markup], { type });
+      const blob = await this.image.current.svgUrl(type);
 
       this.setState({
         svgUrl: {
@@ -49,24 +48,10 @@ class App extends React.PureComponent {
     }
   }
 
-  async setPngUrl(element) {
+  async setPngUrl() {
     try {
       const type = 'image/png';
-      const markup = element.outerHTML;
-      const canvas = document.createElement('canvas');
-      const context = canvas.getContext('2d');
-      const loader = new Image();
-
-      loader.width = canvas.width = Number(element.getAttribute('width')) * 2;
-      loader.height = canvas.height = Number(element.getAttribute('height')) * 2;
-
-      await new Promise(resolve => {
-        loader.onload = resolve;
-        loader.src = 'data:image/svg+xml,' + encodeURIComponent(markup);
-      });
-
-      context.drawImage(loader, 0, 0, loader.width, loader.height);
-      const blob = await new Promise(resolve => canvas.toBlob(resolve, type));
+      const blob = await this.image.current.pngUrl(type);
 
       this.setState({
         pngUrl: {
@@ -119,8 +104,8 @@ class App extends React.PureComponent {
       expr
     }, async () => {
       await this.image.current.doReflow();
-      this.setSvgUrl(this.image.current.svg.current);
-      this.setPngUrl(this.image.current.svg.current);
+      this.setSvgUrl();
+      this.setPngUrl();
     });
   }
 
