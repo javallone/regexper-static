@@ -49,6 +49,7 @@ describe('setupRaven', () => {
   describe('when "Do Not Track" is set', () => {
     beforeEach(() => {
       navigator.doNotTrack = '1';
+      jest.spyOn(global.console, 'log').mockImplementation(Function.prototype);
     });
 
     afterEach(() => {
@@ -58,6 +59,11 @@ describe('setupRaven', () => {
     it('does not intialize', () => {
       setupRaven();
       expect(Raven.config).not.toHaveBeenCalled();
+    });
+
+    it('logs a message', () => {
+      setupRaven();
+      expect(global.console.log).toHaveBeenCalledWith('Sentry error reporting disabled by Do Not Track');
     });
   });
 });

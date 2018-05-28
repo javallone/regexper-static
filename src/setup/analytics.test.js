@@ -38,6 +38,7 @@ describe('setupAnalytics', () => {
   describe('when "Do Not Track" is set', () => {
     beforeEach(() => {
       navigator.doNotTrack = '1';
+      jest.spyOn(global.console, 'log').mockImplementation(Function.prototype);
     });
 
     afterEach(() => {
@@ -52,6 +53,11 @@ describe('setupAnalytics', () => {
     it('does not trigger a pageview', () => {
       setupAnalytics();
       expect(ReactGA.pageview).not.toHaveBeenCalled();
+    });
+
+    it('logs a message', () => {
+      setupAnalytics();
+      expect(global.console.log).toHaveBeenCalledWith('Google Analytics disabled by Do Not Track');
     });
   });
 });
