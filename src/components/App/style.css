@@ -13,3 +13,44 @@
     margin: 0 auto;
   }
 }
+
+.loader {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 2rem;
+  background: var(--color-white);
+  color: var(--color-black);
+
+  & .message {
+    font-weight: bold;
+    font-size: 2.5rem;
+    padding: 0;
+    text-align: center;
+  }
+
+  & svg {
+    display: block;
+    transform: scaleZ(1); /* Move to separate render layer in Chrome */
+    width: 5rem;
+    height: 5rem;
+    stroke: var(--color-black);
+    animation: loader-spin 1s steps(8) infinite;
+
+    & line:nth-of-type(1) { stroke: color(var(--color-black) alpha(0.75)); }
+    & line:nth-of-type(3) { stroke: color(var(--color-black) alpha(0.50)); }
+    & line:nth-of-type(5) { stroke: color(var(--color-black) alpha(0.25)); }
+    & line:nth-of-type(7) { stroke: color(var(--color-black) alpha(0)); }
+  }
+}
+
+@keyframes loader-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

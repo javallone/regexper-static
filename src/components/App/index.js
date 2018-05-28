@@ -2,12 +2,14 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { translate } from 'react-i18next';
 import URLSearchParams from 'url-search-params';
+import Raven from 'raven-js';
+
+import LoaderIcon from 'feather-icons/dist/icons/loader.svg';
 
 import style from './style.css';
 
 import Form from 'components/Form';
 import Message from 'components/Message';
-import SVG from 'components/SVG';
 import { demoImage } from 'devel';
 
 const syntaxes = {
@@ -67,6 +69,34 @@ class App extends React.PureComponent {
     }
   }
 
+  async loadSVGComponent() {
+    if (this.state.SVG) {
+      return;
+    }
+
+    this.setState({
+      loading: true,
+      loadingFailed: false
+    });
+
+    try {
+      const SVG = await import(/* webpackChunkName: "render" */ 'components/SVG');
+
+      this.setState({
+        SVG: SVG.default,
+        loading: false
+      });
+    }
+    catch (e) {
+      Raven.captureException(e);
+      this.setState({
+        loading: false,
+        loadingFailed: e
+      });
+      throw e;
+    }
+  }
+
   handleSubmit = ({expr, syntax}) => {
     if (expr) {
       const params = new URLSearchParams({ syntax, expr });
@@ -74,7 +104,7 @@ class App extends React.PureComponent {
     }
   }
 
-  handleHashChange = () => {
+  handleHashChange = async () => {
     const query = document.location.hash.slice(1);
     const params = new URLSearchParams(query);
     const { expr, syntax } = (() => {
@@ -96,21 +126,32 @@ class App extends React.PureComponent {
       return;
     }
 
-    console.log(syntax, expr); // eslint-disable-line no-console
-    this.setState({
-      image: demoImage,
-      permalinkUrl: document.location.toString(),
-      syntax,
-      expr
-    }, async () => {
-      await this.image.current.doReflow();
-      this.setSvgUrl();
-      this.setPngUrl();
-    });
+    try {
+      await this.loadSVGComponent();
+      console.log(syntax, expr); // eslint-disable-line no-console
+      this.setState({
+        image: demoImage,
+        permalinkUrl: document.location.toString(),
+        syntax,
+        expr
+      }, async () => {
+        await this.image.current.doReflow();
+        this.setSvgUrl();
+        this.setPngUrl();
+      });
+    }
+    catch (e) {
+      console.error(e); // eslint-disable-line no-console
+    }
+  }
+
+  handleRetry = async event => {
+    event.preventDefault();
+    this.handleHashChange();
   }
 
   render() {
-    const { svgUrl, pngUrl, permalinkUrl, syntax, expr, image } = this.state;
+    const { SVG, loading, loadingFailed, svgUrl, pngUrl, permalinkUrl, syntax, expr, image } = this.state;
     const downloadUrls = [
       svgUrl,
       pngUrl
@@ -130,9 +171,22 @@ class App extends React.PureComponent {
       <Message type="warning" heading="Sample Warning">
         <p>Sample warning message</p>
       </Message>
-      { image && <div className={ style.render }>
-        <SVG data={ image } ref={ this.image }/>
-      </div> }
+      {
+        loading && <div className={ style.loader }>
+          <LoaderIcon />
+          <div className={ style.message }>Loading...</div>
+        </div>
+      }
+      {
+        loadingFailed && <Message type="error" heading="Render Failure">
+          An error occurred while rendering the regular expression. <a href="#retry" onClick={ this.handleRetry }>Retry</a>
+        </Message>
+      }
+      {
+        image && <div className={ style.render }>
+          <SVG data={ image } ref={ this.image }/>
+        </div>
+      }
     </React.Fragment>;
   }
 }
