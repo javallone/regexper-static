@@ -25,10 +25,13 @@ To start a development server, run:
 * `yarn start` - Start a development server on port 8080
 * `yarn start:prod` - Run a build and start a web server on port 8080. This will not automatically rebuild.
 * `yarn build` - Run a production build (used for deployments and for rebuilding when running `yarn start:prod`)
+* `yarn deploy` - Deploy application to AWS S3 bucket
 * `yarn test` - Run lint and unit tests
 * `yarn test:lint` - Run eslint
 * `yarn test:unit` - Run jest unit tests
 * `yarn test:watch` - Run jest in watch mode
+* `yarn test:bundle-analyzer` - Generate webpack-bundle-analyzer report
+* `yarn i18n:scrub` - Scrubs i18n locale configs. Adds missing keys and normalizes YAML formatting
 
 ## License
 
