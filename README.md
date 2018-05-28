@@ -1,4 +1,4 @@
-# Regexper [![Build Status](https://travis-ci.org/javallone/regexper-static.svg?branch=react)](https://travis-ci.org/javallone/regexper-static)
+# Regexper [![CircleCI](https://circleci.com/gh/javallone/regexper-static.svg?style=svg)](https://circleci.com/gh/javallone/regexper-static)
 
 Code for the http://regexper.com/ site.
 
