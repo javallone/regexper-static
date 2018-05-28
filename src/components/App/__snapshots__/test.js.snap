@@ -12,21 +12,5 @@ exports[`App rendering 1`] = `
       }
     }
   />
-  <Message
-    heading="Sample Error"
-    type="error"
-  >
-    <p>
-      Sample error message
-    </p>
-  </Message>
-  <Message
-    heading="Sample Warning"
-    type="warning"
-  >
-    <p>
-      Sample warning message
-    </p>
-  </Message>
 </React.Fragment>
 `;

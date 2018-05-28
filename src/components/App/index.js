@@ -165,12 +165,6 @@ class App extends React.PureComponent {
         syntax={ syntax }
         expr={ expr }
         onSubmit={ this.handleSubmit }/>
-      <Message type="error" heading="Sample Error">
-        <p>Sample error message</p>
-      </Message>
-      <Message type="warning" heading="Sample Warning">
-        <p>Sample warning message</p>
-      </Message>
       {
         loading && <div className={ style.loader }>
           <LoaderIcon />
