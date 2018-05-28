@@ -13,7 +13,6 @@ module.exports = merge(common, {
     new GenerateSW({
       clientsClaim: true,
       skipWaiting: true,
-      dontCacheBustUrlsMatching: /icons-\w{8}|js|css/,
       runtimeCaching: [
         {
           urlPattern: /https?:\/\/licensebuttons\.net/,
