@@ -46,7 +46,7 @@ workflows:
   preview:
     jobs:
       - build_deploy:
-          context: preview-context
+          context: regexper-preview
           filters:
             tags:
               ignore: /.*/
@@ -55,7 +55,7 @@ workflows:
   prod:
     jobs:
       - build_deploy:
-          context: prod-context
+          context: regexper-prod
           filters:
             tags:
               only: /.*/
