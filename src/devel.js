@@ -1,11 +1,6 @@
 // Data used during development.
 // Once everything is built, this file will go away
 
-const syntaxes = {
-  js: 'JavaScript',
-  pcre: 'PCRE'
-};
-
 const demoImage = {
   type: 'Image',
   children: [
@@ -228,6 +223,5 @@ const demoImage = {
 };
 
 export {
-  syntaxes,
   demoImage
 };

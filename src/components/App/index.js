@@ -8,12 +8,15 @@ import style from './style.css';
 import Form from 'components/Form';
 import Message from 'components/Message';
 import SVG from 'components/SVG';
-import { syntaxes, demoImage } from 'devel';
+import { demoImage } from 'devel';
+
+const syntaxes = {
+  js: 'JavaScript',
+  pcre: 'PCRE'
+};
 
 class App extends React.PureComponent {
-  state = {
-    syntaxes
-  }
+  state = {}
 
   componentDidMount() {
     window.addEventListener('hashchange', this.handleHashChange);
@@ -122,7 +125,7 @@ class App extends React.PureComponent {
   imageRef = image => this.image = image
 
   render() {
-    const { svgUrl, pngUrl, permalinkUrl, syntax, expr, syntaxes, image } = this.state;
+    const { svgUrl, pngUrl, permalinkUrl, syntax, expr, image } = this.state;
     const downloadUrls = [
       svgUrl,
       pngUrl
