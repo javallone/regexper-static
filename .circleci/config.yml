@@ -28,7 +28,10 @@ jobs:
           command: yarn test
 
       - store_artifacts:
-          path: coverage
+          path: reports
+
+      - store_test_results:
+          path: reports/junit.xml
 
       - run:
           name: Build site

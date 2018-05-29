@@ -73,11 +73,16 @@
       "!src/pages/**/config.js",
       "!src/pages/**/browser.js"
     ],
-    "coverageDirectory": "<rootDir>/coverage",
+    "coverageDirectory": "<rootDir>/reports/coverage",
     "coverageReporters": [
       "text-summary",
       "html"
-    ]
+    ],
+    "testResultsProcessor": "jest-junit"
+  },
+  "jest-junit": {
+    "output": "./reports/junit.xml",
+    "suiteName": "Jest tests"
   },
   "eslintConfig": {
     "env": {
@@ -151,6 +156,7 @@
     "identity-obj-proxy": "^3.0.0",
     "immutable": "^3.8.2",
     "jest": "^22.2.2",
+    "jest-junit": "^4.0.0",
     "mime-types": "^2.1.18",
     "npm-run-all": "^4.1.2",
     "postcss-cssnext": "^3.1.0",
