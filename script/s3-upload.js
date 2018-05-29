@@ -20,7 +20,7 @@ const configFor = path => {
 };
 
 const bucketContents = s3.listObjectsV2({
-  Bucket: config.bucket
+  Bucket: config.s3Bucket
 }).promise()
   .then(result => {
     return result.Contents.map(item => item.Key);
