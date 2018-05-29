@@ -8,6 +8,7 @@ const AWS = require('aws-sdk');
 const mime = require('mime-types');
 
 const s3 = new AWS.S3();
+const cloudFront = new AWS.CloudFront();
 const config = require(path.resolve(process.argv[2]));
 
 const configFor = path => {
@@ -49,7 +50,7 @@ Promise.all([bucketContents, uploadDetails]).then(([bucket, upload]) => {
   const uploadPromises = upload.map(params => {
     console.log(`Starting upload for ${ params.Key }`);
     return s3.upload({
-      Bucket: config.bucket,
+      Bucket: config.s3Bucket,
       ...params
     }).promise()
       .then(() => console.log(colors.green(`${ params.Key } successful`)))
@@ -59,20 +60,35 @@ Promise.all([bucketContents, uploadDetails]).then(([bucket, upload]) => {
       });
   });
 
-  return Promise.all(uploadPromises).then(() => {
-    console.log(`Deleting ${ deleteKeys.length } stale files`);
-    return s3.deleteObjects({
-      Bucket: config.bucket,
-      Delete: {
-        Objects: deleteKeys.map(key => ({ Key: key }))
-      }
-    }).promise()
-      .then(() => console.log(colors.green('Delete successful')))
-      .catch(err => {
-        console.error(colors.red.bold('Delete failed'));
-        return Promise.reject(err);
-      });
-  });
+  return Promise.all(uploadPromises)
+    .then(() => {
+      console.log(`Deleting ${ deleteKeys.length } stale files`);
+      return s3.deleteObjects({
+        Bucket: config.s3Bucket,
+        Delete: {
+          Objects: deleteKeys.map(key => ({ Key: key }))
+        }
+      }).promise()
+        .then(() => console.log(colors.green('Delete successful')))
+        .catch(err => {
+          console.error(colors.red.bold('Delete failed'));
+          return Promise.reject(err);
+        });
+    })
+    .then(() => {
+      return cloudFront.createInvalidation({
+        DistributionId: config.cloudFrontId,
+        InvalidationBatch: {
+          CallerReference: `circleci-deploy-${ process.env.CIRCLE_BRANCH }-${ process.env.CIRCLE_BUILD_NUM }-${ process.env.CIRCLE_SHA1 }`,
+          Paths: {
+            Quantity: bucket.length,
+            Items: [
+              '/*'
+            ]
+          }
+        }
+      }).promise();
+    });
 })
   .catch(err => {
     console.error(colors.red.bold('Error:'), err);

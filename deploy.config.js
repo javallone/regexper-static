@@ -1,7 +1,8 @@
 const path = require('path');
 
 module.exports = {
-  bucket: process.env.DEPLOY_BUCKET,
+  s3Bucket: process.env.DEPLOY_BUCKET,
+  cloudFrontId: process.env.CLOUD_FRONT_ID,
   deployFrom: path.resolve(__dirname, 'build'),
   paths: [
     {
