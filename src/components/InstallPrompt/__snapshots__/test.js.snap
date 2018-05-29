@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InstallPrompt rendering 1`] = `
+<div
+  className="install"
+>
+  <p
+    className="cta"
+  >
+    <Trans>
+      Add Regexper to your home screen?
+    </Trans>
+  </p>
+  <div
+    className="actions"
+  >
+    <button
+      className="primary"
+    >
+      <Trans>
+        Add It
+      </Trans>
+    </button>
+    <button>
+      <Trans>
+        No Thanks
+      </Trans>
+    </button>
+  </div>
+</div>
+`;

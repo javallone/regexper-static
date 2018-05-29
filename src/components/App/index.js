@@ -10,6 +10,7 @@ import style from './style.css';
 
 import Form from 'components/Form';
 import Message from 'components/Message';
+import InstallPrompt from 'components/InstallPrompt';
 import { demoImage } from 'devel';
 
 const syntaxes = {
@@ -24,11 +25,13 @@ class App extends React.PureComponent {
 
   componentDidMount() {
     window.addEventListener('hashchange', this.handleHashChange);
+    window.addEventListener('beforeinstallprompt', this.handleInstallPrompt);
     this.handleHashChange();
   }
 
   componentWillUnmount() {
     window.removeEventListener('hashchange', this.handleHashChange);
+    window.removeEventListener('beforeinstallprompt', this.handleInstallPrompt);
   }
 
   async setSvgUrl() {
@@ -97,6 +100,14 @@ class App extends React.PureComponent {
     }
   }
 
+  handleInstallPrompt = event => {
+    event.preventDefault();
+
+    this.setState({
+      installPrompt: event
+    });
+  }
+
   handleSubmit = ({expr, syntax}) => {
     if (expr) {
       const params = new URLSearchParams({ syntax, expr });
@@ -150,8 +161,30 @@ class App extends React.PureComponent {
     this.handleHashChange();
   }
 
+  handleInstallReject = () => {
+    this.setState({ installPrompt: null });
+  }
+
+  handleInstallAccept = async () => {
+    const { installPrompt } = this.state;
+
+    this.setState({ installPrompt: null });
+    installPrompt.prompt();
+  }
+
   render() {
-    const { SVG, loading, loadingFailed, svgUrl, pngUrl, permalinkUrl, syntax, expr, image } = this.state;
+    const {
+      SVG,
+      loading,
+      loadingFailed,
+      svgUrl,
+      pngUrl,
+      permalinkUrl,
+      syntax,
+      expr,
+      image,
+      installPrompt
+    } = this.state;
     const downloadUrls = [
       svgUrl,
       pngUrl
@@ -180,6 +213,9 @@ class App extends React.PureComponent {
         image && <div className={ style.render }>
           <SVG data={ image } ref={ this.image }/>
         </div>
+      }
+      {
+        installPrompt && <InstallPrompt onAccept={ this.handleInstallAccept } onReject={ this.handleInstallReject } />
       }
     </React.Fragment>;
   }

@@ -1,0 +1,38 @@
+@import url('../../globals.css');
+
+.install {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--color-tan);
+  color: var(--color-black);
+}
+
+.cta {
+  margin: 0;
+  padding: var(--spacing-margin);
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-evenly;
+  padding: var(--spacing-margin);
+
+  & button {
+    font-size: inherit;
+    line-height: 2.8rem;
+    border: 0 none;
+    background: var(--color-green) var(--gradient-green);
+    color: var(--color-black);
+    cursor: pointer;
+    padding: 0;
+    width: 40vw;
+
+    &.primary {
+      font-weight: bold;
+    }
+  }
+}
