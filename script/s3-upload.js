@@ -81,7 +81,7 @@ Promise.all([bucketContents, uploadDetails]).then(([bucket, upload]) => {
         InvalidationBatch: {
           CallerReference: `circleci-deploy-${ process.env.CIRCLE_BRANCH }-${ process.env.CIRCLE_BUILD_NUM }-${ process.env.CIRCLE_SHA1 }`,
           Paths: {
-            Quantity: bucket.length,
+            Quantity: 1,
             Items: [
               '/*'
             ]
