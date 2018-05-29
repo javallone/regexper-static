@@ -31,7 +31,7 @@ jobs:
           path: reports
 
       - store_test_results:
-          path: reports/junit.xml
+          path: reports/test-results
 
       - run:
           name: Build site

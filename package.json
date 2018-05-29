@@ -81,7 +81,7 @@
     "testResultsProcessor": "jest-junit"
   },
   "jest-junit": {
-    "output": "./reports/junit.xml",
+    "output": "./reports/test-results/jest/results.xml",
     "suiteName": "Jest tests"
   },
   "eslintConfig": {
