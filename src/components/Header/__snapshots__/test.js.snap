@@ -25,6 +25,9 @@ exports[`Header rendering 1`] = `
         </Trans>
       </a>
     </li>
+    <li>
+      <Translate(LocaleSwitcher) />
+    </li>
   </ul>
 </header>
 `;
