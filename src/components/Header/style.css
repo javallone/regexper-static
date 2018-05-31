@@ -1,6 +1,8 @@
 @import url('../../globals.css');
 
 .header {
+  display: flex;
+  align-items: center;
   background: var(--color-green) var(--gradient-green);
   box-shadow: 0 0 1rem color(var(--color-black) alpha(0.7));
   padding: 0 var(--content-margin);
@@ -25,6 +27,7 @@
   }
 
   & h1 {
+    flex-grow: 1;
     font-family: 'Bangers', 'cursive';
     font-size: 4rem;
     font-weight: normal;
@@ -41,13 +44,12 @@
 
   & ul {
     @apply --inline-list;
-    line-height: var(--header-height);
-    position: absolute;
-    top: 0;
-    right: var(--content-margin);
+    text-align: right;
   }
 
   & li {
+    margin-left: 1em;
+
     & a:hover,
     & a:active {
       text-decoration: underline;
