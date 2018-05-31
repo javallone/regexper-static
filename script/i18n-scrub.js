@@ -53,7 +53,7 @@ loadLocales()
 
     languages.forEach(langName => {
       const lang = locales[langName];
-      const presentKeys = Object.keys(lang).reduce((list, nsName) => {
+      const presentKeys = Object.keys(lang).filter(nsName => nsName !== 'missing').reduce((list, nsName) => {
         return list.concat(Object.keys(lang[nsName]));
       }, []);
       const missingKeys = requiredKeys.filter(key => !presentKeys.includes(key));
@@ -68,8 +68,21 @@ loadLocales()
       }
 
       missingKeys.forEach(key => {
-        console.log(colors.yellow.bold('MISSING:'), `${ langName } need values for "${ colors.bold(key) }".`); //eslint-disable-line no-console
+        if (lang.missing[key]) {
+          return;
+        }
+
+        console.log(colors.yellow.bold('MISSING:'), `${ langName } needs value for "${ colors.bold(key) }".`); //eslint-disable-line no-console
         lang.missing[key] = sourceLocale[key];
+      });
+
+      presentKeys.forEach(key => {
+        if (!lang.missing[key]) {
+          return;
+        }
+
+        console.log(colors.yellow.bold('DEFINED:'), `Removing "${ colors.bold(key) }" from ${ langName}.missing. It is defined elsewhere.`); // eslint-disable-line no-console
+        delete lang.missing[key];
       });
 
       extraKeys.forEach(key => {
