@@ -62,6 +62,11 @@ Promise.all([bucketContents, uploadDetails]).then(([bucket, upload]) => {
 
   return Promise.all(uploadPromises)
     .then(() => {
+      if (deleteKeys.length === 0) {
+        console.log('No files to delete');
+        return Promise.resolve();
+      }
+
       console.log(`Deleting ${ deleteKeys.length } stale files`);
       return s3.deleteObjects({
         Bucket: config.s3Bucket,
