@@ -43,7 +43,7 @@ Several environment variables are used to configure the application at build-tim
 * `CIRCLE_BRANCH`, `CIRCLE_BUILD_NUM`, and `CIRCLE_SHA1` - CircleCI values used to generate build ID. Displayed in application footer and used in Sentry.io error reports.
 * `CLOUD_FRONT_ID` - AWS CloudFront distribution ID to invalidating when running `yarn deploy`
 * `DEPLOY_BUCKET` - AWS S3 bucket to deploy application to when running `yarn deploy`.
-* `DEPLOY_ENV` - Environment the applicatoin will be deployed to. Used to report environment in Sentry.io error reports. Typically set to either "preview" or "production".
+* `DEPLOY_ENV` - Environment the application will be deployed to. Used to report environment in Sentry.io error reports. Typically set to either "preview" or "production".
 * `BANNER` - Text to display in header banner. Generally generated from `NODE_ENV`
 * `BUILD_ID` - Application build ID. Generated from `CIRCLE_BRANCH`, `CIRCLE_BUILD_NUM`, and `CIRCLE_SHA1` if not set.
 
