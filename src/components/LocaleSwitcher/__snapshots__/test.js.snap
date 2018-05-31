@@ -1,0 +1,14 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LocaleSwitcher rendering 1`] = `
+<label>
+  <Trans>
+    Language
+  </Trans>
+  <select
+    className="switcher"
+    onChange={[Function]}
+    value="en"
+  />
+</label>
+`;
