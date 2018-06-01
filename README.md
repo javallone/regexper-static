@@ -22,13 +22,13 @@ To start a development server, run:
 
 ### Translating
 
-A helper tool is available to support maintaining translations. Running `yarn i18n:scrub` will update locale data files under `src/locales` by normalizing YAML syntax across all the files, maintaining a `missing.yml` file under each locale, and indicating any existing translations that appear to be no longer used. For this, the `src/locales/en/translation.yml` file is used as a source of truth.
+A helper tool is available to support maintaining translations. Running `yarn i18n:scrub` will update locale data files under `src/locales` by normalizing YAML syntax across all the files, maintaining a `missing.yaml` file under each locale, and indicating any existing translations that appear to be no longer used. For this, the `src/locales/en/translation.yaml` file is used as a source of truth.
 
-To add a new locale, first create a directory for the locale under `src/locales` (no files need to be added at this point), then run `yarn i18n:scrub`. This will create a `src/locales/<locale name>/missing.yml` file that contains required translations. Add a `src/locales/<locale name>/translation.yml` file and at a minimum add a translation for the `/displayName` value. This should be the translated name of the locale your are adding.
+To add a new locale, first create a directory for the locale under `src/locales` (no files need to be added at this point), then run `yarn i18n:scrub`. This will create a `src/locales/<locale name>/missing.yaml` file that contains required translations. Add a `src/locales/<locale name>/translation.yaml` file and at a minimum add a translation for the `/displayName` value. This should be the translated name of the locale your are adding.
 
-If you are looking to translation missing text for a locale that is already present in the project, start by running `yarn i18n:scrub`. Check the `src/locales/<locale name>/missing.yml` file for translations that are needed. Add any updated translations to `src/locales/<locale name>/translation.yml`.
+If you are looking to translation missing text for a locale that is already present in the project, start by running `yarn i18n:scrub`. Check the `src/locales/<locale name>/missing.yaml` file for translations that are needed. Add any updated translations to `src/locales/<locale name>/translation.yaml`.
 
-Before committing any updated translations, run `yarn i18n:scrub` again to maintain syntax in the YAML files and remove any translated entries from `missing.yml`. Commit any changes to the `translation.yml` and `missing.yml` files.
+Before committing any updated translations, run `yarn i18n:scrub` again to maintain syntax in the YAML files and remove any translated entries from `missing.yaml`. Commit any changes to the `translation.yaml` and `missing.yaml` files.
 
 ### Available scripts
 
