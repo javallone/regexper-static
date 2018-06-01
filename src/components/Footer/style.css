@@ -11,7 +11,7 @@ footer {
 
   & ul {
     @apply --inline-list;
-    @apply --with-separator;
+    @apply --with-separator-left;
     flex: 1;
   }
 

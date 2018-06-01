@@ -44,11 +44,12 @@
 
   & ul {
     @apply --inline-list;
+    @apply --with-separator-right;
     text-align: right;
   }
 
   & li {
-    margin-left: 1em;
+    line-height: 2.4rem;
 
     & a:hover,
     & a:active {

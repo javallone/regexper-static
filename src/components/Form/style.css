@@ -50,12 +50,14 @@
 
   @media (min-width: 700px) {
     @apply --inline-list;
-    @apply --with-separator;
+    @apply --with-separator-left;
     float: right;
   }
 
   & svg {
+    width: 1em;
     height: 1em;
+    margin-right: 0.5rem;
     vertical-align: middle;
   }
 }

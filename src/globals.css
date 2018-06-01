@@ -30,14 +30,52 @@
       white-space: nowrap;
     }
   }
-  --with-separator: {
-    & li:after {
+  --list-separator-width: 2ex;
+  --separator-style: {
       content: '//';
       padding: 0 0.5rem;
+      display: inline-block;
+      box-sizing: border-box;
+      width: var(--list-separator-width);
+  }
+  --with-separator-left: {
+    overflow: hidden;
+
+    & li {
+      padding-right: var(--list-separator-width);
+    }
+
+    & li:before {
+      @apply --separator-style;
+      margin-left: -var(--list-separator-width);
+    }
+
+    & li:last-child {
+      padding-right: 0;
+    }
+
+    & li:first-child:before {
+      visibility: hidden;
+    }
+  }
+  --with-separator-right: {
+    overflow: hidden;
+
+    & li {
+      padding-left: var(--list-separator-width);
+    }
+
+    & li:after {
+      @apply --separator-style;
+      margin-right: -var(--list-separator-width);
+    }
+
+    & li:first-child {
+      padding-left: 0;
     }
 
     & li:last-child:after {
-      content: '';
+      visibility: hidden;
     }
   }
 }
