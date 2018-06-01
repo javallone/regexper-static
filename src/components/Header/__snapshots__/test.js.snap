@@ -26,6 +26,15 @@ exports[`Header rendering 1`] = `
       </a>
     </li>
     <li>
+      <a
+        href="/privacy.html"
+      >
+        <Trans>
+          Privacy Policy
+        </Trans>
+      </a>
+    </li>
+    <li>
       <Translate(LocaleSwitcher) />
     </li>
   </ul>

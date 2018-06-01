@@ -16,6 +16,9 @@ const Header = () => (
       <li><a href="https://github.com/javallone/regexper-static" rel="external noopener noreferrer" target="_blank">
         <GithubIcon/><Trans>Source on GitHub</Trans>
       </a></li>
+      <li>
+        <a href="/privacy.html"><Trans>Privacy Policy</Trans></a>
+      </li>
       <li><LocaleSwitcher /></li>
     </ul>
   </header>

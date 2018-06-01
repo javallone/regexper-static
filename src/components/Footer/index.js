@@ -18,9 +18,6 @@ const Footer = () => (
           </a>
         </Trans>
       </li>
-      <li>
-        <a href="/privacy.html"><Trans>Privacy Policy</Trans></a>
-      </li>
     </ul>
     <div className={ style.buildId }>{ process.env.BUILD_ID }</div>
   </footer>
