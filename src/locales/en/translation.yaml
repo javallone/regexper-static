@@ -16,7 +16,7 @@ Privacy Policy: Privacy Policy
 Privacy Policy Content: >
   <0>Regexper and the tools used to create it are all open source. If you are
   concerned that the JavaScript being delivered is in any way malicious, please
-  inspect the source by following the <1>GitHub repository</1>.</0>
+  inspect the source in the <1>GitHub repository</1>.</0>
 
   <1>There are two data collection tools integrated in the app. These tools are
   not used to collect personal information:</1>
