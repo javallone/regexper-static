@@ -66,7 +66,7 @@ class Form extends React.PureComponent {
 
     return downloadUrls.map(({ url, filename, type, label }, i) => <li key={ i }>
       <a href={ url } download={ filename } type={ type }>
-        <DownloadIcon/>{ label }
+        <DownloadIcon/><Trans>{ label }</Trans>
       </a>
     </li>);
   }

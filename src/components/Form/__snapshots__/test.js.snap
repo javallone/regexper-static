@@ -107,7 +107,9 @@ exports[`Form rendering with download URLs 1`] = `
           type="image/svg+xml"
         >
           <SvgMock />
-          Download SVG
+          <Trans>
+            Download SVG
+          </Trans>
         </a>
       </li>
       <li
@@ -119,7 +121,9 @@ exports[`Form rendering with download URLs 1`] = `
           type="image/png"
         >
           <SvgMock />
-          Download PNG
+          <Trans>
+            Download PNG
+          </Trans>
         </a>
       </li>
     </ul>

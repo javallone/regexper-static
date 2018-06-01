@@ -42,7 +42,7 @@ class App extends React.PureComponent {
       this.setState({
         svgUrl: {
           url: URL.createObjectURL(blob),
-          label: this.props.t('Download SVG'),
+          label: 'Download SVG',
           filename: 'image.svg',
           type
         }
@@ -61,7 +61,7 @@ class App extends React.PureComponent {
       this.setState({
         pngUrl: {
           url: URL.createObjectURL(blob),
-          label: this.props.t('Download PNG'),
+          label: 'Download PNG',
           filename: 'image.png',
           type
         }
