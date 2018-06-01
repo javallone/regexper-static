@@ -28,7 +28,6 @@
   },
   "browserslist": [
     ">1%",
-    "last 2 versions",
     "not ie < 11"
   ],
   "babel": {
@@ -47,7 +46,11 @@
   "postcss": {
     "plugins": {
       "postcss-import": {},
-      "postcss-cssnext": {}
+      "postcss-cssnext": {
+        "features": {
+          "rem": false
+        }
+      }
     }
   },
   "jest": {
