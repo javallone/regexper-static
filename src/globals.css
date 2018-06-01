@@ -11,6 +11,9 @@
   --gradient-green: linear-gradient(to bottom,
     var(--color-green) 0%,
     color(var(--color-green) shade(40%)) 100%);
+  --gradient-tan: linear-gradient(to bottom,
+    var(--color-tan) 0%,
+    color(var(--color-tan) shade(40%)) 100%);
 
   --header-height: 6rem;
   --content-margin: 2rem;

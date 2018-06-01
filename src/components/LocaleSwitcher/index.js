@@ -3,6 +3,7 @@ import { translate, Trans } from 'react-i18next';
 import i18n from 'i18next';
 
 import style from './style.css';
+import ExpandIcon from 'feather-icons/dist/icons/chevrons-down.svg';
 
 import locales from 'locales';
 
@@ -52,11 +53,14 @@ class LocaleSwitcher extends React.PureComponent {
 
     return <label>
       <Trans>Language</Trans>
-      <select className={ style.switcher } value={ current } ref={ this.localeSelector } onChange={ this.handleSelectChange }>
-        { Object.keys(locales).map(locale => (
-          <option value={ locale } key={ locale }>{ i18n.getFixedT(locale)('/displayName') }</option>
-        )) }
-      </select>
+      <div className={ style.switcher }>
+        <select value={ current } ref={ this.localeSelector } onChange={ this.handleSelectChange }>
+          { Object.keys(locales).map(locale => (
+            <option value={ locale } key={ locale }>{ i18n.getFixedT(locale)('/displayName') }</option>
+          )) }
+        </select>
+        <ExpandIcon/>
+      </div>
     </label>;
   }
 }
