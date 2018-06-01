@@ -78,4 +78,36 @@
       visibility: hidden;
     }
   }
+
+  --control-gradient: var(--color-green) var(--gradient-green);
+  --select-height: 2.8rem;
+  --select-width: 12rem;
+  --fancy-select {
+    margin-left: 1ex;
+    position: relative;
+    vertical-align: bottom;
+    display: inline-block;
+    height: var(--select-height);
+    width: var(--select-width);
+    background: var(--control-gradient);
+    color: var(--color-black);
+    overflow: hidden;
+
+    & select {
+      background: transparent;
+      border: 0 none;
+      font-size: inherit;
+      height: var(--select-height);
+      width: calc(var(--select-width) + 2rem);
+    }
+
+    & svg {
+      position: absolute;
+      top: calc((var(--select-height) - 24px) / 2);
+      right: 0;
+      pointer-events: none;
+      border-left: 0.1rem solid color(var(--color-black) alpha(0.2));
+      background: var(--control-gradient);
+    }
+  }
 }
