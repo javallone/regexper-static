@@ -46,6 +46,7 @@
     @apply --inline-list;
     @apply --with-separator-right;
     text-align: right;
+    margin: 1rem 0;
   }
 
   & li {

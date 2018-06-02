@@ -19,7 +19,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
   padding: 2rem;
   background: var(--color-white);
   color: var(--color-black);
