@@ -10,20 +10,20 @@ import style from './style.css';
 
 class Form extends React.PureComponent {
   state = {
-    syntax: Object.keys(this.props.syntaxes)[0]
+    syntax: Object.keys(this.props.syntaxes)[0],
+    prevProps: {}
   }
 
-  static getDerivedStateFromProps(nextProps, prevState) {
-    let changes = null;
+  static getDerivedStateFromProps(props, state) {
+    let changes = { prevProps: props };
+    const { prevProps } = state;
 
-    prevState = prevState || {};
-
-    if (nextProps.expr && nextProps.expr !== prevState.expr) {
-      changes = { ...(changes || {}), expr: nextProps.expr };
+    if (props.expr && props.expr !== prevProps.expr) {
+      changes.expr = props.expr;
     }
 
-    if (nextProps.syntax && nextProps.syntax !== prevState.syntax) {
-      changes = { ...(changes || {}), syntax: nextProps.syntax };
+    if (props.syntax && props.syntax !== prevProps.syntax) {
+      changes.syntax = props.syntax;
     }
 
     return changes;
