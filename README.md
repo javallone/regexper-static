@@ -1,5 +1,7 @@
 # Regexper [![Build Status](https://travis-ci.org/javallone/regexper-static.svg?branch=master)](https://travis-ci.org/javallone/regexper-static)
 
+**This project has been migrated to https://gitlab.com/javallone/regexper-static**
+
 Code for the http://regexper.com/ site.
 
 ## Contributing
