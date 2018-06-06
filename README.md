@@ -1,5 +1,7 @@
 # Regexper [![CircleCI](https://circleci.com/gh/javallone/regexper-static.svg?style=svg)](https://circleci.com/gh/javallone/regexper-static)
 
+**This project has been migrated to https://gitlab.com/javallone/regexper-static**
+
 Code for the http://regexper.com/ site.
 
 ## Contributing
