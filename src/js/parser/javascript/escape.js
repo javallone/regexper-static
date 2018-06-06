@@ -14,6 +14,28 @@ function hex(value) {
   return `(0x${str})`;
 }
 
+function unicodeProperty(arg) {
+    var map = {
+        'L': 'Letter', 'Ll': 'Lowercase_Letter', 'Lu': 'Uppercase_Letter', 'Lt': 'Titlecase_Letter',
+        'L&': 'Cased_Letter', 'Lm': 'Modifier_Letter', 'Lo': 'Other_Letter', 'M': 'Mark', 'Mn': 'Non_Spacing_Mark',
+        'Mc': 'Spacing_Combining_Mark', 'Me': 'Enclosing_Mark', 'Z': 'Separator', 'Zs': 'Space_Separator',
+        'Zl': 'Line_Separator', 'Zp': 'Paragraph_Separator', 'S': 'Symbol', 'Sm': 'Math_Symbol',
+        'Sc': 'Currency_Symbol', 'Sk': 'Modifier_Symbol', 'So': 'Other_Symbol', 'N': 'Number',
+        'Nd': 'Decimal_Digit_Number', 'Nl': 'Letter_Number', 'No': 'Other_Number', 'P': 'Punctuation',
+        'Pd': 'Dash_Punctuation', 'Ps': 'Open_Punctuation', 'Pe': 'Close_Punctuation', 'Pi': 'Initial_Punctuation',
+        'Pf': 'Final_Punctuation', 'Pc': 'Connector_Punctuation', 'Po': 'Other_Punctuation', 'C': 'Other',
+        'Cc': 'Control', 'Cf': 'Format', 'Co': 'Private_Use', 'Cs': 'Surrogate', 'Cn': 'Unassigned'
+    };
+    var temp = map[arg];
+    if (temp) {
+        arg = temp;
+    }
+    if (arg.slice(0, 2) == 'In') {
+        arg = 'in '+arg.slice(2);
+    }
+    return arg.replace(/_/g, ' ');
+}
+
 export default {
   type: 'escape',
 
@@ -84,5 +106,11 @@ export default {
   },
   u() {
     return [`U+${this.arg.toUpperCase()}`, parseInt(this.arg, 16), false];
+  },
+  p() {
+    return [unicodeProperty(this.arg), -1, false];
+  },
+  P() {
+    return ['non-'+unicodeProperty(this.arg), -1, false];
   }
 };
