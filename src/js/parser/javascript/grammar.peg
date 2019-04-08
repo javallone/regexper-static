@@ -11,7 +11,10 @@ grammar JavascriptRegexp
   repeat_spec <- ( "{" min:[0-9]+ "," max:[0-9]+ "}"
                  / "{" min:[0-9]+ ",}"
                  / "{" exact:[0-9]+ "}" ) <RepeatSpec>
-  subexp <- "(" capture:( "?:" / "?=" / "?!" )? regexp ")" <Subexp>
+  subexp <- "(" capture:( "?:" / "?=" / "?!" / "?<" groupname:name ">" )? regexp ")" <Subexp>
+  name <- alpha (alpha / numeric)*
+  alpha <- [a-zA-Z]
+  numeric <- [0-9]
   charset <- "[" invert:"^"? parts:( charset_range / charset_terminal )* "]" <Charset>
   charset_range <- first:charset_range_terminal "-" last:charset_range_terminal <CharsetRange>
   charset_terminal <- charset_escape <CharsetEscape>

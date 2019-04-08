@@ -48,6 +48,10 @@ export default {
   label() {
     if (_.has(this.labelMap, this.properties.capture.textValue)) {
       return this.labelMap[this.properties.capture.textValue];
+    } else if (this.properties.capture != undefined
+        && this.properties.capture.properties != undefined
+        && this.properties.capture.properties.groupname) {
+      return `group '${this.properties.capture.properties.groupname.textValue}'`;
     } else {
       return `group #${this.state.groupCounter++}`;
     }
